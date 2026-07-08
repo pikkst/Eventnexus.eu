@@ -218,6 +218,10 @@ Before finishing:
 - open a pull request for the task
 - do not merge into `main` unless the user explicitly asks for merge
 
+Push rule:
+- All branch work, including documentation status updates, must be committed before `git push`.
+- Do not update `task.md` after pushing; update it before the push so it is included in the PR.
+
 Recommended commit messages:
 
 - `docs: update agent workflow`

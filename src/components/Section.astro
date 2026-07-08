@@ -2,7 +2,7 @@
 const { as: Tag = 'section', className = '', eyebrow, title, description } = Astro.props;
 ---
 <Tag
-  class="container mx-auto px-4 py-16 md:py-24"
+  class={`container mx-auto px-4 py-16 md:py-24 ${className}`}
 >
   {(eyebrow || title || description) && (
     <div class="mb-12 max-w-3xl">
