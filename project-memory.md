@@ -35,8 +35,12 @@ This file stores stable context and decisions for future agents.
 
 ### Cloudflare
 
-- Intended use: hosting and deployment through GitHub
-- Current state: not configured yet
+- Intended use: Cloudflare Pages hosting and deployment through GitHub
+- Deployment target decision: Cloudflare Pages connected to the GitHub repository
+- Production branch: `main`
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Current state: not configured yet; wait until Astro scaffold and local build exist
 
 ## Current Decisions
 
@@ -51,6 +55,7 @@ This file stores stable context and decisions for future agents.
 - First lead-capture direction: use a multi-step structured project request form that qualifies contact identity, project type, idea description, features, technical needs, timeline, budget, integrations, and submission consent.
 - Frontend framework decision: use Astro with TypeScript for the first public website, static-first, with React islands only if the intake flow needs richer interactivity.
 - Styling/design system decision: use Tailwind CSS with project-owned CSS variable tokens and lean Astro components; avoid heavy prebuilt UI frameworks for the first version.
+- Cloudflare deployment target decision: use Cloudflare Pages connected to GitHub, production branch `main`, build command `npm run build`, output directory `dist`; do not move `eventnexus.eu` DNS until the Pages deployment is verified.
 - Use GitHub as the source of truth for code.
 - Use Cloudflare for deployment when the application scaffold is ready.
 - Connect Supabase only when a real backend feature is defined.
@@ -61,7 +66,6 @@ This file stores stable context and decisions for future agents.
 - Lead storage schema
 - Email notification provider
 - Analytics provider
-- Cloudflare Pages vs another Cloudflare deployment target
 
 ## Quality Bar
 

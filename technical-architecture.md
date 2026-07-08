@@ -28,7 +28,7 @@ Astro is a strong fit because:
 - Package manager: npm unless the project later standardizes on another option
 - Rendering mode: static-first
 - Interactive components: Astro islands, with React only if the contact/intake flow becomes easier to maintain that way
-- Deployment target: Cloudflare Pages, to be defined in the next architecture task
+- Deployment target: Cloudflare Pages connected to GitHub
 
 ## Styling And Design System Decision
 
@@ -45,6 +45,67 @@ Initial component direction:
 - accessible inputs, selects, checkboxes, text areas, and buttons
 
 Detailed design rules live in `design-system.md`.
+
+## Cloudflare Deployment Target Decision
+
+Chosen target: Cloudflare Pages with GitHub integration.
+
+The first public Eventnexus website should deploy as a Cloudflare Pages project connected to the GitHub repository:
+
+- Repository: `https://github.com/pikkst/Eventnexus.eu`
+- Production branch: `main`
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Framework preset: Astro, if available in the Cloudflare dashboard
+- Deployment mode: Git-backed Pages deployments
+- Preview deployments: enabled for future pull requests and non-production branches
+
+## Why Cloudflare Pages
+
+Cloudflare Pages is the right first deployment target because:
+
+- it connects directly to GitHub
+- it supports Astro
+- it can build and deploy automatically on pushed commits
+- it provides preview deployments for pull requests
+- it is suitable for a fast static-first company website
+- it can later support dynamic behavior through Pages Functions if needed
+- it keeps the domain and hosting path aligned with the planned `eventnexus.eu` Cloudflare environment
+
+## Deployment Timing
+
+Do not create or connect the production Cloudflare Pages project until the Astro scaffold exists and `npm run build` succeeds locally.
+
+Recommended sequence:
+
+1. Create Astro scaffold.
+2. Add Tailwind and project styles.
+3. Implement first homepage shell.
+4. Verify local build.
+5. Create Cloudflare Pages project connected to GitHub.
+6. Deploy to the generated `*.pages.dev` URL.
+7. Verify the preview/production deployment.
+8. Add `eventnexus.eu` as a custom domain only when the new deployment is ready to replace the old/down service.
+
+## Domain Safety Rule
+
+Do not move `eventnexus.eu` DNS to the new project until:
+
+- Cloudflare Pages deployment is live on its temporary Pages URL
+- homepage renders correctly
+- contact/intake path is either working or intentionally disabled with a clear fallback
+- SSL and redirects are understood
+- the user confirms the domain migration
+
+## Future Dynamic Needs
+
+The first target is static-first Cloudflare Pages. If the contact flow later needs server-side submission handling before Supabase is connected, use:
+
+- Astro API routes
+- Cloudflare Pages Functions
+- Supabase server-side insertion with protected environment variables
+
+No secret values should be stored in git.
 
 ## Why Not Start With Next.js
 
@@ -94,3 +155,5 @@ If the project later becomes a full authenticated SaaS dashboard, the team can e
 Astro with TypeScript is the chosen frontend framework for the first public Eventnexus website.
 
 Tailwind CSS with project-owned tokens and lean Astro components is the chosen styling approach.
+
+Cloudflare Pages with GitHub integration is the chosen deployment target.
