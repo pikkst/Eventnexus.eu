@@ -33,7 +33,7 @@ This document tracks the project from a near-zero starting point into a deployab
   - deployment, domain setup, launch, maintenance, and future improvements
 - [x] Define proof points, including `rootwise.site`.
 - [x] Draft homepage copy.
-- [ ] Draft service-page copy.
+- [x] Draft service-page copy.
 - [ ] Draft contact/lead-capture flow.
 
 ## Phase 2 - Technical Architecture
