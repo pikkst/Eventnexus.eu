@@ -4,14 +4,41 @@ import Section from '../components/Section.astro';
 import CtaSection from '../components/CtaSection.astro';
 
 const services = [
-  { title: 'Idea Structuring', description: 'Turn an early idea into a clear, buildable project plan with features and priorities.' },
-  { title: 'Websites', description: 'Professional company and landing pages that explain the offer clearly and convert visitors.' },
-  { title: 'Platforms', description: 'SaaS-style apps, customer portals, dashboards, and internal tools.' },
-  { title: 'Frontend', description: 'Clean, usable interfaces with responsive layout, forms, and product flows.' },
-  { title: 'Backend', description: 'Data, accounts, admin logic, APIs, and business rules behind the product.' },
-  { title: 'Payments', description: 'Checkout, payment flows, subscriptions, and paid access logic.' },
-  { title: 'AI Workflows', description: 'Use AI to accelerate planning, development, and useful product features without hype.' },
-  { title: 'Launch', description: 'Deploy, connect domains, verify production, and support future improvements.' },
+  {
+    title: 'Idea And Project Structuring',
+    description: 'Turn an early idea into a buildable plan with clear features, priorities, user flows, and technical direction.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />',
+  },
+  {
+    title: 'Websites And Landing Pages',
+    description: 'Create professional company websites, product pages, and lead-generation pages designed to communicate clearly and convert visitors.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />',
+  },
+  {
+    title: 'SaaS And Web Platforms',
+    description: 'Build SaaS-style applications, customer portals, dashboards, booking systems, internal tools, and service platforms.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />',
+  },
+  {
+    title: 'Frontend And Backend',
+    description: 'Develop the interface users see and the backend systems that power accounts, data, business logic, admin views, and integrations.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />',
+  },
+  {
+    title: 'Payments And Checkout',
+    description: 'Add payment flows, checkout experiences, subscription logic, and payment-provider integrations when the product needs to sell online.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />',
+  },
+  {
+    title: 'AI-Assisted Workflows',
+    description: 'Use modern AI tools to speed up planning, development, automation, content workflows, and product features where they genuinely help.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />',
+  },
+  {
+    title: 'Deployment And Maintenance',
+    description: 'Prepare the product for launch, connect domains, deploy to production, and support future improvements after the first version is live.',
+    icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />',
+  },
 ];
 
 const processSteps = [
@@ -21,6 +48,7 @@ const processSteps = [
   { title: 'Launch And Improve', description: 'The product is deployed, connected to the right domain, and improved through iterations.' },
 ];
 ---
+
 <BaseLayout
   title="Eventnexus builds your idea into a working web platform."
   description="From first concept to launch, Eventnexus creates turnkey digital solutions. Start with a structured project request."
@@ -39,10 +67,10 @@ const processSteps = [
           Bring the idea. Eventnexus helps structure it, design it, build it, and prepare it for real users.
         </p>
         <div class="mt-8 flex flex-col sm:flex-row gap-3">
-          <a href="/contact" class="inline-flex h-12 items-center justify-center rounded-md bg-slate-900 px-6 text-sm font-semibold text-white transition hover:bg-slate-800">
+          <a href="/#contact" class="inline-flex h-12 items-center justify-center rounded-md bg-slate-900 px-6 text-sm font-semibold text-white transition hover:bg-slate-800">
             Start a project request
           </a>
-          <a href="#services" class="inline-flex h-12 items-center justify-center rounded-md border border-slate-300 bg-white px-6 text-sm font-semibold text-slate-900 transition hover:border-slate-400">
+          <a href="/#services" class="inline-flex h-12 items-center justify-center rounded-md border border-slate-300 bg-white px-6 text-sm font-semibold text-slate-900 transition hover:border-slate-400">
             View services
           </a>
         </div>
@@ -57,16 +85,21 @@ const processSteps = [
   <Section
     eyebrow="Problem"
     title="Good ideas often get stuck before they become real products."
-    description="Turning an idea into a working platform can quickly become complicated. Frontend, backend, database, user accounts, admin tools, payments, integrations, hosting, and a clear launch path. Eventnexus brings those pieces together into one structured delivery process."
+    description="Many people and companies know what they want to improve, automate, sell, or launch, but turning that idea into a working platform can quickly become complicated. You may need a frontend, backend, database, user accounts, admin tools, payments, integrations, hosting, and a clear launch path. Eventnexus brings those pieces together into one structured delivery process."
     className="bg-slate-50"
   />
 
   <!-- Services -->
-  <Section id="services" eyebrow="Services" title="From idea to turnkey solution." description="Eventnexus helps shape, build, and launch web-based products starting from a rough idea or clearer technical plan.">
+  <Section id="services" eyebrow="Services" title="From idea to turnkey solution." description="Eventnexus helps shape, build, and launch complete web-based products. The service can start from a rough idea, a business process, or a clearer technical plan.">
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {services.map((service) => (
         <article class="rounded-lg border border-slate-200 bg-white p-6">
-          <h3 class="text-sm font-semibold text-slate-900">{service.title}</h3>
+          <div class="flex h-10 w-10 items-center justify-center rounded-md bg-slate-100 text-slate-900">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              {service.icon}
+            </svg>
+          </div>
+          <h3 class="mt-4 text-sm font-semibold text-slate-900">{service.title}</h3>
           <p class="mt-2 text-sm text-slate-600 leading-relaxed">{service.description}</p>
         </article>
       ))}
@@ -77,12 +110,14 @@ const processSteps = [
   <Section id="process" eyebrow="Process" title="A structured path from request to launch." className="bg-slate-50">
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
       {processSteps.map((step, index) => (
-        <div class="relative">
-          <span class="text-xs font-semibold uppercase tracking-widest text-slate-500">
-            Step {index + 1}
-          </span>
-          <h3 class="mt-2 text-base font-semibold text-slate-900">{step.title}</h3>
-          <p class="mt-2 text-sm text-slate-600 leading-relaxed">{step.description}</p>
+        <div class="relative flex gap-4">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-900">
+            {index + 1}
+          </div>
+          <div>
+            <h3 class="text-base font-semibold text-slate-900">{step.title}</h3>
+            <p class="mt-2 text-sm text-slate-600 leading-relaxed">{step.description}</p>
+          </div>
         </div>
       ))}
     </div>
@@ -90,23 +125,31 @@ const processSteps = [
 
   <!-- Proof -->
   <Section id="work" eyebrow="Experience" title="Built on real product and AI workflow experience.">
-    <div class="rounded-lg border border-slate-200 bg-slate-50 p-8">
-      <p class="text-base text-slate-700">
-        Eventnexus is shaped by hands-on experience with TypeScript-based web platforms, AI-assisted tools, automation concepts, data products, and service-platform experiments.
-      </p>
-      <p class="mt-4 text-base text-slate-700">
-        <strong>Rootwise</strong> demonstrates experience building a real web-platform product with modern frontend architecture and product-oriented thinking.
-      </p>
-      <p class="mt-4 text-sm text-slate-600">
-        Additional work includes AI-assisted lead tooling, data and forecasting experiments, marketing workflow automation, media workflow tools, and earlier EventNexus platform concepts.
-      </p>
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="rounded-lg border border-slate-200 bg-white p-8">
+        <p class="text-base text-slate-700 leading-relaxed">
+          Eventnexus is shaped by hands-on experience with TypeScript-based web platforms, AI-assisted tools, automation concepts, data products, and service-platform experiments.
+        </p>
+        <p class="mt-4 text-base text-slate-700 leading-relaxed">
+          <strong>Rootwise</strong> demonstrates experience building a real web-platform product with modern frontend architecture and product-oriented thinking.
+        </p>
+      </div>
+      <div class="rounded-lg border border-slate-200 bg-white p-8">
+        <p class="text-base text-slate-700 leading-relaxed">
+          Additional public project work includes AI-assisted lead tooling, data and forecasting experiments, marketing workflow automation, media workflow tools, and earlier EventNexus platform concepts.
+        </p>
+        <p class="mt-4 text-sm text-slate-600 leading-relaxed">
+          These projects show a pattern of building practical systems around modern web technology, rather than theoretical prototypes.
+        </p>
+      </div>
     </div>
   </Section>
 
   <!-- Intake CTA -->
   <CtaSection
+    id="contact"
     heading="Have an idea for a platform, portal, tool, or website?"
     body="You do not need a finished specification. Start with what you know: the idea, who it is for, what it should do, and what outcome you want. The structured request form helps turn that into the first version of a buildable project plan."
-    primaryCta={{ label: 'Start your project request', href: '/contact' }}
+    primaryCta={{ label: 'Start your project request', href: '/#contact' }}
   />
 </BaseLayout>
