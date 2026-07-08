@@ -43,6 +43,13 @@ This file stores stable context and decisions for future agents.
 - Build output directory: `dist`
 - Current state: not configured yet; wait until Astro scaffold and local build exist
 
+### Resend
+
+- Intended use: lead/contact notification emails
+- Environment variables: `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `LEAD_NOTIFICATION_EMAIL`
+- Current state: planned; do not send emails until the intake backend and sender domain/from address are configured
+- Secrets: not stored in this repository
+
 ## Current Decisions
 
 - Start with documentation and workflow foundation before application code.
@@ -59,6 +66,7 @@ This file stores stable context and decisions for future agents.
 - Cloudflare deployment target decision: use Cloudflare Pages connected to GitHub, production branch `main`, build command `npm run build`, output directory `dist`; do not move `eventnexus.eu` DNS until the Pages deployment is verified.
 - Supabase usage decision: use Supabase first for `project_leads`, optional `contact_messages`, lead statuses, and later admin review data; full customer portal features remain future scope.
 - Environment variable names are defined in `environment-variables.md` and `.env.example`; real values must stay in local `.env` files or Cloudflare Pages environment variables, never in git.
+- Email provider decision: use Resend for future lead/contact notification emails.
 - Use GitHub as the source of truth for code.
 - Use Cloudflare for deployment when the application scaffold is ready.
 - Connect Supabase only when a real backend feature is defined.
@@ -67,7 +75,6 @@ This file stores stable context and decisions for future agents.
 
 - Contact form backend route
 - Lead storage schema
-- Email notification provider
 - Analytics provider
 
 ## Quality Bar

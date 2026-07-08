@@ -130,6 +130,23 @@ Before production launch, the intake endpoint should include:
 - basic rate limiting or bot protection
 - optional Cloudflare Turnstile if spam becomes likely
 
+## Email Notifications
+
+Use Resend for future lead/contact notification emails.
+
+Planned behavior after lead capture exists:
+
+- store the project lead or contact message in Supabase first
+- send a notification email through Resend after successful storage
+- do not let email failure delete or block the stored lead
+- log or track notification failure for later review
+
+Required future environment variables:
+
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
+- `LEAD_NOTIFICATION_EMAIL`
+
 ## Future Customer Portal
 
 A future Eventnexus customer portal may use Supabase for:

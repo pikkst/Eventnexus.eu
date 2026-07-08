@@ -118,9 +118,9 @@ Initial planned variables:
 - `PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `SUPABASE_PROJECT_ID`
-- `CONTACT_NOTIFICATION_EMAIL`
-- `LEAD_NOTIFY_FROM_EMAIL`
-- `EMAIL_PROVIDER_API_KEY`
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
+- `LEAD_NOTIFICATION_EMAIL`
 - `TURNSTILE_SITE_KEY`
 - `TURNSTILE_SECRET_KEY`
 - `ANALYTICS_PROVIDER_ID`
@@ -128,9 +128,23 @@ Initial planned variables:
 Rules:
 
 - `PUBLIC_*` variables may be exposed to browser code.
-- `SUPABASE_SERVICE_ROLE_KEY`, email provider keys, and Turnstile secret keys must stay server-side.
+- `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, and Turnstile secret keys must stay server-side.
 - real values belong in local `.env` files and Cloudflare Pages environment variables.
 - `.env.example` contains only names and empty placeholders.
+
+## Email Provider Decision
+
+Chosen provider: Resend.
+
+Resend should be used for future lead/contact notification emails after the intake endpoint exists.
+
+Initial email environment variables:
+
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
+- `LEAD_NOTIFICATION_EMAIL`
+
+Do not add email sending until the lead-capture backend exists and the sending domain/from address is configured.
 
 ## Why Not Start With Next.js
 

@@ -93,25 +93,25 @@ Browser exposure:
 
 - safe, but not necessarily needed in browser code
 
-### `CONTACT_NOTIFICATION_EMAIL`
+### `RESEND_API_KEY`
 
 Purpose:
 
-- future destination for lead or contact notifications
+- Resend API authentication for transactional email notifications
 
 Browser exposure:
 
-- do not expose unless intentionally displayed as a public contact address
+- never
 
 Current status:
 
-- planned
+- planned for lead/contact notifications
 
-### `LEAD_NOTIFY_FROM_EMAIL`
+### `RESEND_FROM_EMAIL`
 
 Purpose:
 
-- future sender address for automated lead notifications
+- sender address for automated lead and contact notifications sent through Resend
 
 Browser exposure:
 
@@ -121,15 +121,15 @@ Current status:
 
 - planned
 
-### `EMAIL_PROVIDER_API_KEY`
+### `LEAD_NOTIFICATION_EMAIL`
 
 Purpose:
 
-- future transactional email provider authentication
+- destination address for new lead and contact notifications
 
 Browser exposure:
 
-- never
+- do not expose unless intentionally displayed as a public contact address
 
 Current status:
 
@@ -194,13 +194,13 @@ Required later for Supabase lead capture:
 
 Optional later:
 
-- `CONTACT_NOTIFICATION_EMAIL`
-- `LEAD_NOTIFY_FROM_EMAIL`
-- `EMAIL_PROVIDER_API_KEY`
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
+- `LEAD_NOTIFICATION_EMAIL`
 - `TURNSTILE_SITE_KEY`
 - `TURNSTILE_SECRET_KEY`
 - `ANALYTICS_PROVIDER_ID`
 
 ## Current Decision Status
 
-Environment variable names are defined for the first website, Supabase lead capture, future email notifications, optional spam protection, and optional analytics. Real values are not stored in git.
+Environment variable names are defined for the first website, Supabase lead capture, Resend email notifications, optional spam protection, and optional analytics. Real values are not stored in git.
