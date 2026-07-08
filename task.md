@@ -15,7 +15,7 @@ This document tracks the project from a near-zero starting point into a deployab
 
 ## Phase 1 - Product Definition
 
-- [ ] Define the exact purpose of the first public website.
+- [x] Define the exact purpose of the first public website.
 - [ ] Define the primary audience:
   - small and medium businesses
   - founders

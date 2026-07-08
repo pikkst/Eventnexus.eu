@@ -19,6 +19,7 @@ Build the foundation for the Eventnexus corporate platform, starting with clear 
 ## First Deliverables
 
 - `task.md` - staged execution plan
+- `product-definition.md` - purpose of the first public website
 - `workflow.md` - project workflow and delivery rules
 - `agents.md` - agent roles, responsibilities, and operating rules
 - `project-memory.md` - stable project memory and decisions
