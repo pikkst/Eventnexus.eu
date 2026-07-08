@@ -34,7 +34,7 @@ This document tracks the project from a near-zero starting point into a deployab
 - [x] Define proof points, including `rootwise.site`.
 - [x] Draft homepage copy.
 - [x] Draft service-page copy.
-- [ ] Draft contact/lead-capture flow.
+- [x] Draft contact/lead-capture flow.
 
 ## Phase 2 - Technical Architecture
 

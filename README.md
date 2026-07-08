@@ -23,6 +23,7 @@ Build the foundation for the Eventnexus corporate platform, starting with clear 
 - `proof-points.md` - initial portfolio and proof-point candidates
 - `homepage-copy.md` - first homepage copy draft
 - `service-page-copy.md` - first services page copy draft
+- `contact-lead-flow.md` - first structured project request and lead-capture flow
 - `workflow.md` - project workflow and delivery rules
 - `agents.md` - agent roles, responsibilities, and operating rules
 - `project-memory.md` - stable project memory and decisions
