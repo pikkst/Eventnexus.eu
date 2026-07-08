@@ -24,6 +24,7 @@ Build the foundation for the Eventnexus corporate platform, starting with clear 
 - `homepage-copy.md` - first homepage copy draft
 - `service-page-copy.md` - first services page copy draft
 - `contact-lead-flow.md` - first structured project request and lead-capture flow
+- `technical-architecture.md` - technical architecture decisions
 - `workflow.md` - project workflow and delivery rules
 - `agents.md` - agent roles, responsibilities, and operating rules
 - `project-memory.md` - stable project memory and decisions

@@ -49,6 +49,7 @@ This file stores stable context and decisions for future agents.
 - First homepage copy direction: lead with "Eventnexus builds your idea into a working web platform" and guide visitors toward a structured project request.
 - First services page copy direction: explain turnkey delivery in detail, with service categories for discovery, websites, platforms, frontend, backend, payments, integrations, AI-assisted workflows, deployment, launch, and maintenance.
 - First lead-capture direction: use a multi-step structured project request form that qualifies contact identity, project type, idea description, features, technical needs, timeline, budget, integrations, and submission consent.
+- Frontend framework decision: use Astro with TypeScript for the first public website, static-first, with React islands only if the intake flow needs richer interactivity.
 - Use GitHub as the source of truth for code.
 - Use Cloudflare for deployment when the application scaffold is ready.
 - Connect Supabase only when a real backend feature is defined.

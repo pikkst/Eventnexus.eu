@@ -38,7 +38,7 @@ This document tracks the project from a near-zero starting point into a deployab
 
 ## Phase 2 - Technical Architecture
 
-- [ ] Choose frontend framework.
+- [x] Choose frontend framework.
 - [ ] Choose styling/design system approach.
 - [ ] Define Cloudflare deployment target.
 - [ ] Define Supabase usage:
