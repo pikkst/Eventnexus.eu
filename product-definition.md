@@ -16,6 +16,24 @@ The first website should convert visitors with platform or SaaS ideas into quali
 
 It should not only describe the company. It should guide the visitor into submitting their idea through a structured intake flow.
 
+## Primary Audience
+
+Eventnexus serves both individuals and companies.
+
+The first website should speak to a wide audience without becoming vague. The primary audience includes:
+
+- individuals with a web-platform or SaaS idea
+- solo founders and early-stage project creators
+- small businesses that need affordable custom digital tools
+- medium-sized companies that need customer-facing or internal platforms
+- large organizations that need focused web applications, automations, or service portals
+- service businesses that want to turn manual processes into digital workflows
+- teams that have a business need but no full technical team
+
+The common thread is not company size. The common thread is that the client has an idea, process, or business need that can become a working digital product.
+
+The website should make these visitors feel that they can come with an early idea, explain it in plain language, and receive help turning it into a structured, buildable solution.
+
 ## Client Offer
 
 Eventnexus offers turnkey web-platform and application development.
@@ -114,5 +132,5 @@ The first version succeeds if a visitor understands within a few seconds that:
 
 - Eventnexus builds web platforms and SaaS-style applications.
 - Eventnexus can handle the full technical process.
-- The service is suitable for clients with an idea but without a complete technical team.
+- The service is suitable for individuals and companies with an idea but without a complete technical team.
 - The next step is to submit the idea through a guided intake form.

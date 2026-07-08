@@ -16,11 +16,12 @@ This document tracks the project from a near-zero starting point into a deployab
 ## Phase 1 - Product Definition
 
 - [x] Define the exact purpose of the first public website.
-- [ ] Define the primary audience:
-  - small and medium businesses
-  - founders
+- [x] Define the primary audience:
+  - individuals with platform or SaaS ideas
+  - solo founders and early-stage project creators
+  - small, medium, and large companies
   - service companies
-  - teams needing custom platforms
+  - teams needing custom platforms, portals, automations, or internal tools
 - [ ] Define core services:
   - company websites
   - service platforms

@@ -43,6 +43,7 @@ This file stores stable context and decisions for future agents.
 - Start with documentation and workflow foundation before application code.
 - Keep the first website professional, direct, and service-focused.
 - The first public website exists to present Eventnexus as an affordable turnkey web-platform builder and convert visitors into qualified project leads through a structured idea-intake form.
+- The primary audience is broad: individuals, founders, small businesses, medium-sized companies, large organizations, service companies, and teams that need custom platforms or digital workflows.
 - Use GitHub as the source of truth for code.
 - Use Cloudflare for deployment when the application scaffold is ready.
 - Connect Supabase only when a real backend feature is defined.
