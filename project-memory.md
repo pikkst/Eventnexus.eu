@@ -72,6 +72,9 @@ This file stores stable context and decisions for future agents.
 - Use GitHub as the source of truth for code.
 - Use Cloudflare for deployment when the application scaffold is ready.
 - Connect Supabase only when a real backend feature is defined.
+- Tailwind configuration must live at repo root as `tailwind.config.mjs` with `content` paths and project token colors.
+- `@astrojs/tailwind` integration must use explicit `configFile: './tailwind.config.mjs'` and `applyBaseStyles: false`; `@tailwind` directives belong in `src/styles/global.css`, which is imported by `BaseLayout.astro`.
+- Do not place duplicate `@tailwind` directives in both `global.css` and inline `<style is:global>` blocks; that breaks PostCSS processing.
 
 ## Open Decisions
 
