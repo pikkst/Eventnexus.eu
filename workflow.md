@@ -19,8 +19,11 @@ Do not build randomly. Every change must connect to a known task, a project goal
 ## Branching
 
 - `main` is the stable branch.
-- Feature work should use short descriptive branches once active development starts.
-- Documentation foundation work may be committed directly before the first public app exists.
+- Every new task must start from a new branch.
+- Every new task must end with a pull request before it is merged into `main`.
+- Do not commit new task work directly to `main`, except for emergency documentation corrections explicitly approved by the user.
+- Keep branches short-lived and focused on one task.
+- Start each task branch from the latest `main`.
 
 Recommended branch names:
 
@@ -29,6 +32,19 @@ Recommended branch names:
 - `feat/contact-flow`
 - `infra/cloudflare-deploy`
 - `infra/supabase-leads`
+
+## Pull Request Rules
+
+Every task pull request should include:
+
+- task name or checklist item
+- summary of changes
+- files changed
+- checks run
+- known risks or follow-up work
+- confirmation that no secrets were added
+
+Do not mark the task complete in `task.md` until the task outcome is implemented and the pull request is ready for review.
 
 ## Commit Rules
 

@@ -79,6 +79,9 @@ Do not rely on memory alone. Read the relevant files before editing.
 - Always read the project memory before making decisions.
 - Never overwrite user work without inspecting it first.
 - Never introduce secrets into git.
+- Every new task means a new branch.
+- Every new task must end with a pull request.
+- Do not do new task work directly on `main` unless the user explicitly approves an exception.
 - Prefer small, complete changes over large unclear rewrites.
 - Keep the project commercially focused.
 - Update `task.md` when task status changes.
@@ -199,6 +202,8 @@ Do not move `eventnexus.eu` DNS until:
 Before editing:
 
 - run or inspect `git status`
+- make sure the current branch is appropriate for the task
+- create a new branch for every new task
 - identify existing user changes
 - do not revert unrelated user work
 
@@ -209,7 +214,9 @@ Before finishing:
 - update `task.md` if task status changed
 - update `project-memory.md` for stable decisions
 - commit with a clear message when instructed or when the workflow expects persistence
-- push when the user expects GitHub to stay current
+- push the task branch
+- open a pull request for the task
+- do not merge into `main` unless the user explicitly asks for merge
 
 Recommended commit messages:
 
@@ -219,6 +226,14 @@ Recommended commit messages:
 - `feat: add intake flow shell`
 - `infra: configure cloudflare pages`
 - `fix: correct responsive layout`
+
+Recommended branch examples:
+
+- `docs/update-agent-rules`
+- `feat/scaffold-astro-app`
+- `feat/homepage-shell`
+- `feat/contact-flow-shell`
+- `infra/cloudflare-pages-setup`
 
 ## Agent Roles
 
@@ -360,10 +375,13 @@ Do not put temporary notes, raw brainstorms, secrets, or unresolved speculation 
 
 When a task is complete:
 
-1. Update the matching checkbox in `task.md`.
-2. Update `project-memory.md` only if a stable decision changed.
-3. Update or create the relevant task document.
-4. Run checks appropriate to the task.
-5. Summarize changed files, checks, risks, and next task.
+1. Confirm the task branch contains only work for that task.
+2. Update the matching checkbox in `task.md`.
+3. Update `project-memory.md` only if a stable decision changed.
+4. Update or create the relevant task document.
+5. Run checks appropriate to the task.
+6. Push the task branch.
+7. Open a pull request.
+8. Summarize changed files, checks, risks, PR link, and next task.
 
 Do not mark a task complete only because files were edited. Mark it complete when the intended outcome is actually usable.
