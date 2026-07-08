@@ -32,7 +32,7 @@ This document tracks the project from a near-zero starting point into a deployab
   - integrations, automations, and AI-assisted workflows
   - deployment, domain setup, launch, maintenance, and future improvements
 - [x] Define proof points, including `rootwise.site`.
-- [ ] Draft homepage copy.
+- [x] Draft homepage copy.
 - [ ] Draft service-page copy.
 - [ ] Draft contact/lead-capture flow.
 
