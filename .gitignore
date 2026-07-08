@@ -27,5 +27,8 @@ Thumbs.db
 # Local tool runtime
 .saydeploy/
 
+# Astro generated types
+.astro/
+
 # Supabase local artifacts
 .supabase/

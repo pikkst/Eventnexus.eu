@@ -6,12 +6,28 @@ const navItems = [
   { label: 'Start a Project', href: '/contact' },
 ];
 ---
+
 <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur">
   <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
     <a href="/" class="text-lg font-semibold tracking-tight text-slate-900">
       Eventnexus
     </a>
-    <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+    <button
+      id="nav-toggle"
+      type="button"
+      class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-300 text-slate-600 transition hover:border-slate-400 hover:text-slate-900"
+      aria-expanded="false"
+      aria-controls="nav-mobile"
+      aria-label="Toggle navigation"
+    >
+      <svg id="nav-icon-open" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="nav-icon-close" class="hidden h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <nav id="nav-menu" class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
       {navItems.map((item) => (
         <a
           href={item.href}
@@ -22,4 +38,51 @@ const navItems = [
       ))}
     </nav>
   </div>
+  <div id="nav-mobile" class="hidden md:hidden border-t border-slate-200 bg-white">
+    <nav class="mx-auto max-w-6xl px-4 py-4 flex flex-col gap-4 text-sm font-medium text-slate-600">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="block py-3 border-b border-slate-100 transition hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 last:border-b-0"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
 </header>
+
+<script client:load>
+  const toggle = document.getElementById('nav-toggle');
+  const mobileMenu = document.getElementById('nav-mobile');
+  const openIcon = document.getElementById('nav-icon-open');
+  const closeIcon = document.getElementById('nav-icon-close');
+  const isOpen = () => mobileMenu && !mobileMenu.classList.contains('hidden');
+
+  const closeMenu = () => {
+    if (!mobileMenu || !toggle || !openIcon || !closeIcon) return;
+    mobileMenu.classList.add('hidden');
+    toggle.setAttribute('aria-expanded', 'false');
+    openIcon.classList.remove('hidden');
+    closeIcon.classList.add('hidden');
+  };
+
+  const openMenu = () => {
+    if (!mobileMenu || !toggle || !openIcon || !closeIcon) return;
+    mobileMenu.classList.remove('hidden');
+    toggle.setAttribute('aria-expanded', 'true');
+    openIcon.classList.add('hidden');
+    closeIcon.classList.remove('hidden');
+  };
+
+  if (toggle && mobileMenu) {
+    toggle.addEventListener('click', () => {
+      isOpen() ? closeMenu() : openMenu();
+    });
+  }
+
+  const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
+  mobileLinks.forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+</script>
