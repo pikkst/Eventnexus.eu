@@ -11,6 +11,7 @@ Do not store real secrets in this repository.
 - Secret values belong in local `.env` files and Cloudflare environment variables.
 - `.env` and `.env.*` files must stay ignored by git.
 - `.env.example` may be committed because it contains names and empty placeholder values only.
+- Detailed secret-handling rules live in `security-rules.md`.
 
 ## Public Variables
 

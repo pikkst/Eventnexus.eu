@@ -146,6 +146,19 @@ Initial email environment variables:
 
 Do not add email sending until the lead-capture backend exists and the sending domain/from address is configured.
 
+## Security Rules Decision
+
+Security rules are documented in `security-rules.md`.
+
+Core architecture rules:
+
+- Treat all `PUBLIC_*` variables as browser-visible.
+- Keep Supabase service-role keys, Resend API keys, Turnstile secrets, Cloudflare tokens, and database credentials server-side only.
+- Do not commit real secrets, private lead data, customer data, or provider credentials.
+- Submit lead forms through server-side routes before writing to Supabase or sending Resend notifications.
+- Enable Row Level Security before exposing Supabase tables through APIs.
+- Store deployment secrets in Cloudflare Pages environment variables.
+
 ## Why Not Start With Next.js
 
 Next.js is powerful, but the first Eventnexus public website does not need a full React application framework at the start. The first version is mostly marketing content, proof points, service pages, and a structured form.
@@ -223,3 +236,5 @@ Cloudflare Pages with GitHub integration is the chosen deployment target.
 Supabase is the chosen first backend for lead capture, contact messages, and later admin review data.
 
 Environment variable names are defined, with real values excluded from git.
+
+Security rules are defined for secrets and public configuration.
