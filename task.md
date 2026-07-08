@@ -46,7 +46,7 @@ This document tracks the project from a near-zero starting point into a deployab
   - leads
   - admin data
   - future customer portal
-- [ ] Define environment variables.
+- [x] Define environment variables.
 - [ ] Define security rules for secrets and public configuration.
 - [ ] Create local development setup instructions.
 

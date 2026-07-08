@@ -27,6 +27,7 @@ Build the foundation for the Eventnexus corporate platform, starting with clear 
 - `technical-architecture.md` - technical architecture decisions
 - `design-system.md` - styling and design system direction
 - `supabase-usage.md` - Supabase lead-capture and future backend usage plan
+- `environment-variables.md` - environment variable names and placement rules
 - `workflow.md` - project workflow and delivery rules
 - `agents.md` - agent roles, responsibilities, and operating rules
 - `project-memory.md` - stable project memory and decisions

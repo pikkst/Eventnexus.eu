@@ -58,6 +58,7 @@ This file stores stable context and decisions for future agents.
 - Styling/design system decision: use Tailwind CSS with project-owned CSS variable tokens and lean Astro components; avoid heavy prebuilt UI frameworks for the first version.
 - Cloudflare deployment target decision: use Cloudflare Pages connected to GitHub, production branch `main`, build command `npm run build`, output directory `dist`; do not move `eventnexus.eu` DNS until the Pages deployment is verified.
 - Supabase usage decision: use Supabase first for `project_leads`, optional `contact_messages`, lead statuses, and later admin review data; full customer portal features remain future scope.
+- Environment variable names are defined in `environment-variables.md` and `.env.example`; real values must stay in local `.env` files or Cloudflare Pages environment variables, never in git.
 - Use GitHub as the source of truth for code.
 - Use Cloudflare for deployment when the application scaffold is ready.
 - Connect Supabase only when a real backend feature is defined.

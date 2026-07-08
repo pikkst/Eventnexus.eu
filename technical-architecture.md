@@ -107,6 +107,31 @@ The first target is static-first Cloudflare Pages. If the contact flow later nee
 
 No secret values should be stored in git.
 
+## Environment Variables Decision
+
+Environment variable names are documented in `environment-variables.md` and mirrored as empty placeholders in `.env.example`.
+
+Initial planned variables:
+
+- `PUBLIC_SITE_URL`
+- `PUBLIC_SUPABASE_URL`
+- `PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `SUPABASE_PROJECT_ID`
+- `CONTACT_NOTIFICATION_EMAIL`
+- `LEAD_NOTIFY_FROM_EMAIL`
+- `EMAIL_PROVIDER_API_KEY`
+- `TURNSTILE_SITE_KEY`
+- `TURNSTILE_SECRET_KEY`
+- `ANALYTICS_PROVIDER_ID`
+
+Rules:
+
+- `PUBLIC_*` variables may be exposed to browser code.
+- `SUPABASE_SERVICE_ROLE_KEY`, email provider keys, and Turnstile secret keys must stay server-side.
+- real values belong in local `.env` files and Cloudflare Pages environment variables.
+- `.env.example` contains only names and empty placeholders.
+
 ## Why Not Start With Next.js
 
 Next.js is powerful, but the first Eventnexus public website does not need a full React application framework at the start. The first version is mostly marketing content, proof points, service pages, and a structured form.
@@ -182,3 +207,5 @@ Tailwind CSS with project-owned tokens and lean Astro components is the chosen s
 Cloudflare Pages with GitHub integration is the chosen deployment target.
 
 Supabase is the chosen first backend for lead capture, contact messages, and later admin review data.
+
+Environment variable names are defined, with real values excluded from git.
