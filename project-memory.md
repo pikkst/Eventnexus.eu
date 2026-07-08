@@ -30,7 +30,7 @@ This file stores stable context and decisions for future agents.
 
 ### GitHub
 
-- Repository: not created yet
+- Repository: `https://github.com/pikkst/Eventnexus.eu`
 - Purpose: source control and Cloudflare deployment connection
 
 ### Cloudflare

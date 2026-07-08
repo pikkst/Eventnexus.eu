@@ -10,8 +10,8 @@ This document tracks the project from a near-zero starting point into a deployab
 - [x] Create an agent rules document.
 - [x] Create stable project memory.
 - [x] Initialize local git repository.
-- [ ] Create GitHub repository.
-- [ ] Push the foundation files to GitHub.
+- [x] Create GitHub repository.
+- [x] Push the foundation files to GitHub.
 
 ## Phase 1 - Product Definition
 
