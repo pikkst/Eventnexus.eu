@@ -68,6 +68,7 @@ This file stores stable context and decisions for future agents.
 - Environment variable names are defined in `environment-variables.md` and `.env.example`; real values must stay in local `.env` files or Cloudflare Pages environment variables, never in git.
 - Email provider decision: use Resend for future lead/contact notification emails.
 - Security rule decision: only `PUBLIC_*` variables may be treated as browser-visible; service-role keys, Resend keys, Turnstile secrets, Cloudflare tokens, lead data, and customer data must stay server-side/private and out of git.
+- Local development setup is documented in `local-development.md`; current repo is documentation-first and the next phase creates the Astro/Tailwind scaffold.
 - Use GitHub as the source of truth for code.
 - Use Cloudflare for deployment when the application scaffold is ready.
 - Connect Supabase only when a real backend feature is defined.

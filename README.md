@@ -29,6 +29,7 @@ Build the foundation for the Eventnexus corporate platform, starting with clear 
 - `supabase-usage.md` - Supabase lead-capture and future backend usage plan
 - `environment-variables.md` - environment variable names and placement rules
 - `security-rules.md` - secret handling and public configuration rules
+- `local-development.md` - local development setup and workflow instructions
 - `workflow.md` - project workflow and delivery rules
 - `agents.md` - agent roles, responsibilities, and operating rules
 - `project-memory.md` - stable project memory and decisions

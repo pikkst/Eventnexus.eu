@@ -48,7 +48,7 @@ This document tracks the project from a near-zero starting point into a deployab
   - future customer portal
 - [x] Define environment variables.
 - [x] Define security rules for secrets and public configuration.
-- [ ] Create local development setup instructions.
+- [x] Create local development setup instructions.
 
 ## Phase 3 - Website Build
 

@@ -238,3 +238,5 @@ Supabase is the chosen first backend for lead capture, contact messages, and lat
 Environment variable names are defined, with real values excluded from git.
 
 Security rules are defined for secrets and public configuration.
+
+Local development instructions are defined in `local-development.md`.
