@@ -52,7 +52,7 @@ This document tracks the project from a near-zero starting point into a deployab
 
 ## Phase 3 - Website Build
 
-- [ ] Create first application scaffold.
+- [x] Create first application scaffold.
 - [ ] Implement responsive layout.
 - [ ] Implement homepage.
 - [ ] Implement services section.
