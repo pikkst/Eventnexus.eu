@@ -41,7 +41,7 @@ This document tracks the project from a near-zero starting point into a deployab
 - [x] Choose frontend framework.
 - [x] Choose styling/design system approach.
 - [x] Define Cloudflare deployment target.
-- [ ] Define Supabase usage:
+- [x] Define Supabase usage:
   - contact forms
   - leads
   - admin data

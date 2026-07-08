@@ -1,0 +1,158 @@
+# Eventnexus Supabase Usage
+
+This document defines how Supabase should be used in the first Eventnexus website and future platform.
+
+## Known Supabase Project
+
+- Project name: `Eventnexus.eu`
+- Project ID: `yzsoczlghgcqitevamfo`
+- Region: `eu-north-1` / North EU, Stockholm
+
+No Supabase secrets, passwords, service-role keys, JWT secrets, or database connection strings should be stored in this repository.
+
+## Usage Decision
+
+Supabase should be used first for lead capture and project-request data.
+
+The first public Eventnexus website needs a structured project-intake form. Supabase is the right backend target for storing those submissions, reviewing lead status, and later supporting admin workflows.
+
+## Phase 1 Supabase Scope
+
+The first Supabase-backed feature should be:
+
+- storing structured project requests
+- storing simple contact-only messages
+- tracking lead review status
+- supporting basic admin review data
+- preparing for future lead scoring
+
+The first version should not immediately build:
+
+- full customer accounts
+- a public customer portal
+- paid dashboard access
+- complex CRM features
+- realtime collaboration
+- file storage for client assets
+
+Those can come later after the public site and lead-capture path are working.
+
+## Planned Data Areas
+
+### Project Leads
+
+Primary table concept: `project_leads`
+
+Purpose:
+
+- store multi-step project request submissions
+- capture project type, idea, features, budget, timeline, and technical needs
+- support lead review and qualification
+
+Planned fields are drafted in `contact-lead-flow.md`.
+
+### Contact Messages
+
+Possible table concept: `contact_messages`
+
+Purpose:
+
+- store simple messages from visitors who are not ready for the full project request form
+
+Recommended fields:
+
+- `id`
+- `created_at`
+- `status`
+- `full_name`
+- `email`
+- `message`
+- `source_page`
+
+### Admin Review Data
+
+Admin review may initially be handled directly in Supabase dashboard.
+
+Later, if needed, build an internal admin view for:
+
+- lead status
+- notes
+- qualification score
+- next action
+- follow-up date
+- project category
+
+## Security Rules
+
+Supabase Row Level Security must be enabled for public-schema tables that are exposed through APIs.
+
+For lead-capture tables:
+
+- public visitors may submit leads only through a controlled server-side endpoint
+- public visitors must not be able to read lead data
+- public visitors must not be able to update or delete lead data
+- admin review must require authenticated/admin access
+- service-role keys must remain server-side only
+
+Recommended first implementation:
+
+1. Website form submits to an Astro API route or Cloudflare Pages Function.
+2. Server-side handler validates the payload.
+3. Server-side handler inserts into Supabase using protected environment variables.
+4. Browser never receives the service-role key.
+5. RLS remains enabled on lead tables.
+
+## Environment Variables
+
+Potential future variables:
+
+- `PUBLIC_SUPABASE_URL`
+- `PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+Rules:
+
+- `PUBLIC_*` variables may be exposed to browser code when safe.
+- `SUPABASE_SERVICE_ROLE_KEY` must never be exposed to browser code.
+- secrets belong in Cloudflare environment variables, not git.
+- `.env` files must stay ignored.
+
+For the first lead-capture implementation, prefer server-side insertion so sensitive write access stays off the client.
+
+## Validation And Spam Protection
+
+Before production launch, the intake endpoint should include:
+
+- required field validation
+- email format validation
+- maximum field lengths
+- server-side sanitization or safe storage handling
+- basic rate limiting or bot protection
+- optional Cloudflare Turnstile if spam becomes likely
+
+## Future Customer Portal
+
+A future Eventnexus customer portal may use Supabase for:
+
+- customer authentication
+- project records
+- project status updates
+- files or links
+- invoices or payment references
+- messages or follow-up notes
+
+This is not part of the first public website scope.
+
+## Migration Timing
+
+Do not create production tables until:
+
+- the Astro scaffold exists
+- the intake flow UI is implemented or clearly specified
+- final field names are confirmed
+- security policy is reviewed
+- environment variable strategy is documented
+
+## Current Decision Status
+
+Supabase will be used first for structured project leads, simple contact messages, and later admin review data. Customer portal features remain future scope.

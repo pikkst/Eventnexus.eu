@@ -26,6 +26,7 @@ Build the foundation for the Eventnexus corporate platform, starting with clear 
 - `contact-lead-flow.md` - first structured project request and lead-capture flow
 - `technical-architecture.md` - technical architecture decisions
 - `design-system.md` - styling and design system direction
+- `supabase-usage.md` - Supabase lead-capture and future backend usage plan
 - `workflow.md` - project workflow and delivery rules
 - `agents.md` - agent roles, responsibilities, and operating rules
 - `project-memory.md` - stable project memory and decisions

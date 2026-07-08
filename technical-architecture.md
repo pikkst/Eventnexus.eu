@@ -145,6 +145,29 @@ Supabase can be added later for:
 - admin data
 - future customer portal features
 
+## Supabase Usage Decision
+
+Supabase should be used first for structured project leads, simple contact messages, and internal lead-review data.
+
+Initial Supabase scope:
+
+- `project_leads` table for multi-step intake submissions
+- optional `contact_messages` table for simple contact-only messages
+- lead statuses such as `new`, `reviewed`, `needs clarification`, `qualified`, `not a fit`, and `archived`
+- future admin review fields such as notes, lead score, next action, and follow-up date
+
+Supabase should not be used for a full customer portal in the first public website version. Customer accounts, authenticated dashboards, file storage, and project-status portals are future scope.
+
+Security direction:
+
+- enable Row Level Security for exposed tables
+- do not allow public read access to lead data
+- do not expose service-role keys to the browser
+- submit public forms through server-side Astro API routes or Cloudflare Pages Functions
+- store Supabase secrets only in deployment environment variables
+
+Detailed Supabase planning lives in `supabase-usage.md`.
+
 If the project later becomes a full authenticated SaaS dashboard, the team can either:
 
 - keep the marketing site in Astro and add a separate app surface, or
@@ -157,3 +180,5 @@ Astro with TypeScript is the chosen frontend framework for the first public Even
 Tailwind CSS with project-owned tokens and lean Astro components is the chosen styling approach.
 
 Cloudflare Pages with GitHub integration is the chosen deployment target.
+
+Supabase is the chosen first backend for lead capture, contact messages, and later admin review data.

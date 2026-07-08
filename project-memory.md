@@ -18,7 +18,8 @@ This file stores stable context and decisions for future agents.
 - Project name: `Eventnexus.eu`
 - Project ID: `yzsoczlghgcqitevamfo`
 - Region: `eu-north-1` / North EU, Stockholm
-- Current intended use: future backend services such as lead capture, admin data, and platform features
+- Current intended use: structured project leads, simple contact messages, admin review data, and future customer portal features
+- First implementation rule: use server-side insertion through Astro API routes or Cloudflare Pages Functions; do not expose service-role keys to the browser
 - Secrets: not stored in this repository
 
 ### Domain
@@ -56,6 +57,7 @@ This file stores stable context and decisions for future agents.
 - Frontend framework decision: use Astro with TypeScript for the first public website, static-first, with React islands only if the intake flow needs richer interactivity.
 - Styling/design system decision: use Tailwind CSS with project-owned CSS variable tokens and lean Astro components; avoid heavy prebuilt UI frameworks for the first version.
 - Cloudflare deployment target decision: use Cloudflare Pages connected to GitHub, production branch `main`, build command `npm run build`, output directory `dist`; do not move `eventnexus.eu` DNS until the Pages deployment is verified.
+- Supabase usage decision: use Supabase first for `project_leads`, optional `contact_messages`, lead statuses, and later admin review data; full customer portal features remain future scope.
 - Use GitHub as the source of truth for code.
 - Use Cloudflare for deployment when the application scaffold is ready.
 - Connect Supabase only when a real backend feature is defined.
