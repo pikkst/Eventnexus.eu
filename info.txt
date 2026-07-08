@@ -1,0 +1,35 @@
+subapase :
+Project Settings
+General configuration, domains, ownership, and lifecycle
+General settings
+Eventnexus.eu
+Project name
+Displayed throughout the dashboard.
+yzsoczlghgcqitevamfo
+Project ID
+Reference used in APIs and URLs.
+eu-north-1
+Project region
+North EU (Stockholm)
+
+Save changes
+Project access
+Organization-wide access
+
+All 1 organization members can access this project.
+
+Manage members
+Member	Role
+huntersest@gmail.com
+
+You
+Owner
+
+### 1. we are creating a cloudflare environment through github.. there is a main domain. https://eventnexus.eu / it is mine. later I will upload it to our project. currently it is used by another service but this service is down.
+
+### 2. First, we need to create a proper and well-thought-out task.md document that lists step-by-step tasks to be done.
+
+### 3. Then it is necessary to create proper workflow.md and agents.md files and instructions for the agents who will create this project so that everyone adheres to their rules.
+
+### 4. The idea is to create a corporate website for the Eventnexus company, which offers fast and high-quality solutions, creating service platforms, websites, etc. using modern AI tools. One example of what the creator of Eventnexus has actually done is the rootwise.site platform. The company creates both backend, frontend, and payment solutions. In other words, turnkey solutions for the entire process. 
+

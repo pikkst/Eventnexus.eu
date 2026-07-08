@@ -1,0 +1,61 @@
+# Eventnexus Project Memory
+
+This file stores stable context and decisions for future agents.
+
+## Project Identity
+
+- Project name: Eventnexus.eu
+- Primary domain: `https://eventnexus.eu`
+- Business purpose: company website and future service-platform hub
+- Core offer: turnkey digital solutions using modern AI-assisted workflows
+- Services include: websites, service platforms, frontend, backend, payments, automation, deployment, and maintenance
+- Example previous work: `rootwise.site`
+
+## External Services
+
+### Supabase
+
+- Project name: `Eventnexus.eu`
+- Project ID: `yzsoczlghgcqitevamfo`
+- Region: `eu-north-1` / North EU, Stockholm
+- Current intended use: future backend services such as lead capture, admin data, and platform features
+- Secrets: not stored in this repository
+
+### Domain
+
+- Domain: `eventnexus.eu`
+- Ownership: owned by the project creator
+- Current state: currently connected to another service that is down
+- DNS migration rule: do not move production DNS until the new deployment is verified
+
+### GitHub
+
+- Repository: not created yet
+- Purpose: source control and Cloudflare deployment connection
+
+### Cloudflare
+
+- Intended use: hosting and deployment through GitHub
+- Current state: not configured yet
+
+## Current Decisions
+
+- Start with documentation and workflow foundation before application code.
+- Keep the first website professional, direct, and service-focused.
+- Use GitHub as the source of truth for code.
+- Use Cloudflare for deployment when the application scaffold is ready.
+- Connect Supabase only when a real backend feature is defined.
+
+## Open Decisions
+
+- Frontend framework
+- Styling approach
+- Contact form backend route
+- Lead storage schema
+- Email notification provider
+- Analytics provider
+- Cloudflare Pages vs another Cloudflare deployment target
+
+## Quality Bar
+
+The project should feel like a capable company building serious systems, not a generic AI landing page. Content, design, and engineering choices should support trust, clarity, and practical delivery.

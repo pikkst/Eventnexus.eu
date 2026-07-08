@@ -1,0 +1,96 @@
+# Eventnexus Task Plan
+
+This document tracks the project from a near-zero starting point into a deployable company website and future service platform.
+
+## Phase 0 - Foundation
+
+- [x] Capture initial project context in `info.txt`.
+- [x] Create a structured task plan.
+- [x] Create an agent workflow document.
+- [x] Create an agent rules document.
+- [x] Create stable project memory.
+- [ ] Initialize local git repository.
+- [ ] Create GitHub repository.
+- [ ] Push the foundation files to GitHub.
+
+## Phase 1 - Product Definition
+
+- [ ] Define the exact purpose of the first public website.
+- [ ] Define the primary audience:
+  - small and medium businesses
+  - founders
+  - service companies
+  - teams needing custom platforms
+- [ ] Define core services:
+  - company websites
+  - service platforms
+  - frontend development
+  - backend development
+  - payment integrations
+  - automation and AI-assisted workflows
+  - deployment and maintenance
+- [ ] Define proof points, including `rootwise.site`.
+- [ ] Draft homepage copy.
+- [ ] Draft service-page copy.
+- [ ] Draft contact/lead-capture flow.
+
+## Phase 2 - Technical Architecture
+
+- [ ] Choose frontend framework.
+- [ ] Choose styling/design system approach.
+- [ ] Define Cloudflare deployment target.
+- [ ] Define Supabase usage:
+  - contact forms
+  - leads
+  - admin data
+  - future customer portal
+- [ ] Define environment variables.
+- [ ] Define security rules for secrets and public configuration.
+- [ ] Create local development setup instructions.
+
+## Phase 3 - Website Build
+
+- [ ] Create first application scaffold.
+- [ ] Implement responsive layout.
+- [ ] Implement homepage.
+- [ ] Implement services section.
+- [ ] Implement proof/work section.
+- [ ] Implement contact flow.
+- [ ] Implement legal/footer basics.
+- [ ] Add analytics plan if needed.
+- [ ] Verify mobile and desktop layouts.
+
+## Phase 4 - Backend And Integrations
+
+- [ ] Connect Supabase when a concrete data need exists.
+- [ ] Add lead capture table and policies.
+- [ ] Add server-side validation for form submissions.
+- [ ] Add email notification workflow if needed.
+- [ ] Add payment-provider planning for future service products.
+
+## Phase 5 - Deployment
+
+- [ ] Connect GitHub repository to Cloudflare.
+- [ ] Configure Cloudflare build settings.
+- [ ] Configure environment variables in Cloudflare.
+- [ ] Deploy preview environment.
+- [ ] Verify production build.
+- [ ] Move `eventnexus.eu` DNS when ready.
+- [ ] Verify SSL, redirects, and canonical domain.
+
+## Phase 6 - Quality And Maintenance
+
+- [ ] Add linting and formatting.
+- [ ] Add smoke tests for critical pages.
+- [ ] Add accessibility checks.
+- [ ] Add content review checklist.
+- [ ] Add release checklist.
+- [ ] Keep `project-memory.md` updated with decisions.
+
+## Immediate Next Steps
+
+1. Initialize git locally.
+2. Create the GitHub repository.
+3. Push this documentation foundation.
+4. Decide first app stack and deployment target.
+5. Build the first public version of the Eventnexus website.
