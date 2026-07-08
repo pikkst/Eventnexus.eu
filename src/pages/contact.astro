@@ -1,0 +1,565 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const projectTypes = [
+  'company website',
+  'landing page',
+  'SaaS platform',
+  'customer portal',
+  'booking or request platform',
+  'internal business tool',
+  'admin dashboard',
+  'e-commerce or payment-enabled service',
+  'AI-assisted workflow tool',
+  'automation or integration',
+  'not sure yet',
+  'other',
+];
+
+const featureOptions = [
+  'public pages',
+  'user accounts',
+  'login and registration',
+  'user roles or permissions',
+  'admin dashboard',
+  'customer dashboard',
+  'booking or scheduling',
+  'request or quote forms',
+  'file uploads',
+  'payments or subscriptions',
+  'email notifications',
+  'CRM or lead workflow',
+  'analytics or reporting',
+  'map or location features',
+  'AI-assisted features',
+  'third-party integrations',
+  'multilingual support',
+  'not sure yet',
+];
+
+const technicalNeeds = [
+  'frontend design and development',
+  'backend development',
+  'database setup',
+  'authentication',
+  'payment integration',
+  'admin system',
+  'API integration',
+  'automation',
+  'deployment and hosting',
+  'domain setup',
+  'maintenance after launch',
+  'technical planning only',
+  'not sure yet',
+];
+
+const timelineOptions = [
+  'as soon as possible',
+  'within 2-4 weeks',
+  'within 1-2 months',
+  'within 3-6 months',
+  'flexible timeline',
+  'just exploring',
+];
+
+const budgetOptions = [
+  'under 500 EUR',
+  '500-1,500 EUR',
+  '1,500-3,000 EUR',
+  '3,000-7,500 EUR',
+  '7,500-15,000 EUR',
+  '15,000+ EUR',
+  'not sure yet',
+];
+
+const statusOptions = [
+  'idea only',
+  'rough plan exists',
+  'design or specification exists',
+  'existing website or app needs improvement',
+  'existing product needs new features',
+  'urgent business need',
+];
+
+const integrationOptions = [
+  'Stripe or payment provider',
+  'Supabase',
+  'CRM',
+  'email provider',
+  'calendar',
+  'maps',
+  'analytics',
+  'AI API',
+  'internal company system',
+  'other',
+  'not sure yet',
+];
+
+---
+
+<BaseLayout
+  title="Start a project request"
+  description="Submit a structured project request to Eventnexus. Share your idea, features, timeline, budget, and technical needs."
+>
+  <section class="py-16 md:py-24 bg-surface text-text">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <div class="max-w-2xl">
+        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight text-text">
+          Tell us what you want to build.
+        </h1>
+        <p class="mt-6 text-lg text-text-muted leading-relaxed">
+          Start with a structured project request. Choose the type of solution, select the features you may need, share your timeline and budget range, and describe the idea in your own words.
+        </p>
+        <p class="mt-4 text-base text-text-muted leading-relaxed">
+          You do not need a technical specification. The form helps turn your idea into the first version of a buildable project brief.
+        </p>
+      </div>
+
+      <div class="mt-12 rounded-lg border border-border bg-surface shadow-sm">
+        <div class="border-b border-border px-6 py-5">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold text-text">Project request</h2>
+            <span id="step-indicator" class="text-sm text-text-muted">Step 1 of 8</span>
+          </div>
+          <div class="mt-4 h-1 w-full rounded bg-surface-muted">
+            <div id="progress-bar" class="h-1 rounded bg-primary transition-all duration-200" style="width: 12.5%;" />
+          </div>
+        </div>
+
+        <div id="contact-only-path" class="hidden border-b border-border px-6 py-5 bg-surface-muted">
+          <p class="text-sm font-semibold text-text">Contact only</p>
+          <p class="mt-1 text-sm text-text-muted">Not ready for a full project request? Send a quick message instead.</p>
+        </div>
+
+        <form id="project-request-form" class="px-6 py-8 space-y-8" novalidate>
+          <!-- Step 1: Contact Identity -->
+          <fieldset id="step-1" class="step">
+            <legend class="text-base font-semibold text-text">Contact Identity</legend>
+            <p class="mt-1 text-sm text-text-muted">How can Eventnexus reach you?</p>
+            <div class="mt-6 grid gap-6 sm:grid-cols-2">
+              <div class="sm:col-span-2">
+                <label for="fullName" class="block text-sm font-medium text-text">Full name <span class="text-red-500">*</span></label>
+                <input id="fullName" name="fullName" type="text" required class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Your full name" />
+              </div>
+              <div class="sm:col-span-2">
+                <label for="email" class="block text-sm font-medium text-text">Email address <span class="text-red-500">*</span></label>
+                <input id="email" name="email" type="email" required class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="you@example.com" />
+              </div>
+              <div>
+                <label for="phone" class="block text-sm font-medium text-text">Phone or preferred contact channel</label>
+                <input id="phone" name="phone" type="text" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="+372 5555 5555" />
+              </div>
+              <div>
+                <label for="company" class="block text-sm font-medium text-text">Company or organization name</label>
+                <input id="company" name="company" type="text" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Acme OÜ" />
+              </div>
+              <div class="sm:col-span-2">
+                <label for="region" class="block text-sm font-medium text-text">Country or region</label>
+                <input id="region" name="region" type="text" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Estonia" />
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 2: Project Type -->
+          <fieldset id="step-2" class="step hidden">
+            <legend class="text-base font-semibold text-text">Project Type</legend>
+            <p class="mt-1 text-sm text-text-muted">What do you want to build?</p>
+            <div class="mt-6 space-y-6">
+              <div>
+                <label for="projectType" class="block text-sm font-medium text-text">Project type <span class="text-red-500">*</span></label>
+                <select id="projectType" name="projectType" required class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring">
+                  <option value="" disabled selected>Select a project type</option>
+                  {projectTypes.map((type) => <option value={type}>{type}</option>)}
+                </select>
+              </div>
+              <div>
+                <label for="projectTitle" class="block text-sm font-medium text-text">Short project title <span class="text-red-500">*</span></label>
+                <input id="projectTitle" name="projectTitle" type="text" required class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Internal booking tool for support team" />
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 3: Idea Description -->
+          <fieldset id="step-3" class="step hidden">
+            <legend class="text-base font-semibold text-text">Idea Description</legend>
+            <p class="mt-1 text-sm text-text-muted">Describe the idea in your own words.</p>
+            <div class="mt-6 space-y-6">
+              <div>
+                <label for="ideaDescription" class="block text-sm font-medium text-text">What do you want to build? <span class="text-red-500">*</span></label>
+                <textarea id="ideaDescription" name="ideaDescription" rows="5" required minlength="80" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Describe the idea, the main goal, and what success looks like after launch."></textarea>
+                <p class="mt-1 text-xs text-text-muted">Please include at least a few sentences so Eventnexus can understand the scope.</p>
+              </div>
+              <div>
+                <label for="targetUsers" class="block text-sm font-medium text-text">Who will use it?</label>
+                <input id="targetUsers" name="targetUsers" type="text" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Small-business owners, support agents, end customers" />
+              </div>
+              <div>
+                <label for="problemToSolve" class="block text-sm font-medium text-text">What problem should it solve?</label>
+                <textarea id="problemToSolve" name="problemToSolve" rows="3" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Current manual process, missing tool, or unmet business need."></textarea>
+              </div>
+              <div>
+                <label for="desiredOutcome" class="block text-sm font-medium text-text">What should happen after a user uses it?</label>
+                <textarea id="desiredOutcome" name="desiredOutcome" rows="3" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Booking completed, lead captured, report exported, approval sent."></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 4: Required Features -->
+          <fieldset id="step-4" class="step hidden">
+            <legend class="text-base font-semibold text-text">Required Features</legend>
+            <p class="mt-1 text-sm text-text-muted">Select the features you expect to need.</p>
+            <div class="mt-6 grid gap-4 sm:grid-cols-2">
+              {featureOptions.map((feature) => (
+                <label class="flex items-start gap-3 rounded-md border border-border bg-surface p-3 cursor-pointer hover:bg-surface-muted">
+                  <input type="checkbox" name="features" value={feature} class="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring" />
+                  <span class="text-sm text-text">{feature}</span>
+                </label>
+              ))}
+            </div>
+            <div class="mt-6">
+              <label for="extraFeatures" class="block text-sm font-medium text-text">Important features not listed</label>
+              <textarea id="extraFeatures" name="extraFeatures" rows="3" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Add anything else that is important for the project."></textarea>
+            </div>
+          </fieldset>
+
+          <!-- Step 5: Technical Needs -->
+          <fieldset id="step-5" class="step hidden">
+            <legend class="text-base font-semibold text-text">Technical Needs</legend>
+            <p class="mt-1 text-sm text-text-muted">What kinds of technical work does this project need?</p>
+            <div class="mt-6 grid gap-4 sm:grid-cols-2">
+              {technicalNeeds.map((need) => (
+                <label class="flex items-start gap-3 rounded-md border border-border bg-surface p-3 cursor-pointer hover:bg-surface-muted">
+                  <input type="checkbox" name="technicalNeeds" value={need} class="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring" />
+                  <span class="text-sm text-text">{need}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <!-- Step 6: Timeline And Budget -->
+          <fieldset id="step-6" class="step hidden">
+            <legend class="text-base font-semibold text-text">Timeline And Budget</legend>
+            <p class="mt-1 text-sm text-text-muted">Help Eventnexus understand urgency and project fit.</p>
+            <div class="mt-6 grid gap-6 sm:grid-cols-2">
+              <div>
+                <label for="timeline" class="block text-sm font-medium text-text">Preferred timeline <span class="text-red-500">*</span></label>
+                <select id="timeline" name="timeline" required class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring">
+                  <option value="" disabled selected>Select a timeline</option>
+                  {timelineOptions.map((option) => <option value={option}>{option}</option>)}
+                </select>
+              </div>
+              <div>
+                <label for="budgetRange" class="block text-sm font-medium text-text">Budget range <span class="text-red-500">*</span></label>
+                <select id="budgetRange" name="budgetRange" required class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring">
+                  <option value="" disabled selected>Select a budget range</option>
+                  {budgetOptions.map((option) => <option value={option}>{option}</option>)}
+                </select>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="projectStatus" class="block text-sm font-medium text-text">Current project status <span class="text-red-500">*</span></label>
+                <select id="projectStatus" name="projectStatus" required class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring">
+                  <option value="" disabled selected>Select a status</option>
+                  {statusOptions.map((option) => <option value={option}>{option}</option>)}
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 7: Integrations And Existing Assets -->
+          <fieldset id="step-7" class="step hidden">
+            <legend class="text-base font-semibold text-text">Integrations And Existing Assets</legend>
+            <p class="mt-1 text-sm text-text-muted">What must be connected or reused?</p>
+            <div class="mt-6 space-y-6">
+              <div class="grid gap-6 sm:grid-cols-2">
+                <div>
+                  <label for="existingDomain" class="block text-sm font-medium text-text">Existing domain</label>
+                  <input id="existingDomain" name="existingDomain" type="text" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="example.com" />
+                </div>
+                <div>
+                  <label for="existingUrl" class="block text-sm font-medium text-text">Existing website or app URL</label>
+                  <input id="existingUrl" name="existingUrl" type="url" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="https://" />
+                </div>
+                <div>
+                  <label for="existingRepo" class="block text-sm font-medium text-text">Existing GitHub repository</label>
+                  <input id="existingRepo" name="existingRepo" type="url" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="https://github.com/owner/repo" />
+                </div>
+                <div>
+                  <label for="existingBrandAssets" class="block text-sm font-medium text-text">Existing brand assets</label>
+                  <input id="existingBrandAssets" name="existingBrandAssets" type="text" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Logo, style guide, asset links" />
+                </div>
+              </div>
+              <div>
+                <p class="block text-sm font-medium text-text">Services that need to be integrated</p>
+                <div class="mt-3 grid gap-3 sm:grid-cols-2">
+                  {integrationOptions.map((integration) => (
+                    <label class="flex items-start gap-3 rounded-md border border-border bg-surface p-3 cursor-pointer hover:bg-surface-muted">
+                      <input type="checkbox" name="integrations" value={integration} class="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring" />
+                      <span class="text-sm text-text">{integration}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 8: Review And Submit -->
+          <fieldset id="step-8" class="step hidden">
+            <legend class="text-base font-semibold text-text">Review And Submit</legend>
+            <p class="mt-1 text-sm text-text-muted">Confirm the details before sending the request.</p>
+            <div id="review-summary" class="mt-6 space-y-6">
+              <div class="rounded-md border border-border bg-surface-muted p-5">
+                <p class="text-xs font-semibold uppercase tracking-widest text-slate-500">Contact</p>
+                <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2"></dl>
+              </div>
+              <div class="rounded-md border border-border bg-surface-muted p-5">
+                <p class="text-xs font-semibold uppercase tracking-widest text-slate-500">Project</p>
+                <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2"></dl>
+              </div>
+              <div class="rounded-md border border-border bg-surface-muted p-5">
+                <p class="text-xs font-semibold uppercase tracking-widest text-slate-500">Idea</p>
+                <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2"></dl>
+              </div>
+              <div class="rounded-md border border-border bg-surface-muted p-5">
+                <p class="text-xs font-semibold uppercase tracking-widest text-slate-500">Needs And Timeline</p>
+                <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2"></dl>
+              </div>
+              <div class="rounded-md border border-border bg-surface-muted p-5">
+                <p class="text-xs font-semibold uppercase tracking-widest text-slate-500">Integrations And Assets</p>
+                <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2"></dl>
+              </div>
+            </div>
+            <div class="mt-6 flex items-start gap-3">
+              <input id="consent" name="consent" type="checkbox" required class="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring" />
+              <label for="consent" class="text-sm text-text-muted">I understand this request is for project discovery and does not create a binding quote.</label>
+            </div>
+          </fieldset>
+
+          <div class="flex items-center justify-between border-t border-border pt-6">
+            <button type="button" id="prev-btn" class="hidden inline-flex h-11 items-center justify-center rounded-md border border-border bg-surface px-5 text-sm font-semibold text-text shadow-sm transition hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+              Back
+            </button>
+            <div class="ml-auto flex items-center gap-3">
+              <button type="button" id="toggle-contact-only" class="inline-flex h-11 items-center justify-center rounded-md border border-border bg-surface px-5 text-sm font-semibold text-text shadow-sm transition hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+                Ask a question instead
+              </button>
+              <button type="button" id="next-btn" class="inline-flex h-11 items-center justify-center rounded-md bg-primary px-5 text-sm font-semibold text-white shadow-md transition hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+                Next
+              </button>
+              <button type="submit" id="submit-btn" class="hidden inline-flex h-11 items-center justify-center rounded-md bg-primary px-5 text-sm font-semibold text-white shadow-md transition hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+                Send project request
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <form id="contact-only-form" class="hidden px-6 py-8 space-y-6" novalidate>
+          <div>
+            <label for="contactName" class="block text-sm font-medium text-text">Full name <span class="text-red-500">*</span></label>
+            <input id="contactName" name="contactName" type="text" required class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Your full name" />
+          </div>
+          <div>
+            <label for="contactEmail" class="block text-sm font-medium text-text">Email <span class="text-red-500">*</span></label>
+            <input id="contactEmail" name="contactEmail" type="email" required class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="you@example.com" />
+          </div>
+          <div>
+            <label for="contactMessage" class="block text-sm font-medium text-text">Message <span class="text-red-500">*</span></label>
+            <textarea id="contactMessage" name="contactMessage" rows="4" required class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="What do you want to ask?"></textarea>
+          </div>
+          <div class="flex items-center justify-between border-t border-border pt-6">
+            <button type="button" id="back-to-project-request" class="inline-flex h-11 items-center justify-center rounded-md border border-border bg-surface px-5 text-sm font-semibold text-text shadow-sm transition hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+              Back to project request
+            </button>
+            <button type="button" id="send-contact-btn" class="inline-flex h-11 items-center justify-center rounded-md bg-primary px-5 text-sm font-semibold text-white shadow-md transition hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+              Send message
+            </button>
+          </div>
+        </form>
+
+        <div id="form-success" class="hidden px-6 py-12 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+          <h3 class="mt-4 text-xl font-semibold text-text">Request received</h3>
+          <p class="mt-2 text-base text-text-muted">Thanks. Your project request has been received. Eventnexus will review the idea and follow up with the next step.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script client:load>
+  const form = document.getElementById('project-request-form');
+  const contactForm = document.getElementById('contact-only-form');
+  const success = document.getElementById('form-success');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const submitBtn = document.getElementById('submit-btn');
+  const toggleContactOnly = document.getElementById('toggle-contact-only');
+  const backToProjectRequest = document.getElementById('back-to-project-request');
+  const stepIndicator = document.getElementById('step-indicator');
+  const progressBar = document.getElementById('progress-bar');
+  const contactOnlyPath = document.getElementById('contact-only-path');
+  const sendContactBtn = document.getElementById('send-contact-btn');
+
+  const steps = Array.from(form.querySelectorAll('.step'));
+  let currentStep = 0;
+  const totalSteps = steps.length;
+
+  const updateStep = (index) => {
+    steps.forEach((step, idx) => {
+      if (idx === index) {
+        step.classList.remove('hidden');
+      } else {
+        step.classList.add('hidden');
+      }
+    });
+    currentStep = index;
+    stepIndicator.textContent = `Step ${index + 1} of ${totalSteps}`;
+    progressBar.style.width = `${((index + 1) / totalSteps) * 100}%`;
+    prevBtn.classList.toggle('hidden', index === 0);
+    if (index === totalSteps - 1) {
+      nextBtn.classList.add('hidden');
+      submitBtn.classList.remove('hidden');
+      renderReview();
+    } else {
+      nextBtn.classList.remove('hidden');
+      submitBtn.classList.add('hidden');
+    }
+  };
+
+  const renderReview = () => {
+    const formData = new FormData(form);
+    const toArr = (name) => formData.getAll(name);
+    const toVal = (name) => formData.get(name);
+
+    const setRow = (dl, label, value) => {
+      const dt = document.createElement('dt');
+      dt.className = 'text-xs text-text-muted';
+      dt.textContent = label;
+      const dd = document.createElement('dd');
+      dd.className = 'text-sm text-text';
+      dd.textContent = value;
+      dl.appendChild(dt);
+      dl.appendChild(dd);
+    };
+
+    const contactDl = document.querySelector('#review-summary > div:nth-child(1) dl');
+    const projectDl = document.querySelector('#review-summary > div:nth-child(2) dl');
+    const ideaDl = document.querySelector('#review-summary > div:nth-child(3) dl');
+    const needsDl = document.querySelector('#review-summary > div:nth-child(4) dl');
+    const integrationDl = document.querySelector('#review-summary > div:nth-child(5) dl');
+
+    [contactDl, projectDl, ideaDl, needsDl, integrationDl].forEach((dl) => {
+      if (!dl) return;
+      while (dl.firstChild) dl.removeChild(dl.firstChild);
+    });
+
+    if (contactDl) {
+      setRow(contactDl, 'Full name', toVal('fullName'));
+      setRow(contactDl, 'Email', toVal('email'));
+      if (toVal('phone')) setRow(contactDl, 'Phone', toVal('phone'));
+      if (toVal('company')) setRow(contactDl, 'Company', toVal('company'));
+      if (toVal('region')) setRow(contactDl, 'Region', toVal('region'));
+    }
+    if (projectDl) {
+      setRow(projectDl, 'Project type', toVal('projectType'));
+      setRow(projectDl, 'Title', toVal('projectTitle'));
+    }
+    if (ideaDl) {
+      setRow(ideaDl, 'Idea', toVal('ideaDescription'));
+      if (toVal('targetUsers')) setRow(ideaDl, 'Target users', toVal('targetUsers'));
+      if (toVal('problemToSolve')) setRow(ideaDl, 'Problem', toVal('problemToSolve'));
+      if (toVal('desiredOutcome')) setRow(ideaDl, 'Outcome', toVal('desiredOutcome'));
+    }
+    if (needsDl) {
+      const features = toArr('features').join(', ');
+      if (features) setRow(needsDl, 'Features', features);
+      const techs = toArr('technicalNeeds').join(', ');
+      if (techs) setRow(needsDl, 'Technical needs', techs);
+      setRow(needsDl, 'Timeline', toVal('timeline'));
+      setRow(needsDl, 'Budget', toVal('budgetRange'));
+      setRow(needsDl, 'Project status', toVal('projectStatus'));
+    }
+    if (integrationDl) {
+      if (toVal('existingDomain')) setRow(integrationDl, 'Domain', toVal('existingDomain'));
+      if (toVal('existingUrl')) setRow(integrationDl, 'URL', toVal('existingUrl'));
+      if (toVal('existingRepo')) setRow(integrationDl, 'Repo', toVal('existingRepo'));
+      if (toVal('existingBrandAssets')) setRow(integrationDl, 'Brand assets', toVal('existingBrandAssets'));
+      const integrations = toArr('integrations').join(', ');
+      if (integrations) setRow(integrationDl, 'Integrations', integrations);
+    }
+  };
+
+  const validateStep = (index) => {
+    const step = steps[index];
+    const required = step.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach((field) => {
+      const value = field.value.trim();
+      if (!value) {
+        valid = false;
+        field.classList.add('border-red-400');
+      } else if (field.type === 'email' && !field.value.includes('@')) {
+        valid = false;
+        field.classList.add('border-red-400');
+      } else {
+        field.classList.remove('border-red-400');
+      }
+    });
+    if (index === 2) {
+      const idea = form.querySelector('#ideaDescription');
+      if (idea && idea.value.trim().length < 80) {
+        valid = false;
+        idea.classList.add('border-red-400');
+      }
+    }
+    return valid;
+  };
+
+  nextBtn.addEventListener('click', () => {
+    if (validateStep(currentStep)) {
+      updateStep(currentStep + 1);
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentStep > 0) {
+      updateStep(currentStep - 1);
+    }
+  });
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!validateStep(currentStep)) return;
+    if (!form.querySelector('#consent').checked) return;
+    form.classList.add('hidden');
+    contactOnlyPath.classList.add('hidden');
+    success.classList.remove('hidden');
+  });
+
+  toggleContactOnly.addEventListener('click', () => {
+    form.classList.add('hidden');
+    contactOnlyPath.classList.add('hidden');
+    contactForm.classList.remove('hidden');
+    if (success) success.classList.add('hidden');
+  });
+
+  backToProjectRequest.addEventListener('click', () => {
+    contactForm.classList.add('hidden');
+    form.classList.remove('hidden');
+  });
+
+  sendContactBtn.addEventListener('click', () => {
+    const name = contactForm.querySelector('#contactName').value.trim();
+    const email = contactForm.querySelector('#contactEmail').value.trim();
+    const message = contactForm.querySelector('#contactMessage').value.trim();
+    if (!name || !email || !email.includes('@') || !message) {
+      alert('Please fill in your name, a valid email, and a message.');
+      return;
+    }
+    contactForm.classList.add('hidden');
+    if (success) success.classList.remove('hidden');
+  });
+
+  updateStep(0);
+</script>
