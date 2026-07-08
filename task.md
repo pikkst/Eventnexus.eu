@@ -53,9 +53,10 @@ This document tracks the project from a near-zero starting point into a deployab
 ## Phase 3 - Website Build
 
 - [x] Create first application scaffold.
-- [x] Implement responsive layout.
+- [x] Fix global.css not working.
 - [x] Implement homepage.
 - [x] Implement legal/footer basics.
+- [x] Implement responsive layout.
 - [ ] Implement services section.
 - [ ] Implement proof/work section.
 - [ ] Implement contact flow.
