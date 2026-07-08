@@ -24,10 +24,27 @@ Astro is a strong fit because:
 
 - Framework: Astro
 - Language: TypeScript
+- Styling: Tailwind CSS with project-owned design tokens
 - Package manager: npm unless the project later standardizes on another option
 - Rendering mode: static-first
 - Interactive components: Astro islands, with React only if the contact/intake flow becomes easier to maintain that way
 - Deployment target: Cloudflare Pages, to be defined in the next architecture task
+
+## Styling And Design System Decision
+
+Chosen approach: Tailwind CSS with CSS variables, project-owned design tokens, and small reusable Astro components.
+
+The project should not start with a heavy prebuilt component framework. The first website needs a professional custom service-company interface, a strong project-request form, and clear content sections. Tailwind gives speed and consistency while still allowing Eventnexus to own its visual language.
+
+Initial component direction:
+
+- base layout components
+- service and proof cards
+- process-step components
+- form-step components
+- accessible inputs, selects, checkboxes, text areas, and buttons
+
+Detailed design rules live in `design-system.md`.
 
 ## Why Not Start With Next.js
 
@@ -75,3 +92,5 @@ If the project later becomes a full authenticated SaaS dashboard, the team can e
 ## Current Decision Status
 
 Astro with TypeScript is the chosen frontend framework for the first public Eventnexus website.
+
+Tailwind CSS with project-owned tokens and lean Astro components is the chosen styling approach.
