@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Section from '../components/Section.astro';
+import CtaSection from '../components/CtaSection.astro';
+
+const services = [
+  { title: 'Idea Structuring', description: 'Turn an early idea into a clear, buildable project plan with features and priorities.' },
+  { title: 'Websites', description: 'Professional company and landing pages that explain the offer clearly and convert visitors.' },
+  { title: 'Platforms', description: 'SaaS-style apps, customer portals, dashboards, and internal tools.' },
+  { title: 'Frontend', description: 'Clean, usable interfaces with responsive layout, forms, and product flows.' },
+  { title: 'Backend', description: 'Data, accounts, admin logic, APIs, and business rules behind the product.' },
+  { title: 'Payments', description: 'Checkout, payment flows, subscriptions, and paid access logic.' },
+  { title: 'AI Workflows', description: 'Use AI to accelerate planning, development, and useful product features without hype.' },
+  { title: 'Launch', description: 'Deploy, connect domains, verify production, and support future improvements.' },
+];
+
+const processSteps = [
+  { title: 'Submit Your Idea', description: 'Start with a guided project form describing the type of solution, features, timeline, and budget.' },
+  { title: 'Shape The Scope', description: 'Eventnexus reviews the request and turns the idea into a practical build plan.' },
+  { title: 'Build The Product', description: 'The frontend, backend, database, payments, and admin tools are built as needed.' },
+  { title: 'Launch And Improve', description: 'The product is deployed, connected to the right domain, and improved through iterations.' },
+];
+---
+<BaseLayout
+  title="Eventnexus builds your idea into a working web platform."
+  description="From first concept to launch, Eventnexus creates turnkey digital solutions. Start with a structured project request."
+>
+  <Navigation />
+
+  <!-- Hero -->
+  <section class="border-b border-slate-200">
+    <div class="container mx-auto px-4 py-20 md:py-28">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900">
+          Eventnexus builds your idea into a working web platform.
+        </h1>
+        <p class="mt-6 text-lg text-slate-600 leading-relaxed">
+          From first concept to launch, Eventnexus creates turnkey digital solutions: websites, SaaS-style platforms, customer portals, backend systems, payment flows, automations, and deployment.
+        </p>
+        <p class="mt-4 text-lg text-slate-600 leading-relaxed">
+          Bring the idea. Eventnexus helps structure it, design it, build it, and prepare it for real users.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="/contact" class="inline-flex h-12 items-center justify-center rounded-md bg-slate-900 px-6 text-sm font-semibold text-white transition hover:bg-slate-800">
+            Start a project request
+          </a>
+          <a href="#services" class="inline-flex h-12 items-center justify-center rounded-md border border-slate-300 bg-white px-6 text-sm font-semibold text-slate-900 transition hover:border-slate-400">
+            View services
+          </a>
+        </div>
+        <p class="mt-6 text-sm text-slate-500">
+          Full-stack delivery for individuals, founders, service businesses, and companies that need practical digital products without managing a full technical team.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <Section
+    eyebrow="Problem"
+    title="Good ideas often get stuck before they become real products."
+    description="Turning an idea into a working platform can quickly become complicated. Frontend, backend, database, user accounts, admin tools, payments, integrations, hosting, and a clear launch path. Eventnexus brings those pieces together into one structured delivery process."
+    className="bg-slate-50"
+  />
+
+  <!-- Services -->
+  <Section id="services" eyebrow="Services" title="From idea to turnkey solution." description="Eventnexus helps shape, build, and launch web-based products starting from a rough idea or clearer technical plan.">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {services.map((service) => (
+        <article class="rounded-lg border border-slate-200 bg-white p-6">
+          <h3 class="text-sm font-semibold text-slate-900">{service.title}</h3>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">{service.description}</p>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Process -->
+  <Section id="process" eyebrow="Process" title="A structured path from request to launch." className="bg-slate-50">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      {processSteps.map((step, index) => (
+        <div class="relative">
+          <span class="text-xs font-semibold uppercase tracking-widest text-slate-500">
+            Step {index + 1}
+          </span>
+          <h3 class="mt-2 text-base font-semibold text-slate-900">{step.title}</h3>
+          <p class="mt-2 text-sm text-slate-600 leading-relaxed">{step.description}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Proof -->
+  <Section id="work" eyebrow="Experience" title="Built on real product and AI workflow experience.">
+    <div class="rounded-lg border border-slate-200 bg-slate-50 p-8">
+      <p class="text-base text-slate-700">
+        Eventnexus is shaped by hands-on experience with TypeScript-based web platforms, AI-assisted tools, automation concepts, data products, and service-platform experiments.
+      </p>
+      <p class="mt-4 text-base text-slate-700">
+        <strong>Rootwise</strong> demonstrates experience building a real web-platform product with modern frontend architecture and product-oriented thinking.
+      </p>
+      <p class="mt-4 text-sm text-slate-600">
+        Additional work includes AI-assisted lead tooling, data and forecasting experiments, marketing workflow automation, media workflow tools, and earlier EventNexus platform concepts.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Intake CTA -->
+  <CtaSection
+    heading="Have an idea for a platform, portal, tool, or website?"
+    body="You do not need a finished specification. Start with what you know: the idea, who it is for, what it should do, and what outcome you want. The structured request form helps turn that into the first version of a buildable project plan."
+    primaryCta={{ label: 'Start your project request', href: '/contact' }}
+  />
+</BaseLayout>
