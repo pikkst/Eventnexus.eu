@@ -45,6 +45,7 @@ This file stores stable context and decisions for future agents.
 - The first public website exists to present Eventnexus as an affordable turnkey web-platform builder and convert visitors into qualified project leads through a structured idea-intake form.
 - The primary audience is broad: individuals, founders, small businesses, medium-sized companies, large organizations, service companies, and teams that need custom platforms or digital workflows.
 - Core services cover the full path from idea to turnkey launch: discovery, planning, UX, frontend, backend, databases, authentication, admin dashboards, payments, integrations, automations, AI-assisted workflows, deployment, domain setup, maintenance, and future improvements.
+- Initial proof points include `rootwise.site`, `rootwise`, `rootwisePRO`, `LeadScout-Pro-AI`, `AetherForecast-AI`, `Studio`, `OmniAgent`, `EventNexus`, and `EventNexus_Live_Map`; public claims should stay careful until each example is reviewed.
 - Use GitHub as the source of truth for code.
 - Use Cloudflare for deployment when the application scaffold is ready.
 - Connect Supabase only when a real backend feature is defined.

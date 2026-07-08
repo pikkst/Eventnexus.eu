@@ -31,7 +31,7 @@ This document tracks the project from a near-zero starting point into a deployab
   - payment integrations and checkout flows
   - integrations, automations, and AI-assisted workflows
   - deployment, domain setup, launch, maintenance, and future improvements
-- [ ] Define proof points, including `rootwise.site`.
+- [x] Define proof points, including `rootwise.site`.
 - [ ] Draft homepage copy.
 - [ ] Draft service-page copy.
 - [ ] Draft contact/lead-capture flow.

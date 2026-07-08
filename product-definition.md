@@ -78,6 +78,29 @@ Core services include:
 
 The service promise is turnkey delivery: Eventnexus can help move from an early idea to a working product without the client needing to separately manage designers, frontend developers, backend developers, payment integration work, deployment setup, and technical coordination.
 
+## Proof Points
+
+The first public website should use proof points carefully and honestly.
+
+Primary proof point:
+
+- `rootwise.site`
+- `https://github.com/pikkst/rootwise`
+- `https://github.com/pikkst/rootwisePRO`
+
+Additional portfolio candidates from GitHub:
+
+- `LeadScout-Pro-AI` - AI-assisted lead or business-development tooling
+- `AetherForecast-AI` - data and AI product experimentation
+- `Studio` - AI media or studio workflow tooling
+- `OmniAgent` - AI marketing workflow tooling
+- `EventNexus` - earlier EventNexus product work
+- `EventNexus_Live_Map` - EventNexus map/mobile-adjacent exploration
+
+These should support the message that Eventnexus has experience with web platforms, AI-assisted workflows, automation, dashboards, and product experimentation.
+
+Detailed public case-study claims should be written only after the selected projects are reviewed visually and functionally.
+
 ## Intake Flow Concept
 
 The website should include a structured project-intake form.

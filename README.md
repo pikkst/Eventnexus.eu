@@ -20,6 +20,7 @@ Build the foundation for the Eventnexus corporate platform, starting with clear 
 
 - `task.md` - staged execution plan
 - `product-definition.md` - purpose of the first public website
+- `proof-points.md` - initial portfolio and proof-point candidates
 - `workflow.md` - project workflow and delivery rules
 - `agents.md` - agent roles, responsibilities, and operating rules
 - `project-memory.md` - stable project memory and decisions
