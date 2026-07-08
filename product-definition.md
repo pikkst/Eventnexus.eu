@@ -51,6 +51,33 @@ Typical client needs may include:
 
 The client brings the idea, goal, and business context. Eventnexus shapes the technical solution and builds the working system.
 
+## Core Services
+
+Eventnexus builds complete solutions from idea to launch.
+
+The core service is not a single isolated task. It is a full delivery path where the client can bring an idea and Eventnexus turns it into a structured, designed, built, deployed, and usable product.
+
+Core services include:
+
+- idea discovery and project structuring
+- technical planning and feature definition
+- UX and interface planning
+- company websites and landing pages
+- SaaS-style web platforms
+- customer portals and service platforms
+- frontend application development
+- backend system development
+- databases and data model planning
+- user accounts, roles, and authentication flows
+- admin dashboards and management views
+- payment integrations and checkout flows
+- third-party integrations and automations
+- AI-assisted workflow and product features where useful
+- deployment, domain setup, and production launch
+- maintenance, improvements, and future feature development
+
+The service promise is turnkey delivery: Eventnexus can help move from an early idea to a working product without the client needing to separately manage designers, frontend developers, backend developers, payment integration work, deployment setup, and technical coordination.
+
 ## Intake Flow Concept
 
 The website should include a structured project-intake form.

@@ -22,14 +22,15 @@ This document tracks the project from a near-zero starting point into a deployab
   - small, medium, and large companies
   - service companies
   - teams needing custom platforms, portals, automations, or internal tools
-- [ ] Define core services:
-  - company websites
-  - service platforms
-  - frontend development
-  - backend development
-  - payment integrations
-  - automation and AI-assisted workflows
-  - deployment and maintenance
+- [x] Define core services:
+  - idea discovery and project structuring
+  - company websites and landing pages
+  - SaaS-style platforms, portals, and service platforms
+  - frontend and backend development
+  - databases, authentication, and admin dashboards
+  - payment integrations and checkout flows
+  - integrations, automations, and AI-assisted workflows
+  - deployment, domain setup, launch, maintenance, and future improvements
 - [ ] Define proof points, including `rootwise.site`.
 - [ ] Draft homepage copy.
 - [ ] Draft service-page copy.
