@@ -57,7 +57,7 @@ This document tracks the project from a near-zero starting point into a deployab
 - [x] Implement homepage.
 - [x] Implement legal/footer basics.
 - [x] Implement responsive layout.
-- [ ] Implement services section.
+- [x] Implement services section.
 - [ ] Implement proof/work section.
 - [ ] Implement contact flow.
 - [ ] Add analytics plan if needed.
