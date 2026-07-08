@@ -54,7 +54,7 @@ This document tracks the project from a near-zero starting point into a deployab
 
 - [x] Create first application scaffold.
 - [x] Implement responsive layout.
-- [ ] Implement homepage.
+- [x] Implement homepage.
 - [ ] Implement services section.
 - [ ] Implement proof/work section.
 - [ ] Implement contact flow.
