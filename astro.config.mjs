@@ -7,6 +7,7 @@ export default defineConfig({
     format: 'directory',
   },
   integrations: [tailwind({
+    configFile: './tailwind.config.mjs',
     applyBaseStyles: false,
   })],
   site: 'https://eventnexus.eu',
