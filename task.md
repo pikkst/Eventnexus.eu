@@ -85,7 +85,7 @@ This document tracks the project from a near-zero starting point into a deployab
 ## Phase 6 - Quality And Maintenance
 
 - [x] Add linting and formatting.
-- [ ] Add smoke tests for critical pages.
+- [x] Add smoke tests for critical pages.
 - [ ] Add accessibility checks.
 - [ ] Add content review checklist.
 - [ ] Add release checklist.

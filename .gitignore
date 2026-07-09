@@ -34,3 +34,7 @@ Thumbs.db
 # Supabase local artifacts
 .supabase/
 /supabase/
+
+# Playwright
+playwright-report/
+test-results/
