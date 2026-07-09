@@ -61,7 +61,7 @@ This document tracks the project from a near-zero starting point into a deployab
 - [x] Implement proof/work section.
 - [x] Implement contact flow.
 - [x] Add analytics plan if needed.
-- [ ] Verify mobile and desktop layouts.
+- [x] Verify mobile and desktop layouts.
 
 ## Phase 4 - Backend And Integrations
 
