@@ -535,75 +535,99 @@ const integrationOptions = [
     }
   });
 
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    if (!validateStep(currentStep)) return;
-    const consent = form.querySelector('#consent');
-    const consentError = document.getElementById('consent-error');
-    if (!consent || !consent.checked) {
-      if (consentError) {
-        consentError.classList.remove('hidden');
-        consent.classList.add('border-red-400');
-      }
-      return;
-    }
-    if (consentError) consentError.classList.add('hidden');
-    form.classList.add('hidden');
-    contactOnlyPath.classList.add('hidden');
-    success.classList.remove('hidden');
-  });
-
-  toggleContactOnly.addEventListener('click', () => {
-    form.classList.add('hidden');
-    contactOnlyPath.classList.add('hidden');
-    contactForm.classList.remove('hidden');
-    if (success) success.classList.add('hidden');
-  });
-
-  backToProjectRequest.addEventListener('click', () => {
-    contactForm.classList.add('hidden');
-    form.classList.remove('hidden');
-  });
-
-  sendContactBtn.addEventListener('click', () => {
-
-    const name = contactForm.querySelector('#contactName').value.trim();
-
-    const email = contactForm.querySelector('#contactEmail').value.trim();
-
-    const message = contactForm.querySelector('#contactMessage').value.trim();
-
-    const contactEmailField = contactForm.querySelector('#contactEmail');
-
-    const contactEmailError = document.getElementById('contact-email-error');
-
-    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-    if (!name || !email || !emailValid || !message) {
-
-      if (contactEmailField && !emailValid) {
-
-        contactEmailField.classList.add('border-red-400');
-
-        if (contactEmailError) contactEmailError.classList.remove('hidden');
-
-      }
-
-      alert('Please fill in your name, a valid email, and a message.');
-
-      return;
-
-    }
-
-    if (contactEmailField) contactEmailField.classList.remove('border-red-400');
-
-    if (contactEmailError) contactEmailError.classList.add('hidden');
-
-    contactForm.classList.add('hidden');
-
-    if (success) success.classList.remove('hidden');
-
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!validateStep(currentStep)) return;
+    const consent = form.querySelector('#consent');
+    const consentError = document.getElementById('consent-error');
+    if (!consent || !consent.checked) {
+      if (consentError) {
+        consentError.classList.remove('hidden');
+        consent.classList.add('border-red-400');
+      }
+      return;
+    }
+    if (consentError) consentError.classList.add('hidden');
+    submitBtn.disabled = true;
+    nextBtn.disabled = true;
+    prevBtn.disabled = true;
+    try {
+      const response = await fetch('/api/submit-lead', {
+        method: 'POST',
+        body: new FormData(form),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || 'Submission failed');
+      }
+      form.classList.add('hidden');
+      contactOnlyPath.classList.add('hidden');
+      success.classList.remove('hidden');
+    } catch (err) {
+      alert(err.message || 'Something went wrong. Please try again.');
+    } finally {
+      submitBtn.disabled = false;
+      nextBtn.disabled = false;
+      prevBtn.disabled = false;
+    }
   });
-
-  updateStep(0);
+
+
+  toggleContactOnly.addEventListener('click', () => {
+    form.classList.add('hidden');
+    contactOnlyPath.classList.add('hidden');
+    contactForm.classList.remove('hidden');
+    if (success) success.classList.add('hidden');
+  });
+
+
+  backToProjectRequest.addEventListener('click', () => {
+    contactForm.classList.add('hidden');
+    form.classList.remove('hidden');
+  });
+
+
+  sendContactBtn.addEventListener('click', async () => {
+    const name = contactForm.querySelector('#contactName').value.trim();
+    const email = contactForm.querySelector('#contactEmail').value.trim();
+    const message = contactForm.querySelector('#contactMessage').value.trim();
+    const contactEmailField = contactForm.querySelector('#contactEmail');
+    const contactEmailError = document.getElementById('contact-email-error');
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!name || !email || !emailValid || !message) {
+      if (contactEmailField && !emailValid) {
+        contactEmailField.classList.add('border-red-400');
+        if (contactEmailError) contactEmailError.classList.remove('hidden');
+      }
+      alert('Please fill in your name, a valid email, and a message.');
+      return;
+    }
+    if (contactEmailField) contactEmailField.classList.remove('border-red-400');
+    if (contactEmailError) contactEmailError.classList.add('hidden');
+    sendContactBtn.disabled = true;
+    try {
+      const formData = new FormData();
+      formData.append('fullName', name);
+      formData.append('email', email);
+      formData.append('contactMessage', message);
+      formData.append('consent', 'on');
+      const response = await fetch('/api/submit-lead', {
+        method: 'POST',
+        body: formData,
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || 'Submission failed');
+      }
+      contactForm.classList.add('hidden');
+      if (success) success.classList.remove('hidden');
+    } catch (err) {
+      alert(err.message || 'Something went wrong. Please try again.');
+    } finally {
+      sendContactBtn.disabled = false;
+    }
+  });
+
+
+  updateStep(0);
 </script>

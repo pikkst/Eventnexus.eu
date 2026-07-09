@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
+import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   output: 'static',
@@ -11,4 +12,9 @@ export default defineConfig({
     applyBaseStyles: false,
   })],
   site: 'https://eventnexus.eu',
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+    },
+  }),
 });
