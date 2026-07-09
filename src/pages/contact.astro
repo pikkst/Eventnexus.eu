@@ -531,6 +531,13 @@ const integrationOptions = [
     formEl.querySelectorAll('.border-red-400').forEach((el) => el.classList.remove('border-red-400'));
   };
 
+  const CONTACT_FIELD_NAME_MAP = {
+    fullName: 'contactName',
+    email: 'contactEmail',
+  };
+
+  const mapFieldName = (field) => CONTACT_FIELD_NAME_MAP[field] || field;
+
   const showContactErrors = (fields) => {
     const errorContainer = document.getElementById('contact-form-error');
     const errorList = document.getElementById('contact-form-error-list');
@@ -540,7 +547,7 @@ const integrationOptions = [
         const li = document.createElement('li');
         li.textContent = message;
         errorList.appendChild(li);
-        const input = contactForm.querySelector(`[name="${field}"]`);
+        const input = contactForm.querySelector(`[name="${mapFieldName(field)}"]`);
         if (input) input.classList.add('border-red-400');
       });
       errorContainer.classList.remove('hidden');
