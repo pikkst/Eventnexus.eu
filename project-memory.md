@@ -20,6 +20,7 @@ This file stores stable context and decisions for future agents.
 - Region: `eu-north-1` / North EU, Stockholm
 - Current intended use: structured project leads, simple contact messages, admin review data, and future customer portal features
 - First implementation rule: use server-side insertion through Astro API routes or Cloudflare Pages Functions; do not expose service-role keys to the browser
+- Connection status: connected via `@supabase/supabase-js` in server-side Astro API routes
 - Secrets: not stored in this repository
 
 ### Domain
@@ -41,7 +42,7 @@ This file stores stable context and decisions for future agents.
 - Production branch: `main`
 - Build command: `npm run build`
 - Build output directory: `dist`
-- Current state: not configured yet; wait until Astro scaffold and local build exist
+- Current state: Astro Cloudflare adapter configured with `@astrojs/cloudflare` for on-demand API routes; Pages project connection pending
 
 ### Analytics
 
@@ -81,14 +82,16 @@ This file stores stable context and decisions for future agents.
 - Use GitHub as the source of truth for code.
 - Use Cloudflare for deployment when the application scaffold is ready.
 - Connect Supabase only when a real backend feature is defined.
+- Lead submissions flow through `src/pages/api/submit-lead.ts`, which validates payloads and inserts into Supabase using `SUPABASE_SERVICE_ROLE_KEY` server-side.
+- Add `src/lib/supabase/server.ts` for server-only Supabase client creation.
+- Cloudflare adapter `@astrojs/cloudflare` is configured to support on-demand API routes during static build.
 - Tailwind configuration must live at repo root as `tailwind.config.mjs` with `content` paths and project token colors.
 - `@astrojs/tailwind` integration must use explicit `configFile: './tailwind.config.mjs'` and `applyBaseStyles: false`; `@tailwind` directives belong in `src/styles/global.css`, which is imported by `BaseLayout.astro`.
 - Do not place duplicate `@tailwind` directives in both `global.css` and inline `<style is:global>` blocks; that breaks PostCSS processing.
 
 ## Open Decisions
 
-- Contact form backend route
-- Lead storage schema
+- Add lead capture table and RLS policies in Supabase dashboard.
 
 ## Quality Bar
 

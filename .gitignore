@@ -26,6 +26,7 @@ Thumbs.db
 
 # Local tool runtime
 .saydeploy/
+.wrangler/
 
 # Astro generated types
 .astro/

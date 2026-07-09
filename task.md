@@ -65,7 +65,7 @@ This document tracks the project from a near-zero starting point into a deployab
 
 ## Phase 4 - Backend And Integrations
 
-- [ ] Connect Supabase when a concrete data need exists.
+- [x] Connect Supabase when a concrete data need exists.
 - [ ] Add lead capture table and policies.
 - [ ] Add server-side validation for form submissions.
 - [ ] Add email notification workflow if needed.
