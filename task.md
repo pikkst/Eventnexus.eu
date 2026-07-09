@@ -69,6 +69,7 @@ This document tracks the project from a near-zero starting point into a deployab
 - [x] Add lead capture table and policies.
 - [x] Add server-side validation for form submissions.
 - [x] Add email notification workflow if needed.
+- [x] Fix project request submission 500 error.
 - [ ] Add payment-provider planning for future service products.
 
 ## Phase 5 - Deployment
