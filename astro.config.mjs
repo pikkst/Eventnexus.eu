@@ -7,6 +7,11 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
+  vite: {
+    optimizeDeps: {
+      exclude: ['@astrojs/cloudflare/entrypoints'],
+    },
+  },
   integrations: [tailwind({
     configFile: './tailwind.config.mjs',
     applyBaseStyles: false,

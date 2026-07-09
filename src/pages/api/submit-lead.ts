@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getSupabaseServerClient } from '../../lib/supabase/server';
+import { sendLeadNotificationEmail } from '../../lib/resend/server';
 
 export const prerender = false;
 
@@ -300,6 +301,30 @@ export const POST: APIRoute = async ({ request }) => {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
       });
+    }
+
+    const leadCreatedAt = new Date().toISOString();
+
+    try {
+      await sendLeadNotificationEmail({
+        id: String(data?.id),
+        fullName: fields.fullName,
+        email: fields.email,
+        phoneOrChannel: fields.phoneOrChannel,
+        companyName: fields.companyName,
+        projectType: fields.projectType,
+        projectTitle: fields.projectTitle,
+        ideaDescription: fields.contactMessage ? fields.contactMessage : fields.ideaDescription,
+        timeline: fields.timeline,
+        budgetRange: fields.budgetRange,
+        projectStatus: fields.projectStatus,
+        requiredFeatures,
+        technicalNeeds,
+        integrations,
+        createdAt: leadCreatedAt,
+      });
+    } catch (emailError) {
+      console.error('Lead notification email failed:', emailError);
     }
 
     return new Response(JSON.stringify({ ok: true, id: data?.id }), {

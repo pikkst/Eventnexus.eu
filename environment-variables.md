@@ -108,6 +108,20 @@ Current status:
 
 - planned for lead/contact notifications
 
+### `RESEND_WEBHOOK_SECRET`
+
+Purpose:
+
+- signing secret for verifying Resend inbound webhook payloads at `POST /api/webhooks/resend`
+
+Browser exposure:
+
+- never
+
+Current status:
+
+- implemented as webhook receiver
+
 ### `RESEND_FROM_EMAIL`
 
 Purpose:
