@@ -46,110 +46,220 @@ const ALLOWED_PROJECT_STATUSES = [
   'urgent business need',
 ] as const;
 
+const MAX_LENGTHS = {
+  fullName: 120,
+  email: 254,
+  phoneOrChannel: 80,
+  companyName: 120,
+  region: 80,
+  projectType: 60,
+  projectTitle: 160,
+  ideaDescription: 4000,
+  targetUsers: 500,
+  problemToSolve: 2000,
+  desiredOutcome: 2000,
+  contactMessage: 4000,
+  existingDomain: 253,
+  existingUrl: 2048,
+  existingRepo: 2048,
+  existingBrandAssets: 1000,
+  extraNotes: 2000,
+} as const;
+
 const isAllowed = <T>(value: string, allowed: readonly T[]) => allowed.includes(value as T);
+
+const sanitizeText = (value: string) => value.replace(/<[^>]*>/g, '').trim();
+
+const validateUrl = (value: string) => {
+  if (!value) return true;
+  try {
+    new URL(value);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+const validateEmail = (value: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(value);
+};
+
+interface FieldValues {
+  fullName: string;
+  email: string;
+  phoneOrChannel: string;
+  companyName: string;
+  region: string;
+  projectType: string;
+  projectTitle: string;
+  ideaDescription: string;
+  targetUsers: string;
+  problemToSolve: string;
+  desiredOutcome: string;
+  contactMessage: string;
+  timeline: string;
+  budgetRange: string;
+  projectStatus: string;
+  existingDomain: string;
+  existingUrl: string;
+  existingRepo: string;
+  existingBrandAssets: string;
+  extraNotes: string;
+  consent: boolean;
+}
+
+const validateFields = (fields: FieldValues): Record<string, string> => {
+  const errors: Record<string, string> = {};
+
+  if (!fields.consent) {
+    errors.consent = 'Consent is required';
+  }
+
+  if (!fields.fullName) {
+    errors.fullName = 'Full name is required';
+  } else if (fields.fullName.length > MAX_LENGTHS.fullName) {
+    errors.fullName = `Full name must be under ${MAX_LENGTHS.fullName} characters`;
+  }
+
+  if (!fields.email) {
+    errors.email = 'Email is required';
+  } else if (!validateEmail(fields.email)) {
+    errors.email = 'Invalid email address';
+  } else if (fields.email.length > MAX_LENGTHS.email) {
+    errors.email = `Email must be under ${MAX_LENGTHS.email} characters`;
+  }
+
+  if (fields.phoneOrChannel.length > MAX_LENGTHS.phoneOrChannel) {
+    errors.phoneOrChannel = `Phone must be under ${MAX_LENGTHS.phoneOrChannel} characters`;
+  }
+
+  if (fields.companyName.length > MAX_LENGTHS.companyName) {
+    errors.companyName = `Company name must be under ${MAX_LENGTHS.companyName} characters`;
+  }
+
+  if (fields.region.length > MAX_LENGTHS.region) {
+    errors.region = `Region must be under ${MAX_LENGTHS.region} characters`;
+  }
+
+  const isContactOnly = fields.contactMessage.length > 0;
+
+  if (isContactOnly) {
+    if (fields.contactMessage.length < 10) {
+      errors.contactMessage = 'Message must be at least 10 characters';
+    } else if (fields.contactMessage.length > MAX_LENGTHS.contactMessage) {
+      errors.contactMessage = `Message must be under ${MAX_LENGTHS.contactMessage} characters`;
+    }
+  } else {
+    if (fields.ideaDescription.length < 80) {
+      errors.ideaDescription = 'Idea description must be at least 80 characters';
+    } else if (fields.ideaDescription.length > MAX_LENGTHS.ideaDescription) {
+      errors.ideaDescription = `Idea description must be under ${MAX_LENGTHS.ideaDescription} characters`;
+    }
+
+    if (!fields.projectType) {
+      errors.projectType = 'Project type is required';
+    } else if (!isAllowed(fields.projectType, ALLOWED_PROJECT_TYPES)) {
+      errors.projectType = 'Invalid project type';
+    }
+
+    if (!fields.projectTitle) {
+      errors.projectTitle = 'Project title is required';
+    } else if (fields.projectTitle.length > MAX_LENGTHS.projectTitle) {
+      errors.projectTitle = `Project title must be under ${MAX_LENGTHS.projectTitle} characters`;
+    }
+
+    if (fields.targetUsers.length > MAX_LENGTHS.targetUsers) {
+      errors.targetUsers = `Target users must be under ${MAX_LENGTHS.targetUsers} characters`;
+    }
+
+    if (fields.problemToSolve.length > MAX_LENGTHS.problemToSolve) {
+      errors.problemToSolve = `Problem description must be under ${MAX_LENGTHS.problemToSolve} characters`;
+    }
+
+    if (fields.desiredOutcome.length > MAX_LENGTHS.desiredOutcome) {
+      errors.desiredOutcome = `Outcome description must be under ${MAX_LENGTHS.desiredOutcome} characters`;
+    }
+
+    if (fields.extraNotes.length > MAX_LENGTHS.extraNotes) {
+      errors.extraNotes = `Notes must be under ${MAX_LENGTHS.extraNotes} characters`;
+    }
+
+    if (fields.timeline && !isAllowed(fields.timeline, ALLOWED_TIMELINES)) {
+      errors.timeline = 'Invalid timeline';
+    }
+
+    if (fields.budgetRange && !isAllowed(fields.budgetRange, ALLOWED_BUDGETS)) {
+      errors.budgetRange = 'Invalid budget range';
+    }
+
+    if (fields.projectStatus && !isAllowed(fields.projectStatus, ALLOWED_PROJECT_STATUSES)) {
+      errors.projectStatus = 'Invalid project status';
+    }
+
+    if (fields.existingDomain && fields.existingDomain.length > MAX_LENGTHS.existingDomain) {
+      errors.existingDomain = `Domain must be under ${MAX_LENGTHS.existingDomain} characters`;
+    }
+
+    if (fields.existingUrl && !validateUrl(fields.existingUrl)) {
+      errors.existingUrl = 'Invalid URL';
+    } else if (fields.existingUrl && fields.existingUrl.length > MAX_LENGTHS.existingUrl) {
+      errors.existingUrl = `URL must be under ${MAX_LENGTHS.existingUrl} characters`;
+    }
+
+    if (fields.existingRepo && !validateUrl(fields.existingRepo)) {
+      errors.existingRepo = 'Invalid URL';
+    } else if (fields.existingRepo && fields.existingRepo.length > MAX_LENGTHS.existingRepo) {
+      errors.existingRepo = `URL must be under ${MAX_LENGTHS.existingRepo} characters`;
+    }
+
+    if (fields.existingBrandAssets.length > MAX_LENGTHS.existingBrandAssets) {
+      errors.existingBrandAssets = `Brand assets must be under ${MAX_LENGTHS.existingBrandAssets} characters`;
+    }
+  }
+
+  return errors;
+};
 
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.formData();
 
-    const fullName = String(body.get('fullName') || '').trim();
-    const email = String(body.get('email') || '').trim();
-    const phoneOrChannel = String(body.get('phone') || '').trim();
-    const companyName = String(body.get('company') || '').trim();
-    const region = String(body.get('region') || '').trim();
-    const projectType = String(body.get('projectType') || '').trim();
-    const projectTitle = String(body.get('projectTitle') || '').trim();
-    const ideaDescription = String(body.get('ideaDescription') || '').trim();
-    const targetUsers = String(body.get('targetUsers') || '').trim();
-    const problemToSolve = String(body.get('problemToSolve') || '').trim();
-    const desiredOutcome = String(body.get('desiredOutcome') || '').trim();
-    const requiredFeatures = body.getAll('features').map((v) => String(v));
-    const technicalNeeds = body.getAll('technicalNeeds').map((v) => String(v));
-    const timeline = String(body.get('timeline') || '').trim();
-    const budgetRange = String(body.get('budgetRange') || '').trim();
-    const projectStatus = String(body.get('projectStatus') || '').trim();
-    const existingDomain = String(body.get('existingDomain') || '').trim();
-    const existingUrl = String(body.get('existingUrl') || '').trim();
-    const existingRepo = String(body.get('existingRepo') || '').trim();
-    const existingBrandAssets = String(body.get('existingBrandAssets') || '').trim();
-    const integrations = body.getAll('integrations').map((v) => String(v));
-    const extraNotes = String(body.get('extraFeatures') || '').trim();
-    const contactMessage = String(body.get('contactMessage') || '').trim();
-    const consent = body.get('consent') === 'on';
+    const fields: FieldValues = {
+      fullName: sanitizeText(String(body.get('fullName') || '')),
+      email: sanitizeText(String(body.get('email') || '')).toLowerCase(),
+      phoneOrChannel: sanitizeText(String(body.get('phone') || '')),
+      companyName: sanitizeText(String(body.get('company') || '')),
+      region: sanitizeText(String(body.get('region') || '')),
+      projectType: sanitizeText(String(body.get('projectType') || '')),
+      projectTitle: sanitizeText(String(body.get('projectTitle') || '')),
+      ideaDescription: sanitizeText(String(body.get('ideaDescription') || '')),
+      targetUsers: sanitizeText(String(body.get('targetUsers') || '')),
+      problemToSolve: sanitizeText(String(body.get('problemToSolve') || '')),
+      desiredOutcome: sanitizeText(String(body.get('desiredOutcome') || '')),
+      contactMessage: sanitizeText(String(body.get('contactMessage') || '')),
+      timeline: sanitizeText(String(body.get('timeline') || '')),
+      budgetRange: sanitizeText(String(body.get('budgetRange') || '')),
+      projectStatus: sanitizeText(String(body.get('projectStatus') || '')),
+      existingDomain: sanitizeText(String(body.get('existingDomain') || '')),
+      existingUrl: sanitizeText(String(body.get('existingUrl') || '')),
+      existingRepo: sanitizeText(String(body.get('existingRepo') || '')),
+      existingBrandAssets: sanitizeText(String(body.get('existingBrandAssets') || '')),
+      extraNotes: sanitizeText(String(body.get('extraFeatures') || '')),
+      consent: body.get('consent') === 'on',
+    };
 
-    if (!consent) {
-      return new Response(JSON.stringify({ error: 'Consent is required' }), {
+    const requiredFeatures = body.getAll('features').map((v) => sanitizeText(String(v)));
+    const technicalNeeds = body.getAll('technicalNeeds').map((v) => sanitizeText(String(v)));
+    const integrations = body.getAll('integrations').map((v) => sanitizeText(String(v)));
+
+    const validationErrors = validateFields(fields);
+
+    if (Object.keys(validationErrors).length > 0) {
+      return new Response(JSON.stringify({ error: 'Validation failed', fields: validationErrors }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });
-    }
-
-    if (!fullName || !email) {
-      return new Response(JSON.stringify({ error: 'Missing required fields' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return new Response(JSON.stringify({ error: 'Invalid email' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    const isContactOnly = contactMessage.length > 0;
-
-    if (isContactOnly) {
-      if (contactMessage.length < 10) {
-        return new Response(JSON.stringify({ error: 'Message must be at least 10 characters' }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        });
-      }
-    } else {
-      if (ideaDescription.length < 80) {
-        return new Response(JSON.stringify({ error: 'Idea description must be at least 80 characters' }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        });
-      }
-
-      if (!projectType) {
-        return new Response(JSON.stringify({ error: 'Project type is required' }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        });
-      }
-
-      if (!isAllowed(projectType, ALLOWED_PROJECT_TYPES)) {
-        return new Response(JSON.stringify({ error: 'Invalid project type' }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        });
-      }
-
-      if (timeline && !isAllowed(timeline, ALLOWED_TIMELINES)) {
-        return new Response(JSON.stringify({ error: 'Invalid timeline' }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        });
-      }
-
-      if (budgetRange && !isAllowed(budgetRange, ALLOWED_BUDGETS)) {
-        return new Response(JSON.stringify({ error: 'Invalid budget range' }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        });
-      }
-
-      if (projectStatus && !isAllowed(projectStatus, ALLOWED_PROJECT_STATUSES)) {
-        return new Response(JSON.stringify({ error: 'Invalid project status' }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        });
-      }
     }
 
     const supabase = getSupabaseServerClient();
@@ -157,28 +267,28 @@ export const POST: APIRoute = async ({ request }) => {
     const { data, error: supabaseError } = await supabase
       .from('project_leads')
       .insert({
-        full_name: fullName,
-        email,
-        phone_or_channel: phoneOrChannel,
-        company_name: companyName,
-        region,
-        project_type: projectType,
-        project_title: projectTitle,
-        idea_description: isContactOnly ? contactMessage : ideaDescription,
-        target_users: targetUsers,
-        problem_to_solve: problemToSolve,
-        desired_outcome: desiredOutcome,
+        full_name: fields.fullName,
+        email: fields.email,
+        phone_or_channel: fields.phoneOrChannel,
+        company_name: fields.companyName,
+        region: fields.region,
+        project_type: fields.projectType,
+        project_title: fields.projectTitle,
+        idea_description: fields.contactMessage ? fields.contactMessage : fields.ideaDescription,
+        target_users: fields.targetUsers,
+        problem_to_solve: fields.problemToSolve,
+        desired_outcome: fields.desiredOutcome,
         required_features: requiredFeatures,
         technical_needs: technicalNeeds,
-        timeline,
-        budget_range: budgetRange,
-        project_status: projectStatus,
-        existing_domain: existingDomain,
-        existing_url: existingUrl,
-        existing_repo: existingRepo,
-        existing_brand_assets: existingBrandAssets,
+        timeline: fields.timeline,
+        budget_range: fields.budgetRange,
+        project_status: fields.projectStatus,
+        existing_domain: fields.existingDomain,
+        existing_url: fields.existingUrl,
+        existing_repo: fields.existingRepo,
+        existing_brand_assets: fields.existingBrandAssets,
         integrations,
-        extra_notes: extraNotes,
+        extra_notes: fields.extraNotes,
         status: 'new',
         lead_score: 0,
       })

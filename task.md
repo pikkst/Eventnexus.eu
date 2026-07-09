@@ -67,7 +67,7 @@ This document tracks the project from a near-zero starting point into a deployab
 
 - [x] Connect Supabase when a concrete data need exists.
 - [x] Add lead capture table and policies.
-- [ ] Add server-side validation for form submissions.
+- [x] Add server-side validation for form submissions.
 - [ ] Add email notification workflow if needed.
 - [ ] Add payment-provider planning for future service products.
 

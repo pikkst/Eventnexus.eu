@@ -126,6 +126,11 @@ const integrationOptions = [
           </div>
         </div>
 
+        <div id="form-error" class="hidden border-b border-border px-6 py-5 bg-red-50">
+          <p class="text-sm font-semibold text-red-800">Please fix the following errors:</p>
+          <ul id="form-error-list" class="mt-2 list-disc list-inside text-sm text-red-700"></ul>
+        </div>
+
         <div id="contact-only-path" class="hidden border-b border-border px-6 py-5 bg-surface-muted">
           <p class="text-sm font-semibold text-text">Contact only</p>
           <p class="mt-1 text-sm text-text-muted">Not ready for a full project request? Send a quick message instead.</p>
@@ -355,8 +360,13 @@ const integrationOptions = [
           </div>
         </form>
 
-        <form id="contact-only-form" class="hidden px-6 py-8 space-y-6" novalidate>
-          <div>
+        <form id="contact-only-form" class="hidden px-6 py-8 space-y-6" novalidate>
+          <div id="contact-form-error" class="hidden rounded-md border border-red-200 bg-red-50 p-4">
+            <p class="text-sm font-semibold text-red-800">Please fix the following errors:</p>
+            <ul id="contact-form-error-list" class="mt-2 list-disc list-inside text-sm text-red-700"></ul>
+          </div>
+
+          <div>
             <label for="contactName" class="block text-sm font-medium text-text">Full name <span class="text-red-500">*</span></label>
             <input id="contactName" name="contactName" type="text" required class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring" placeholder="Your full name" />
           </div>
@@ -497,6 +507,55 @@ const integrationOptions = [
     }
   };
 
+  const showFieldErrors = (formEl, fields) => {
+    const errorContainer = document.getElementById('form-error');
+    const errorList = document.getElementById('form-error-list');
+    if (errorContainer && errorList && fields) {
+      errorList.innerHTML = '';
+      Object.entries(fields).forEach(([field, message]) => {
+        const li = document.createElement('li');
+        li.textContent = message;
+        errorList.appendChild(li);
+        const input = formEl.querySelector(`[name="${field}"]`);
+        if (input) input.classList.add('border-red-400');
+      });
+      errorContainer.classList.remove('hidden');
+    }
+  };
+
+  const clearFieldErrors = (formEl) => {
+    const errorContainer = document.getElementById('form-error');
+    const errorList = document.getElementById('form-error-list');
+    if (errorContainer) errorContainer.classList.add('hidden');
+    if (errorList) errorList.innerHTML = '';
+    formEl.querySelectorAll('.border-red-400').forEach((el) => el.classList.remove('border-red-400'));
+  };
+
+  const showContactErrors = (fields) => {
+    const errorContainer = document.getElementById('contact-form-error');
+    const errorList = document.getElementById('contact-form-error-list');
+    if (errorContainer && errorList && fields) {
+      errorList.innerHTML = '';
+      Object.entries(fields).forEach(([field, message]) => {
+        const li = document.createElement('li');
+        li.textContent = message;
+        errorList.appendChild(li);
+        const input = contactForm.querySelector(`[name="${field}"]`);
+        if (input) input.classList.add('border-red-400');
+      });
+      errorContainer.classList.remove('hidden');
+    }
+  };
+
+  const clearContactErrors = () => {
+    const errorContainer = document.getElementById('contact-form-error');
+    const errorList = document.getElementById('contact-form-error-list');
+    if (errorContainer) errorContainer.classList.add('hidden');
+    if (errorList) errorList.innerHTML = '';
+    contactForm.querySelectorAll('.border-red-400').forEach((el) => el.classList.remove('border-red-400'));
+  };
+
+
   const validateStep = (index) => {
     const step = steps[index];
     const required = step.querySelectorAll('[required]');
@@ -537,6 +596,7 @@ const integrationOptions = [
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+    clearFieldErrors(form);
     if (!validateStep(currentStep)) return;
     const consent = form.querySelector('#consent');
     const consentError = document.getElementById('consent-error');
@@ -558,6 +618,7 @@ const integrationOptions = [
       });
       const result = await response.json();
       if (!response.ok) {
+        if (result.fields) showFieldErrors(form, result.fields);
         throw new Error(result.error || 'Submission failed');
       }
       form.classList.add('hidden');
@@ -588,6 +649,7 @@ const integrationOptions = [
 
 
   sendContactBtn.addEventListener('click', async () => {
+    clearContactErrors();
     const name = contactForm.querySelector('#contactName').value.trim();
     const email = contactForm.querySelector('#contactEmail').value.trim();
     const message = contactForm.querySelector('#contactMessage').value.trim();
@@ -617,6 +679,7 @@ const integrationOptions = [
       });
       const result = await response.json();
       if (!response.ok) {
+        if (result.fields) showContactErrors(result.fields);
         throw new Error(result.error || 'Submission failed');
       }
       contactForm.classList.add('hidden');
