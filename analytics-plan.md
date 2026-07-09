@@ -3,6 +3,7 @@
 ## Why Analytics
 
 Eventnexus needs basic audience and conversion data to improve content, validate assumptions, and support future decisions. The site is a professional company website, not a marketing experiment. Analytics should:
+
 - confirm traffic comes from intended audiences
 - show which pages or sections get attention
 - measure whether visitors engage with the structured project request
@@ -35,12 +36,14 @@ Recommended primary provider: Cloudflare Web Analytics.
 ## Measured Events
 
 Initial events:
+
 - page views on public pages
 - outbound link clicks only when they are meaningful (e.g., proof examples)
 - form start event on the structured project request form
 - form completion or submission attempt from the frontend (no payload data, only a generic event)
 
 Do not measure:
+
 - contact form field contents
 - lead personal data
 - internal navigation micro-movements
@@ -64,6 +67,7 @@ Both variables are browser-safe and can live in `.env.example` as placeholders.
 ## When To Revisit This Plan
 
 Revisit the analytics setup when:
+
 - the site has measurable traffic and needs more detailed conversion funnels
 - privacy laws or client requirements change
 - the chosen provider limits free-tier data retention or granularity

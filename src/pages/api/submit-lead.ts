@@ -67,7 +67,8 @@ const MAX_LENGTHS = {
   extraNotes: 2000,
 } as const;
 
-const isAllowed = <T>(value: string, allowed: readonly T[]) => allowed.includes(value as T);
+const isAllowed = <T>(value: string, allowed: readonly T[]) =>
+  allowed.includes(value as T);
 
 const sanitizeText = (value: string) => value.replace(/<[^>]*>/g, '').trim();
 
@@ -153,7 +154,8 @@ const validateFields = (fields: FieldValues): Record<string, string> => {
     }
   } else {
     if (fields.ideaDescription.length < 80) {
-      errors.ideaDescription = 'Idea description must be at least 80 characters';
+      errors.ideaDescription =
+        'Idea description must be at least 80 characters';
     } else if (fields.ideaDescription.length > MAX_LENGTHS.ideaDescription) {
       errors.ideaDescription = `Idea description must be under ${MAX_LENGTHS.ideaDescription} characters`;
     }
@@ -194,23 +196,35 @@ const validateFields = (fields: FieldValues): Record<string, string> => {
       errors.budgetRange = 'Invalid budget range';
     }
 
-    if (fields.projectStatus && !isAllowed(fields.projectStatus, ALLOWED_PROJECT_STATUSES)) {
+    if (
+      fields.projectStatus &&
+      !isAllowed(fields.projectStatus, ALLOWED_PROJECT_STATUSES)
+    ) {
       errors.projectStatus = 'Invalid project status';
     }
 
-    if (fields.existingDomain && fields.existingDomain.length > MAX_LENGTHS.existingDomain) {
+    if (
+      fields.existingDomain &&
+      fields.existingDomain.length > MAX_LENGTHS.existingDomain
+    ) {
       errors.existingDomain = `Domain must be under ${MAX_LENGTHS.existingDomain} characters`;
     }
 
     if (fields.existingUrl && !validateUrl(fields.existingUrl)) {
       errors.existingUrl = 'Invalid URL';
-    } else if (fields.existingUrl && fields.existingUrl.length > MAX_LENGTHS.existingUrl) {
+    } else if (
+      fields.existingUrl &&
+      fields.existingUrl.length > MAX_LENGTHS.existingUrl
+    ) {
       errors.existingUrl = `URL must be under ${MAX_LENGTHS.existingUrl} characters`;
     }
 
     if (fields.existingRepo && !validateUrl(fields.existingRepo)) {
       errors.existingRepo = 'Invalid URL';
-    } else if (fields.existingRepo && fields.existingRepo.length > MAX_LENGTHS.existingRepo) {
+    } else if (
+      fields.existingRepo &&
+      fields.existingRepo.length > MAX_LENGTHS.existingRepo
+    ) {
       errors.existingRepo = `URL must be under ${MAX_LENGTHS.existingRepo} characters`;
     }
 
@@ -224,18 +238,21 @@ const validateFields = (fields: FieldValues): Record<string, string> => {
 
 export const POST: APIRoute = async ({ request }) => {
   // Check for Supabase environment variables before proceeding
-  const supabaseUrl = process.env.SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL;
+  const supabaseUrl =
+    process.env.SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL;
   const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-
-
   if (!supabaseUrl || !supabaseServiceRoleKey) {
-    return new Response(JSON.stringify({
-      error: 'Supabase is not configured for lead submissions. Please set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY environment variables.',
-    }), {
-      status: 501, // Not Implemented
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({
+        error:
+          'Supabase is not configured for lead submissions. Please set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY environment variables.',
+      }),
+      {
+        status: 501, // Not Implemented
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 
   try {
@@ -260,22 +277,36 @@ export const POST: APIRoute = async ({ request }) => {
       existingDomain: sanitizeText(String(body.get('existingDomain') || '')),
       existingUrl: sanitizeText(String(body.get('existingUrl') || '')),
       existingRepo: sanitizeText(String(body.get('existingRepo') || '')),
-      existingBrandAssets: sanitizeText(String(body.get('existingBrandAssets') || '')),
+      existingBrandAssets: sanitizeText(
+        String(body.get('existingBrandAssets') || '')
+      ),
       extraNotes: sanitizeText(String(body.get('extraFeatures') || '')),
       consent: body.get('consent') === 'on',
     };
 
-    const requiredFeatures = body.getAll('features').map((v) => sanitizeText(String(v)));
-    const technicalNeeds = body.getAll('technicalNeeds').map((v) => sanitizeText(String(v)));
-    const integrations = body.getAll('integrations').map((v) => sanitizeText(String(v)));
+    const requiredFeatures = body
+      .getAll('features')
+      .map((v) => sanitizeText(String(v)));
+    const technicalNeeds = body
+      .getAll('technicalNeeds')
+      .map((v) => sanitizeText(String(v)));
+    const integrations = body
+      .getAll('integrations')
+      .map((v) => sanitizeText(String(v)));
 
     const validationErrors = validateFields(fields);
 
     if (Object.keys(validationErrors).length > 0) {
-      return new Response(JSON.stringify({ error: 'Validation failed', fields: validationErrors }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return new Response(
+        JSON.stringify({
+          error: 'Validation failed',
+          fields: validationErrors,
+        }),
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
     }
 
     const supabase = getSupabaseServerClient();
@@ -290,7 +321,9 @@ export const POST: APIRoute = async ({ request }) => {
         region: fields.region,
         project_type: fields.projectType,
         project_title: fields.projectTitle,
-        idea_description: fields.contactMessage ? fields.contactMessage : fields.ideaDescription,
+        idea_description: fields.contactMessage
+          ? fields.contactMessage
+          : fields.ideaDescription,
         target_users: fields.targetUsers,
         problem_to_solve: fields.problemToSolve,
         desired_outcome: fields.desiredOutcome,
@@ -329,7 +362,9 @@ export const POST: APIRoute = async ({ request }) => {
         companyName: fields.companyName,
         projectType: fields.projectType,
         projectTitle: fields.projectTitle,
-        ideaDescription: fields.contactMessage ? fields.contactMessage : fields.ideaDescription,
+        ideaDescription: fields.contactMessage
+          ? fields.contactMessage
+          : fields.ideaDescription,
         timeline: fields.timeline,
         budgetRange: fields.budgetRange,
         projectStatus: fields.projectStatus,

@@ -5,7 +5,9 @@ export function getSupabaseServerClient() {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
   if (!url || !key) {
-    throw new Error('Missing Supabase environment variables: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required');
+    throw new Error(
+      'Missing Supabase environment variables: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required'
+    );
   }
 
   return createClient(url, key, {
