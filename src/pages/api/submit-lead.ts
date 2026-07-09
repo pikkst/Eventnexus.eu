@@ -46,6 +46,8 @@ const ALLOWED_PROJECT_STATUSES = [
   'urgent business need',
 ] as const;
 
+const isAllowed = <T>(value: string, allowed: readonly T[]) => allowed.includes(value as T);
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.formData();
@@ -72,7 +74,15 @@ export const POST: APIRoute = async ({ request }) => {
     const existingBrandAssets = String(body.get('existingBrandAssets') || '').trim();
     const integrations = body.getAll('integrations').map((v) => String(v));
     const extraNotes = String(body.get('extraFeatures') || '').trim();
+    const contactMessage = String(body.get('contactMessage') || '').trim();
     const consent = body.get('consent') === 'on';
+
+    if (!consent) {
+      return new Response(JSON.stringify({ error: 'Consent is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
 
     if (!fullName || !email) {
       return new Response(JSON.stringify({ error: 'Missing required fields' }), {
@@ -89,18 +99,57 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    if (ideaDescription.length < 80) {
-      return new Response(JSON.stringify({ error: 'Idea description must be at least 80 characters' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
+    const isContactOnly = contactMessage.length > 0;
 
-    if (!projectType) {
-      return new Response(JSON.stringify({ error: 'Project type is required' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+    if (isContactOnly) {
+      if (contactMessage.length < 10) {
+        return new Response(JSON.stringify({ error: 'Message must be at least 10 characters' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+    } else {
+      if (ideaDescription.length < 80) {
+        return new Response(JSON.stringify({ error: 'Idea description must be at least 80 characters' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+
+      if (!projectType) {
+        return new Response(JSON.stringify({ error: 'Project type is required' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+
+      if (!isAllowed(projectType, ALLOWED_PROJECT_TYPES)) {
+        return new Response(JSON.stringify({ error: 'Invalid project type' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+
+      if (timeline && !isAllowed(timeline, ALLOWED_TIMELINES)) {
+        return new Response(JSON.stringify({ error: 'Invalid timeline' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+
+      if (budgetRange && !isAllowed(budgetRange, ALLOWED_BUDGETS)) {
+        return new Response(JSON.stringify({ error: 'Invalid budget range' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+
+      if (projectStatus && !isAllowed(projectStatus, ALLOWED_PROJECT_STATUSES)) {
+        return new Response(JSON.stringify({ error: 'Invalid project status' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
     }
 
     const supabase = getSupabaseServerClient();
@@ -115,7 +164,7 @@ export const POST: APIRoute = async ({ request }) => {
         region,
         project_type: projectType,
         project_title: projectTitle,
-        idea_description: ideaDescription,
+        idea_description: isContactOnly ? contactMessage : ideaDescription,
         target_users: targetUsers,
         problem_to_solve: problemToSolve,
         desired_outcome: desiredOutcome,
