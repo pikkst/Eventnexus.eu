@@ -158,15 +158,33 @@ Browser exposure:
 
 - never
 
-### `ANALYTICS_PROVIDER_ID`
+### `PUBLIC_ANALYTICS_ID`
 
 Purpose:
 
-- future analytics provider identifier
+- analytics provider measurement identifier
 
 Browser exposure:
 
-- depends on provider
+- safe, treated as a public identifier
+
+Current status:
+
+- planned, Cloudflare Web Analytics recommended for v1
+
+### `PUBLIC_ANALYTICS_ENABLED`
+
+Purpose:
+
+- enable or disable analytics in specific environments
+
+Browser exposure:
+
+- safe
+
+Current status:
+
+- optional, can be omitted if analytics are always enabled
 
 ## Environment Placement
 
@@ -200,8 +218,9 @@ Optional later:
 - `LEAD_NOTIFICATION_EMAIL`
 - `TURNSTILE_SITE_KEY`
 - `TURNSTILE_SECRET_KEY`
-- `ANALYTICS_PROVIDER_ID`
+- `PUBLIC_ANALYTICS_ID`
+- `PUBLIC_ANALYTICS_ENABLED`
 
 ## Current Decision Status
 
-Environment variable names are defined for the first website, Supabase lead capture, Resend email notifications, optional spam protection, and optional analytics. Real values are not stored in git.
+Environment variable names are defined for the first website, Supabase lead capture, Resend email notifications, and optional spam protection. Real values are not stored in git.

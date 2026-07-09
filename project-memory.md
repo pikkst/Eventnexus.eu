@@ -43,6 +43,15 @@ This file stores stable context and decisions for future agents.
 - Build output directory: `dist`
 - Current state: not configured yet; wait until Astro scaffold and local build exist
 
+### Analytics
+
+- Analytics provider decision: use Cloudflare Web Analytics for v1.
+- Rationale: free, privacy-first, no cookies, integrates with Cloudflare Pages, and fits the `.eu` GDPR context.
+- Alternative providers if needed later: Plausible or Fathom.
+- Implementation rule: single script tag in `BaseLayout.astro`, async, no PII in events.
+- Environment variables: `PUBLIC_ANALYTICS_ID` and optional `PUBLIC_ANALYTICS_ENABLED`.
+- Data rules: collect only page views, referrers, countries, devices, and generic form start/submission events; never attach lead or form field data.
+
 ### Resend
 
 - Intended use: lead/contact notification emails
@@ -80,7 +89,6 @@ This file stores stable context and decisions for future agents.
 
 - Contact form backend route
 - Lead storage schema
-- Analytics provider
 
 ## Quality Bar
 
