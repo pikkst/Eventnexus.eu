@@ -56,8 +56,9 @@ This file stores stable context and decisions for future agents.
 ### Resend
 
 - Intended use: lead/contact notification emails
-- Environment variables: `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `LEAD_NOTIFICATION_EMAIL`
+- Environment variables: `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `LEAD_NOTIFICATION_EMAIL`, `RESEND_WEBHOOK_SECRET`
 - Current state: configured; `src/lib/resend/server.ts` sends notification emails after successful Supabase lead insertion; email failures are logged and do not block successful lead storage
+- Webhook endpoint: `POST /api/webhooks/resend` verifies Resend HMAC signature and logs email event type
 - Sender email: `admin@eventnexus.eu`
 - Secrets: not stored in this repository
 
