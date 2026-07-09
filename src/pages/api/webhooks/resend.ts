@@ -2,6 +2,17 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
+function timingSafeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) {
+    return false;
+  }
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+}
+
 async function verifyResendSignature(secret: string, rawBody: string, signature: string): Promise<boolean> {
   const encoder = new TextEncoder();
   const keyData = encoder.encode(secret);
@@ -11,7 +22,24 @@ async function verifyResendSignature(secret: string, rawBody: string, signature:
   const expectedSignature = Array.from(new Uint8Array(signatureBuffer))
     .map((b) => b.toString(16).padStart(2, '0'))
     .join('');
-  return signature === expectedSignature;
+  return timingSafeEqual(signature.toUpperCase(), expectedSignature.toUpperCase());
+}
+
+function isTimestampValid(timestamp: string | null): boolean {
+  if (!timestamp) {
+    return false;
+  }
+
+  const timestampMs = Number(timestamp);
+  if (!Number.isFinite(timestampMs)) {
+    return false;
+  }
+
+  const now = Date.now();
+  const normalizedTimestamp = timestampMs > 1_000_000_000_000 ? timestampMs : timestampMs * 1000;
+  const fiveMinutes = 5 * 60 * 1000;
+
+  return Math.abs(now - normalizedTimestamp) <= fiveMinutes;
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -25,11 +53,18 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const signature = request.headers.get('x-resend-signature');
-  const timestamp = request.headers.get('x-resend-signature-timestamp');
+  const timestampHeader = request.headers.get('x-resend-signature-timestamp');
   const rawBody = await request.text();
 
-  if (!signature || !timestamp) {
+  if (!signature || !timestampHeader) {
     return new Response(JSON.stringify({ error: 'Missing signature headers' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (!isTimestampValid(timestampHeader)) {
+    return new Response(JSON.stringify({ error: 'Invalid or expired timestamp' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' },
     });
@@ -55,7 +90,13 @@ export const POST: APIRoute = async ({ request }) => {
 
   const type = typeof payload.type === 'string' ? payload.type : 'unknown';
   const emailId = typeof payload.data?.email_id === 'string' ? payload.data.email_id : 'n/a';
-  const recipient = typeof payload.data?.to === 'string' ? payload.data.to : 'n/a';
+
+  let recipient = 'n/a';
+  if (Array.isArray(payload.data?.to)) {
+    recipient = payload.data.to.join(', ');
+  } else if (typeof payload.data?.to === 'string') {
+    recipient = payload.data.to;
+  }
 
   console.log(`Resend webhook event received: type=${type}, emailId=${emailId}, recipient=${recipient}`);
 

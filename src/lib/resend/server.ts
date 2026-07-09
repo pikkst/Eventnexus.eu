@@ -1,9 +1,16 @@
-import { Resend } from 'resend';
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 export function getResendClient() {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    throw new Error('Missing Resend environment variable: RESEND_API_KEY');
+    throw new Error('Missing Resend environment variable: RESEND_API_KEY is required');
   }
   return new Resend(apiKey);
 }
@@ -34,33 +41,35 @@ export async function sendLeadNotificationEmail(lead: {
 
   const resend = getResendClient();
 
-  const subject = `New project request: ${lead.projectTitle || lead.projectType}`;
+  const subject = `New project request: ${escapeHtml(lead.projectTitle || lead.projectType)}`;
+
+  const formatArr = (arr?: string[]) => (arr && arr.length > 0 ? escapeHtml(arr.join(', ')) : '');
 
   const html = `
     <h2>New project request</h2>
-    <p><strong>ID:</strong> ${lead.id}</p>
-    <p><strong>Name:</strong> ${lead.fullName}</p>
-    <p><strong>Email:</strong> ${lead.email}</p>
-    ${lead.phoneOrChannel ? `<p><strong>Phone:</strong> ${lead.phoneOrChannel}</p>` : ''}
-    ${lead.companyName ? `<p><strong>Company:</strong> ${lead.companyName}</p>` : ''}
-    <p><strong>Project type:</strong> ${lead.projectType}</p>
-    <p><strong>Project title:</strong> ${lead.projectTitle}</p>
+    <p><strong>ID:</strong> ${escapeHtml(lead.id)}</p>
+    <p><strong>Name:</strong> ${escapeHtml(lead.fullName)}</p>
+    <p><strong>Email:</strong> ${escapeHtml(lead.email)}</p>
+    ${lead.phoneOrChannel ? `<p><strong>Phone:</strong> ${escapeHtml(lead.phoneOrChannel)}</p>` : ''}
+    ${lead.companyName ? `<p><strong>Company:</strong> ${escapeHtml(lead.companyName)}</p>` : ''}
+    <p><strong>Project type:</strong> ${escapeHtml(lead.projectType)}</p>
+    <p><strong>Project title:</strong> ${escapeHtml(lead.projectTitle)}</p>
     <p><strong>Description:</strong></p>
-    <p>${lead.ideaDescription.replace(/\n/g, '<br>')}</p>
-    ${lead.timeline ? `<p><strong>Timeline:</strong> ${lead.timeline}</p>` : ''}
-    ${lead.budgetRange ? `<p><strong>Budget:</strong> ${lead.budgetRange}</p>` : ''}
-    ${lead.projectStatus ? `<p><strong>Project status:</strong> ${lead.projectStatus}</p>` : ''}
-    ${lead.requiredFeatures && lead.requiredFeatures.length > 0 ? `<p><strong>Features:</strong> ${lead.requiredFeatures.join(', ')}</p>` : ''}
-    ${lead.technicalNeeds && lead.technicalNeeds.length > 0 ? `<p><strong>Technical needs:</strong> ${lead.technicalNeeds.join(', ')}</p>` : ''}
-    ${lead.integrations && lead.integrations.length > 0 ? `<p><strong>Integrations:</strong> ${lead.integrations.join(', ')}</p>` : ''}
-    ${lead.createdAt ? `<p><strong>Submitted at:</strong> ${lead.createdAt}</p>` : ''}
+    <p>${escapeHtml(lead.ideaDescription).replace(/\n/g, '<br>')}</p>
+    ${lead.timeline ? `<p><strong>Timeline:</strong> ${escapeHtml(lead.timeline)}</p>` : ''}
+    ${lead.budgetRange ? `<p><strong>Budget:</strong> ${escapeHtml(lead.budgetRange)}</p>` : ''}
+    ${lead.projectStatus ? `<p><strong>Project status:</strong> ${escapeHtml(lead.projectStatus)}</p>` : ''}
+    ${formatArr(lead.requiredFeatures) ? `<p><strong>Features:</strong> ${formatArr(lead.requiredFeatures)}</p>` : ''}
+    ${formatArr(lead.technicalNeeds) ? `<p><strong>Technical needs:</strong> ${formatArr(lead.technicalNeeds)}</p>` : ''}
+    ${formatArr(lead.integrations) ? `<p><strong>Integrations:</strong> ${formatArr(lead.integrations)}</p>` : ''}
+    ${lead.createdAt ? `<p><strong>Submitted at:</strong> ${escapeHtml(lead.createdAt)}</p>` : ''}
   `;
 
   try {
     const result = await resend.emails.send({
       from: fromEmail,
       to: [toEmail],
-      subject,
+      subject: `New project request: ${escapeHtml(lead.projectTitle || lead.projectType)}`,
       html,
     });
 
