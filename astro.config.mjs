@@ -12,10 +12,12 @@ export default defineConfig({
       exclude: ['@astrojs/cloudflare/entrypoints'],
     },
   },
-  integrations: [tailwind({
-    configFile: './tailwind.config.mjs',
-    applyBaseStyles: false,
-  })],
+  integrations: [
+    tailwind({
+      configFile: './tailwind.config.mjs',
+      applyBaseStyles: false,
+    }),
+  ],
   site: 'https://eventnexus.eu',
   adapter: cloudflare({
     platformProxy: {

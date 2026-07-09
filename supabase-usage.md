@@ -185,6 +185,7 @@ Apply it to the production Supabase project by:
 Current table: `project_leads`
 
 Key fields:
+
 - `id`, `created_at`, `updated_at` — `updated_at` is maintained by a trigger on row modifications
 - `status`, `lead_score`
 - Contact fields: `full_name`, `email`, `phone_or_channel`, `company_name`, `region`
@@ -195,6 +196,7 @@ Key fields:
 - Notes: `extra_notes`
 
 Admin access:
+
 - Public/anonymous users can insert leads only.
 - No SELECT, UPDATE, or DELETE is allowed for roles that respect RLS.
 - Admin reads/writes are performed server-side with `SUPABASE_SERVICE_ROLE_KEY`, which bypasses RLS.

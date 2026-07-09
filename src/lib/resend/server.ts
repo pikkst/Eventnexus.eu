@@ -12,7 +12,9 @@ function escapeHtml(value: string): string {
 export function getResendClient() {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    throw new Error('Missing Resend environment variable: RESEND_API_KEY is required');
+    throw new Error(
+      'Missing Resend environment variable: RESEND_API_KEY is required'
+    );
   }
   return new Resend(apiKey);
 }
@@ -38,14 +40,17 @@ export async function sendLeadNotificationEmail(lead: {
   const toEmail = process.env.LEAD_NOTIFICATION_EMAIL;
 
   if (!fromEmail || !toEmail) {
-    throw new Error('Missing Resend environment variables: RESEND_FROM_EMAIL and LEAD_NOTIFICATION_EMAIL are required');
+    throw new Error(
+      'Missing Resend environment variables: RESEND_FROM_EMAIL and LEAD_NOTIFICATION_EMAIL are required'
+    );
   }
 
   const resend = getResendClient();
 
   const subject = `New project request: ${escapeHtml(lead.projectTitle || lead.projectType)}`;
 
-  const formatArr = (arr?: string[]) => (arr && arr.length > 0 ? escapeHtml(arr.join(', ')) : '');
+  const formatArr = (arr?: string[]) =>
+    arr && arr.length > 0 ? escapeHtml(arr.join(', ')) : '';
 
   const html = `
     <h2>New project request</h2>

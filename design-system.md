@@ -88,7 +88,14 @@ Use system fonts for the first version unless a clear brand reason appears later
 Recommended stack:
 
 ```css
-font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+font-family:
+  Inter,
+  ui-sans-serif,
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  sans-serif;
 ```
 
 Rules:
