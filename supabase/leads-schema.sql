@@ -35,12 +35,28 @@ CREATE TABLE IF NOT EXISTS public.project_leads (
 );
 
 CREATE INDEX IF NOT EXISTS idx_project_leads_status
-ON public.project_leads(status);
+ON public.project_leads USING btree (status);
 
 CREATE INDEX IF NOT EXISTS idx_project_leads_created_at
-ON public.project_leads(created_at DESC);
+ON public.project_leads USING btree (created_at DESC);
 
 ALTER TABLE public.project_leads ENABLE ROW LEVEL SECURITY;
+
+CREATE OR REPLACE FUNCTION public.update_project_leads_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER trg_update_project_leads_updated_at
+  BEFORE UPDATE ON public.project_leads
+  FOR EACH ROW
+  EXECUTE FUNCTION public.update_project_leads_updated_at();
+
+-- Admin reads/writes happen server-side with SUPABASE_SERVICE_ROLE_KEY, which bypasses RLS.
+-- Public and authenticated roles cannot read or modify leads through RLS.
 
 CREATE POLICY "project_leads_anon_insert"
 ON public.project_leads FOR INSERT

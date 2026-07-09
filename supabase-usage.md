@@ -185,7 +185,7 @@ Apply it to the production Supabase project by:
 Current table: `project_leads`
 
 Key fields:
-- `id`, `created_at`, `updated_at`
+- `id`, `created_at`, `updated_at` — `updated_at` is maintained by a trigger on row modifications
 - `status`, `lead_score`
 - Contact fields: `full_name`, `email`, `phone_or_channel`, `company_name`, `region`
 - Project fields: `project_type`, `project_title`, `idea_description`, `target_users`, `problem_to_solve`, `desired_outcome`
@@ -193,6 +193,11 @@ Key fields:
 - Qualification: `timeline`, `budget_range`, `project_status`
 - Assets: `existing_domain`, `existing_url`, `existing_repo`, `existing_brand_assets`
 - Notes: `extra_notes`
+
+Admin access:
+- Public/anonymous users can insert leads only.
+- No SELECT, UPDATE, or DELETE is allowed for roles that respect RLS.
+- Admin reads/writes are performed server-side with `SUPABASE_SERVICE_ROLE_KEY`, which bypasses RLS.
 
 A `contact_messages` table remains planned and is not part of the first migration.
 
