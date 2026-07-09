@@ -33,4 +33,4 @@ Thumbs.db
 
 # Supabase local artifacts
 .supabase/
-supabase/
+/supabase/
