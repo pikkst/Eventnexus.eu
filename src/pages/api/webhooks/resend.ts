@@ -78,15 +78,22 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  let payload: Record<string, unknown>;
-  try {
-    payload = JSON.parse(rawBody);
-  } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
+let payload: {
+  type?: string;
+  data?: {
+    email_id?: string;
+    to?: string | string[];
+  };
+};
+
+try {
+  payload = JSON.parse(rawBody);
+} catch {
+  return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
+    status: 400,
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
 
   const type = typeof payload.type === 'string' ? payload.type : 'unknown';
   const emailId = typeof payload.data?.email_id === 'string' ? payload.data.email_id : 'n/a';

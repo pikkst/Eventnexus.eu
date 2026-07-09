@@ -1,3 +1,5 @@
+import { Resend } from 'resend';
+
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, '&amp;')
