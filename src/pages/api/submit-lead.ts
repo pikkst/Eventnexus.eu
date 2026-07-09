@@ -223,6 +223,21 @@ const validateFields = (fields: FieldValues): Record<string, string> => {
 };
 
 export const POST: APIRoute = async ({ request }) => {
+  // Check for Supabase environment variables before proceeding
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL;
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+
+
+  if (!supabaseUrl || !supabaseServiceRoleKey) {
+    return new Response(JSON.stringify({
+      error: 'Supabase is not configured for lead submissions. Please set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY environment variables.',
+    }), {
+      status: 501, // Not Implemented
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   try {
     const body = await request.formData();
 
