@@ -91,7 +91,7 @@ This file stores stable context and decisions for future agents.
 
 ## Open Decisions
 
-- Add lead capture table and RLS policies in Supabase dashboard.
+- `project_leads` schema and RLS policies are defined in `supabase/leads-schema.sql`; pending application to the Supabase dashboard.
 
 ## Quality Bar
 

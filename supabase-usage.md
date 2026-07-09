@@ -170,6 +170,34 @@ Do not create production tables until:
 - security policy is reviewed
 - environment variable strategy is documented
 
+## Schema
+
+The lead-capture table is defined in `supabase/leads-schema.sql`.
+
+Apply it to the production Supabase project by:
+
+1. Opening the Supabase dashboard for project `yzsoczlghgcqitevamfo`.
+2. Going to **SQL Editor**.
+3. Pasting the contents of `supabase/leads-schema.sql`.
+4. Running the query.
+5. Verifying that RLS is enabled on `public.project_leads` and the admin UI reflects the policy restrictions.
+
+Current table: `project_leads`
+
+Key fields:
+- `id`, `created_at`, `updated_at`
+- `status`, `lead_score`
+- Contact fields: `full_name`, `email`, `phone_or_channel`, `company_name`, `region`
+- Project fields: `project_type`, `project_title`, `idea_description`, `target_users`, `problem_to_solve`, `desired_outcome`
+- Arrays: `required_features`, `technical_needs`, `integrations`
+- Qualification: `timeline`, `budget_range`, `project_status`
+- Assets: `existing_domain`, `existing_url`, `existing_repo`, `existing_brand_assets`
+- Notes: `extra_notes`
+
+A `contact_messages` table remains planned and is not part of the first migration.
+
 ## Current Decision Status
 
 Supabase will be used first for structured project leads, simple contact messages, and later admin review data. Customer portal features remain future scope.
+
+The `project_leads` table schema and RLS policies are defined in `supabase/leads-schema.sql` and are ready to be applied to the Supabase dashboard.
