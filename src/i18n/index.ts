@@ -11,8 +11,27 @@ export function getLanguageFromPath(pathname: string): Language {
   return defaultLanguage;
 }
 
+function deepMerge(target: any, source: any): any {
+  const result = { ...target };
+  for (const key in source) {
+    if (
+      source[key] &&
+      typeof source[key] === 'object' &&
+      !Array.isArray(source[key])
+    ) {
+      result[key] = deepMerge(target[key] || {}, source[key]);
+    } else {
+      result[key] =
+        target[key] !== undefined ? target[key] : source[key];
+    }
+  }
+  return result;
+}
+
 export function getTranslations(language: Language): TranslationKeys {
-  return translations[language] || translations[defaultLanguage];
+  const source = translations[language] || translations[defaultLanguage];
+  const defaults = translations[defaultLanguage];
+  return deepMerge(source, defaults);
 }
 
 export function getAvailableLanguages() {

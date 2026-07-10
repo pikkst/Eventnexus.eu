@@ -11,155 +11,7 @@ export const getStaticPaths = () => {
 const locale = Astro.params.locale || 'en';
 const t = getTranslations(locale);
 
-const services = [
-  {
-    title: 'Idea Discovery And Project Structuring',
-    description:
-      'Turn early ideas into clear project requirements. Useful when the client knows what they want to achieve but does not yet know exactly what should be built.',
-    includes: [
-      'idea review',
-      'target user definition',
-      'feature mapping',
-      'user-flow planning',
-      'MVP scope',
-      'technical direction',
-      'project priorities',
-      'delivery phases',
-    ],
-    bestFor:
-      'Clients who have an idea, process, or business need but need help turning it into a buildable plan.',
-  },
-  {
-    title: 'Company Websites And Landing Pages',
-    description:
-      'Professional websites for companies, products, services, and campaigns. These pages should explain the offer clearly, build trust, and guide visitors toward action.',
-    includes: [
-      'company website structure',
-      'homepage and service pages',
-      'landing pages',
-      'conversion-focused copy structure',
-      'responsive UI',
-      'contact or project request flows',
-      'deployment-ready frontend',
-    ],
-    bestFor:
-      'Businesses that need a credible online presence, a clear service offer, or a stronger lead-generation page.',
-  },
-  {
-    title: 'SaaS-Style Platforms And Web Applications',
-    description:
-      'Custom web platforms for business ideas, customer services, internal workflows, dashboards, and online products.',
-    includes: [
-      'user-facing application interfaces',
-      'dashboards',
-      'customer portals',
-      'booking or request systems',
-      'admin panels',
-      'role-based access',
-      'data workflows',
-      'scalable feature planning',
-    ],
-    bestFor:
-      'Founders, individuals, service businesses, and companies that want to launch or digitize a platform-based idea.',
-  },
-  {
-    title: 'Frontend Development',
-    description:
-      'Frontend work covers the visible part of the product: layouts, pages, components, flows, forms, dashboards, and responsive user experience.',
-    includes: [
-      'responsive web interfaces',
-      'component-based UI',
-      'forms and multi-step flows',
-      'dashboards and tables',
-      'product pages',
-      'frontend state and interaction logic',
-      'accessibility basics',
-    ],
-    bestFor:
-      'Projects that need a clean, usable, professional interface for real users.',
-  },
-  {
-    title: 'Backend Development',
-    description:
-      'Backend work powers the product behind the interface. It handles data, users, business logic, server-side validation, integrations, and internal systems.',
-    includes: [
-      'database planning',
-      'API and server-side logic',
-      'authentication and user accounts',
-      'roles and permissions',
-      'admin functionality',
-      'lead and form handling',
-      'business rules',
-      'secure environment configuration',
-    ],
-    bestFor:
-      'Platforms that need more than static pages: accounts, saved data, dashboards, admin workflows, or custom logic.',
-  },
-  {
-    title: 'Payments And Checkout',
-    description:
-      'Eventnexus can add payment flows when the product needs to sell services, subscriptions, bookings, digital access, or platform features.',
-    includes: [
-      'payment-provider integration',
-      'checkout flow planning',
-      'subscription or one-time payment logic',
-      'payment success and failure states',
-      'customer access rules after payment',
-      'basic payment data flow planning',
-    ],
-    bestFor:
-      'SaaS products, paid service platforms, booking systems, membership products, and digital service businesses.',
-  },
-  {
-    title: 'Integrations And Automations',
-    description:
-      'Many useful platforms need to connect with other services. Eventnexus can plan and build integrations that reduce manual work and connect business processes.',
-    includes: [
-      'third-party API integrations',
-      'CRM or lead workflows',
-      'email notifications',
-      'data sync concepts',
-      'internal automation flows',
-      'admin alerts',
-      'AI-assisted workflow support where useful',
-    ],
-    bestFor:
-      'Businesses that want to automate repetitive tasks, connect tools, or make a digital product part of a larger operating process.',
-  },
-  {
-    title: 'AI-Assisted Product And Workflow Development',
-    description:
-      'Eventnexus uses modern AI tools to increase speed, structure, and capability during planning and development. AI can also become part of the final product when it creates real value.',
-    includes: [
-      'AI-assisted planning',
-      'faster prototyping',
-      'content and workflow support',
-      'AI-assisted admin tools',
-      'data interpretation concepts',
-      'automation ideas',
-      'product features that use AI where appropriate',
-    ],
-    bestFor:
-      'Clients who want modern, faster development and practical AI features without vague hype or unnecessary complexity.',
-  },
-  {
-    title: 'Deployment, Launch, And Maintenance',
-    description:
-      'A product is not finished when the code exists. It needs to be deployed, connected to the right domain, checked, and improved after real use begins.',
-    includes: [
-      'production deployment',
-      'domain setup planning',
-      'hosting configuration',
-      'environment variables',
-      'launch checks',
-      'bug fixes',
-      'iteration planning',
-      'future feature development',
-    ],
-    bestFor:
-      'Clients who want the product launched and maintained instead of receiving unfinished technical files.',
-  },
-];
+const services = t.services.serviceCards;
 
 const projectTypes = [
   'SaaS platforms',
@@ -231,7 +83,7 @@ const projectTypes = [
             </p>
             <div class="mt-4">
               <p class="text-sm font-semibold uppercase tracking-widest text-slate-500">
-                Includes
+                {t.ui.includes}
               </p>
               <ul class="mt-2 space-y-1">
                 {service.includes.map((item, idx) => (
@@ -243,7 +95,7 @@ const projectTypes = [
             </div>
             <div class="mt-4 border-t border-border pt-4">
               <p class="text-sm font-semibold uppercase tracking-widest text-slate-500">
-                Best For
+                {t.ui.bestFor}
               </p>
               <p class="mt-2 text-sm leading-relaxed text-text-muted">
                 {service.bestFor}

@@ -275,6 +275,15 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Message must be at least 10 characters.',
       somethingWrong: 'Something went wrong. Please try again.',
       submissionFailed: 'Submission failed',
+      contactMinLength: 'Please fill in your name, a valid email, and a message.',
+      contactRequired: 'Please fill in your name, a valid email, and a message.',
+    },
+    ui: {
+      includes: 'Includes',
+      bestFor: 'Best For',
+      viewAllWork: 'View all work',
+      portfolioCandidates: 'Portfolio candidates',
+      whatThisMeans: 'What this means',
     },
     home: {
       hero: {
@@ -299,6 +308,48 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'From idea to turnkey solution.',
         description:
           'Eventnexus helps shape, build, and launch web-based products starting from a rough idea or clearer technical plan.',
+        cards: [
+          {
+            title: 'Idea Structuring',
+            description:
+              'Turn an early idea into a clear, buildable project plan with features and priorities.',
+          },
+          {
+            title: 'Websites',
+            description:
+              'Professional company and landing pages that explain the offer clearly and convert visitors.',
+          },
+          {
+            title: 'Platforms',
+            description:
+              'SaaS-style apps, customer portals, dashboards, and internal tools.',
+          },
+          {
+            title: 'Frontend',
+            description:
+              'Clean, usable interfaces with responsive layout, forms, and product flows.',
+          },
+          {
+            title: 'Backend',
+            description:
+              'Data, accounts, admin logic, APIs, and business rules behind the product.',
+          },
+          {
+            title: 'Payments',
+            description:
+              'Checkout, payment flows, subscriptions, and paid access logic.',
+          },
+          {
+            title: 'AI Workflows',
+            description:
+              'Use AI to accelerate planning, development, and useful product features where they genuinely help.',
+          },
+          {
+            title: 'Launch',
+            description:
+              'Deploy, connect domains, verify production, and support future improvements.',
+          },
+        ],
       },
       process: {
         eyebrow: 'Process',
@@ -309,6 +360,29 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Built on real product and AI workflow experience.',
         description:
           'Eventnexus is shaped by hands-on experience with TypeScript-based web platforms, AI-assisted tools, automation concepts, data products, and service-platform experiments.',
+        items: [
+          {
+            title: 'Rootwise',
+            description:
+              'Eventnexus is shaped by hands-on experience with TypeScript-based web platforms, AI-assisted tools, automation concepts, data products, and service-platform experiments.',
+            category: 'Web Platform',
+            href: 'https://rootwise.site',
+          },
+          {
+            title: 'LeadScout Pro AI',
+            description:
+              'AI-assisted lead generation and business-development tooling.',
+            category: 'AI Tool',
+            href: 'https://github.com/pikkst/LeadScout-Pro-AI',
+          },
+          {
+            title: 'AetherForecast AI',
+            description:
+              'Data-focused AI experimentation with dashboards, forecasting, and decision tools.',
+            category: 'Data AI',
+            href: 'https://github.com/pikkst/AetherForecast-AI',
+          },
+        ],
       },
       intakeCta: {
         heading: 'Have an idea for a platform, portal, tool, or website?',
@@ -327,13 +401,162 @@ export const translations: Record<Language, TranslationKeys> = {
         primaryCta: 'Start a project request',
         secondaryCta: 'See delivery process',
       },
-      promise: {
-        eyebrow: 'Services',
-        headline: 'One partner for the full build.',
-        description:
-          'Many digital projects become difficult because the work is split across too many disconnected parts. Eventnexus brings those pieces into one structured service. The goal is to reduce confusion for the client and create a clear route from idea to working solution.',
-      },
-      turnkey: {
+       promise: {
+         eyebrow: 'Services',
+         headline: 'One partner for the full build.',
+         description:
+           'Many digital projects become difficult because the work is split across too many disconnected parts. Eventnexus brings those pieces into one structured service. The goal is to reduce confusion for the client and create a clear route from idea to working solution.',
+       },
+       serviceCards: [
+         {
+           title: 'Idea Discovery And Project Structuring',
+           description:
+             'Turn early ideas into clear project requirements. Useful when the client knows what they want to achieve but does not yet know exactly what should be built.',
+           includes: [
+             'idea review',
+             'target user definition',
+             'feature mapping',
+             'user-flow planning',
+             'MVP scope',
+             'technical direction',
+             'project priorities',
+             'delivery phases',
+           ],
+           bestFor:
+             'Clients who have an idea, process, or business need but need help turning it into a buildable plan.',
+         },
+         {
+           title: 'Company Websites And Landing Pages',
+           description:
+             'Professional websites for companies, products, services, and campaigns. These pages should explain the offer clearly, build trust, and guide visitors toward action.',
+           includes: [
+             'company website structure',
+             'homepage and service pages',
+             'landing pages',
+             'conversion-focused copy structure',
+             'responsive UI',
+             'contact or project request flows',
+             'deployment-ready frontend',
+           ],
+           bestFor:
+             'Businesses that need a credible online presence, a clear service offer, or a stronger lead-generation page.',
+         },
+         {
+           title: 'SaaS-Style Platforms And Web Applications',
+           description:
+             'Custom web platforms for business ideas, customer services, internal workflows, dashboards, and online products.',
+           includes: [
+             'user-facing application interfaces',
+             'dashboards',
+             'customer portals',
+             'booking or request systems',
+             'admin panels',
+             'role-based access',
+             'data workflows',
+             'scalable feature planning',
+           ],
+           bestFor:
+             'Founders, individuals, service businesses, and companies that want to launch or digitize a platform-based idea.',
+         },
+         {
+           title: 'Frontend Development',
+           description:
+             'Frontend work covers the visible part of the product: layouts, pages, components, flows, forms, dashboards, and responsive user experience.',
+           includes: [
+             'responsive web interfaces',
+             'component-based UI',
+             'forms and multi-step flows',
+             'dashboards and tables',
+             'product pages',
+             'frontend state and interaction logic',
+             'accessibility basics',
+           ],
+           bestFor:
+             'Projects that need a clean, usable, professional interface for real users.',
+         },
+         {
+           title: 'Backend Development',
+           description:
+             'Backend work powers the product behind the interface. It handles data, users, business logic, server-side validation, integrations, and internal systems.',
+           includes: [
+             'database planning',
+             'API and server-side logic',
+             'authentication and user accounts',
+             'roles and permissions',
+             'admin functionality',
+             'lead and form handling',
+             'business rules',
+             'secure environment configuration',
+           ],
+           bestFor:
+             'Platforms that need more than static pages: accounts, saved data, dashboards, admin workflows, or custom logic.',
+         },
+         {
+           title: 'Payments And Checkout',
+           description:
+             'Eventnexus can add payment flows when the product needs to sell services, subscriptions, bookings, digital access, or platform features.',
+           includes: [
+             'payment-provider integration',
+             'checkout flow planning',
+             'subscription or one-time payment logic',
+             'payment success and failure states',
+             'customer access rules after payment',
+             'basic payment data flow planning',
+           ],
+           bestFor:
+             'SaaS products, paid service platforms, booking systems, membership products, and digital service businesses.',
+         },
+         {
+           title: 'Integrations And Automations',
+           description:
+             'Many useful platforms need to connect with other services. Eventnexus can plan and build integrations that reduce manual work and connect business processes.',
+           includes: [
+             'third-party API integrations',
+             'CRM or lead workflows',
+             'email notifications',
+             'data sync concepts',
+             'internal automation flows',
+             'admin alerts',
+             'AI-assisted workflow support where useful',
+           ],
+           bestFor:
+             'Businesses that want to automate repetitive tasks, connect tools, or make a digital product part of a larger operating process.',
+         },
+         {
+           title: 'AI-Assisted Product And Workflow Development',
+           description:
+             'Eventnexus uses modern AI tools to increase speed, structure, and capability during planning and development. AI can also become part of the final product when it creates real value.',
+           includes: [
+             'AI-assisted planning',
+             'faster prototyping',
+             'content and workflow support',
+             'AI-assisted admin tools',
+             'data interpretation concepts',
+             'automation ideas',
+             'product features that use AI where appropriate',
+           ],
+           bestFor:
+             'Clients who want modern, faster development and practical AI features without vague hype or unnecessary complexity.',
+         },
+         {
+           title: 'Deployment, Launch, And Maintenance',
+           description:
+             'A product is not finished when the code exists. It needs to be deployed, connected to the right domain, checked, and improved after real use begins.',
+           includes: [
+             'production deployment',
+             'domain setup planning',
+             'hosting configuration',
+             'environment variables',
+             'launch checks',
+             'bug fixes',
+             'iteration planning',
+             'future feature development',
+           ],
+           bestFor:
+             'Clients who want the product launched and maintained instead of receiving unfinished technical files.',
+         },
+       ],
+       turnkey: {
         eyebrow: 'Delivery Model',
         headline: 'What "turnkey" means at Eventnexus.',
         description1:
@@ -367,6 +590,82 @@ export const translations: Record<Language, TranslationKeys> = {
           'The following portfolio candidates demonstrate the kinds of products and workflows Eventnexus can help build.',
       },
       categoriesTitle: 'Portfolio candidates',
+      categories: [
+        {
+          title: 'Web Platforms And SaaS-Style Products',
+          items: [
+            {
+              title: 'Rootwise',
+              description:
+                'TypeScript-based web-platform product demonstrating modern frontend architecture and product-oriented thinking.',
+              category: 'Web Platform',
+              href: 'https://rootwise.site',
+            },
+          ],
+        },
+        {
+          title: 'AI-Assisted Business Tools',
+          items: [
+            {
+              title: 'LeadScout Pro AI',
+              description:
+                'AI-assisted lead generation and business-development tooling.',
+              category: 'AI Tool',
+              href: 'https://github.com/pikkst/LeadScout-Pro-AI',
+            },
+            {
+              title: 'OmniAgent',
+              description:
+                'AI marketing workflow tooling supporting automation, campaign workflows, and business-process acceleration.',
+              category: 'AI Tool',
+              href: 'https://github.com/pikkst/OmniAgent',
+            },
+          ],
+        },
+        {
+          title: 'Data And Dashboard Experiments',
+          items: [
+            {
+              title: 'AetherForecast AI',
+              description:
+                'Data-focused AI product experimentation with dashboards, forecasting, and AI-enhanced decision tools.',
+              category: 'Data AI',
+              href: 'https://github.com/pikkst/AetherForecast-AI',
+            },
+          ],
+        },
+        {
+          title: 'Media And Content Workflow Tools',
+          items: [
+            {
+              title: 'Studio',
+              description:
+                'AI media or studio workflow tooling for custom creative tools, content workflows, and AI-assisted interfaces.',
+              category: 'Media Tool',
+              href: 'https://github.com/pikkst/Studio',
+            },
+          ],
+        },
+        {
+          title: 'Earlier Platform Concepts',
+          items: [
+            {
+              title: 'EventNexus',
+              description:
+                'Earlier EventNexus product work supporting the company story.',
+              category: 'Platform Concept',
+              href: 'https://github.com/pikkst/EventNexus',
+            },
+            {
+              title: 'EventNexus Live Map',
+              description:
+                'Location or map-based EventNexus product exploration with event, map, and mobile-adjacent platform experience.',
+              category: 'Map Platform',
+              href: 'https://github.com/pikkst/EventNexus_Live_Map',
+            },
+          ],
+        },
+      ],
       nextSectionTitle: 'What this means for your project',
       nextSectionDescription1:
         'These projects reflect real exploration of web platforms, AI-assisted business tools, data products, marketing automation, and event-related concepts. They inform how Eventnexus approaches planning, architecture, and delivery.',

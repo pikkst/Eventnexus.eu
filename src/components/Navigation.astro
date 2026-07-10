@@ -1,13 +1,15 @@
 ---
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import { getTranslations } from '../i18n';
 
 const { locale = 'en' } = Astro.props;
+const t = getTranslations(locale);
 
 const navItems = [
-  { label: 'Services', href: `/${locale}/services` },
-  { label: 'Process', href: `/${locale}/#process` },
-  { label: 'Work', href: `/${locale}/work` },
-  { label: 'Start a Project', href: `/${locale}/contact` },
+  { label: t.nav.services, href: `/${locale}/services` },
+  { label: t.nav.process, href: `/${locale}/#process` },
+  { label: t.nav.work, href: `/${locale}/work` },
+  { label: t.nav.startProject, href: `/${locale}/contact` },
 ];
 ---
 

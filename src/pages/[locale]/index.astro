@@ -11,48 +11,7 @@ export const getStaticPaths = () => {
 const locale = Astro.params.locale || 'en';
 const t = getTranslations(locale);
 
-const services = [
-  {
-    title: 'Idea Structuring',
-    description:
-      'Turn an early idea into a clear, buildable project plan with features and priorities.',
-  },
-  {
-    title: 'Websites',
-    description:
-      'Professional company and landing pages that explain the offer clearly and convert visitors.',
-  },
-  {
-    title: 'Platforms',
-    description:
-      'SaaS-style apps, customer portals, dashboards, and internal tools.',
-  },
-  {
-    title: 'Frontend',
-    description:
-      'Clean, usable interfaces with responsive layout, forms, and product flows.',
-  },
-  {
-    title: 'Backend',
-    description:
-      'Data, accounts, admin logic, APIs, and business rules behind the product.',
-  },
-  {
-    title: 'Payments',
-    description:
-      'Checkout, payment flows, subscriptions, and paid access logic.',
-  },
-  {
-    title: 'AI Workflows',
-    description:
-      'Use AI to accelerate planning, development, and useful product features where they genuinely help.',
-  },
-  {
-    title: 'Launch',
-    description:
-      'Deploy, connect domains, verify production, and support future improvements.',
-  },
-];
+const services = t.home.services.cards;
 
 const processSteps = [
   {
@@ -179,116 +138,51 @@ const processSteps = [
     title={t.home.proof.headline}
   >
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <div
-        class="rounded-lg border border-border bg-surface-muted p-6 shadow-sm"
-      >
-        <span
-          class="text-xs font-semibold uppercase tracking-widest text-primary"
-          >Web Platform</span
-        >
-        <h3 class="mt-3 text-lg font-semibold text-text">Rootwise</h3>
-        <p class="mt-2 text-sm leading-relaxed text-text-muted">
-          {t.home.proof.description}
-        </p>
-        <a
-          href="https://rootwise.site"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mt-4 inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-primary-light"
-        >
-          Visit rootwise.site
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="ml-1 h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
+      {
+        t.home.proof.items.map((item) => (
+          <div
+            class="rounded-lg border border-border bg-surface-muted p-6 shadow-sm"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-            ></path>
-          </svg>
-        </a>
-      </div>
-      <div
-        class="rounded-lg border border-border bg-surface-muted p-6 shadow-sm"
-      >
-        <span
-          class="text-xs font-semibold uppercase tracking-widest text-primary"
-          >AI Tool</span
-        >
-        <h3 class="mt-3 text-lg font-semibold text-text">LeadScout Pro AI</h3>
-        <p class="mt-2 text-sm leading-relaxed text-text-muted">
-          AI-assisted lead generation and business-development tooling.
-        </p>
-        <a
-          href="https://github.com/pikkst/LeadScout-Pro-AI"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mt-4 inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-primary-light"
-        >
-          View on GitHub
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="ml-1 h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-            ></path>
-          </svg>
-        </a>
-      </div>
-      <div
-        class="rounded-lg border border-border bg-surface-muted p-6 shadow-sm"
-      >
-        <span
-          class="text-xs font-semibold uppercase tracking-widest text-primary"
-          >Data AI</span
-        >
-        <h3 class="mt-3 text-lg font-semibold text-text">AetherForecast AI</h3>
-        <p class="mt-2 text-sm leading-relaxed text-text-muted">
-          Data-focused AI experimentation with dashboards, forecasting, and
-          decision tools.
-        </p>
-        <a
-          href="https://github.com/pikkst/AetherForecast-AI"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="mt-4 inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-primary-light"
-        >
-          View on GitHub
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="ml-1 h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-            ></path>
-          </svg>
-        </a>
-      </div>
+            <span
+              class="text-xs font-semibold uppercase tracking-widest text-primary"
+              >{item.category}</span
+            >
+            <h3 class="mt-3 text-lg font-semibold text-text">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-text-muted">
+              {item.description}
+            </p>
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-4 inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-primary-light"
+            >
+              {item.href.includes('github') ? 'View on GitHub' : 'Visit site'}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="ml-1 h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        ))
+      }
     </div>
     <div class="mt-4">
       <a
         href={`/${locale}/work`}
         class="inline-flex h-12 items-center justify-center rounded-md border border-border bg-surface px-8 text-base font-semibold text-text shadow-sm transition-colors hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
       >
-        View all work
+        {t.ui.viewAllWork}
       </a>
     </div>
   </Section>

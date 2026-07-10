@@ -944,27 +944,27 @@ const translationsJson = JSON.stringify(t);
   const totalSteps = steps.length;
 
   const reviewLabels = {
-    fullName: 'Full name',
-    email: 'Email',
-    phone: 'Phone',
-    company: 'Company',
-    region: 'Region',
-    projectType: 'Project type',
-    title: 'Title',
-    idea: 'Idea',
-    targetUsers: 'Target users',
-    problem: 'Problem',
-    outcome: 'Outcome',
-    features: 'Features',
-    technicalNeeds: 'Technical needs',
-    timeline: 'Timeline',
-    budget: 'Budget',
-    projectStatus: 'Project status',
-    domain: 'Domain',
-    url: 'URL',
-    repo: 'Repo',
-    brandAssets: 'Brand assets',
-    integrations: 'Integrations',
+    fullName: t.contact.review.fullName,
+    email: t.contact.review.email,
+    phone: t.contact.review.phone,
+    company: t.contact.review.company,
+    region: t.contact.review.region,
+    projectType: t.contact.review.projectType,
+    title: t.contact.review.title,
+    idea: t.contact.review.idea,
+    targetUsers: t.contact.review.targetUsers,
+    problem: t.contact.review.problem,
+    outcome: t.contact.review.outcome,
+    features: t.contact.review.features,
+    technicalNeeds: t.contact.review.technicalNeeds,
+    timeline: t.contact.review.timeline,
+    budget: t.contact.review.budget,
+    projectStatus: t.contact.review.projectStatus,
+    domain: t.contact.review.domain,
+    url: t.contact.review.url,
+    repo: t.contact.review.repo,
+    brandAssets: t.contact.review.brandAssets,
+    integrations: t.contact.review.integrations,
   };
 
   const stepTextTemplate = (step, total) => `Step ${step} of ${total}`;
@@ -1281,9 +1281,9 @@ const translationsJson = JSON.stringify(t);
         if (contactEmailError) contactEmailError.classList.remove('hidden');
       }
       if (message && message.length < 10) {
-        alert('Message must be at least 10 characters.');
+        alert(t.common.messageMinLength);
       } else if (!message) {
-        alert('Please fill in your name, a valid email, and a message.');
+        alert(t.common.contactRequired);
       }
       return;
     }
