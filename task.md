@@ -86,8 +86,8 @@ This document tracks the project from a near-zero starting point into a deployab
 
 - [x] Add linting and formatting.
 - [x] Add smoke tests for critical pages.
-- [ ] Add accessibility checks.
-- [ ] Add content review checklist.
+- [x] Add accessibility checks.
+- [x] Add content review checklist.
 - [ ] Add release checklist.
 - [ ] Keep `project-memory.md` updated with decisions.
 
