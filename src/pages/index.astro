@@ -1,7 +1,7 @@
 ---
-import { getLanguageFromPath } from '../i18n';
+import HomePage from '../components/HomePage.astro';
 
-const language = getLanguageFromPath(Astro.url.pathname);
-
-Astro.redirect(`/${language}/`);
+const language = 'en';
 ---
+
+<HomePage locale={language} />
