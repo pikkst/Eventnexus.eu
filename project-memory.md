@@ -53,6 +53,13 @@ This file stores stable context and decisions for future agents.
 - Environment variables: `PUBLIC_ANALYTICS_ID` and optional `PUBLIC_ANALYTICS_ENABLED`.
 - Data rules: collect only page views, referrers, countries, devices, and generic form start/submission events; never attach lead or form field data.
 
+### SEO And Crawlers
+
+- Primary domain: `https://eventnexus.eu`
+- Sitemap: `public/sitemap.txt` contains plain-text URLs for all canonical locale pages.
+- robots.txt: `public/robots.txt` allows all standard and AI search crawlers; disallows `/api/` and webhook paths.
+- Files are static and copied as-is by Astro; no build step needed.
+
 ### Resend
 
 - Intended use: lead/contact notification emails
@@ -90,7 +97,7 @@ This file stores stable context and decisions for future agents.
 - Tailwind configuration must live at repo root as `tailwind.config.mjs` with `content` paths and project token colors.
 - `@astrojs/tailwind` integration must use explicit `configFile: './tailwind.config.mjs'` and `applyBaseStyles: false`; `@tailwind` directives belong in `src/styles/global.css`, which is imported by `BaseLayout.astro`.
 - Do not place duplicate `@tailwind` directives in both `global.css` and inline `<style is:global>` blocks; that breaks PostCSS processing.
-- Internationalization decision: support English (en), Russian (ru), German (de), Finnish (fi), and Estonian (et) for all public-facing content, form fields, buttons, and navigation labels. Translation files live in `src/i18n/translations.ts`. Language switcher is available in the site header. Default language is English.
+- Internationalization decision: support English (en), Russian (ru), German (de), Finnish (fi), and Estonian (et) for all public-facing content, form fields, buttons, and navigation labels. Translation data lives in `src/i18n/translations.ts` as a `Record<Language, TranslationKeys>`; `src/i18n/index.ts` exports `getTranslations(locale)`, `languages`, and `defaultLanguage`. Language switcher component is `src/components/LanguageSwitcher.astro`. Locale-aware routing uses dynamic `src/pages/[locale]/` pages with a root `src/pages/index.astro` redirect based on detected language. Default language is English. Non-English locales currently fall back to English via `deepMerge` for missing keys.
 
 ## Open Decisions
 

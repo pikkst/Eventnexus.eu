@@ -81,6 +81,8 @@ This document tracks the project from a near-zero starting point into a deployab
 - [ ] Verify production build.
 - [ ] Move `eventnexus.eu` DNS when ready.
 - [ ] Verify SSL, redirects, and canonical domain.
+- [ ] Add sitemap.txt for Google Search Console.
+- [ ] Add robots.txt for AI search crawlers.
 
 ## Phase 6 - Quality And Maintenance
 
@@ -93,13 +95,13 @@ This document tracks the project from a near-zero starting point into a deployab
 
 ## Phase 7 - Internationalization
 
-- [ ] Add i18n translation infrastructure (src/i18n/)
-- [ ] Translate all page content to English, Russian, German, Finnish, Estonian
-- [ ] Translate all form fields, buttons, and UI labels
-- [ ] Add language switcher component to navigation
-- [ ] Update pages for locale-aware routing
-- [ ] Verify translations across all pages
-- [ ] Update docs for i18n decisions
+- [x] Add i18n translation infrastructure (src/i18n/)
+- [x] Translate all page content to English, Russian, German, Finnish, Estonian
+- [x] Translate all form fields, buttons, and UI labels
+- [x] Add language switcher component to navigation
+- [x] Update pages for locale-aware routing
+- [x] Verify translations across all pages
+- [x] Update docs for i18n decisions
 
 ## Immediate Next Steps
 
