@@ -2,6 +2,18 @@
 
 This document tracks the project from a near-zero starting point into a deployable company website and future service platform.
 
+## Task Writing Standard
+
+All tasks in this document should be written as specific, outcome-focused tickets rather than broad activity notes. Every task should include:
+
+- Description
+- User Story
+- Acceptance Criteria
+- Definition of Done
+- EST, RT, and QA fields
+
+This structure should be used for every new task going forward so that each item is clear, testable, and implementation-ready.
+
 ## Phase 0 - Foundation
 
 - [x] Capture initial project context in `info.txt`.
@@ -75,14 +87,44 @@ This document tracks the project from a near-zero starting point into a deployab
 
 ## Phase 4A - Admin Operations Foundation
 
+### Description
+
+## User Story
+
+> As an admin user, I want a secure internal workspace where I can review projects, track progress, and communicate with clients so that I can manage delivery professionally.
+
+## Acceptance Criteria
+
+- A protected admin area exists with secure sign-in.
+- Admin users can view a project board with project status.
+- Admin users can open a project detail view with core project information.
+- Admin users can update the project lifecycle status.
+- Admin users can send and receive internal client communication messages.
+- The system supports future client and freelancer expansion without redesigning the core workflow.
+
+## Definition of Done
+
+- Admin workspace scope documented.
+- Authentication and role model defined.
+- Project lifecycle states defined.
+- Initial client communication flow defined.
+- Future freelancer marketplace safeguards documented.
+- Technical approach documented for implementation.
+- Implementation plan and PR scope prepared.
+
+**EST:** 8 SP
+
+**RT:**
+**QA:**
+
 - [ ] Task ID: ADM-001
 - [ ] Create the admin dashboard planning branch: `feat/admin-dashboard-planning`
-- [ ] Define the MVP admin workspace scope: secure login, protected admin area, project board, project detail view, and internal status workflow
-- [ ] Define the initial role model for admin users and future client users
-- [ ] Define the project lifecycle states and internal handoff model for project tracking
-- [ ] Define the first client communication flow: project updates, direct messages, and admin response workflow
-- [ ] Define the future freelancer marketplace concept and the safeguards needed for client-freelancer trust, milestone payments, and delivery confirmation
-- [ ] Document the initial technical architecture for admin auth, project data model, and secure messaging
+- [ ] Document the secure admin authentication approach and protected admin routes
+- [ ] Define the initial project board layout and project detail view for internal use
+- [ ] Define the core project lifecycle states and status transition rules
+- [ ] Define the first client communication flow for project updates and direct messages
+- [ ] Document the future freelancer marketplace safeguards, milestone structure, and payment-release logic
+- [ ] Document the technical approach for admin auth, project data model, and secure messaging
 - [ ] Prepare the implementation plan and PR scope for the first admin-dashboard milestone
 
 ## Phase 5 - Deployment
