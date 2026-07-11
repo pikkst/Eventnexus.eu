@@ -87,45 +87,244 @@ This structure should be used for every new task going forward so that each item
 
 ## Phase 4A - Admin Operations Foundation
 
-### Description
+### ADM-002: Create admin auth tables and Supabase Auth configuration
+
+### Task Description
+
+Set up the database tables and Supabase Auth settings required for admin authentication before any admin routes or UI are built.
 
 ## User Story
 
-> As an admin user, I want a secure internal workspace where I can review projects, track progress, and communicate with clients so that I can manage delivery professionally.
+> As an admin user, I want to sign in with a secure account so that only authorized team members can access the admin workspace.
 
 ## Acceptance Criteria
 
-- A protected admin area exists with secure sign-in.
-- Admin users can view a project board with project status.
-- Admin users can open a project detail view with core project information.
-- Admin users can update the project lifecycle status.
-- Admin users can send and receive internal client communication messages.
-- The system supports future client and freelancer expansion without redesigning the core workflow.
+- Supabase Auth email/password and magic link are enabled for the Eventnexus project.
+- A `profiles` table exists with auth user ID and role column.
+- An optional `admin_users` table exists for Phase 4A admin membership if profiles alone is insufficient.
+- Initial admin user is created in the Supabase Auth users table with role `admin`.
+- RLS is enabled on `profiles` so users can read their own role and admins can read all user roles.
 
 ## Definition of Done
 
-- Admin workspace scope documented.
-- Authentication and role model defined.
-- Project lifecycle states defined.
-- Initial client communication flow defined.
-- Future freelancer marketplace safeguards documented.
-- Technical approach documented for implementation.
-- Implementation plan and PR scope prepared.
+- Supabase Auth settings are updated.
+- Migration SQL for `profiles` (and `admin_users` if needed) is committed.
+- At least one admin user exists with role `admin`.
+- RLS policies for `profiles` are defined and documented.
 
-**EST:** 8 SP
+**EST:** 3 SP
 
 **RT:**
 **QA:**
 
-- [x] Task ID: ADM-001
-- [x] Create the admin dashboard planning branch: `feat/admin-dashboard-planning`
-- [x] Document the secure admin authentication approach and protected admin routes
-- [x] Define the initial project board layout and project detail view for internal use
-- [x] Define the core project lifecycle states and status transition rules
-- [x] Define the first client communication flow for project updates and direct messages
-- [x] Document the future freelancer marketplace safeguards, milestone structure, and payment-release logic
-- [x] Document the technical approach for admin auth, project data model, and secure messaging
-- [x] Prepare the implementation plan and PR scope for the first admin-dashboard milestone
+- [ ] Task ID: ADM-002
+
+---
+
+### ADM-003: Implement server-side admin auth helpers and middleware
+
+### Task Description
+
+Add server-side auth helpers and Astro middleware to protect `/admin/*` routes using Supabase Auth session validation and admin role checks.
+
+## User Story
+
+> As an admin user, I want the application to enforce protected access to `/admin/*` so that unauthenticated or unauthorized users cannot reach the admin workspace.
+
+## Acceptance Criteria
+
+- A server-side auth helper validates Supabase Auth sessions and reads the admin role.
+- Astro middleware protects all `/admin/*` routes.
+- Unauthenticated requests redirect to `/admin/login`.
+- Authenticated non-admin requests return 403 Forbidden.
+- No client-side code exposes tokens, redirect logic, or lead data.
+
+## Definition of Done
+
+- `src/middleware.ts` protects `/admin/*`.
+- `src/lib/auth/session.ts` exports a server-side admin session helper.
+- `src/pages/admin/login.astro` exists as a placeholder or working sign-in page.
+- `src/pages/api/admin/auth/login.ts`, `logout.ts`, and `me.ts` are implemented.
+- Secrets remain server-side only.
+
+**EST:** 5 SP
+
+**RT:**
+**QA:**
+
+- [ ] Task ID: ADM-003
+
+---
+
+### ADM-004: Build admin project board list page
+
+### Task Description
+
+Implement the admin project board view with server-side data fetching, filters, and row navigation to project detail pages.
+
+## User Story
+
+> As an admin user, I want to view all project requests on a board so that I can review status, timeline, and budget at a glance.
+
+## Acceptance Criteria
+
+- The project board renders a table on desktop and stacked cards on mobile.
+- Filters exist for status, project type, timeline, budget range, and date range.
+- Each project row or card shows title, lead name, project type, status, timeline, budget range, and created/updated dates.
+- Clicking a project opens `/admin/projects/[id]`.
+- Data is fetched server-side through an admin-protected API route.
+
+## Definition of Done
+
+- `src/pages/admin/index.astro` renders the project board.
+- `src/pages/api/admin/projects.ts` returns filtered project data.
+- Board component uses server-side data only.
+- Board loads without client-side auth logic.
+- Mobile layout is readable and accessible.
+
+**EST:** 3 SP
+
+**RT:**
+**QA:**
+
+- [ ] Task ID: ADM-004
+
+---
+
+### ADM-005: Build admin project detail view with status management
+
+### Task Description
+
+Implement the project detail page showing lead data, internal notes, status tracker, and allowed status transitions.
+
+## User Story
+
+> As an admin user, I want to open a project detail page so that I can review full lead information and update the project lifecycle status.
+
+## Acceptance Criteria
+
+- The detail page shows lead contact info, project info, scope, timeline, budget, existing assets, internal notes, status, and communication history.
+- Admin can edit internal notes, lead score, next action, follow-up date, assigned admin, and project value estimate.
+- Admin can transition the project status using allowed transitions only.
+- Invalid transitions return a clear error without changing data.
+- Every transition records admin user ID and timestamp.
+
+## Definition of Done
+
+- `src/pages/admin/projects/[id].astro` renders the detail view.
+- `src/pages/api/admin/projects/[id].ts` handles project detail fetch and update.
+- `src/pages/api/admin/projects/[id]/status.ts` validates and applies status transitions.
+- Status transition rules from `admin-operations.md` are enforced server-side.
+- Audit transition events are recorded.
+
+**EST:** 5 SP
+
+**RT:**
+**QA:**
+
+- [ ] Task ID: ADM-005
+
+---
+
+### ADM-006: Implement admin client messaging API and UI shell
+
+### Task Description
+
+Implement the messaging API and a minimal admin messaging UI for sending templated and custom client messages.
+
+## User Story
+
+> As an admin user, I want to send and review client communication messages so that I can keep clients informed without leaving the admin workspace.
+
+## Acceptance Criteria
+
+- Admin can select a message template or write a custom message in the project detail view.
+- Messages are stored server-side before sending.
+- Emails are sent via Resend to the lead email address.
+- Message history is visible in the project detail view.
+- Failed email sends do not delete the stored message.
+
+## Definition of Done
+
+- `src/pages/api/admin/projects/[id]/messages.ts` stores and sends messages.
+- Message type templates exist for acknowledgment, clarification request, proposal sent, status update, and delivery notification.
+- Resend errors are logged without blocking message storage.
+- Project detail view lists message history and includes a send-message form.
+- Lead email address is not exposed in client responses.
+
+**EST:** 5 SP
+
+**RT:**
+**QA:**
+
+- [ ] Task ID: ADM-006
+
+---
+
+### ADM-007: Apply Supabase schema and RLS policies for admin tables
+
+### Task Description
+
+Create the `projects` and `project_messages` tables and apply RLS policies so that only authenticated admin access is allowed server-side.
+
+## User Story
+
+> As an admin user, I want secure admin data storage so that project data and messages remain private and only accessible through protected server-side routes.
+
+## Acceptance Criteria
+
+- `projects` table exists with lifecycle status, admin notes, lead score, next action, follow-up date, assigned admin, and project value estimate.
+- `project_messages` table exists with sender type, sender email, message type, subject, body, and email delivery fields.
+- RLS denies public SELECT/INSERT/UPDATE/DELETE on both tables.
+- Server-side API routes use `SUPABASE_SERVICE_ROLE_KEY` for admin access.
+- Admin reads and writes are allowed only after role verification.
+
+## Definition of Done
+
+- Migration SQL for `projects` and `project_messages` is committed.
+- RLS policies are documented in `supabase/leads-schema.sql` or a new `supabase/admin-schema.sql`.
+- API routes use server-side Supabase client with service role key.
+- RLS policies are verified in the Supabase dashboard.
+
+**EST:** 3 SP
+
+**RT:**
+**QA:**
+
+- [ ] Task ID: ADM-007
+
+---
+
+### ADM-008: Add smoke tests for admin access and status transitions
+
+### Task Description
+
+Add automated smoke tests covering admin login protection, invalid status transitions, and basic admin project flows.
+
+## User Story
+
+> As an admin user, I want reliable admin workspace behavior so that access control and status workflow errors are caught before they affect delivery.
+
+## Acceptance Criteria
+
+- A test verifies that unauthenticated requests to `/admin/*` redirect to `/admin/login`.
+- A test verifies that authenticated non-admin requests to `/admin/*` return 403.
+- A test verifies that invalid status transitions return 400 and do not change project status.
+- A test verifies that allowed status transitions update status and record metadata.
+
+## Definition of Done
+
+- Playwright tests exist for protected admin access and status transition rules.
+- Tests can run with `npm test`.
+- Tests do not depend on real secrets.
+
+**EST:** 3 SP
+
+**RT:**
+**QA:**
+
+- [ ] Task ID: ADM-008
+
 
 ## Phase 5 - Deployment
 
