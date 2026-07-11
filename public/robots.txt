@@ -1,6 +1,4 @@
 User-agent: *
-Allow: /
 Disallow: /api/
-Disallow: /api/webhooks/
 
 Sitemap: https://eventnexus.eu/sitemap.txt
