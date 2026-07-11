@@ -111,9 +111,20 @@ This file stores stable context and decisions for future agents.
 - Messaging security: lead email addresses are never exposed in client responses; message content is not logged in full in production; messaging API requires admin authentication.
 - Freelancer marketplace safeguards: milestone-based work with client approval checkpoints, evidence of delivery, escrow-style payment release, dispute workflow, audit log, client limits, and freelancer vetting; marketplace is not implemented in Phase 4A but safeguards are documented for future phases.
 
+## Admin Auth Decisions
+
+- Admin auth uses Supabase Auth with email/password and magic link; email sign-ups are disabled so only manually created or invited users can access admin accounts
+- Admin role storage: primary source of truth is the `profiles` table with `id` (FK to `auth.users(id)`), `role`, `created_at`, `updated_at`; optional `admin_users` table also exists but is not required for Phase 4A
+- Initial admin user must be created manually in the Supabase dashboard and linked to a `profiles` row with `role = 'admin'`
+- RLS policies for `profiles`: users can read/update their own profile; admins can read/update all profiles; policies reference the `profiles` table for admin role checks
+- Migration SQL for `profiles` lives in `supabase/profiles-schema.sql`; optional `admin_users` migration lives in `supabase/admin-users-schema.sql`
+- Manual Supabase dashboard steps are documented in `supabase/admin-auth-setup.md`: enable email/magic link auth, disable public sign-ups, apply migrations, create initial admin user, verify RLS policies
+- Server-side code must use `SUPABASE_SERVICE_ROLE_KEY` for admin data operations that bypass RLS; never expose service-role keys to the browser
+
 ## Open Decisions
 
 - `project_leads` schema and RLS policies are defined in `supabase/leads-schema.sql`; pending application to the Supabase dashboard.
+- Admin auth tables and Supabase Auth configuration are defined and ready to be applied to the Supabase dashboard; initial admin user must be created manually.
 - Admin operations foundation planning is complete and documented in `admin-operations.md`; ready for implementation.
 - Admin dashboard MVP direction: create a secure internal workspace first with authenticated admin access, a project board, project detail pages, and a simple status workflow before opening any client-facing portal features.
 - Planned admin capabilities for v1: secure sign-in, project list and filtering, status tracking, internal notes, direct messaging to clients, and explicit handoff states for active work.
