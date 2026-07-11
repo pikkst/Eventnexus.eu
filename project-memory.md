@@ -105,6 +105,11 @@ This file stores stable context and decisions for future agents.
 ## Open Decisions
 
 - `project_leads` schema and RLS policies are defined in `supabase/leads-schema.sql`; pending application to the Supabase dashboard.
+- New task ID: `ADM-001` for the admin operations foundation work.
+- Admin dashboard MVP direction: create a secure internal workspace first with authenticated admin access, a project board, project detail pages, and a simple status workflow before opening any client-facing portal features.
+- Planned admin capabilities for v1: secure sign-in, project list and filtering, status tracking, internal notes, direct messaging to clients, and explicit handoff states for active work.
+- Future platform direction: add a client portal so real clients can log in, view their project progress, and send direct messages to the admin team; later extend into a freelancer marketplace where clients can publish projects, freelancers can bid or accept work, and payments are released only after delivery is approved.
+- Freelancer marketplace design rule: the system must include clear milestones, approval checkpoints, evidence of delivery, and dispute-safe payment logic before any real money movement is introduced.
 
 ## Quality Bar
 

@@ -73,17 +73,29 @@ This document tracks the project from a near-zero starting point into a deployab
 - [x] Fix project request submission 500 error.
 - [ ] Add payment-provider planning for future service products.
 
+## Phase 4A - Admin Operations Foundation
+
+- [ ] Task ID: ADM-001
+- [ ] Create the admin dashboard planning branch: `feat/admin-dashboard-planning`
+- [ ] Define the MVP admin workspace scope: secure login, protected admin area, project board, project detail view, and internal status workflow
+- [ ] Define the initial role model for admin users and future client users
+- [ ] Define the project lifecycle states and internal handoff model for project tracking
+- [ ] Define the first client communication flow: project updates, direct messages, and admin response workflow
+- [ ] Define the future freelancer marketplace concept and the safeguards needed for client-freelancer trust, milestone payments, and delivery confirmation
+- [ ] Document the initial technical architecture for admin auth, project data model, and secure messaging
+- [ ] Prepare the implementation plan and PR scope for the first admin-dashboard milestone
+
 ## Phase 5 - Deployment
 
-- [ ] Connect GitHub repository to Cloudflare.
-- [ ] Configure Cloudflare build settings.
-- [ ] Configure environment variables in Cloudflare.
-- [ ] Deploy preview environment.
-- [ ] Verify production build.
-- [ ] Move `eventnexus.eu` DNS when ready.
-- [ ] Verify SSL, redirects, and canonical domain.
-- [ ] Add sitemap.txt for Google Search Console.
-- [ ] Add robots.txt for AI search crawlers.
+- [x] Connect GitHub repository to Cloudflare.
+- [x] Configure Cloudflare build settings.
+- [x] Configure environment variables in Cloudflare.
+- [x] Deploy preview environment.
+- [x] Verify production build.
+- [x] Move `eventnexus.eu` DNS when ready.
+- [x] Verify SSL, redirects, and canonical domain.
+- [x] Add sitemap.txt for Google Search Console.
+- [x] Add robots.txt for AI search crawlers.
 
 ## Phase 6 - Quality And Maintenance
 
@@ -112,3 +124,4 @@ This document tracks the project from a near-zero starting point into a deployab
 4. Decide first app stack and deployment target.
 5. Build the first public version of the Eventnexus website.
 6. Add multi-language support (EN, RU, DE, FI, ET).
+7. Start the admin operations foundation task (ADM-001) with authentication, dashboard concepts, and a future client/freelancer workflow plan.
