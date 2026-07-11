@@ -46,10 +46,13 @@ This file stores stable context and decisions for future agents.
 
 ### Analytics
 
-- Analytics provider decision: use Cloudflare Web Analytics for v1.
-- Rationale: free, privacy-first, no cookies, integrates with Cloudflare Pages, and fits the `.eu` GDPR context.
-- Alternative providers if needed later: Plausible or Fathom.
-- Implementation rule: single script tag in `BaseLayout.astro`, async, no PII in events.
+- Analytics provider decision: use Google Analytics (GA4) for v1.
+- Measurement ID: `G-S8SSSCPTG9`
+- Stream Name: `eventnexus.eu`
+- Stream URL: `https://eventnexus.eu`
+- Stream ID: `15240249705`
+- Rationale: industry-standard analytics with GDPR-compatible configuration; data collected includes page views, referrers, countries, devices, and generic form start/submission events; never attach lead or form field data.
+- Implementation rule: async script in `BaseLayout.astro`, loaded conditionally via `PUBLIC_ANALYTICS_ID` and `PUBLIC_ANALYTICS_ENABLED`.
 - Environment variables: `PUBLIC_ANALYTICS_ID` and optional `PUBLIC_ANALYTICS_ENABLED`.
 - Data rules: collect only page views, referrers, countries, devices, and generic form start/submission events; never attach lead or form field data.
 
