@@ -81,6 +81,8 @@ This document tracks the project from a near-zero starting point into a deployab
 - [ ] Verify production build.
 - [ ] Move `eventnexus.eu` DNS when ready.
 - [ ] Verify SSL, redirects, and canonical domain.
+- [ ] Add sitemap.txt for Google Search Console.
+- [ ] Add robots.txt for AI search crawlers.
 
 ## Phase 6 - Quality And Maintenance
 

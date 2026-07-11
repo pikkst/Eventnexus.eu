@@ -53,6 +53,13 @@ This file stores stable context and decisions for future agents.
 - Environment variables: `PUBLIC_ANALYTICS_ID` and optional `PUBLIC_ANALYTICS_ENABLED`.
 - Data rules: collect only page views, referrers, countries, devices, and generic form start/submission events; never attach lead or form field data.
 
+### SEO And Crawlers
+
+- Primary domain: `https://eventnexus.eu`
+- Sitemap: `public/sitemap.txt` contains plain-text URLs for all canonical locale pages.
+- robots.txt: `public/robots.txt` allows all standard and AI search crawlers; disallows `/api/` and webhook paths.
+- Files are static and copied as-is by Astro; no build step needed.
+
 ### Resend
 
 - Intended use: lead/contact notification emails
