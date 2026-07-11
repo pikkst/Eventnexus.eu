@@ -7,6 +7,7 @@ const { title, description, currentPath = '/', locale = 'en' } = Astro.props;
 
 const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID;
 const analyticsEnabled = import.meta.env.PUBLIC_ANALYTICS_ENABLED !== 'false';
+const isValidAnalyticsId = typeof analyticsId === 'string' && /^G-[A-Z0-9]{10}$/i.test(analyticsId);
 ---
 
 <!doctype html>
@@ -18,14 +19,14 @@ const analyticsEnabled = import.meta.env.PUBLIC_ANALYTICS_ENABLED !== 'false';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     {
-      analyticsId && analyticsEnabled && (
+      isValidAnalyticsId && analyticsEnabled && (
         <>
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`}></script>
           <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', `${analyticsId}`);
+            gtag('config', analyticsId);
           </script>
         </>
       )
