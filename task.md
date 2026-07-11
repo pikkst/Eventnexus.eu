@@ -2,6 +2,18 @@
 
 This document tracks the project from a near-zero starting point into a deployable company website and future service platform.
 
+## Task Writing Standard
+
+All tasks in this document should be written as specific, outcome-focused tickets rather than broad activity notes. Every task should include:
+
+- Description
+- User Story
+- Acceptance Criteria
+- Definition of Done
+- EST, RT, and QA fields
+
+This structure should be used for every new task going forward so that each item is clear, testable, and implementation-ready.
+
 ## Phase 0 - Foundation
 
 - [x] Capture initial project context in `info.txt`.
@@ -73,17 +85,59 @@ This document tracks the project from a near-zero starting point into a deployab
 - [x] Fix project request submission 500 error.
 - [ ] Add payment-provider planning for future service products.
 
+## Phase 4A - Admin Operations Foundation
+
+### Description
+
+## User Story
+
+> As an admin user, I want a secure internal workspace where I can review projects, track progress, and communicate with clients so that I can manage delivery professionally.
+
+## Acceptance Criteria
+
+- A protected admin area exists with secure sign-in.
+- Admin users can view a project board with project status.
+- Admin users can open a project detail view with core project information.
+- Admin users can update the project lifecycle status.
+- Admin users can send and receive internal client communication messages.
+- The system supports future client and freelancer expansion without redesigning the core workflow.
+
+## Definition of Done
+
+- Admin workspace scope documented.
+- Authentication and role model defined.
+- Project lifecycle states defined.
+- Initial client communication flow defined.
+- Future freelancer marketplace safeguards documented.
+- Technical approach documented for implementation.
+- Implementation plan and PR scope prepared.
+
+**EST:** 8 SP
+
+**RT:**
+**QA:**
+
+- [ ] Task ID: ADM-001
+- [ ] Create the admin dashboard planning branch: `feat/admin-dashboard-planning`
+- [ ] Document the secure admin authentication approach and protected admin routes
+- [ ] Define the initial project board layout and project detail view for internal use
+- [ ] Define the core project lifecycle states and status transition rules
+- [ ] Define the first client communication flow for project updates and direct messages
+- [ ] Document the future freelancer marketplace safeguards, milestone structure, and payment-release logic
+- [ ] Document the technical approach for admin auth, project data model, and secure messaging
+- [ ] Prepare the implementation plan and PR scope for the first admin-dashboard milestone
+
 ## Phase 5 - Deployment
 
-- [ ] Connect GitHub repository to Cloudflare.
-- [ ] Configure Cloudflare build settings.
-- [ ] Configure environment variables in Cloudflare.
-- [ ] Deploy preview environment.
-- [ ] Verify production build.
-- [ ] Move `eventnexus.eu` DNS when ready.
-- [ ] Verify SSL, redirects, and canonical domain.
-- [ ] Add sitemap.txt for Google Search Console.
-- [ ] Add robots.txt for AI search crawlers.
+- [x] Connect GitHub repository to Cloudflare.
+- [x] Configure Cloudflare build settings.
+- [x] Configure environment variables in Cloudflare.
+- [x] Deploy preview environment.
+- [x] Verify production build.
+- [x] Move `eventnexus.eu` DNS when ready.
+- [x] Verify SSL, redirects, and canonical domain.
+- [x] Add sitemap.txt for Google Search Console.
+- [x] Add robots.txt for AI search crawlers.
 
 ## Phase 6 - Quality And Maintenance
 
@@ -112,3 +166,4 @@ This document tracks the project from a near-zero starting point into a deployab
 4. Decide first app stack and deployment target.
 5. Build the first public version of the Eventnexus website.
 6. Add multi-language support (EN, RU, DE, FI, ET).
+7. Start the admin operations foundation task (ADM-001) with authentication, dashboard concepts, and a future client/freelancer workflow plan.
