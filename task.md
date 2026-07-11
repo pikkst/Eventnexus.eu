@@ -117,15 +117,15 @@ This structure should be used for every new task going forward so that each item
 **RT:**
 **QA:**
 
-- [ ] Task ID: ADM-001
-- [ ] Create the admin dashboard planning branch: `feat/admin-dashboard-planning`
-- [ ] Document the secure admin authentication approach and protected admin routes
-- [ ] Define the initial project board layout and project detail view for internal use
-- [ ] Define the core project lifecycle states and status transition rules
-- [ ] Define the first client communication flow for project updates and direct messages
-- [ ] Document the future freelancer marketplace safeguards, milestone structure, and payment-release logic
-- [ ] Document the technical approach for admin auth, project data model, and secure messaging
-- [ ] Prepare the implementation plan and PR scope for the first admin-dashboard milestone
+- [x] Task ID: ADM-001
+- [x] Create the admin dashboard planning branch: `feat/admin-dashboard-planning`
+- [x] Document the secure admin authentication approach and protected admin routes
+- [x] Define the initial project board layout and project detail view for internal use
+- [x] Define the core project lifecycle states and status transition rules
+- [x] Define the first client communication flow for project updates and direct messages
+- [x] Document the future freelancer marketplace safeguards, milestone structure, and payment-release logic
+- [x] Document the technical approach for admin auth, project data model, and secure messaging
+- [x] Prepare the implementation plan and PR scope for the first admin-dashboard milestone
 
 ## Phase 5 - Deployment
 
