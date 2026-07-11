@@ -91,6 +91,16 @@ This document tracks the project from a near-zero starting point into a deployab
 - [x] Add release checklist.
 - [ ] Keep `project-memory.md` updated with decisions.
 
+## Phase 7 - Internationalization
+
+- [ ] Add i18n translation infrastructure (src/i18n/)
+- [ ] Translate all page content to English, Russian, German, Finnish, Estonian
+- [ ] Translate all form fields, buttons, and UI labels
+- [ ] Add language switcher component to navigation
+- [ ] Update pages for locale-aware routing
+- [ ] Verify translations across all pages
+- [ ] Update docs for i18n decisions
+
 ## Immediate Next Steps
 
 1. Initialize git locally.
@@ -98,3 +108,4 @@ This document tracks the project from a near-zero starting point into a deployab
 3. Push this documentation foundation.
 4. Decide first app stack and deployment target.
 5. Build the first public version of the Eventnexus website.
+6. Add multi-language support (EN, RU, DE, FI, ET).

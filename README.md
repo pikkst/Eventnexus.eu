@@ -33,6 +33,7 @@ Build the foundation for the Eventnexus corporate platform, starting with clear 
 - `workflow.md` - project workflow and delivery rules
 - `agents.md` - agent roles, responsibilities, and operating rules
 - `project-memory.md` - stable project memory and decisions
+- `src/i18n/translations.ts` - multi-language translation strings (EN, RU, DE, FI, ET)
 
 ## Working Principle
 

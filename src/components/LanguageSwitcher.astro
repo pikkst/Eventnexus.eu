@@ -1,0 +1,49 @@
+---
+import { languages, type Language } from '../i18n';
+
+const { locale = 'en' } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+const getLanguageUrl = (lang: Language) => {
+  const segments = currentPath.split('/').filter(Boolean);
+
+  if (segments.length === 0 || segments[0] === lang) {
+    return `/${lang}`;
+  }
+
+  if (languages.map(l => l.code).includes(segments[0])) {
+    segments[0] = lang;
+    return `/${segments.join('/')}`;
+  }
+
+  return `/${lang}${currentPath === '/' ? '' : currentPath}`;
+};
+---
+
+<div class="relative">
+  <details class="group">
+    <summary class="flex cursor-pointer items-center gap-1 rounded-md px-2 py-1 text-sm font-medium text-slate-600 transition hover:text-slate-900">
+      <span>{languages.find(l => l.code === locale)?.native || locale}</span>
+      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </summary>
+    <ul class="absolute right-0 z-50 mt-2 w-40 rounded-md border border-slate-200 bg-white py-1 shadow-lg">
+      {
+        languages.map((lang) => (
+          <li>
+            <a
+              href={getLanguageUrl(lang.code)}
+              class={`block px-4 py-2 text-sm transition hover:bg-slate-50 ${
+                lang.code === locale ? 'font-semibold text-primary' : 'text-slate-700'
+              }`}
+            >
+              {lang.native}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </details>
+</div>

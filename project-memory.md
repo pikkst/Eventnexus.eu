@@ -90,6 +90,7 @@ This file stores stable context and decisions for future agents.
 - Tailwind configuration must live at repo root as `tailwind.config.mjs` with `content` paths and project token colors.
 - `@astrojs/tailwind` integration must use explicit `configFile: './tailwind.config.mjs'` and `applyBaseStyles: false`; `@tailwind` directives belong in `src/styles/global.css`, which is imported by `BaseLayout.astro`.
 - Do not place duplicate `@tailwind` directives in both `global.css` and inline `<style is:global>` blocks; that breaks PostCSS processing.
+- Internationalization decision: support English (en), Russian (ru), German (de), Finnish (fi), and Estonian (et) for all public-facing content, form fields, buttons, and navigation labels. Translation files live in `src/i18n/translations.ts`. Language switcher is available in the site header. Default language is English.
 
 ## Open Decisions
 

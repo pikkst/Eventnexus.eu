@@ -3,11 +3,11 @@ import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-const { title, description, currentPath = '/' } = Astro.props;
+const { title, description, currentPath = '/', locale = 'en' } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,7 +16,7 @@ const { title, description, currentPath = '/' } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="antialiased">
-    <Navigation />
+    <Navigation locale={locale} />
     <main>
       <slot />
     </main>

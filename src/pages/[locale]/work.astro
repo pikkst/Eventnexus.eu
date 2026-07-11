@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import ProofCard from '../../components/ProofCard.astro';
+import { getTranslations, getAvailableLanguages } from '../../i18n';
+
+export const getStaticPaths = () => {
+  return getAvailableLanguages().map((locale) => ({ params: { locale } }));
+};
+
+const locale = Astro.params.locale || 'en';
+const t = getTranslations(locale);
+
+const categories = t.work.categories;
+---
+
+<BaseLayout
+  title={`${t.work.hero.title} - Eventnexus`}
+  description={t.work.hero.description1}
+  locale={locale}
+>
+  <section class="bg-surface py-16 text-text md:py-24">
+    <div class="container mx-auto max-w-7xl px-6">
+      <div class="max-w-3xl">
+        <h1
+          class="text-4xl font-extrabold leading-tight tracking-tight text-text md:text-5xl"
+        >
+          {t.work.hero.title}
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-text-muted md:text-xl">
+          {t.work.hero.description1}
+        </p>
+        <p class="mt-4 text-base leading-relaxed text-text-muted">
+          {t.work.hero.description2}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Section
+    id="categories"
+    title={t.work.categoriesTitle}
+    className="bg-surface-muted"
+  >
+    <div class="grid gap-12">
+      {
+        categories.map((category) => (
+          <div>
+            <h3 class="text-xl font-semibold text-text">{category.title}</h3>
+            <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {category.items.map((item) => (
+                <ProofCard
+                  title={item.title}
+                  description={item.description}
+                  category={item.category}
+                  href={item.href}
+                />
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section id="next" title={t.work.nextSectionTitle}>
+    <div class="max-w-3xl space-y-4 text-base leading-relaxed text-text-muted">
+      <p>
+        {t.work.nextSectionDescription1}
+      </p>
+      <p>
+        {t.work.nextSectionDescription2}
+      </p>
+    </div>
+    <div class="mt-10">
+      <a
+        href={`/${locale}/contact`}
+        class="inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-base font-semibold text-white shadow-md transition-colors hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+      >
+        {t.work.cta}
+      </a>
+    </div>
+  </Section>
+</BaseLayout>
