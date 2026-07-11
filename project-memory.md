@@ -46,12 +46,22 @@ This file stores stable context and decisions for future agents.
 
 ### Analytics
 
-- Analytics provider decision: use Cloudflare Web Analytics for v1.
-- Rationale: free, privacy-first, no cookies, integrates with Cloudflare Pages, and fits the `.eu` GDPR context.
-- Alternative providers if needed later: Plausible or Fathom.
-- Implementation rule: single script tag in `BaseLayout.astro`, async, no PII in events.
+- Analytics provider decision: use Google Analytics (GA4) for v1.
+- Measurement ID: `G-S8SSSCPTG9`
+- Stream Name: `eventnexus.eu`
+- Stream URL: `https://eventnexus.eu`
+- Stream ID: `15240249705`
+- Rationale: industry-standard analytics with GDPR-compatible configuration; data collected includes page views, referrers, countries, devices, and generic form start/submission events; never attach lead or form field data.
+- Implementation rule: async script in `BaseLayout.astro`, loaded conditionally via `PUBLIC_ANALYTICS_ID` and `PUBLIC_ANALYTICS_ENABLED`.
 - Environment variables: `PUBLIC_ANALYTICS_ID` and optional `PUBLIC_ANALYTICS_ENABLED`.
 - Data rules: collect only page views, referrers, countries, devices, and generic form start/submission events; never attach lead or form field data.
+
+### SEO And Crawlers
+
+- Primary domain: `https://eventnexus.eu`
+- Sitemap: `public/sitemap.txt` contains plain-text URLs for all canonical locale pages.
+- robots.txt: `public/robots.txt` allows all standard and AI search crawlers; disallows `/api/` and webhook paths.
+- Files are static and copied as-is by Astro; no build step needed.
 
 ### Resend
 
@@ -90,6 +100,16 @@ This file stores stable context and decisions for future agents.
 - Tailwind configuration must live at repo root as `tailwind.config.mjs` with `content` paths and project token colors.
 - `@astrojs/tailwind` integration must use explicit `configFile: './tailwind.config.mjs'` and `applyBaseStyles: false`; `@tailwind` directives belong in `src/styles/global.css`, which is imported by `BaseLayout.astro`.
 - Do not place duplicate `@tailwind` directives in both `global.css` and inline `<style is:global>` blocks; that breaks PostCSS processing.
+- Internationalization decision: support English (en), Russian (ru), German (de), Finnish (fi), and Estonian (et) for all public-facing content, form fields, buttons, and navigation labels. Translation data lives in `src/i18n/translations.ts` as a `Record<Language, TranslationKeys>`; `src/i18n/index.ts` exports `getTranslations(locale)`, `languages`, and `defaultLanguage`. Language switcher component is `src/components/LanguageSwitcher.astro`. Locale-aware routing uses dynamic `src/pages/[locale]/` pages with a root `src/pages/index.astro` redirect based on detected language. Default language is English. Non-English locales currently fall back to English via `deepMerge` for missing keys.
+- Admin workspace decision: create a secure internal workspace first with authenticated admin access, a project board, project detail pages, and a simple status workflow before opening any client-facing portal features. Admin dashboard planning is documented in `admin-operations.md`.
+- Admin auth approach: use Supabase Auth with email/password or magic link; protect `/admin/*` with Astro middleware; set HTTP-only session cookies; verify admin role server-side before allowing access; disable public sign-ups for the admin workspace.
+- Admin role model: `admin` role for Phase 4A; roles are stored in a `profiles` table with RLS enabled; server-side code validates role before any admin route access.
+- Admin protected routes: all `/admin/*` paths are protected by middleware and API route guards; no secret or lead data is exposed in client-side code.
+- Project board layout: desktop uses a table with project title, lead name, project type, status, timeline, budget range, created and updated dates; mobile uses stacked cards; filters by status, project type, timeline, budget, and date range.
+- Project lifecycle states: `new`, `reviewed`, `accepted`, `in_progress`, `awaiting_client_input`, `delivered`, `completed`, `blocked`, `on_hold`, `archived`, `rejected`; explicit transition rules govern valid state changes; every transition records admin user and timestamp.
+- Client communication flow: email-based communication triggered from the admin workspace; messages stored server-side in `project_messages` table before sending; Resend used for delivery; standard templates defined for acknowledgment, clarification request, proposal sent, status update, and delivery notification.
+- Messaging security: lead email addresses are never exposed in client responses; message content is not logged in full in production; messaging API requires admin authentication.
+- Freelancer marketplace safeguards: milestone-based work with client approval checkpoints, evidence of delivery, escrow-style payment release, dispute workflow, audit log, client limits, and freelancer vetting; marketplace is not implemented in Phase 4A but safeguards are documented for future phases.
 
 ## Admin Auth Decisions
 
@@ -105,6 +125,11 @@ This file stores stable context and decisions for future agents.
 
 - `project_leads` schema and RLS policies are defined in `supabase/leads-schema.sql`; pending application to the Supabase dashboard.
 - Admin auth tables and Supabase Auth configuration are defined and ready to be applied to the Supabase dashboard; initial admin user must be created manually.
+- Admin operations foundation planning is complete and documented in `admin-operations.md`; ready for implementation.
+- Admin dashboard MVP direction: create a secure internal workspace first with authenticated admin access, a project board, project detail pages, and a simple status workflow before opening any client-facing portal features.
+- Planned admin capabilities for v1: secure sign-in, project list and filtering, status tracking, internal notes, direct messaging to clients, and explicit handoff states for active work.
+- Future platform direction: add a client portal so real clients can log in, view their project progress, and send direct messages to the admin team; later extend into a freelancer marketplace where clients can publish projects, freelancers can bid or accept work, and payments are released only after delivery is approved.
+- Freelancer marketplace design rule: the system must include clear milestones, approval checkpoints, evidence of delivery, and dispute-safe payment logic before any real money movement is introduced.
 
 ## Quality Bar
 

@@ -2,6 +2,18 @@
 
 This document tracks the project from a near-zero starting point into a deployable company website and future service platform.
 
+## Task Writing Standard
+
+All tasks in this document should be written as specific, outcome-focused tickets rather than broad activity notes. Every task should include:
+
+- Description
+- User Story
+- Acceptance Criteria
+- Definition of Done
+- EST, RT, and QA fields
+
+This structure should be used for every new task going forward so that each item is clear, testable, and implementation-ready.
+
 ## Phase 0 - Foundation
 
 - [x] Capture initial project context in `info.txt`.
@@ -61,6 +73,7 @@ This document tracks the project from a near-zero starting point into a deployab
 - [x] Implement proof/work section.
 - [x] Implement contact flow.
 - [x] Add analytics plan if needed.
+- [x] Add Google Analytics (GA4) with Measurement ID G-S8SSSCPTG9.
 - [x] Verify mobile and desktop layouts.
 
 ## Phase 4 - Backend And Integrations
@@ -318,13 +331,15 @@ Add automated smoke tests covering admin login protection, invalid status transi
 
 ## Phase 5 - Deployment
 
-- [ ] Connect GitHub repository to Cloudflare.
-- [ ] Configure Cloudflare build settings.
-- [ ] Configure environment variables in Cloudflare.
-- [ ] Deploy preview environment.
-- [ ] Verify production build.
-- [ ] Move `eventnexus.eu` DNS when ready.
-- [ ] Verify SSL, redirects, and canonical domain.
+- [x] Connect GitHub repository to Cloudflare.
+- [x] Configure Cloudflare build settings.
+- [x] Configure environment variables in Cloudflare.
+- [x] Deploy preview environment.
+- [x] Verify production build.
+- [x] Move `eventnexus.eu` DNS when ready.
+- [x] Verify SSL, redirects, and canonical domain.
+- [x] Add sitemap.txt for Google Search Console.
+- [x] Add robots.txt for AI search crawlers.
 
 ## Phase 6 - Quality And Maintenance
 
@@ -332,8 +347,18 @@ Add automated smoke tests covering admin login protection, invalid status transi
 - [x] Add smoke tests for critical pages.
 - [x] Add accessibility checks.
 - [x] Add content review checklist.
-- [ ] Add release checklist.
+- [x] Add release checklist.
 - [ ] Keep `project-memory.md` updated with decisions.
+
+## Phase 7 - Internationalization
+
+- [x] Add i18n translation infrastructure (src/i18n/)
+- [x] Translate all page content to English, Russian, German, Finnish, Estonian
+- [x] Translate all form fields, buttons, and UI labels
+- [x] Add language switcher component to navigation
+- [x] Update pages for locale-aware routing
+- [x] Verify translations across all pages
+- [x] Update docs for i18n decisions
 
 ## Immediate Next Steps
 
@@ -342,3 +367,5 @@ Add automated smoke tests covering admin login protection, invalid status transi
 3. Push this documentation foundation.
 4. Decide first app stack and deployment target.
 5. Build the first public version of the Eventnexus website.
+6. Add multi-language support (EN, RU, DE, FI, ET).
+7. Start the admin operations foundation task (ADM-001) with authentication, dashboard concepts, and a future client/freelancer workflow plan.
