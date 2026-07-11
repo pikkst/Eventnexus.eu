@@ -23,6 +23,17 @@
     messageMinLength: string;
     somethingWrong: string;
     submissionFailed: string;
+    contactMinLength: string;
+    contactRequired: string;
+  };
+  ui: {
+    includes: string;
+    bestFor: string;
+    viewAllWork: string;
+    portfolioCandidates: string;
+    whatThisMeans: string;
+    viewOnGitHub: string;
+    visitSite: string;
   };
   home: {
     hero: {
@@ -284,6 +295,8 @@ export const translations: Record<Language, TranslationKeys> = {
       viewAllWork: 'View all work',
       portfolioCandidates: 'Portfolio candidates',
       whatThisMeans: 'What this means',
+      viewOnGitHub: 'View on GitHub',
+      visitSite: 'Visit site',
     },
     home: {
       hero: {
@@ -836,6 +849,15 @@ export const translations: Record<Language, TranslationKeys> = {
       somethingWrong: 'Что-то пошло не так. Пожалуйста, попробуйте снова.',
       submissionFailed: 'Ошибка отправки',
     },
+    ui: {
+      includes: 'Включает',
+      bestFor: 'Для кого',
+      viewAllWork: 'Все работы',
+      portfolioCandidates: 'Кандидаты в портфолио',
+      whatThisMeans: 'Что это значит для вашего проекта',
+      viewOnGitHub: 'Посмотреть на GitHub',
+      visitSite: 'Перейти на сайт',
+    },
     home: {
       hero: {
         headline: 'Eventnexus превращает вашу идею в работающую веб-платформу.',
@@ -1096,6 +1118,15 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Die Nachricht muss mindestens 10 Zeichen enthalten.',
       somethingWrong: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
       submissionFailed: 'Übermittlung fehlgeschlagen',
+    },
+    ui: {
+      includes: 'Beinhaltet',
+      bestFor: 'Am besten für',
+      viewAllWork: 'Alle Arbeiten anzeigen',
+      portfolioCandidates: 'Portfolio-Kandidaten',
+      whatThisMeans: 'Was das für Ihr Projekt bedeutet',
+      viewOnGitHub: 'Auf GitHub ansehen',
+      visitSite: 'Seite besuchen',
     },
     home: {
       hero: {
@@ -1358,6 +1389,15 @@ export const translations: Record<Language, TranslationKeys> = {
       somethingWrong: 'Jokin meni pieleen. Yritä uudelleen.',
       submissionFailed: 'Lähetys epäonnistui',
     },
+    ui: {
+      includes: 'Sisältää',
+      bestFor: 'Parhaiten sopii',
+      viewAllWork: 'Näytä kaikki työt',
+      portfolioCandidates: 'Portfolio-ehdokkaat',
+      whatThisMeans: 'Mitä tämä tarkoittaa projektillesi',
+      viewOnGitHub: 'Katso GitHubissa',
+      visitSite: 'Vieraile sivustolla',
+    },
     home: {
       hero: {
         headline: 'Eventnexus rakentaa ideasi toimivaksi verkkoportaaliin.',
@@ -1618,6 +1658,15 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Sõnum peab olema vähemalt 10 tähemärki.',
       somethingWrong: 'Midagi läks valesti. Palun proovige uuesti.',
       submissionFailed: 'Saatmine ebaõnnestus',
+    },
+    ui: {
+      includes: 'Sisaldab',
+      bestFor: 'Parim',
+      viewAllWork: 'Vaata kõiki töid',
+      portfolioCandidates: 'Portfoolio kandidaadid',
+      whatThisMeans: 'Mida see tähendab teie projekti jaoks',
+      viewOnGitHub: 'Vaata GitHubis',
+      visitSite: 'Külastage veebisaiti',
     },
     home: {
       hero: {
