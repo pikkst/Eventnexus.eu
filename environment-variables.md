@@ -176,7 +176,7 @@ Browser exposure:
 
 Purpose:
 
-- analytics provider measurement identifier
+- Google Analytics (GA4) measurement identifier
 
 Browser exposure:
 
@@ -184,7 +184,7 @@ Browser exposure:
 
 Current status:
 
-- planned, Cloudflare Web Analytics recommended for v1
+- implemented, Measurement ID: `G-S8SSSCPTG9`
 
 ### `PUBLIC_ANALYTICS_ENABLED`
 
@@ -198,7 +198,7 @@ Browser exposure:
 
 Current status:
 
-- optional, can be omitted if analytics are always enabled
+- optional, defaults to enabled when `PUBLIC_ANALYTICS_ID` is set
 
 ## Environment Placement
 

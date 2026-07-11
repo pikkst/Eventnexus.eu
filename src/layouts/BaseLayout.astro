@@ -4,6 +4,9 @@ import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
 const { title, description, currentPath = '/', locale = 'en' } = Astro.props;
+
+const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID;
+const analyticsEnabled = import.meta.env.PUBLIC_ANALYTICS_ENABLED !== 'false';
 ---
 
 <!doctype html>
@@ -14,6 +17,19 @@ const { title, description, currentPath = '/', locale = 'en' } = Astro.props;
     <meta name="description" content={description || title} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    {
+      analyticsId && analyticsEnabled && (
+        <>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`}></script>
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', `${analyticsId}`);
+          </script>
+        </>
+      )
+    }
   </head>
   <body class="antialiased">
     <Navigation locale={locale} />
