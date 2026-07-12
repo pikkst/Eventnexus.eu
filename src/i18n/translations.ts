@@ -1048,6 +1048,24 @@ export const translations: Record<Language, TranslationKeys> = {
       process: {
         eyebrow: 'Процесс',
         headline: 'Структурированный путь от запроса до запуска.',
+        steps: [
+          {
+            title: 'Отправьте идею',
+            description: 'Начните с пошаговой формы, где описываются тип решения, функции, сроки и бюджет.',
+          },
+          {
+            title: 'Сформируйте объём',
+            description: 'Eventnexus анализирует запрос и превращает идею в практичный план разработки.',
+          },
+          {
+            title: 'Постройте продукт',
+            description: 'Фронтенд, бэкенд, база данных, платежи и админ-инструменты создаются по мере необходимости.',
+          },
+          {
+            title: 'Запустите и улучшайте',
+            description: 'Продукт разворачивается, подключается к нужному домену и улучшается по итерациям.',
+          },
+        ],
       },
       proof: {
         eyebrow: 'Опыт',
@@ -1318,6 +1336,24 @@ export const translations: Record<Language, TranslationKeys> = {
       process: {
         eyebrow: 'Prozess',
         headline: 'Ein strukturierter Weg von der Anfrage bis zum Start.',
+        steps: [
+          {
+            title: 'Senden Sie Ihre Idee',
+            description: 'Beginnen Sie mit einem geführten Projektformular, das Lösungsart, Funktionen, Zeitplan und Budget beschreibt.',
+          },
+          {
+            title: 'Formen Sie den Umfang',
+            description: 'Eventnexus prüft die Anfrage und verwandelt die Idee in einen praktischen Bauplan.',
+          },
+          {
+            title: 'Bauen Sie das Produkt',
+            description: 'Frontend, Backend, Datenbank, Zahlungen und Admin-Tools werden nach Bedarf erstellt.',
+          },
+          {
+            title: 'Starten und verbessern',
+            description: 'Das Produkt wird bereitgestellt, an die richtige Domain angeschlossen und iterativ verbessert.',
+          },
+        ],
       },
       proof: {
         eyebrow: 'Erfahrung',
@@ -1588,6 +1624,24 @@ export const translations: Record<Language, TranslationKeys> = {
       process: {
         eyebrow: 'Prosessi',
         headline: 'Jäsennelty polku pyynnöstä käynnistykseen.',
+        steps: [
+          {
+            title: 'Lähetä ideasi',
+            description: 'Aloita opastetulla projektilomakkeella, jossa kuvataan ratkaisun tyyppi, ominaisuudet, aikataulu ja budjetti.',
+          },
+          {
+            title: 'Muotoile laajuus',
+            description: 'Eventnexus arvioi pyynnön ja muuttaa idean käytännölliseksi rakennussuunnitelmaksi.',
+          },
+          {
+            title: 'Rakenna tuote',
+            description: 'Frontend, backend, tietokanta, maksut ja hallintatyökalut rakennetaan tarpeen mukaan.',
+          },
+          {
+            title: 'Käynnistä ja paranna',
+            description: 'Tuote otetaan käyttöön, yhdistetään oikeaan domainiin ja parannetaan iteratiivisesti.',
+          },
+        ],
       },
       proof: {
         eyebrow: 'Kokemus',
@@ -1858,6 +1912,24 @@ export const translations: Record<Language, TranslationKeys> = {
       process: {
         eyebrow: 'Protsess',
         headline: 'Struktureeritud tee taotlusest käivitamiseni.',
+        steps: [
+          {
+            title: 'Saada oma idee',
+            description: 'Alusta juhendatud projekti taotlusvormiga, kus kirjeldad lahenduse tüüpi, funktsioone, ajakava ja eelarvet.',
+          },
+          {
+            title: 'Määra ulatus',
+            description: 'Eventnexus vaatab taotluse läbi ja muudab idee praktiliseks ehitusplaaniks.',
+          },
+          {
+            title: 'Ehita toode',
+            description: 'Esikülg, tagakülg, andmebaas, maksed ja admin tööriistad luuakse vastavalt vajadusele.',
+          },
+          {
+            title: 'Käivita ja paranda',
+            description: 'Toode võetakse kasutusele, ühendatakse õige domeeniga ja parendatakse iteratiivselt.',
+          },
+        ],
       },
       proof: {
         eyebrow: 'Kogemus',
