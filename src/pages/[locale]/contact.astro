@@ -18,99 +18,13 @@ const stepOfText = (step: number, total: number) => {
 
 const initialStepText = stepOfText(1, 8);
 
-const projectTypes = [
-  'company website',
-  'landing page',
-  'SaaS platform',
-  'customer portal',
-  'booking or request platform',
-  'internal business tool',
-  'admin dashboard',
-  'e-commerce or payment-enabled service',
-  'AI-assisted workflow tool',
-  'automation or integration',
-  'not sure yet',
-  'other',
-];
-
-const featureOptions = [
-  'public pages',
-  'user accounts',
-  'login and registration',
-  'user roles or permissions',
-  'admin dashboard',
-  'customer dashboard',
-  'booking or scheduling',
-  'request or quote forms',
-  'file uploads',
-  'payments or subscriptions',
-  'email notifications',
-  'CRM or lead workflow',
-  'analytics or reporting',
-  'map or location features',
-  'AI-assisted features',
-  'third-party integrations',
-  'multilingual support',
-  'not sure yet',
-];
-
-const technicalNeeds = [
-  'frontend design and development',
-  'backend development',
-  'database setup',
-  'authentication',
-  'payment integration',
-  'admin system',
-  'API integration',
-  'automation',
-  'deployment and hosting',
-  'domain setup',
-  'maintenance after launch',
-  'technical planning only',
-  'not sure yet',
-];
-
-const timelineOptions = [
-  'as soon as possible',
-  'within 2-4 weeks',
-  'within 1-2 months',
-  'within 3-6 months',
-  'flexible timeline',
-  'just exploring',
-];
-
-const budgetOptions = [
-  'under 500 EUR',
-  '500-1,500 EUR',
-  '1,500-3,000 EUR',
-  '3,000-7,500 EUR',
-  '7,500-15,000 EUR',
-  '15,000+ EUR',
-  'not sure yet',
-];
-
-const statusOptions = [
-  'idea only',
-  'rough plan exists',
-  'design or specification exists',
-  'existing website or app needs improvement',
-  'existing product needs new features',
-  'urgent business need',
-];
-
-const integrationOptions = [
-  'Stripe or payment provider',
-  'Supabase',
-  'CRM',
-  'email provider',
-  'calendar',
-  'maps',
-  'analytics',
-  'AI API',
-  'internal company system',
-  'other',
-  'not sure yet',
-];
+const projectTypes = t.contact.options.projectTypes;
+const featureOptions = t.contact.options.featureOptions;
+const technicalNeeds = t.contact.options.technicalNeeds;
+const timelineOptions = t.contact.options.timelineOptions;
+const budgetOptions = t.contact.options.budgetOptions;
+const statusOptions = t.contact.options.statusOptions;
+const integrationOptions = t.contact.options.integrationOptions;
 
 const translationsJson = JSON.stringify(t);
 ---

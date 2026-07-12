@@ -9,28 +9,7 @@ const t = getTranslations(locale);
 
 const services = t.home.services.cards;
 
-const processSteps = [
-  {
-    title: 'Submit Your Idea',
-    description:
-      'Start with a guided project form describing the type of solution, features, timeline, and budget.',
-  },
-  {
-    title: 'Shape The Scope',
-    description:
-      'Eventnexus reviews the request and turns the idea into a practical build plan.',
-  },
-  {
-    title: 'Build The Product',
-    description:
-      'The frontend, backend, database, payments, and admin tools are built as needed.',
-  },
-  {
-    title: 'Launch And Improve',
-    description:
-      'The product is deployed, connected to the right domain, and improved through iterations.',
-  },
-];
+const processSteps = t.home.process.steps;
 ---
 
 <BaseLayout

@@ -61,11 +61,21 @@
     process: {
       eyebrow: string;
       headline: string;
+      steps: Array<{
+        title: string;
+        description: string;
+      }>;
     };
     proof: {
       eyebrow: string;
       headline: string;
       description: string;
+      items: Array<{
+        title: string;
+        description: string;
+        category: string;
+        href: string;
+      }>;
     };
     intakeCta: {
       heading: string;
@@ -92,6 +102,7 @@
       includes: string[];
       bestFor: string;
     }>;
+    projectTypes: string[];
     turnkey: {
       eyebrow: string;
       headline: string;
@@ -118,6 +129,15 @@
       description1: string;
       description2: string;
     };
+    categories: Array<{
+      title: string;
+      items: Array<{
+        title: string;
+        description: string;
+        category: string;
+        href: string;
+      }>;
+    }>;
     categoriesTitle: string;
     nextSectionTitle: string;
     nextSectionDescription1: string;
@@ -129,6 +149,15 @@
       headline: string;
       description1: string;
       description2: string;
+    };
+    options: {
+      projectTypes: string[];
+      featureOptions: string[];
+      technicalNeeds: string[];
+      timelineOptions: string[];
+      budgetOptions: string[];
+      statusOptions: string[];
+      integrationOptions: string[];
     };
     form: {
       title: string;
@@ -377,6 +406,28 @@ export const translations: Record<Language, TranslationKeys> = {
       process: {
         eyebrow: 'Process',
         headline: 'A structured path from request to launch.',
+        steps: [
+          {
+            title: 'Submit your idea',
+            description:
+              'Start with a guided project form describing the type of solution, features, timeline, and budget.',
+          },
+          {
+            title: 'Shape the scope',
+            description:
+              'Eventnexus reviews the request and turns the idea into a practical build plan.',
+          },
+          {
+            title: 'Build the product',
+            description:
+              'The frontend, backend, database, payments, and admin tools are built as needed.',
+          },
+          {
+            title: 'Launch and improve',
+            description:
+              'The product is deployed, connected to the right domain, and improved through iterations.',
+          },
+        ],
       },
       proof: {
         eyebrow: 'Experience',
@@ -579,6 +630,19 @@ export const translations: Record<Language, TranslationKeys> = {
              'Clients who want the product launched and maintained instead of receiving unfinished technical files.',
          },
        ],
+       projectTypes: [
+         'SaaS platforms',
+         'customer portals',
+         'service booking platforms',
+         'company websites',
+         'lead-generation websites',
+         'internal business tools',
+         'admin dashboards',
+         'payment-enabled service platforms',
+         'AI-assisted workflow tools',
+         'automation systems',
+         'data and reporting dashboards',
+       ],
        turnkey: {
         eyebrow: 'Delivery Model',
         headline: 'What "turnkey" means at Eventnexus.',
@@ -703,6 +767,95 @@ export const translations: Record<Language, TranslationKeys> = {
           'Start with a structured project request. Choose the type of solution, select the features you may need, share your timeline and budget range, and describe the idea in your own words.',
         description2:
           'You do not need a technical specification. The form helps turn your idea into the first version of a buildable project brief.',
+      },
+      options: {
+        projectTypes: [
+          'company website',
+          'landing page',
+          'SaaS platform',
+          'customer portal',
+          'booking or request platform',
+          'internal business tool',
+          'admin dashboard',
+          'e-commerce or payment-enabled service',
+          'AI-assisted workflow tool',
+          'automation or integration',
+          'not sure yet',
+          'other',
+        ],
+        featureOptions: [
+          'public pages',
+          'user accounts',
+          'login and registration',
+          'user roles or permissions',
+          'admin dashboard',
+          'customer dashboard',
+          'booking or scheduling',
+          'request or quote forms',
+          'file uploads',
+          'payments or subscriptions',
+          'email notifications',
+          'CRM or lead workflow',
+          'analytics or reporting',
+          'map or location features',
+          'AI-assisted features',
+          'third-party integrations',
+          'multilingual support',
+          'not sure yet',
+        ],
+        technicalNeeds: [
+          'frontend design and development',
+          'backend development',
+          'database setup',
+          'authentication',
+          'payment integration',
+          'admin system',
+          'API integration',
+          'automation',
+          'deployment and hosting',
+          'domain setup',
+          'maintenance after launch',
+          'technical planning only',
+          'not sure yet',
+        ],
+        timelineOptions: [
+          'as soon as possible',
+          'within 2-4 weeks',
+          'within 1-2 months',
+          'within 3-6 months',
+          'flexible timeline',
+          'just exploring',
+        ],
+        budgetOptions: [
+          'under 500 EUR',
+          '500-1,500 EUR',
+          '1,500-3,000 EUR',
+          '3,000-7,500 EUR',
+          '7,500-15,000 EUR',
+          '15,000+ EUR',
+          'not sure yet',
+        ],
+        statusOptions: [
+          'idea only',
+          'rough plan exists',
+          'design or specification exists',
+          'existing website or app needs improvement',
+          'existing product needs new features',
+          'urgent business need',
+        ],
+        integrationOptions: [
+          'Stripe or payment provider',
+          'Supabase',
+          'CRM',
+          'email provider',
+          'calendar',
+          'maps',
+          'analytics',
+          'AI API',
+          'internal company system',
+          'other',
+          'not sure yet',
+        ],
       },
       form: {
         title: 'Project request',
