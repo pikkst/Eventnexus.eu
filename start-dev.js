@@ -2,11 +2,11 @@ import 'dotenv/config';
 import { spawn } from 'child_process';
 
 let command;
-let args = ['dev'];
+const args = ['dev', ...process.argv.slice(2)];
 
 if (process.platform === 'win32') {
   command = 'cmd.exe';
-  args = ['/c', 'astro', ...args];
+  args.unshift('/c', 'astro');
 } else {
   command = 'astro';
 }

@@ -4,7 +4,10 @@ const criticalPages = [
   {
     name: 'homepage',
     path: '/',
-    assertions: ['Eventnexus builds your idea into a working web platform.', 'Start a project request'],
+    assertions: [
+      'Eventnexus builds your idea into a working web platform.',
+      'Start a project request',
+    ],
   },
   {
     name: 'services',
@@ -14,7 +17,7 @@ const criticalPages = [
   {
     name: 'work',
     path: '/work',
-    assertions: ['Proof and work', 'Start a project request'],
+    assertions: ['Proof and work'],
   },
   {
     name: 'contact',

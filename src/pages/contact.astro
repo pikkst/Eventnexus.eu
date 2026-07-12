@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getTranslations, getLanguageFromPath } from '../i18n';
+
+const locale = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(locale);
+---
+
+<BaseLayout title={t.contact.hero.headline} description={t.contact.hero.description1} locale={locale}>
+  <section class="bg-surface py-16 text-text md:py-24">
+    <div class="container mx-auto max-w-4xl px-4">
+      <div class="max-w-2xl">
+        <h1 class="text-4xl font-extrabold leading-tight tracking-tight text-text md:text-5xl">
+          {t.contact.hero.headline}
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-text-muted">
+          {t.contact.hero.description1}
+        </p>
+        <p class="mt-4 text-base leading-relaxed text-text-muted">
+          {t.contact.hero.description2}
+        </p>
+      </div>
+
+      <div class="mt-12 rounded-lg border border-border bg-surface shadow-sm p-6">
+        <form id="project-request-form" class="space-y-4" novalidate>
+          <label class="block text-sm font-medium text-text" for="fullName">{t.contact.step1.fullName}</label>
+          <input id="fullName" name="fullName" type="text" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm" placeholder={t.contact.step1.fullNamePlaceholder} />
+          <label class="block text-sm font-medium text-text" for="email">{t.contact.step1.email}</label>
+          <input id="email" name="email" type="email" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm" placeholder={t.contact.step1.emailPlaceholder} />
+          <button type="submit" class="inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-base font-semibold text-white shadow-md transition-colors hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+            {t.contact.buttons.sendProjectRequest}
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

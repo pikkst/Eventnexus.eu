@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from './Section.astro';
+import CtaSection from './CtaSection.astro';
+import { getTranslations } from '../i18n';
+
+const { locale = 'en' } = Astro.props;
+const t = getTranslations(locale);
+
+const services = t.home.services.cards;
+
+const processSteps = t.home.process.steps;
+---
+
+<BaseLayout
+  title={t.home.hero.headline}
+  description={t.home.hero.supporting1}
+  locale={locale}
+>
+  <section class="bg-surface py-16 text-text md:py-24">
+    <div class="container mx-auto max-w-7xl px-6">
+      <div class="max-w-3xl">
+        <h1
+          class="text-4xl font-extrabold leading-tight tracking-tight text-text md:text-6xl"
+        >
+          {t.home.hero.headline}
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-text-muted md:text-xl">
+          {t.home.hero.supporting1}
+        </p>
+        <p class="mt-4 text-lg leading-relaxed text-text-muted md:text-xl">
+          {t.home.hero.supporting2}
+        </p>
+        <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+          <a
+            href={`/${locale}/contact`}
+            class="inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-base font-semibold text-white shadow-md transition-colors hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+          >
+            {t.home.hero.primaryCta}
+          </a>
+          <a
+            href={`/${locale}/#services`}
+            class="inline-flex h-12 items-center justify-center rounded-md border border-border bg-surface px-8 text-base font-semibold text-text shadow-sm transition-colors hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+          >
+            {t.home.hero.secondaryCta}
+          </a>
+        </div>
+        <p class="mt-8 text-sm text-text-muted">
+          {t.home.hero.trustLine}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Section
+    eyebrow={t.home.problem.eyebrow}
+    title={t.home.problem.headline}
+    description={t.home.problem.description}
+    className="bg-surface-muted"
+  />
+
+  <Section
+    id="services"
+    eyebrow={t.home.services.eyebrow}
+    title={t.home.services.headline}
+    description={t.home.services.description}
+  >
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((service) => (
+          <article class="rounded-lg border border-border bg-surface p-6 shadow-sm transition-shadow hover:shadow-md">
+            <h3 class="text-lg font-semibold text-text">{service.title}</h3>
+            <p class="mt-3 text-base leading-relaxed text-text-muted">
+              {service.description}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section
+    id="process"
+    eyebrow={t.home.process.eyebrow}
+    title={t.home.process.headline}
+    className="bg-surface-muted"
+  >
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        processSteps.map((step, index) => (
+          <div class="relative flex flex-col items-start">
+            <span class="text-sm font-bold uppercase tracking-widest text-primary">
+              {t.common.stepOf(index + 1, processSteps.length)}
+            </span>
+            <h3 class="mt-3 text-xl font-semibold text-text">{step.title}</h3>
+            <p class="mt-2 text-base leading-relaxed text-text-muted">
+              {step.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section id="work" eyebrow={t.home.proof.eyebrow} title={t.home.proof.headline}>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        t.home.proof.items.map((item) => (
+          <div class="rounded-lg border border-border bg-surface-muted p-6 shadow-sm">
+            <span class="text-xs font-semibold uppercase tracking-widest text-primary">
+              {item.category}
+            </span>
+            <h3 class="mt-3 text-lg font-semibold text-text">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-text-muted">
+              {item.description}
+            </p>
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-4 inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-primary-light"
+            >
+              {item.href.includes('github') ? t.ui.viewOnGitHub : t.ui.visitSite}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="ml-1 h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                ></path>
+              </svg>
+            </a>
+          </div>
+        ))
+      }
+    </div>
+    <div class="mt-4">
+      <a
+        href={`/${locale}/work`}
+        class="inline-flex h-12 items-center justify-center rounded-md border border-border bg-surface px-8 text-base font-semibold text-text shadow-sm transition-colors hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+      >
+        {t.ui.viewAllWork}
+      </a>
+    </div>
+  </Section>
+
+  <CtaSection
+    heading={t.home.intakeCta.heading}
+    body={t.home.intakeCta.body}
+    primaryCta={{ label: t.home.intakeCta.primaryCta, href: `/${locale}/contact` }}
+  />
+</BaseLayout>
