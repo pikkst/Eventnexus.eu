@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getTranslations } from '../i18n';
+import { getTranslations, getLanguageFromPath } from '../i18n';
 
-const locale = 'en';
+const locale = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(locale);
 ---
 

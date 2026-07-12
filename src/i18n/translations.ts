@@ -53,6 +53,10 @@
       eyebrow: string;
       headline: string;
       description: string;
+      cards: Array<{
+        title: string;
+        description: string;
+      }>;
     };
     process: {
       eyebrow: string;
@@ -82,6 +86,12 @@
       headline: string;
       description: string;
     };
+    serviceCards: Array<{
+      title: string;
+      description: string;
+      includes: string[];
+      bestFor: string;
+    }>;
     turnkey: {
       eyebrow: string;
       headline: string;
