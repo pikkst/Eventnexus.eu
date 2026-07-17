@@ -75,21 +75,6 @@ const navItems = [
           d="M6 18L18 6M6 6l12 12"></path>
       </svg>
     </button>
-    <nav
-      id="nav-menu"
-      class="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex"
-    >
-      {
-        navItems.map((item) => (
-          <a
-            href={item.href}
-            class="rounded transition hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
-          >
-            {item.label}
-          </a>
-        ))
-      }
-    </nav>
   </div>
   <div
     id="nav-mobile"
