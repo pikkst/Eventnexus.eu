@@ -19,46 +19,46 @@ export const prerender = false;
 const MAX_REQUEST_SIZE = 1024 * 1024;
 
 const ALLOWED_PROJECT_TYPES = [
-  'company website',
-  'landing page',
-  'SaaS platform',
-  'customer portal',
-  'booking or request platform',
-  'internal business tool',
-  'admin dashboard',
-  'e-commerce or payment-enabled service',
-  'AI-assisted workflow tool',
-  'automation or integration',
-  'not sure yet',
+  'company_website',
+  'landing_page',
+  'saas_platform',
+  'customer_portal',
+  'booking_request_platform',
+  'internal_business_tool',
+  'admin_dashboard',
+  'ecommerce_payment_service',
+  'ai_workflow_tool',
+  'automation_integration',
+  'not_sure_yet',
   'other',
 ] as const;
 
 const ALLOWED_TIMELINES = [
-  'as soon as possible',
-  'within 2-4 weeks',
-  'within 1-2 months',
-  'within 3-6 months',
-  'flexible timeline',
-  'just exploring',
+  'asap',
+  '2_4_weeks',
+  '1_2_months',
+  '3_6_months',
+  'flexible',
+  'exploring',
 ] as const;
 
 const ALLOWED_BUDGETS = [
-  'under 500 EUR',
-  '500-1,500 EUR',
-  '1,500-3,000 EUR',
-  '3,000-7,500 EUR',
-  '7,500-15,000 EUR',
-  '15,000+ EUR',
-  'not sure yet',
+  'under_500',
+  '500_1500',
+  '1500_3000',
+  '3000_7500',
+  '7500_15000',
+  '15000_plus',
+  'not_sure_yet',
 ] as const;
 
 const ALLOWED_PROJECT_STATUSES = [
-  'idea only',
-  'rough plan exists',
-  'design or specification exists',
-  'existing website or app needs improvement',
-  'existing product needs new features',
-  'urgent business need',
+  'idea_only',
+  'rough_plan',
+  'design_spec',
+  'existing_improvement',
+  'existing_new_features',
+  'urgent',
 ] as const;
 
 const MAX_LENGTHS = {
@@ -220,7 +220,9 @@ export const POST: APIRoute = async ({ request }) => {
     const turnstileToken = String(body.get('turnstileToken') || '');
     const turnstileResult = await verifyTurnstileToken(turnstileToken);
 
-    if (!turnstileResult.success) {
+    if (turnstileResult.errorCodes?.includes('secret_key_missing')) {
+      logAbuseEvent('info', 'Turnstile not configured, skipping verification');
+    } else if (!turnstileResult.success) {
       logAbuseEvent('warn', 'Turnstile verification failed', {
         errorCodes: turnstileResult.errorCodes,
       });

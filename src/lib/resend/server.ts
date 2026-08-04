@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { getOptionLabel, getOptionLabels } from '../option-labels';
 
 function escapeHtml(value: string): string {
   return value
@@ -50,7 +51,9 @@ export async function sendLeadNotificationEmail(lead: {
   const subject = `New project request: ${escapeHtml(lead.projectTitle || lead.projectType)}`;
 
   const formatArr = (arr?: string[]) =>
-    arr && arr.length > 0 ? escapeHtml(arr.join(', ')) : '';
+    arr && arr.length > 0
+      ? escapeHtml(getOptionLabels(arr).join(', '))
+      : '';
 
   const html = `
     <h2>New project request</h2>
@@ -59,13 +62,13 @@ export async function sendLeadNotificationEmail(lead: {
     <p><strong>Email:</strong> ${escapeHtml(lead.email)}</p>
     ${lead.phoneOrChannel ? `<p><strong>Phone:</strong> ${escapeHtml(lead.phoneOrChannel)}</p>` : ''}
     ${lead.companyName ? `<p><strong>Company:</strong> ${escapeHtml(lead.companyName)}</p>` : ''}
-    <p><strong>Project type:</strong> ${escapeHtml(lead.projectType)}</p>
+    <p><strong>Project type:</strong> ${escapeHtml(getOptionLabel(lead.projectType))}</p>
     <p><strong>Project title:</strong> ${escapeHtml(lead.projectTitle)}</p>
     <p><strong>Description:</strong></p>
     <p>${escapeHtml(lead.ideaDescription).replace(/\n/g, '<br>')}</p>
-    ${lead.timeline ? `<p><strong>Timeline:</strong> ${escapeHtml(lead.timeline)}</p>` : ''}
-    ${lead.budgetRange ? `<p><strong>Budget:</strong> ${escapeHtml(lead.budgetRange)}</p>` : ''}
-    ${lead.projectStatus ? `<p><strong>Project status:</strong> ${escapeHtml(lead.projectStatus)}</p>` : ''}
+    ${lead.timeline ? `<p><strong>Timeline:</strong> ${escapeHtml(getOptionLabel(lead.timeline))}</p>` : ''}
+    ${lead.budgetRange ? `<p><strong>Budget:</strong> ${escapeHtml(getOptionLabel(lead.budgetRange))}</p>` : ''}
+    ${lead.projectStatus ? `<p><strong>Project status:</strong> ${escapeHtml(getOptionLabel(lead.projectStatus))}</p>` : ''}
     ${formatArr(lead.requiredFeatures) ? `<p><strong>Features:</strong> ${formatArr(lead.requiredFeatures)}</p>` : ''}
     ${formatArr(lead.technicalNeeds) ? `<p><strong>Technical needs:</strong> ${formatArr(lead.technicalNeeds)}</p>` : ''}
     ${formatArr(lead.integrations) ? `<p><strong>Integrations:</strong> ${formatArr(lead.integrations)}</p>` : ''}

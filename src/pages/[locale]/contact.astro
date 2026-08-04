@@ -27,7 +27,10 @@ const statusOptions = t.contact.options.statusOptions;
 const integrationOptions = t.contact.options.integrationOptions;
 
 const translationsJson = JSON.stringify(t);
+const turnstileSiteKey = process.env.PUBLIC_TURNSTILE_SITE_KEY || '';
 ---
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <BaseLayout
   title={t.contact.hero.headline}
@@ -98,6 +101,9 @@ const translationsJson = JSON.stringify(t);
         </div>
 
         <form id="project-request-form" class="space-y-8 px-6 py-8" novalidate>
+          <input type="hidden" name="website" id="website" tabindex="-1" autocomplete="off" style="display:none" />
+          <input type="hidden" name="formLoadedAt" id="formLoadedAt" value="" />
+          <input type="hidden" name="turnstileToken" id="turnstileToken" value="" />
           <!-- Step 1: Contact Identity -->
 
           <fieldset id="step-1" class="step">
@@ -217,7 +223,7 @@ const translationsJson = JSON.stringify(t);
 
                   {
                     projectTypes.map((type) => (
-                      <option value={type}>{type}</option>
+                      <option value={type.id}>{type.label}</option>
                     ))
                   }
                 </select>
@@ -334,20 +340,20 @@ const translationsJson = JSON.stringify(t);
             </p>
 
             <div class="mt-6 grid gap-4 sm:grid-cols-2">
-              {
-                featureOptions.map((feature) => (
-                  <label class="flex cursor-pointer items-start gap-3 rounded-md border border-border bg-surface p-3 hover:bg-surface-muted">
-                    <input
-                      type="checkbox"
-                      name="features"
-                      value={feature}
-                      class="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring"
-                    />
+               {
+                 featureOptions.map((feature) => (
+                   <label class="flex cursor-pointer items-start gap-3 rounded-md border border-border bg-surface p-3 hover:bg-surface-muted">
+                     <input
+                       type="checkbox"
+                       name="features"
+                       value={feature.id}
+                       class="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring"
+                     />
 
-                    <span class="text-sm text-text">{feature}</span>
-                  </label>
-                ))
-              }
+                     <span class="text-sm text-text">{feature.label}</span>
+                   </label>
+                 ))
+               }
             </div>
 
             <div class="mt-6">
@@ -379,20 +385,20 @@ const translationsJson = JSON.stringify(t);
             </p>
 
             <div class="mt-6 grid gap-4 sm:grid-cols-2">
-              {
-                technicalNeeds.map((need) => (
-                  <label class="flex cursor-pointer items-start gap-3 rounded-md border border-border bg-surface p-3 hover:bg-surface-muted">
-                    <input
-                      type="checkbox"
-                      name="technicalNeeds"
-                      value={need}
-                      class="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring"
-                    />
+               {
+                 technicalNeeds.map((need) => (
+                   <label class="flex cursor-pointer items-start gap-3 rounded-md border border-border bg-surface p-3 hover:bg-surface-muted">
+                     <input
+                       type="checkbox"
+                       name="technicalNeeds"
+                       value={need.id}
+                       class="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring"
+                     />
 
-                    <span class="text-sm text-text">{need}</span>
-                  </label>
-                ))
-              }
+                     <span class="text-sm text-text">{need.label}</span>
+                   </label>
+                 ))
+               }
             </div>
           </fieldset>
 
@@ -423,11 +429,11 @@ const translationsJson = JSON.stringify(t);
                 >
                   <option value="" disabled selected>{t.contact.step6.timelinePlaceholder}</option>
 
-                  {
-                    timelineOptions.map((option) => (
-                      <option value={option}>{option}</option>
-                    ))
-                  }
+                   {
+                     timelineOptions.map((option) => (
+                       <option value={option.id}>{option.label}</option>
+                     ))
+                   }
                 </select>
               </div>
 
@@ -446,11 +452,11 @@ const translationsJson = JSON.stringify(t);
                 >
                   <option value="" disabled selected>{t.contact.step6.budgetPlaceholder}</option>
 
-                  {
-                    budgetOptions.map((option) => (
-                      <option value={option}>{option}</option>
-                    ))
-                  }
+                   {
+                     budgetOptions.map((option) => (
+                       <option value={option.id}>{option.label}</option>
+                     ))
+                   }
                 </select>
               </div>
 
@@ -470,11 +476,11 @@ const translationsJson = JSON.stringify(t);
                 >
                   <option value="" disabled selected>{t.contact.step6.statusPlaceholder}</option>
 
-                  {
-                    statusOptions.map((option) => (
-                      <option value={option}>{option}</option>
-                    ))
-                  }
+                   {
+                     statusOptions.map((option) => (
+                       <option value={option.id}>{option.label}</option>
+                     ))
+                   }
                 </select>
               </div>
             </div>
@@ -564,20 +570,20 @@ const translationsJson = JSON.stringify(t);
                 </p>
 
                 <div class="mt-3 grid gap-3 sm:grid-cols-2">
-                  {
-                    integrationOptions.map((integration) => (
-                      <label class="flex cursor-pointer items-start gap-3 rounded-md border border-border bg-surface p-3 hover:bg-surface-muted">
-                        <input
-                          type="checkbox"
-                          name="integrations"
-                          value={integration}
-                          class="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring"
-                        />
+                   {
+                     integrationOptions.map((integration) => (
+                       <label class="flex cursor-pointer items-start gap-3 rounded-md border border-border bg-surface p-3 hover:bg-surface-muted">
+                         <input
+                           type="checkbox"
+                           name="integrations"
+                           value={integration.id}
+                           class="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring"
+                         />
 
-                        <span class="text-sm text-text">{integration}</span>
-                      </label>
-                    ))
-                  }
+                         <span class="text-sm text-text">{integration.label}</span>
+                       </label>
+                     ))
+                   }
                 </div>
               </div>
             </div>
@@ -702,6 +708,8 @@ const translationsJson = JSON.stringify(t);
               >
                 {t.common.submit}
               </button>
+
+              <div id="turnstile-container" class="hidden pt-2"></div>
             </div>
           </div>
         </form>
@@ -711,6 +719,9 @@ const translationsJson = JSON.stringify(t);
           class="hidden space-y-6 px-6 py-8"
           novalidate
         >
+          <input type="hidden" name="website" id="contact-website" tabindex="-1" autocomplete="off" style="display:none" />
+          <input type="hidden" name="formLoadedAt" id="contact-formLoadedAt" value="" />
+          <input type="hidden" name="turnstileToken" id="contact-turnstileToken" value="" />
           <div
             id="contact-form-error"
             class="hidden rounded-md border border-red-200 bg-red-50 p-4"
@@ -789,13 +800,14 @@ const translationsJson = JSON.stringify(t);
             </button>
 
             <button
-              type="button"
-              id="send-contact-btn"
-              class="inline-flex h-11 items-center justify-center rounded-md bg-primary px-5 text-sm font-semibold text-white shadow-md transition hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-            >
-              {t.contact.buttons.sendMessage}
-            </button>
-          </div>
+               type="button"
+               id="send-contact-btn"
+               class="inline-flex h-11 items-center justify-center rounded-md bg-primary px-5 text-sm font-semibold text-white shadow-md transition hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+             >
+               {t.contact.buttons.sendMessage}
+             </button>
+             <div id="contact-turnstile-container" class="hidden pt-2"></div>
+           </div>
         </form>
 
         <div id="form-success" class="hidden px-6 py-12 text-center">
@@ -853,9 +865,16 @@ const translationsJson = JSON.stringify(t);
 
   const steps = Array.from(form.querySelectorAll('.step'));
 
-  let currentStep = 0;
+   let currentStep = 0;
 
-  const totalSteps = steps.length;
+   const totalSteps = steps.length;
+
+   document.getElementById('formLoadedAt').value = new Date().toISOString();
+   document.getElementById('contact-formLoadedAt').value = new Date().toISOString();
+
+   const turnstileSiteKey = t.turnstileSiteKey || '';
+   let mainTurnstileWidgetId = null;
+   let contactTurnstileWidgetId = null;
 
   const reviewLabels = {
     fullName: t.contact.review.fullName,
@@ -881,6 +900,19 @@ const translationsJson = JSON.stringify(t);
     integrations: t.contact.review.integrations,
   };
 
+  const translationsObj = JSON.parse(translationsJson);
+  const options = translationsObj.contact.options;
+
+  const idToLabel = (optionType, id) => {
+    const arr = options[optionType];
+    if (!arr) return id;
+    const found = arr.find((item) => item.id === id);
+    return found ? found.label : id;
+  };
+
+  const idsToLabels = (optionType, ids) =>
+    ids.map((id) => idToLabel(optionType, id));
+
   const stepTextTemplate = (step, total) => `Step ${step} of ${total}`;
 
   const updateStep = (index) => {
@@ -905,6 +937,18 @@ const translationsJson = JSON.stringify(t);
       nextBtn.classList.add('hidden');
 
       submitBtn.classList.remove('hidden');
+
+      if (turnstileSiteKey && typeof turnstile !== 'undefined') {
+        const container = document.getElementById('turnstile-container');
+        if (container && !container.hasChildNodes() && !mainTurnstileWidgetId) {
+          mainTurnstileWidgetId = turnstile.render(container, {
+            sitekey: turnstileSiteKey,
+            callback: (token) => {
+              document.getElementById('turnstileToken').value = token;
+            },
+          });
+        }
+      }
 
       renderReview();
     } else {
@@ -978,7 +1022,7 @@ const translationsJson = JSON.stringify(t);
     }
 
     if (projectDl) {
-      setRow(projectDl, reviewLabels.projectType, toVal('projectType'));
+      setRow(projectDl, reviewLabels.projectType, idToLabel('projectTypes', toVal('projectType')));
 
       setRow(projectDl, reviewLabels.title, toVal('projectTitle'));
     }
@@ -997,19 +1041,19 @@ const translationsJson = JSON.stringify(t);
     }
 
     if (needsDl) {
-      const features = toArr('features').join(', ');
+      const features = idsToLabels('featureOptions', toArr('features')).join(', ');
 
       if (features) setRow(needsDl, reviewLabels.features, features);
 
-      const techs = toArr('technicalNeeds').join(', ');
+      const techs = idsToLabels('technicalNeeds', toArr('technicalNeeds')).join(', ');
 
       if (techs) setRow(needsDl, reviewLabels.technicalNeeds, techs);
 
-      setRow(needsDl, reviewLabels.timeline, toVal('timeline'));
+      setRow(needsDl, reviewLabels.timeline, idToLabel('timelineOptions', toVal('timeline')));
 
-      setRow(needsDl, reviewLabels.budget, toVal('budgetRange'));
+      setRow(needsDl, reviewLabels.budget, idToLabel('budgetOptions', toVal('budgetRange')));
 
-      setRow(needsDl, reviewLabels.projectStatus, toVal('projectStatus'));
+      setRow(needsDl, reviewLabels.projectStatus, idToLabel('statusOptions', toVal('projectStatus')));
     }
 
     if (integrationDl) {
@@ -1025,7 +1069,7 @@ const translationsJson = JSON.stringify(t);
       if (toVal('existingBrandAssets'))
         setRow(integrationDl, reviewLabels.brandAssets, toVal('existingBrandAssets'));
 
-      const integrations = toArr('integrations').join(', ');
+      const integrations = idsToLabels('integrationOptions', toArr('integrations')).join(', ');
 
       if (integrations) setRow(integrationDl, reviewLabels.integrations, integrations);
     }
@@ -1174,6 +1218,18 @@ const translationsJson = JSON.stringify(t);
     contactOnlyPath.classList.add('hidden');
     contactForm.classList.remove('hidden');
     if (success) success.classList.add('hidden');
+
+    if (turnstileSiteKey && typeof turnstile !== 'undefined') {
+      const container = document.getElementById('contact-turnstile-container');
+      if (container && !container.hasChildNodes() && !contactTurnstileWidgetId) {
+        contactTurnstileWidgetId = turnstile.render(container, {
+          sitekey: turnstileSiteKey,
+          callback: (token) => {
+            document.getElementById('contact-turnstileToken').value = token;
+          },
+        });
+      }
+    }
   });
 
   backToProjectRequest.addEventListener('click', () => {
