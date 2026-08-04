@@ -1,8 +1,22 @@
 import type { APIRoute } from 'astro';
 import { getSupabaseServerClient } from '../../lib/supabase/server';
 import { sendLeadNotificationEmail } from '../../lib/resend/server';
+import {
+  verifyTurnstileToken,
+  rateLimit,
+  validateArrayField,
+  ALLOWED_FEATURES,
+  ALLOWED_TECHNICAL_NEEDS,
+  ALLOWED_INTEGRATIONS,
+  checkHoneypot,
+  checkMinimumCompletionTime,
+  checkDuplicateSubmission,
+  logAbuseEvent,
+} from '../../lib/abuse-protection';
 
 export const prerender = false;
+
+const MAX_REQUEST_SIZE = 1024 * 1024;
 
 const ALLOWED_PROJECT_TYPES = [
   'company website',
@@ -111,145 +125,90 @@ interface FieldValues {
   consent: boolean;
 }
 
-const validateFields = (fields: FieldValues): Record<string, string> => {
-  const errors: Record<string, string> = {};
-
-  if (!fields.consent) {
-    errors.consent = 'Consent is required';
-  }
-
-  if (!fields.fullName) {
-    errors.fullName = 'Full name is required';
-  } else if (fields.fullName.length > MAX_LENGTHS.fullName) {
-    errors.fullName = `Full name must be under ${MAX_LENGTHS.fullName} characters`;
-  }
-
-  if (!fields.email) {
-    errors.email = 'Email is required';
-  } else if (!validateEmail(fields.email)) {
-    errors.email = 'Invalid email address';
-  } else if (fields.email.length > MAX_LENGTHS.email) {
-    errors.email = `Email must be under ${MAX_LENGTHS.email} characters`;
-  }
-
-  if (fields.phoneOrChannel.length > MAX_LENGTHS.phoneOrChannel) {
-    errors.phoneOrChannel = `Phone must be under ${MAX_LENGTHS.phoneOrChannel} characters`;
-  }
-
-  if (fields.companyName.length > MAX_LENGTHS.companyName) {
-    errors.companyName = `Company name must be under ${MAX_LENGTHS.companyName} characters`;
-  }
-
-  if (fields.region.length > MAX_LENGTHS.region) {
-    errors.region = `Region must be under ${MAX_LENGTHS.region} characters`;
-  }
+const validateFields = (fields: FieldValues): boolean => {
+  if (!fields.consent) return false;
+  if (!fields.fullName || fields.fullName.length > MAX_LENGTHS.fullName) return false;
+  if (!fields.email || !validateEmail(fields.email) || fields.email.length > MAX_LENGTHS.email) return false;
+  if (fields.phoneOrChannel.length > MAX_LENGTHS.phoneOrChannel) return false;
+  if (fields.companyName.length > MAX_LENGTHS.companyName) return false;
+  if (fields.region.length > MAX_LENGTHS.region) return false;
 
   const isContactOnly = fields.contactMessage.length > 0;
 
   if (isContactOnly) {
-    if (fields.contactMessage.length < 10) {
-      errors.contactMessage = 'Message must be at least 10 characters';
-    } else if (fields.contactMessage.length > MAX_LENGTHS.contactMessage) {
-      errors.contactMessage = `Message must be under ${MAX_LENGTHS.contactMessage} characters`;
+    if (fields.contactMessage.length < 10 || fields.contactMessage.length > MAX_LENGTHS.contactMessage) {
+      return false;
     }
   } else {
-    if (fields.ideaDescription.length < 80) {
-      errors.ideaDescription =
-        'Idea description must be at least 80 characters';
-    } else if (fields.ideaDescription.length > MAX_LENGTHS.ideaDescription) {
-      errors.ideaDescription = `Idea description must be under ${MAX_LENGTHS.ideaDescription} characters`;
-    }
-
-    if (!fields.projectType) {
-      errors.projectType = 'Project type is required';
-    } else if (!isAllowed(fields.projectType, ALLOWED_PROJECT_TYPES)) {
-      errors.projectType = 'Invalid project type';
-    }
-
-    if (!fields.projectTitle) {
-      errors.projectTitle = 'Project title is required';
-    } else if (fields.projectTitle.length > MAX_LENGTHS.projectTitle) {
-      errors.projectTitle = `Project title must be under ${MAX_LENGTHS.projectTitle} characters`;
-    }
-
-    if (fields.targetUsers.length > MAX_LENGTHS.targetUsers) {
-      errors.targetUsers = `Target users must be under ${MAX_LENGTHS.targetUsers} characters`;
-    }
-
-    if (fields.problemToSolve.length > MAX_LENGTHS.problemToSolve) {
-      errors.problemToSolve = `Problem description must be under ${MAX_LENGTHS.problemToSolve} characters`;
-    }
-
-    if (fields.desiredOutcome.length > MAX_LENGTHS.desiredOutcome) {
-      errors.desiredOutcome = `Outcome description must be under ${MAX_LENGTHS.desiredOutcome} characters`;
-    }
-
-    if (fields.extraNotes.length > MAX_LENGTHS.extraNotes) {
-      errors.extraNotes = `Notes must be under ${MAX_LENGTHS.extraNotes} characters`;
-    }
-
-    if (fields.timeline && !isAllowed(fields.timeline, ALLOWED_TIMELINES)) {
-      errors.timeline = 'Invalid timeline';
-    }
-
-    if (fields.budgetRange && !isAllowed(fields.budgetRange, ALLOWED_BUDGETS)) {
-      errors.budgetRange = 'Invalid budget range';
-    }
-
-    if (
-      fields.projectStatus &&
-      !isAllowed(fields.projectStatus, ALLOWED_PROJECT_STATUSES)
-    ) {
-      errors.projectStatus = 'Invalid project status';
-    }
-
-    if (
-      fields.existingDomain &&
-      fields.existingDomain.length > MAX_LENGTHS.existingDomain
-    ) {
-      errors.existingDomain = `Domain must be under ${MAX_LENGTHS.existingDomain} characters`;
-    }
-
-    if (fields.existingUrl && !validateUrl(fields.existingUrl)) {
-      errors.existingUrl = 'Invalid URL';
-    } else if (
-      fields.existingUrl &&
-      fields.existingUrl.length > MAX_LENGTHS.existingUrl
-    ) {
-      errors.existingUrl = `URL must be under ${MAX_LENGTHS.existingUrl} characters`;
-    }
-
-    if (fields.existingRepo && !validateUrl(fields.existingRepo)) {
-      errors.existingRepo = 'Invalid URL';
-    } else if (
-      fields.existingRepo &&
-      fields.existingRepo.length > MAX_LENGTHS.existingRepo
-    ) {
-      errors.existingRepo = `URL must be under ${MAX_LENGTHS.existingRepo} characters`;
-    }
-
-    if (fields.existingBrandAssets.length > MAX_LENGTHS.existingBrandAssets) {
-      errors.existingBrandAssets = `Brand assets must be under ${MAX_LENGTHS.existingBrandAssets} characters`;
-    }
+    if (fields.ideaDescription.length < 80 || fields.ideaDescription.length > MAX_LENGTHS.ideaDescription) return false;
+    if (!fields.projectType || !isAllowed(fields.projectType, ALLOWED_PROJECT_TYPES)) return false;
+    if (!fields.projectTitle || fields.projectTitle.length > MAX_LENGTHS.projectTitle) return false;
+    if (fields.targetUsers.length > MAX_LENGTHS.targetUsers) return false;
+    if (fields.problemToSolve.length > MAX_LENGTHS.problemToSolve) return false;
+    if (fields.desiredOutcome.length > MAX_LENGTHS.desiredOutcome) return false;
+    if (fields.extraNotes.length > MAX_LENGTHS.extraNotes) return false;
+    if (fields.timeline && !isAllowed(fields.timeline, ALLOWED_TIMELINES)) return false;
+    if (fields.budgetRange && !isAllowed(fields.budgetRange, ALLOWED_BUDGETS)) return false;
+    if (fields.projectStatus && !isAllowed(fields.projectStatus, ALLOWED_PROJECT_STATUSES)) return false;
+    if (fields.existingDomain.length > MAX_LENGTHS.existingDomain) return false;
+    if (fields.existingUrl && (!validateUrl(fields.existingUrl) || fields.existingUrl.length > MAX_LENGTHS.existingUrl)) return false;
+    if (fields.existingRepo && (!validateUrl(fields.existingRepo) || fields.existingRepo.length > MAX_LENGTHS.existingRepo)) return false;
+    if (fields.existingBrandAssets.length > MAX_LENGTHS.existingBrandAssets) return false;
   }
 
-  return errors;
+  return true;
+};
+
+const getClientIp = (request: Request): string => {
+  const forwardedFor = request.headers.get('x-forwarded-for');
+  if (forwardedFor) {
+    return forwardedFor.split(',')[0].trim();
+  }
+
+  const cfConnectingIp = request.headers.get('cf-connecting-ip');
+  if (cfConnectingIp) {
+    return cfConnectingIp;
+  }
+
+  return 'unknown';
+};
+
+const getFingerprint = (email: string, ip: string): string => {
+  const data = `${email}:${ip}`;
+  let hash = 0;
+  for (let i = 0; i < data.length; i++) {
+    const char = data.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash |= 0;
+  }
+  return `fp-${Math.abs(hash).toString(36)}`;
 };
 
 export const POST: APIRoute = async ({ request }) => {
-  // Check for Supabase environment variables before proceeding
   const supabaseUrl =
     process.env.SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL;
   const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!supabaseUrl || !supabaseServiceRoleKey) {
+    logAbuseEvent('error', 'Supabase environment variables missing');
     return new Response(
-      JSON.stringify({
-        error:
-          'Supabase is not configured for lead submissions. Please set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY environment variables.',
-      }),
+      JSON.stringify({ error: 'Service unavailable' }),
       {
-        status: 501, // Not Implemented
+        status: 503,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
+  const contentLength = request.headers.get('content-length');
+  if (contentLength && parseInt(contentLength, 10) > MAX_REQUEST_SIZE) {
+    logAbuseEvent('warn', 'Request body too large', {
+      contentLength,
+    });
+    return new Response(
+      JSON.stringify({ error: 'Request too large' }),
+      {
+        status: 413,
         headers: { 'Content-Type': 'application/json' },
       }
     );
@@ -257,6 +216,77 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     const body = await request.formData();
+
+    const turnstileToken = String(body.get('turnstileToken') || '');
+    const turnstileResult = await verifyTurnstileToken(turnstileToken);
+
+    if (!turnstileResult.success) {
+      logAbuseEvent('warn', 'Turnstile verification failed', {
+        errorCodes: turnstileResult.errorCodes,
+      });
+      return new Response(
+        JSON.stringify({ error: 'Verification failed' }),
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    const ip = getClientIp(request);
+    const email = sanitizeText(String(body.get('email') || '')).toLowerCase();
+    const fingerprint = getFingerprint(email, ip);
+
+    const rateLimitResult = rateLimit(`lead:${ip}:${fingerprint}`);
+    if (!rateLimitResult.allowed) {
+      logAbuseEvent('warn', 'Rate limit exceeded', {
+        ip,
+        fingerprint,
+        remaining: rateLimitResult.remaining,
+      });
+      return new Response(
+        JSON.stringify({ error: 'Too many requests' }),
+        {
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'Retry-After': String(Math.ceil((rateLimitResult.resetAt - Date.now()) / 1000)),
+          },
+        }
+      );
+    }
+
+    const honeypotValue = String(body.get('website') || '');
+    const honeypotResult = checkHoneypot(honeypotValue);
+    if (!honeypotResult.passed) {
+      logAbuseEvent('warn', 'Honeypot triggered', {
+        ip,
+        reason: honeypotResult.reason,
+      });
+      return new Response(
+        JSON.stringify({ error: 'Submission rejected' }),
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    const formLoadedAt = String(body.get('formLoadedAt') || '');
+    const timingResult = checkMinimumCompletionTime(formLoadedAt);
+    if (!timingResult.passed) {
+      logAbuseEvent('warn', 'Minimum completion time not met', {
+        ip,
+        reason: timingResult.reason,
+      });
+      return new Response(
+        JSON.stringify({ error: 'Submission rejected' }),
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
 
     const fields: FieldValues = {
       fullName: sanitizeText(String(body.get('fullName') || '')),
@@ -294,16 +324,70 @@ export const POST: APIRoute = async ({ request }) => {
       .getAll('integrations')
       .map((v) => sanitizeText(String(v)));
 
-    const validationErrors = validateFields(fields);
+    const featuresValidation = validateArrayField(
+      'features',
+      requiredFeatures,
+      ALLOWED_FEATURES
+    );
+    const technicalNeedsValidation = validateArrayField(
+      'technicalNeeds',
+      technicalNeeds,
+      ALLOWED_TECHNICAL_NEEDS
+    );
+    const integrationsValidation = validateArrayField(
+      'integrations',
+      integrations,
+      ALLOWED_INTEGRATIONS
+    );
 
-    if (Object.keys(validationErrors).length > 0) {
+    const arrayErrors = [
+      ...featuresValidation.errors,
+      ...technicalNeedsValidation.errors,
+      ...integrationsValidation.errors,
+    ];
+
+    if (arrayErrors.length > 0) {
+      logAbuseEvent('warn', 'Array field validation failed', {
+        ip,
+        errors: arrayErrors,
+      });
       return new Response(
-        JSON.stringify({
-          error: 'Validation failed',
-          fields: validationErrors,
-        }),
+        JSON.stringify({ error: 'Invalid input' }),
         {
           status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    if (!validateFields(fields)) {
+      logAbuseEvent('warn', 'Field validation failed', {
+        ip,
+        email,
+      });
+      return new Response(
+        JSON.stringify({ error: 'Invalid input' }),
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    const duplicateResult = await checkDuplicateSubmission(
+      fields.email,
+      fields.projectTitle
+    );
+    if (duplicateResult.isDuplicate) {
+      logAbuseEvent('warn', 'Duplicate submission detected', {
+        ip,
+        email,
+        projectTitle: fields.projectTitle,
+      });
+      return new Response(
+        JSON.stringify({ error: 'Submission rejected' }),
+        {
+          status: 409,
           headers: { 'Content-Type': 'application/json' },
         }
       );
@@ -345,10 +429,18 @@ export const POST: APIRoute = async ({ request }) => {
       .single();
 
     if (supabaseError) {
-      return new Response(JSON.stringify({ error: supabaseError.message }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
+      logAbuseEvent('error', 'Supabase insert failed', {
+        ip,
+        email,
+        error: supabaseError.message,
       });
+      return new Response(
+        JSON.stringify({ error: 'Submission failed' }),
+        {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
     }
 
     const leadCreatedAt = new Date().toISOString();
@@ -374,17 +466,33 @@ export const POST: APIRoute = async ({ request }) => {
         createdAt: leadCreatedAt,
       });
     } catch (emailError) {
-      console.error('Lead notification email failed:', emailError);
+      logAbuseEvent('error', 'Lead notification email failed', {
+        leadId: data?.id,
+        email: fields.email,
+        error: emailError instanceof Error ? emailError.message : 'unknown error',
+      });
     }
+
+    logAbuseEvent('info', 'Lead submission successful', {
+      leadId: data?.id,
+      email: fields.email,
+      ip,
+    });
 
     return new Response(JSON.stringify({ ok: true, id: data?.id }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
-  } catch {
-    return new Response(JSON.stringify({ error: 'Internal server error' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
+  } catch (error) {
+    logAbuseEvent('error', 'Unexpected error in submit-lead', {
+      error: error instanceof Error ? error.message : 'unknown error',
     });
+    return new Response(
+      JSON.stringify({ error: 'Internal server error' }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 };
