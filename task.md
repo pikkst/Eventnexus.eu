@@ -157,6 +157,39 @@ Fix the privilege escalation vulnerability in the `profiles_update_own` RLS poli
 
 ---
 
+### ADM-002.2: Remove recursive profiles RLS policies
+
+### Task Description
+
+Fix the recursive RLS policies on `public.profiles` where admin policies query the same RLS-enabled table from within their own policy definitions, causing potential infinite recursion errors.
+
+## User Story
+
+> As an admin user, I want admin authorization checks to work reliably without triggering RLS recursion errors so that profile reads and admin operations succeed at runtime.
+
+## Acceptance Criteria
+
+- Selecting and updating one's own profile does not produce an RLS recursion error.
+- Admin checks do not directly query the same RLS-protected table from its own policy.
+- Normal users cannot read or update other profiles.
+- Admins can perform only the explicitly intended operations.
+- Automated database tests cover normal-user and admin access paths.
+
+## Definition of Done
+
+- The `profiles_admin_select_all` and `profiles_admin_update_all` policies no longer use recursive `EXISTS (SELECT 1 FROM public.profiles ...)` subqueries.
+- A `public.is_admin()` SECURITY DEFINER function with locked-down `search_path` replaces the recursive subqueries.
+- Database tests in `supabase/tests/profiles_rls_test.sql` cover normal-user and admin access paths without recursion errors.
+
+**EST:** 2 SP
+
+**RT:**
+**QA:**
+
+- [x] Task ID: ADM-002.2
+
+---
+
 ### ADM-003: Implement server-side admin auth helpers and middleware
 
 ### Task Description
