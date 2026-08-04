@@ -123,6 +123,40 @@ Set up the database tables and Supabase Auth settings required for admin authent
 
 ---
 
+### ADM-002.1: Prevent users from promoting their own profile to admin
+
+### Task Description
+
+Fix the privilege escalation vulnerability in the `profiles_update_own` RLS policy that allows any authenticated user to update their own `role` column to `admin`.
+
+## User Story
+
+> As a system administrator, I want to prevent non-admin users from escalating their own privileges so that only authorized server-side paths can assign or revoke admin roles.
+
+## Acceptance Criteria
+
+- An authenticated user cannot update `profiles.role` for themselves or anyone else via direct UPDATE.
+- Only an explicitly authorized server/admin path can assign or revoke admin roles.
+- User-owned updates remain possible only for approved fields such as `full_name` and `email`.
+- Automated RLS tests cover self-update, cross-user update, admin promotion, and admin demotion attempts.
+
+## Definition of Done
+
+- The `profiles_update_own` policy has been removed or replaced with a restricted alternative.
+- A `profiles_update` SECURITY DEFINER function allows users to update only `full_name` and `email`.
+- A `profiles_set_role` SECURITY DEFINER function allows only admins to change roles.
+- A `BEFORE UPDATE` trigger prevents non-admin users from changing the `role` column via direct UPDATE.
+- Database tests in `supabase/tests/profiles_rls_test.sql` cover self-update, cross-user update, admin promotion, and admin demotion attempts.
+
+**EST:** 3 SP
+
+**RT:**
+**QA:**
+
+- [x] Task ID: ADM-002.1
+
+---
+
 ### ADM-003: Implement server-side admin auth helpers and middleware
 
 ### Task Description
