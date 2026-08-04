@@ -190,6 +190,38 @@ Fix the recursive RLS policies on `public.profiles` where admin policies query t
 
 ---
 
+### ADM-002.3: Block direct anonymous inserts into project_leads
+
+### Task Description
+
+Remove unrestricted INSERT policies on `public.project_leads` that allow both `anon` and `authenticated` roles to insert rows directly through the Supabase REST API, bypassing server-side validation and abuse controls.
+
+## User Story
+
+> As a system administrator, I want to prevent direct database inserts into `project_leads` so that all lead submissions go through the validated server-side API endpoint.
+
+## Acceptance Criteria
+
+- `anon` and ordinary authenticated clients cannot insert directly into `project_leads`.
+- Valid website submissions still work through `/api/submit-lead`.
+- Attempts through the Supabase REST API using the anon key are denied.
+- Database tests verify read, insert, update, and delete behavior for all relevant roles.
+
+## Definition of Done
+
+- The `project_leads_anon_insert` and `project_leads_authenticated_insert` policies have been removed.
+- SELECT, UPDATE, and DELETE policies remain deny-all for anon and authenticated roles.
+- Database tests in `supabase/tests/leads_rls_test.sql` cover all roles and operations.
+
+**EST:** 2 SP
+
+**RT:**
+**QA:**
+
+- [x] Task ID: ADM-002.3
+
+---
+
 ### ADM-003: Implement server-side admin auth helpers and middleware
 
 ### Task Description

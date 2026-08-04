@@ -56,17 +56,8 @@ CREATE TRIGGER trg_update_project_leads_updated_at
   EXECUTE FUNCTION public.update_project_leads_updated_at();
 
 -- Admin reads/writes happen server-side with SUPABASE_SERVICE_ROLE_KEY, which bypasses RLS.
--- Public and authenticated roles cannot read or modify leads through RLS.
-
-CREATE POLICY "project_leads_anon_insert"
-ON public.project_leads FOR INSERT
-TO anon
-WITH CHECK (true);
-
-CREATE POLICY "project_leads_authenticated_insert"
-ON public.project_leads FOR INSERT
-TO authenticated
-WITH CHECK (true);
+-- Public and authenticated roles cannot read, insert, update, or delete leads through RLS.
+-- All writes go through the server-side /api/submit-lead endpoint with validation and abuse checks.
 
 CREATE POLICY "project_leads_anon_select"
 ON public.project_leads FOR SELECT
