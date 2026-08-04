@@ -106,6 +106,23 @@ CREATE TRIGGER trg_profiles_prevent_non_admin_role_change
   FOR EACH ROW
   EXECUTE FUNCTION public.profiles_prevent_non_admin_role_change();
 
+CREATE OR REPLACE FUNCTION public.is_admin()
+RETURNS BOOLEAN
+LANGUAGE 'plpgsql'
+SECURITY DEFINER
+SET search_path = public
+AS $$
+DECLARE
+  v_role TEXT;
+BEGIN
+  SELECT role INTO v_role
+  FROM public.profiles
+  WHERE id = auth.uid();
+
+  RETURN v_role = 'admin';
+END;
+$$;
+
 -- Users can read their own profile
 CREATE POLICY "profiles_select_own"
 ON public.profiles FOR SELECT
@@ -116,26 +133,11 @@ USING (auth.uid() = id);
 CREATE POLICY "profiles_admin_select_all"
 ON public.profiles FOR SELECT
 TO authenticated
-USING (
-  EXISTS (
-    SELECT 1 FROM public.profiles p
-    WHERE p.id = auth.uid() AND p.role = 'admin'
-  )
-);
+USING (public.is_admin());
 
 -- Admins can update all profiles
 CREATE POLICY "profiles_admin_update_all"
 ON public.profiles FOR UPDATE
 TO authenticated
-USING (
-  EXISTS (
-    SELECT 1 FROM public.profiles p
-    WHERE p.id = auth.uid() AND p.role = 'admin'
-  )
-)
-WITH CHECK (
-  EXISTS (
-    SELECT 1 FROM public.profiles p
-    WHERE p.id = auth.uid() AND p.role = 'admin'
-  )
-);
+USING (public.is_admin())
+WITH CHECK (public.is_admin());
