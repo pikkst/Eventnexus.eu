@@ -94,7 +94,7 @@ This file stores stable context and decisions for future agents.
 - Use GitHub as the source of truth for code.
 - Use Cloudflare for deployment when the application scaffold is ready.
 - Connect Supabase only when a real backend feature is defined.
-- Lead submissions flow through `src/pages/api/submit-lead.ts`, which validates payloads and inserts into Supabase using `SUPABASE_SERVICE_ROLE_KEY` server-side.
+- Lead submissions flow through `src/pages/api/submit-lead.ts`, which validates payloads, enforces abuse protection (Turnstile verification, rate limiting, request size guard, field allowlists, honeypot, minimum completion time, duplicate suppression), and inserts into Supabase using `SUPABASE_SERVICE_ROLE_KEY` server-side.
 - Add `src/lib/supabase/server.ts` for server-only Supabase client creation.
 - Cloudflare adapter `@astrojs/cloudflare` is configured to support on-demand API routes during static build.
 - Tailwind configuration must live at repo root as `tailwind.config.mjs` with `content` paths and project token colors.
@@ -123,7 +123,7 @@ This file stores stable context and decisions for future agents.
 
 ## Open Decisions
 
-- `project_leads` schema and RLS policies are defined in `supabase/leads-schema.sql`; direct anon and authenticated INSERT policies have been removed to block bypass of server-side validation; all writes go through `/api/submit-lead`; SELECT/UPDATE/DELETE remain deny-all for anon and authenticated roles; database tests in `supabase/tests/leads_rls_test.sql` cover all roles and operations
+- `project_leads` schema and RLS policies are defined in `supabase/leads-schema.sql`; direct anon and authenticated INSERT policies have been removed to block bypass of server-side validation; all writes go through `/api/submit-lead` with Turnstile verification, rate limiting, request size guard, field allowlists, honeypot, minimum completion time, duplicate suppression, and structured server-side logging; SELECT/UPDATE/DELETE remain deny-all for anon and authenticated roles; database tests in `supabase/tests/leads_rls_test.sql` cover all roles and operations
 - Admin auth tables and Supabase Auth configuration are defined and ready to be applied to the Supabase dashboard; initial admin user must be created manually.
 - Admin operations foundation planning is complete and documented in `admin-operations.md`; ready for implementation.
 - Admin dashboard MVP direction: create a secure internal workspace first with authenticated admin access, a project board, project detail pages, and a simple status workflow before opening any client-facing portal features.

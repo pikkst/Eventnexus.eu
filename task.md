@@ -222,6 +222,46 @@ Remove unrestricted INSERT policies on `public.project_leads` that allow both `a
 
 ---
 
+### ADM-002.4: Add abuse protection and request-size limits to lead submission
+
+### Task Description
+
+Implement layered abuse protection for the `POST /api/submit-lead` endpoint, including Turnstile verification, rate limiting, request size guards, field allowlists, honeypot checks, minimum completion time, duplicate suppression, and generic client errors with structured server-side logging.
+
+## User Story
+
+> As a system administrator, I want the lead submission endpoint protected against automated abuse so that spam, excessive requests, and invalid data cannot overwhelm the database or notification services.
+
+## Acceptance Criteria
+
+- Submissions without a valid anti-bot token are rejected.
+- Repeated submissions are rate-limited with a clear 429 response.
+- Oversized bodies and excessive repeated fields are rejected before database insertion.
+- `features`, `technicalNeeds`, and `integrations` are validated against stable identifiers and count limits.
+- Automated tests cover valid submission, invalid token, rate limit, oversized body, and repeated-field abuse.
+- Protection works in the Cloudflare deployment environment.
+
+## Definition of Done
+
+- Turnstile token verification is implemented in the submit-lead endpoint.
+- Rate limiting is keyed by IP plus a secondary fingerprint.
+- Request body size is checked before parsing.
+- Array fields are validated against allowlists with count and length limits.
+- Honeypot and minimum completion time checks are implemented.
+- Duplicate submission suppression is implemented.
+- Generic client errors are returned instead of detailed field-level validation errors.
+- Structured server-side logging is implemented.
+- Automated tests cover all abuse protection scenarios.
+
+**EST:** 5 SP
+
+**RT:**
+**QA:**
+
+- [x] Task ID: ADM-002.4
+
+---
+
 ### ADM-003: Implement server-side admin auth helpers and middleware
 
 ### Task Description
