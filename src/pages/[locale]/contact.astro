@@ -836,7 +836,11 @@ const turnstileSiteKey = process.env.PUBLIC_TURNSTILE_SITE_KEY || '';
   </section>
 </BaseLayout>
 
-<script>
+<script define:vars={{ turnstileSiteKey }}>
+  window.__TURNSTILE_SITE_KEY__ = `${turnstileSiteKey}`;
+</script>
+
+<script define:vars={{ translationsJson }}>
   const form = document.getElementById('project-request-form');
 
   const contactForm = document.getElementById('contact-only-form');
@@ -872,36 +876,36 @@ const turnstileSiteKey = process.env.PUBLIC_TURNSTILE_SITE_KEY || '';
    document.getElementById('formLoadedAt').value = new Date().toISOString();
    document.getElementById('contact-formLoadedAt').value = new Date().toISOString();
 
-   const turnstileSiteKey = t.turnstileSiteKey || '';
+   const turnstileSiteKey = window.__TURNSTILE_SITE_KEY__ || '';
    let mainTurnstileWidgetId = null;
    let contactTurnstileWidgetId = null;
 
-  const reviewLabels = {
-    fullName: t.contact.review.fullName,
-    email: t.contact.review.email,
-    phone: t.contact.review.phone,
-    company: t.contact.review.company,
-    region: t.contact.review.region,
-    projectType: t.contact.review.projectType,
-    title: t.contact.review.title,
-    idea: t.contact.review.idea,
-    targetUsers: t.contact.review.targetUsers,
-    problem: t.contact.review.problem,
-    outcome: t.contact.review.outcome,
-    features: t.contact.review.features,
-    technicalNeeds: t.contact.review.technicalNeeds,
-    timeline: t.contact.review.timeline,
-    budget: t.contact.review.budget,
-    projectStatus: t.contact.review.projectStatus,
-    domain: t.contact.review.domain,
-    url: t.contact.review.url,
-    repo: t.contact.review.repo,
-    brandAssets: t.contact.review.brandAssets,
-    integrations: t.contact.review.integrations,
-  };
-
   const translationsObj = JSON.parse(translationsJson);
   const options = translationsObj.contact.options;
+
+  const reviewLabels = {
+    fullName: translationsObj.contact.review.fullName,
+    email: translationsObj.contact.review.email,
+    phone: translationsObj.contact.review.phone,
+    company: translationsObj.contact.review.company,
+    region: translationsObj.contact.review.region,
+    projectType: translationsObj.contact.review.projectType,
+    title: translationsObj.contact.review.title,
+    idea: translationsObj.contact.review.idea,
+    targetUsers: translationsObj.contact.review.targetUsers,
+    problem: translationsObj.contact.review.problem,
+    outcome: translationsObj.contact.review.outcome,
+    features: translationsObj.contact.review.features,
+    technicalNeeds: translationsObj.contact.review.technicalNeeds,
+    timeline: translationsObj.contact.review.timeline,
+    budget: translationsObj.contact.review.budget,
+    projectStatus: translationsObj.contact.review.projectStatus,
+    domain: translationsObj.contact.review.domain,
+    url: translationsObj.contact.review.url,
+    repo: translationsObj.contact.review.repo,
+    brandAssets: translationsObj.contact.review.brandAssets,
+    integrations: translationsObj.contact.review.integrations,
+  };
 
   const idToLabel = (optionType, id) => {
     const arr = options[optionType];
@@ -1251,9 +1255,9 @@ const turnstileSiteKey = process.env.PUBLIC_TURNSTILE_SITE_KEY || '';
         if (contactEmailError) contactEmailError.classList.remove('hidden');
       }
       if (message && message.length < 10) {
-        alert(t.common.messageMinLength);
+        alert(translationsObj.common.messageMinLength);
       } else if (!message) {
-        alert(t.common.contactRequired);
+        alert(translationsObj.common.contactRequired);
       }
       return;
     }
@@ -1266,6 +1270,12 @@ const turnstileSiteKey = process.env.PUBLIC_TURNSTILE_SITE_KEY || '';
       formData.append('email', email);
       formData.append('contactMessage', message);
       formData.append('consent', 'on');
+      const websiteField = contactForm.querySelector('#contact-website');
+      const formLoadedAtField = contactForm.querySelector('#contact-formLoadedAt');
+      const turnstileTokenField = contactForm.querySelector('#contact-turnstileToken');
+      formData.append('website', websiteField ? websiteField.value : '');
+      formData.append('formLoadedAt', formLoadedAtField ? formLoadedAtField.value : '');
+      formData.append('turnstileToken', turnstileTokenField ? turnstileTokenField.value : '');
       const response = await fetch('/api/submit-lead', {
         method: 'POST',
         body: formData,
