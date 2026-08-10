@@ -1270,6 +1270,12 @@ const turnstileSiteKey = process.env.PUBLIC_TURNSTILE_SITE_KEY || '';
       formData.append('email', email);
       formData.append('contactMessage', message);
       formData.append('consent', 'on');
+      const websiteField = contactForm.querySelector('#contact-website');
+      const formLoadedAtField = contactForm.querySelector('#contact-formLoadedAt');
+      const turnstileTokenField = contactForm.querySelector('#contact-turnstileToken');
+      formData.append('website', websiteField ? websiteField.value : '');
+      formData.append('formLoadedAt', formLoadedAtField ? formLoadedAtField.value : '');
+      formData.append('turnstileToken', turnstileTokenField ? turnstileTokenField.value : '');
       const response = await fetch('/api/submit-lead', {
         method: 'POST',
         body: formData,

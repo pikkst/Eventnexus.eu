@@ -103,4 +103,10 @@ test('smoke: isolated contact-only submission succeeds on canonical route', asyn
   expect(capturedPayload!).toContain('This is a test message that meets the minimum length requirement.');
   expect(capturedPayload!).toContain('consent');
   expect(capturedPayload!).toContain('on');
+  expect(capturedPayload!).toContain('formLoadedAt');
+  expect(capturedPayload!).toMatch(/formLoadedAt"\s*\n\s*\d{4}-\d{2}-\d{2}T/);
+  expect(capturedPayload!).toContain('website');
+  if (process.env.PUBLIC_TURNSTILE_SITE_KEY) {
+    expect(capturedPayload!).toContain('turnstileToken');
+  }
 });
