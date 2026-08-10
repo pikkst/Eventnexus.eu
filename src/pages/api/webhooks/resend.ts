@@ -1,51 +1,72 @@
 import type { APIRoute } from 'astro';
+import { Webhook } from 'standardwebhooks';
+import { extractWebhookEvent } from '../../../lib/webhooks/resend';
+import { getSupabaseServerClient } from '../../../lib/supabase/server';
+import { IdempotencyStore, SupabaseIdempotencyStore, InMemoryIdempotencyStore } from '../../../lib/webhooks/idempotency';
 
 export const prerender = false;
 
-function timingSafeEqual(a: string, b: string): boolean {
-  if (a.length !== b.length) {
-    return false;
-  }
-  let result = 0;
-  for (let i = 0; i < a.length; i++) {
-    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  }
-  return result === 0;
+let cachedStore: IdempotencyStore | null = null;
+let testStoreOverride: IdempotencyStore | null = null;
+
+export function resetIdempotencyStore() {
+  cachedStore = null;
+  testStoreOverride = null;
 }
 
-async function verifyResendSignature(
-  secret: string,
-  rawBody: string,
-  signature: string
-): Promise<boolean> {
-  const encoder = new TextEncoder();
-  const keyData = encoder.encode(secret);
-  const key = await crypto.subtle.importKey(
-    'raw',
-    keyData,
-    { name: 'HMAC', hash: 'SHA-256' },
-    false,
-    ['sign']
-  );
-  const signatureData = encoder.encode(rawBody);
-  const signatureBuffer = await crypto.subtle.sign('HMAC', key, signatureData);
-  const expectedSignature = Array.from(new Uint8Array(signatureBuffer))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('');
-  return timingSafeEqual(
-    signature.toUpperCase(),
-    expectedSignature.toUpperCase()
-  );
+export function setTestIdempotencyStore(store: IdempotencyStore) {
+  testStoreOverride = store;
 }
 
-function isTimestampValid(timestamp: string | null): boolean {
-  if (!timestamp) {
-    return false;
+function createIdempotencyStore(): IdempotencyStore {
+  if (testStoreOverride) {
+    return testStoreOverride;
   }
 
-  const timestampMs = Number(timestamp);
+  if (cachedStore) {
+    return cachedStore;
+  }
+
+  if (process.env.NODE_ENV !== 'production' && process.env.WEBHOOK_TEST_MODE === 'true') {
+    cachedStore = new InMemoryIdempotencyStore();
+  } else {
+    const supabase = getSupabaseServerClient();
+    cachedStore = new SupabaseIdempotencyStore(supabase);
+  }
+
+  return cachedStore;
+}
+
+export const POST: APIRoute = async ({ request }) => {
+  const secret = process.env.RESEND_WEBHOOK_SECRET;
+  if (!secret) {
+    console.warn('Webhook received but RESEND_WEBHOOK_SECRET is not configured');
+    return new Response(JSON.stringify({ error: 'Not configured' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const rawBody = await request.text();
+  const headers = Object.fromEntries(request.headers.entries());
+
+  const webhookId = headers['webhook-id'] || headers['svix-id'];
+  const webhookTimestamp = headers['webhook-timestamp'] || headers['svix-timestamp'];
+  const webhookSignature = headers['webhook-signature'] || headers['svix-signature'];
+
+  if (!webhookId || !webhookTimestamp || !webhookSignature) {
+    return new Response(JSON.stringify({ error: 'Missing signature headers' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const timestampMs = Number(webhookTimestamp);
   if (!Number.isFinite(timestampMs)) {
-    return false;
+    return new Response(JSON.stringify({ error: 'Invalid timestamp' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   const now = Date.now();
@@ -53,67 +74,17 @@ function isTimestampValid(timestamp: string | null): boolean {
     timestampMs > 1_000_000_000_000 ? timestampMs : timestampMs * 1000;
   const fiveMinutes = 5 * 60 * 1000;
 
-  return Math.abs(now - normalizedTimestamp) <= fiveMinutes;
-}
-
-export const POST: APIRoute = async ({ request }) => {
-  const secret = process.env.RESEND_WEBHOOK_SECRET;
-  if (!secret) {
-    console.warn(
-      'Webhook received but RESEND_WEBHOOK_SECRET is not configured'
-    );
-    return new Response(JSON.stringify({ error: 'Not configured' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
-  const signature = request.headers.get('x-resend-signature');
-  const timestampHeader = request.headers.get('x-resend-signature-timestamp');
-  const rawBody = await request.text();
-
-  if (!signature || !timestampHeader) {
-    return new Response(
-      JSON.stringify({ error: 'Missing signature headers' }),
-      {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  }
-
-  if (!isTimestampValid(timestampHeader)) {
-    return new Response(
-      JSON.stringify({ error: 'Invalid or expired timestamp' }),
-      {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  }
-
-  const isSignatureValid = await verifyResendSignature(
-    secret,
-    rawBody,
-    signature
-  );
-  if (!isSignatureValid) {
-    return new Response(JSON.stringify({ error: 'Invalid signature' }), {
+  if (Math.abs(now - normalizedTimestamp) > fiveMinutes) {
+    return new Response(JSON.stringify({ error: 'Expired timestamp' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
     });
   }
 
-  let payload: {
-    type?: string;
-    data?: {
-      email_id?: string;
-      to?: string | string[];
-    };
-  };
+  const webhook = new Webhook(secret);
 
   try {
-    payload = JSON.parse(rawBody);
+    JSON.parse(rawBody);
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
       status: 400,
@@ -121,20 +92,49 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const type = typeof payload.type === 'string' ? payload.type : 'unknown';
-  const emailId =
-    typeof payload.data?.email_id === 'string' ? payload.data.email_id : 'n/a';
-
-  let recipient = 'n/a';
-  if (Array.isArray(payload.data?.to)) {
-    recipient = payload.data.to.join(', ');
-  } else if (typeof payload.data?.to === 'string') {
-    recipient = payload.data.to;
+  try {
+    webhook.verify(rawBody, {
+      'webhook-id': webhookId,
+      'webhook-timestamp': webhookTimestamp,
+      'webhook-signature': webhookSignature,
+    });
+  } catch {
+    return new Response(JSON.stringify({ error: 'Invalid signature' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
-  console.log(
-    `Resend webhook event received: type=${type}, emailId=${emailId}, recipient=${recipient}`
-  );
+  let event;
+  try {
+    event = extractWebhookEvent(rawBody);
+  } catch {
+    return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const store = createIdempotencyStore();
+
+  try {
+    const result = await store.claim({ id: webhookId, type: event.type });
+
+    if (result === 'duplicate') {
+      return new Response(JSON.stringify({ ok: true, duplicate: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+  } catch (error) {
+    console.error('Failed to record webhook event', error);
+    return new Response(JSON.stringify({ error: 'Database error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  console.log(`Resend webhook event received: type=${event.type}, emailId=${event.emailId}`);
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,
