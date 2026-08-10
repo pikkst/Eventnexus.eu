@@ -1,16 +1,23 @@
 ---
 const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID;
 const analyticsEnabled = import.meta.env.PUBLIC_ANALYTICS_ENABLED !== 'false';
-const isValidAnalyticsId = typeof analyticsId === 'string' && /^G-[A-Z0-9]{10}$/i.test(analyticsId);
-const shouldLoadAnalytics = isValidAnalyticsId && analyticsEnabled;
+const shouldLoad = typeof analyticsId === 'string' && analyticsId.trim() !== '' && analyticsEnabled;
 ---
 
 {
-  shouldLoadAnalytics && (
-    <>
-      <meta name="ga4-id" content={analyticsId} />
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`}></script>
-      <script type="module" src="/analytics-init.js"></script>
-    </>
+  shouldLoad && (
+    <script>
+      (function () {
+        if (localStorage.getItem('analytics-consent') !== 'granted') return;
+        const s = document.createElement('script');
+        s.defer = true;
+        s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+        s.setAttribute(
+          'data-cf-beacon',
+          JSON.stringify({ token: "${analyticsId}" })
+        );
+        document.head.appendChild(s);
+      })();
+    </script>
   )
 }

@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getTranslations, getAvailableLanguages } from '../../i18n';
+
+export const getStaticPaths = () => {
+  return getAvailableLanguages().map((locale) => ({ params: { locale } }));
+};
+
+const locale = Astro.params.locale || 'en';
+const t = getTranslations(locale);
+---
+
+<BaseLayout
+  title={t.privacy.title}
+  description={t.privacy.title}
+  locale={locale}
+>
+  <section class="bg-surface py-16 text-text md:py-24">
+    <div class="container mx-auto max-w-3xl px-4">
+      <h1 class="text-3xl font-extrabold leading-tight tracking-tight text-text md:text-4xl">
+        {t.privacy.title}
+      </h1>
+      <p class="mt-4 text-sm text-text-muted">{t.privacy.lastUpdated}</p>
+
+      <div class="mt-10 space-y-8 text-base leading-relaxed text-text-muted">
+        <div>
+          <h2 class="text-xl font-semibold text-text">{t.privacy.controller}</h2>
+          <p class="mt-2">{t.privacy.controllerName}</p>
+          <p>{t.privacy.controllerReg}</p>
+          <p>{t.privacy.controllerAddress}</p>
+          <p>{t.privacy.controllerEmail}</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold text-text">{t.common.required || 'Purposes'}</h2>
+          <p class="mt-2">{t.privacy.purposes}</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold text-text">Legal Bases</h2>
+          <p class="mt-2">{t.privacy.legalBases}</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold text-text">{t.privacy.processors}</h2>
+          <p class="mt-2">{t.privacy.processors}</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold text-text">Transfers</h2>
+          <p class="mt-2">{t.privacy.transfers}</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold text-text">{t.privacy.retention}</h2>
+          <p class="mt-2">{t.privacy.retention}</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold text-text">{t.privacy.rights}</h2>
+          <p class="mt-2">{t.privacy.rights}</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold text-text">{t.privacy.contact}</h2>
+          <p class="mt-2">{t.privacy.contact}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

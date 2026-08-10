@@ -1,5 +1,5 @@
 ---
-
+const { locale = 'en' } = Astro.props;
 ---
 
 <footer class="bg-slate-900 py-12 text-white">
@@ -10,6 +10,11 @@
       <a
         href="https://www.eventnexus.eu/"
         class="text-primary-light hover:underline">www.eventnexus.eu</a>
+    </p>
+    <p class="mt-4">
+      <a href={`/${locale}/privacy`} class="text-slate-300 hover:text-white hover:underline">
+        Privacy Notice
+      </a>
     </p>
   </div>
 </footer>
