@@ -19,7 +19,8 @@
     "@supabase/supabase-js": "^2.110.1",
     "astro": "^5.18.2",
     "dotenv": "^17.4.2",
-    "resend": "^6.17.2"
+    "resend": "^6.17.2",
+    "standardwebhooks": "^1.0.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",

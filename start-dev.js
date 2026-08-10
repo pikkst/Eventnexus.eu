@@ -11,7 +11,7 @@ if (process.platform === 'win32') {
   command = 'astro';
 }
 
-const devProcess = spawn(command, args, { stdio: 'inherit' });
+const devProcess = spawn(command, args, { stdio: 'inherit', env: process.env });
 
 devProcess.on('close', (code) => {
   if (code !== 0) {
