@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "playwright test",
+    "test:analytics": "playwright test --config=playwright.analytics.config.ts",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write --cache .",

@@ -22,7 +22,6 @@ export default defineConfig({
       WEBHOOK_TEST_MODE: 'true',
     },
   },
-  testIgnore: /analytics\.spec\.ts$/,
   projects: [
     {
       name: 'chromium',
