@@ -1,31 +1,16 @@
 ---
 const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID;
 const analyticsEnabled = import.meta.env.PUBLIC_ANALYTICS_ENABLED !== 'false';
-const shouldLoad = typeof analyticsId === 'string' && analyticsId.trim() !== '' && analyticsEnabled;
+const isValidAnalyticsId = typeof analyticsId === 'string' && /^G-[A-Z0-9]{10}$/i.test(analyticsId);
+const shouldLoadAnalytics = isValidAnalyticsId && analyticsEnabled;
 ---
 
 {
-  shouldLoad && (
-    <script>
-      (function () {
-        function loadAnalytics() {
-          if (localStorage.getItem('analytics-consent') !== 'granted') return;
-          const existing = document.querySelector('script[data-cf-beacon]');
-          if (existing) return;
-          const s = document.createElement('script');
-          s.defer = true;
-          s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
-          s.setAttribute(
-            'data-cf-beacon',
-            JSON.stringify({ token: "${analyticsId}" })
-          );
-          document.head.appendChild(s);
-        }
-
-        loadAnalytics();
-
-        window.addEventListener('analytics-consent-changed', loadAnalytics);
-      })();
-    </script>
+  shouldLoadAnalytics && (
+    <>
+      <meta name="ga4-id" content={analyticsId} />
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`}></script>
+      <script type="module" src="/analytics-init.js"></script>
+    </>
   )
 }

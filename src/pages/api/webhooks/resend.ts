@@ -2,8 +2,7 @@ import type { APIRoute } from 'astro';
 import { Webhook } from 'standardwebhooks';
 import { extractWebhookEvent } from '../../../lib/webhooks/resend';
 import { getSupabaseServerClient } from '../../../lib/supabase/server';
-import type { IdempotencyStore } from '../../../lib/webhooks/idempotency';
-import { SupabaseIdempotencyStore, InMemoryIdempotencyStore } from '../../../lib/webhooks/idempotency';
+import { IdempotencyStore, SupabaseIdempotencyStore, InMemoryIdempotencyStore } from '../../../lib/webhooks/idempotency';
 
 export const prerender = false;
 
@@ -32,7 +31,7 @@ function createIdempotencyStore(): IdempotencyStore {
     cachedStore = new InMemoryIdempotencyStore();
   } else {
     const supabase = getSupabaseServerClient();
-    cachedStore = new SupabaseIdempotencyStore(supabase as any);
+    cachedStore = new SupabaseIdempotencyStore(supabase);
   }
 
   return cachedStore;

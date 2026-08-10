@@ -3,8 +3,6 @@ node_modules/
 
 # Build output
 dist/
-dist-disabled/
-dist-enabled/
 build/
 .next/
 .output/

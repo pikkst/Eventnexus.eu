@@ -663,11 +663,8 @@ const turnstileSiteKey = process.env.PUBLIC_TURNSTILE_SITE_KEY || '';
 
               <div>
                 <label for="consent" class="text-sm text-text-muted"
-                  >{t.common.consentText}
-                  <a href={`/${locale}/privacy`} class="text-primary hover:underline">
-                    {t.privacy.title}
-                  </a>
-                </label>
+                  >{t.common.consentText}</label
+                >
 
                 <p id="consent-error" class="mt-2 hidden text-sm text-red-600">
                   {t.common.consentError}

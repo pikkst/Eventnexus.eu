@@ -20,8 +20,6 @@ function deepMerge(target: any, source: any): any {
       !Array.isArray(source[key])
     ) {
       result[key] = deepMerge(target[key] || {}, source[key]);
-    } else if (Array.isArray(source[key])) {
-      result[key] = Array.isArray(target[key]) && target[key].length > 0 ? target[key] : source[key];
     } else {
       result[key] =
         target[key] !== undefined ? target[key] : source[key];
