@@ -2,10 +2,26 @@ import type { APIRoute } from 'astro';
 import { Webhook } from 'standardwebhooks';
 import { extractWebhookEvent } from '../../../lib/webhooks/resend';
 import { getSupabaseServerClient } from '../../../lib/supabase/server';
+import { IdempotencyStore, SupabaseIdempotencyStore, InMemoryIdempotencyStore } from '../../../lib/webhooks/idempotency';
 
 export const prerender = false;
 
-const testEventStore = new Map<string, { type: string }>();
+let cachedStore: IdempotencyStore | null = null;
+
+function createIdempotencyStore(): IdempotencyStore {
+  if (cachedStore) {
+    return cachedStore;
+  }
+
+  if (process.env.WEBHOOK_TEST_MODE === 'true') {
+    cachedStore = new InMemoryIdempotencyStore();
+  } else {
+    const supabase = getSupabaseServerClient();
+    cachedStore = new SupabaseIdempotencyStore(supabase);
+  }
+
+  return cachedStore;
+}
 
 export const POST: APIRoute = async ({ request }) => {
   const secret = process.env.RESEND_WEBHOOK_SECRET;
@@ -85,38 +101,19 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  if (process.env.WEBHOOK_TEST_MODE === 'true') {
-    const existing = testEventStore.get(webhookId);
-    if (existing) {
+  const store = createIdempotencyStore();
+
+  try {
+    const result = await store.claim({ id: webhookId, type: event.type });
+
+    if (result === 'duplicate') {
       return new Response(JSON.stringify({ ok: true, duplicate: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       });
     }
-
-    testEventStore.set(webhookId, { type: event.type });
-    console.log(`[test-mode] Stored webhook event: type=${event.type}, emailId=${event.emailId}`);
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
-  const supabase = getSupabaseServerClient();
-
-  const { error: insertError } = await supabase
-    .from('webhook_events')
-    .insert({ id: webhookId, type: event.type })
-    .select();
-
-  if (insertError) {
-    if (insertError.code === '23505') {
-      return new Response(JSON.stringify({ ok: true, duplicate: true }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-    console.error('Failed to record webhook event', insertError);
+  } catch (error) {
+    console.error('Failed to record webhook event', error);
     return new Response(JSON.stringify({ error: 'Database error' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },

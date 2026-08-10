@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import crypto from 'node:crypto';
 import { Webhook } from 'standardwebhooks';
 
-const WEBHOOK_SECRET = process.env.RESEND_WEBHOOK_SECRET || 'whsec_dGVzdC1zZWNyZXQtZm9yLXBsYXl3cmlnaHQ=';
+const WEBHOOK_SECRET = 'whsec_dGVzdC1zZWNyZXQtZm9yLXBsYXl3cmlnaHQ=';
 
 function createWebhookSignature(secret: string, webhookId: string, payload: string, timestamp: number): string {
   const webhook = new Webhook(secret);

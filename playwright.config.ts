@@ -20,7 +20,7 @@ export default defineConfig({
   webServer: {
     command: 'npm run dev -- --host 127.0.0.1 --port 4321',
     url: 'http://127.0.0.1:4321',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     env: {
       RESEND_WEBHOOK_SECRET: 'whsec_dGVzdC1zZWNyZXQtZm9yLXBsYXl3cmlnaHQ=',
       WEBHOOK_TEST_MODE: 'true',
