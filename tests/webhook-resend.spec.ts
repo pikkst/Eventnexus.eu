@@ -1,12 +1,18 @@
-import 'dotenv/config';
 import { test, expect } from '@playwright/test';
 import crypto from 'node:crypto';
+import { Webhook } from 'standardwebhooks';
+import { config } from 'dotenv';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const WEBHOOK_SECRET = process.env.RESEND_WEBHOOK_SECRET || 'whsec_test_secret_for_playwright';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+config({ path: path.resolve(__dirname, '../.env') });
+
+const WEBHOOK_SECRET = process.env.RESEND_WEBHOOK_SECRET || 'whsec_dGVzdC1zZWNyZXQtZm9yLXBsYXl3cmlnaHQ=';
 
 function createWebhookSignature(secret: string, webhookId: string, payload: string, timestamp: number): string {
-  const signedContent = `${webhookId}.${timestamp}.${payload}`;
-  return 'v1,' + btoa(String.fromCharCode(...crypto.createHmac('sha256', secret).update(signedContent).digest()));
+  const webhook = new Webhook(secret);
+  return webhook.sign(webhookId, new Date(timestamp * 1000), payload);
 }
 
 async function sendWebhookRequest(page: any, payload: Record<string, unknown>, validSignature = true): Promise<{ status: number; body: unknown }> {
@@ -157,5 +163,5 @@ test('webhook: rejects expired timestamp', async ({ page }) => {
 
   const body = await response.json().catch(() => ({}));
   expect(response.status()).toBe(401);
-  expect(body).toHaveProperty('error', 'Invalid signature');
+  expect(body).toHaveProperty('error', 'Expired timestamp');
 });
