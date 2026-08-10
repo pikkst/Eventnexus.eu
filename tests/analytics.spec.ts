@@ -109,4 +109,40 @@ test.describe('analytics', () => {
     const beaconScript = page.locator('script[src*="static.cloudflareinsights.com/beacon.min.js"]');
     await expect(beaconScript).toHaveCount(1);
   });
+
+  test('does not duplicate beacon script after consent change event', async ({ page }) => {
+    if (test.info().project.name !== 'chromium-enabled') {
+      test.skip(true, 'Analytics is disabled in this project');
+    }
+
+    await page.goto('/');
+    await page.evaluate(() => localStorage.setItem('analytics-consent', 'granted'));
+    await page.reload();
+
+    const response = await page.goto('/');
+    expect(response?.status()).toBe(200);
+
+    const beaconScript = page.locator('script[src*="static.cloudflareinsights.com/beacon.min.js"]');
+    await expect(beaconScript).toHaveCount(1);
+
+    await page.evaluate(() => window.dispatchEvent(new Event('analytics-consent-changed')));
+    await expect(beaconScript).toHaveCount(1);
+  });
+
+  test('privacy settings button clears consent and reloads page', async ({ page }) => {
+    if (test.info().project.name !== 'chromium-enabled') {
+      test.skip(true, 'Analytics is disabled in this project');
+    }
+
+    await page.goto('/');
+    await page.evaluate(() => localStorage.setItem('analytics-consent', 'granted'));
+
+    const response = await page.goto('/');
+    expect(response?.status()).toBe(200);
+
+    await page.getByRole('button', { name: 'Privacy settings' }).click();
+
+    const consent = await page.evaluate(() => localStorage.getItem('analytics-consent'));
+    expect(consent).toBeNull();
+  });
 });

@@ -27,6 +27,11 @@ const t = getTranslations(locale);
           <input id="fullName" name="fullName" type="text" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm" placeholder={t.contact.step1.fullNamePlaceholder} />
           <label class="block text-sm font-medium text-text" for="email">{t.contact.step1.email}</label>
           <input id="email" name="email" type="email" class="mt-1 block w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text shadow-sm" placeholder={t.contact.step1.emailPlaceholder} />
+          <p class="text-sm text-text-muted">
+            <a href={`/${locale}/privacy`} class="text-primary hover:underline">
+              {t.privacy.title}
+            </a>
+          </p>
           <button type="submit" class="inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-base font-semibold text-white shadow-md transition-colors hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
             {t.contact.buttons.sendProjectRequest}
           </button>

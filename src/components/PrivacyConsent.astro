@@ -39,40 +39,23 @@ const shouldLoad = typeof analyticsId === 'string' && analyticsId.trim() !== '' 
     const banner = document.getElementById('privacy-consent-banner');
     if (!banner) return;
 
-    const analyticsId = banner.getAttribute('data-analytics-id') || '';
-    const analyticsEnabled = banner.getAttribute('data-analytics-enabled') === 'true';
-
-    const loadAnalytics = () => {
-      if (!analyticsEnabled || !analyticsId) return;
-      const s = document.createElement('script');
-      s.defer = true;
-      s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
-      s.setAttribute(
-        'data-cf-beacon',
-        JSON.stringify({ token: analyticsId })
-      );
-      document.head.appendChild(s);
-    };
-
-    if (consent === 'granted') {
-      loadAnalytics();
-      banner.classList.add('hidden');
-      return;
-    }
-
-    if (consent === 'denied') {
+    if (consent === 'granted' || consent === 'denied') {
       banner.classList.add('hidden');
       return;
     }
 
     banner.classList.remove('hidden');
 
+    const emitConsentChange = () => {
+      window.dispatchEvent(new Event('analytics-consent-changed'));
+    };
+
     document
       .getElementById('privacy-accept')
       ?.addEventListener('click', () => {
         localStorage.setItem('analytics-consent', 'granted');
         banner.classList.add('hidden');
-        loadAnalytics();
+        emitConsentChange();
       });
 
     document
@@ -80,6 +63,7 @@ const shouldLoad = typeof analyticsId === 'string' && analyticsId.trim() !== '' 
       ?.addEventListener('click', () => {
         localStorage.setItem('analytics-consent', 'denied');
         banner.classList.add('hidden');
+        emitConsentChange();
       });
   })();
 </script>

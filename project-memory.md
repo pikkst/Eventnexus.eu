@@ -51,11 +51,12 @@ This file stores stable context and decisions for future agents.
 - Script: `https://static.cloudflareinsights.com/beacon.min.js` injected only after user consent.
 - Consent: managed client-side with `localStorage` key `analytics-consent` (`granted` or `denied`); no request is sent before affirmative consent.
 - Data collected: page views, referrers, countries, devices, and basic path data only; never lead or form field data.
-- Implementation rule: `Analytics.astro` checks consent and injects the beacon script; `PrivacyConsent.astro` renders the consent banner; loaded from `BaseLayout.astro` at the end of `<body>`.
+- Implementation rule: `Analytics.astro` is the single source of truth for beacon injection; it checks `localStorage`, guards against duplicate `script[data-cf-beacon]` elements, and listens for `analytics-consent-changed` events. `PrivacyConsent.astro` renders the banner and manages `localStorage` only; it does not inject analytics.
+- Consent revocation: footer "Privacy settings" button clears `analytics-consent` and reloads the page so the banner reappears.
 - Environment variables: `PUBLIC_ANALYTICS_ID` (beacon token), `PUBLIC_ANALYTICS_ENABLED` (optional toggle, defaults to `true`).
 - Data rules: collect only page views, referrers, countries, devices, and basic path data; never attach lead or form field data.
 - Retention: analytics data follows Cloudflare's retention policy; lead retention is up to 3 years or until deletion request; application logs up to 1 year; Resend webhook events up to 1 year.
-- Cleanup: `scripts/cleanup-webhook-events.ts` runs server-side deletion of old webhook events using `SUPABASE_SERVICE_ROLE_KEY`; run via scheduled job or manual execution.
+- Cleanup: `scripts/cleanup-webhook-events.ts` and `scripts/cleanup-leads.ts` run server-side deletion via `SUPABASE_SERVICE_ROLE_KEY`; npm scripts `npm run cleanup:webhook-events` and `npm run cleanup:leads` are available. Cloudflare runtime logs follow Cloudflare's own retention and are not directly cleanupable via repository scripts.
 
 ### SEO And Crawlers
 

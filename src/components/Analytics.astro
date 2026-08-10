@@ -8,15 +8,23 @@ const shouldLoad = typeof analyticsId === 'string' && analyticsId.trim() !== '' 
   shouldLoad && (
     <script>
       (function () {
-        if (localStorage.getItem('analytics-consent') !== 'granted') return;
-        const s = document.createElement('script');
-        s.defer = true;
-        s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
-        s.setAttribute(
-          'data-cf-beacon',
-          JSON.stringify({ token: "${analyticsId}" })
-        );
-        document.head.appendChild(s);
+        function loadAnalytics() {
+          if (localStorage.getItem('analytics-consent') !== 'granted') return;
+          const existing = document.querySelector('script[data-cf-beacon]');
+          if (existing) return;
+          const s = document.createElement('script');
+          s.defer = true;
+          s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+          s.setAttribute(
+            'data-cf-beacon',
+            JSON.stringify({ token: "${analyticsId}" })
+          );
+          document.head.appendChild(s);
+        }
+
+        loadAnalytics();
+
+        window.addEventListener('analytics-consent-changed', loadAnalytics);
       })();
     </script>
   )

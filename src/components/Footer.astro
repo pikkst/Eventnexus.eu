@@ -19,5 +19,25 @@ const t = getTranslations(locale as Language);
         {t.privacy.title}
       </a>
     </p>
+    <p class="mt-2">
+      <button
+        id="privacy-settings-btn"
+        class="text-slate-400 hover:text-white hover:underline"
+        type="button"
+      >
+        {locale === 'et' ? 'Privaatsuse seaded' : locale === 'ru' ? 'Настройки конфиденциальности' : locale === 'de' ? 'Datenschutzeinstellungen' : locale === 'fi' ? 'Tietosuoja-asetukset' : 'Privacy settings'}
+      </button>
+    </p>
   </div>
 </footer>
+
+<script>
+  (function () {
+    const btn = document.getElementById('privacy-settings-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      localStorage.removeItem('analytics-consent');
+      location.reload();
+    });
+  })();
+</script>
