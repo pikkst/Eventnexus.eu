@@ -52,7 +52,7 @@ This file stores stable context and decisions for future agents.
 - Stream URL: `https://eventnexus.eu`
 - Stream ID: `15240249705`
 - Rationale: industry-standard analytics with GDPR-compatible configuration; data collected includes page views, referrers, countries, devices, and generic form start/submission events; never attach lead or form field data.
-- Implementation rule: async script in `BaseLayout.astro`, loaded conditionally via `PUBLIC_ANALYTICS_ID` and `PUBLIC_ANALYTICS_ENABLED`.
+- Implementation rule: dedicated `Analytics.astro` component in `src/components/`, loaded from `BaseLayout.astro`; uses `define:vars` to pass the measurement ID into the client-side gtag initialization script; loaded conditionally via `PUBLIC_ANALYTICS_ID` and `PUBLIC_ANALYTICS_ENABLED`.
 - Environment variables: `PUBLIC_ANALYTICS_ID` and optional `PUBLIC_ANALYTICS_ENABLED`.
 - Data rules: collect only page views, referrers, countries, devices, and generic form start/submission events; never attach lead or form field data.
 
