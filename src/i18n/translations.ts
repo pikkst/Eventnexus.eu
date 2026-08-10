@@ -286,12 +286,23 @@
   privacy: {
     title: string;
     controller: string;
+    controllerName: string;
+    controllerReg: string;
+    controllerAddress: string;
+    controllerEmail: string;
+    purposesTitle: string;
     purposes: string;
+    legalBasesTitle: string;
     legalBases: string;
+    processorsTitle: string;
     processors: string;
+    transfersTitle: string;
     transfers: string;
+    retentionTitle: string;
     retention: string;
+    rightsTitle: string;
     rights: string;
+    contactTitle: string;
     contact: string;
     lastUpdated: string;
     analyticsText: string;
@@ -1005,12 +1016,19 @@ export const translations: Record<Language, TranslationKeys> = {
       controllerReg: 'Registration number 17431557',
       controllerAddress: 'Põltsamaa, Estonia',
       controllerEmail: 'admin@eventnexus.eu',
+      purposesTitle: 'Purposes',
       purposes: 'We process personal data to handle project requests, respond to contact messages, operate this website, and send notification emails.',
+      legalBasesTitle: 'Legal Bases',
       legalBases: 'Processing is based on your consent, contractual necessity, or our legitimate interest in operating this website and evaluating project requests.',
+      processorsTitle: 'Processors',
       processors: 'We use Supabase (EU) for lead storage, Resend for email delivery, and Cloudflare for hosting and privacy-first analytics.',
+      transfersTitle: 'Transfers',
       transfers: 'Data may be transferred to processors in the EU and the US under appropriate safeguards, including standard contractual clauses.',
-      retention: 'Project leads are retained for up to 3 years or until you request deletion. Application logs are retained for up to 1 year.',
+      retentionTitle: 'Retention',
+      retention: 'Project leads are retained for up to 3 years or until you request deletion. Application logs are retained for up to 1 year. Resend email events are retained for up to 1 year.',
+      rightsTitle: 'Your Rights',
       rights: 'You have the right to access, correct, delete, or restrict processing of your data, and to object to or withdraw consent at any time.',
+      contactTitle: 'Contact',
       contact: 'Contact the data controller at admin@eventnexus.eu for privacy requests.',
       lastUpdated: 'Last updated: August 2026',
       analyticsText: 'This site uses privacy-first analytics to understand usage.',
@@ -1401,12 +1419,19 @@ export const translations: Record<Language, TranslationKeys> = {
       controllerReg: 'Регистрационный номер 17431557',
       controllerAddress: 'Пылтсамаа, Эстония',
       controllerEmail: 'admin@eventnexus.eu',
+      purposesTitle: 'Цели',
       purposes: 'Мы обрабатываем персональные данные для обработки запросов проектов, ответов на сообщения, работы этого сайта и отправки уведомлений по email.',
+      legalBasesTitle: 'Правовые основы',
       legalBases: 'Обработка основана на вашем согласии, договорной необходимости или нашем законном интересе в работе этого сайта и оценке запросов проектов.',
+      processorsTitle: 'Процессоры',
       processors: 'Мы используем Supabase (ЕС) для хранения лидов, Resend для доставки email и Cloudflare для хостинга и приватной аналитики.',
+      transfersTitle: 'Передачи',
       transfers: 'Данные могут передаваться процессорам в ЕС и США при надлежащих гарантиях, включая стандартные договорные условия.',
-      retention: 'Запросы проектов хранятся до 3 лет или до вашего запроса на удаление. Журналы приложения хранятся до 1 года.',
+      retentionTitle: 'Хранение',
+      retention: 'Запросы проектов хранятся до 3 лет или до вашего запроса на удаление. Журналы приложения хранятся до 1 года. События email хранятся до 1 года.',
+      rightsTitle: 'Ваши права',
       rights: 'Вы имеете право на доступ, исправление, удаление или ограничение обработки ваших данных, а также на возражение или отзыв согласия в любое время.',
+      contactTitle: 'Контакт',
       contact: 'Свяжитесь с контролёром данных по адресу admin@eventnexus.eu для запросов, связанных с конфиденциальностью.',
       lastUpdated: 'Последнее обновление: август 2026',
       analyticsText: 'Этот сайт использует приватную аналитику для понимания использования.',
@@ -1797,12 +1822,19 @@ export const translations: Record<Language, TranslationKeys> = {
       controllerReg: 'Registrierungsnummer 17431557',
       controllerAddress: 'Põltsamaa, Estland',
       controllerEmail: 'admin@eventnexus.eu',
+      purposesTitle: 'Zwecke',
       purposes: 'Wir verarbeiten personenbezogene Daten zur Bearbeitung von Projektanfragen, zur Beantwortung von Kontaktnachrichten, zum Betrieb dieser Website und zum Versand von Benachrichtigungs-E-Mails.',
+      legalBasesTitle: 'Rechtsgrundlagen',
       legalBases: 'Die Verarbeitung basiert auf Ihrer Einwilligung, vertraglicher Notwendigkeit oder unserem berechtigten Interesse am Betrieb dieser Website und der Bewertung von Projektanfragen.',
+      processorsTitle: 'Verarbeiter',
       processors: 'Wir nutzen Supabase (EU) zur Speicherung von Leads, Resend für den E-Mail-Versand und Cloudflare für Hosting und datenschutzfreundliche Analysen.',
+      transfersTitle: 'Übermittlungen',
       transfers: 'Daten können an Verarbeiter in der EU und den USA unter angemessenen Garantien, einschliesslich Standardvertragsklauseln, übermittelt werden.',
-      retention: 'Projektleads werden bis zu 3 Jahre lang oder bis zu Ihrer Löschanfrage aufbewahrt. Anwendungsprotokolle werden bis zu 1 Jahr lang aufbewahrt.',
+      retentionTitle: 'Aufbewahrung',
+      retention: 'Projektleads werden bis zu 3 Jahre lang oder bis zu Ihrer Löschanfrage aufbewahrt. Anwendungsprotokolle werden bis zu 1 Jahr lang aufbewahrt. Resend-E-Mail-Ereignisse werden bis zu 1 Jahr lang aufbewahrt.',
+      rightsTitle: 'Ihre Rechte',
       rights: 'Sie haben das Recht auf Zugriff, Berichtigung, Löschung oder Einschränkung der Verarbeitung Ihrer Daten sowie das Recht, der Verarbeitung zu widersprechen oder Ihre Einwilligung jederzeit zu widerrufen.',
+      contactTitle: 'Kontakt',
       contact: 'Wenden Sie sich an den Verantwortlichen unter admin@eventnexus.eu für datenschutzbezogene Anfragen.',
       lastUpdated: 'Zuletzt aktualisiert: August 2026',
       analyticsText: 'Diese Website verwendet datenschutzfreundliche Analysen, um die Nutzung zu verstehen.',
@@ -2193,12 +2225,19 @@ export const translations: Record<Language, TranslationKeys> = {
       controllerReg: 'Rekisteröintinumero 17431557',
       controllerAddress: 'Põltsamaa, Viro',
       controllerEmail: 'admin@eventnexus.eu',
+      purposesTitle: 'Tarkoitukset',
       purposes: 'Käsittelemme henkilötietoja projektipyyntöjen käsittelyyn, yhteydenottoviestien vastaamiseen, tämän sivuston toimintaan ja ilmoitusviestien lähettämiseen.',
+      legalBasesTitle: 'Oikeusperusteet',
       legalBases: 'Käsittely perustuu suostumukseesi, sopimusvälttämättömyyteen tai oikeutettuun etuumme tämän sivuston toiminnassa ja projektipyyntöjen arvioinnissa.',
+      processorsTitle: 'Käsittelijät',
       processors: 'Käytämme Supabasea (EU) liidien tallentamiseen, Resendiä sähköpostin lähettämiseen ja Cloudflarea isäntäpalveluun ja yksityisyyteen suuntautuneeseen analytiikkaan.',
+      transfersTitle: 'Siirrot',
       transfers: 'Tietoja saatetaan siirtää käsittelijöille EU:ssa ja Yhdysvalloissa asianmukaisilla suojatoimilla, mukaan lukien standardiset sopimusehdot.',
-      retention: 'Projektipyynnöt säilytetään enintään 3 vuotta tai kunnes pyydät poistoa. Sovelluksen lokit säilytetään enintään 1 vuosi.',
+      retentionTitle: 'Säilytys',
+      retention: 'Projektipyynnöt säilytetään enintään 3 vuotta tai kunnes pyydät poistoa. Sovelluksen lokit säilytetään enintään 1 vuosi. Resend-sähköpostitapahtumat säilytetään enintään 1 vuosi.',
+      rightsTitle: 'Oikeutesi',
       rights: 'Sinulla on oikeus saada, korjata, poistaa tai rajoittaa tietojesi käsittelyä sekä vastustaa käsittelyä tai peruuttaa suostumuksesi milloin tahansa.',
+      contactTitle: 'Yhteystiedot',
       contact: 'Ota yhteyttä rekisterinpitäjään osoitteessa admin@eventnexus.eu tietosuojapyyntöjä varten.',
       lastUpdated: 'Viimeksi päivitetty: elokuu 2026',
       analyticsText: 'Tämä sivusto käyttää yksityisyyteen suuntautunutta analytiikkaa käytön ymmärtämiseksi.',
@@ -2589,12 +2628,19 @@ export const translations: Record<Language, TranslationKeys> = {
       controllerReg: 'Registreerimisnumber 17431557',
       controllerAddress: 'Põltsamaa, Eesti',
       controllerEmail: 'admin@eventnexus.eu',
+      purposesTitle: 'Eesmärgid',
       purposes: 'Me töötleme isikuandmeid projektitaotluste käsitlemiseks, kontaktide sõnumitele vastamiseks, selle veebisaidi toimimiseks ja teavituste saatmiseks.',
+      legalBasesTitle: 'Õiguslikud alused',
       legalBases: 'Töötlemise aluseks on teie nõusolek, lepinguline vajadus või meie õigustatud huvi selle veebisaidi toimimise ja projektitaotluste hindamise kohta.',
+      processorsTitle: 'Töötlejad',
       processors: 'Me kasutame Supabase\'i (EL) liidide salvestamiseks, Resend\'i e-posti saatmiseks ja Cloudflare\'i majutamiseks ja privaatsusele suunatud analüütika jaoks.',
+      transfersTitle: 'Edastused',
       transfers: 'Andmeid võidakse edastada töötlejatele ELis ja USA-s kooskõlas asjakohaste garantiidega, sealhulgas standardsete lepingutingimustega.',
-      retention: 'Projektitaotlusi säilitatakse kuni 3 aastat või kuni teie kustutamistaotluse esitamiseni. Rakenduse logid säilitatakse kuni 1 aasta.',
+      retentionTitle: 'Säilitus',
+      retention: 'Projektitaotlusi säilitatakse kuni 3 aastat või kuni teie kustutamistaotluse esitamiseni. Rakenduse logid säilitatakse kuni 1 aasta. Resend e-posti sündmused säilitatakse kuni 1 aasta.',
+      rightsTitle: 'Teie õigused',
       rights: 'Teil on õigus saada, parandada, kustutada või piirata omaandmete töötlemist ning vastu vaielda või igal ajal nõusolek tagasi võtta.',
+      contactTitle: 'Kontakt',
       contact: 'Võtke ühendust andmete vastutava töötlejaga aadressil admin@eventnexus.eu privaatsuspäringute jaoks.',
       lastUpdated: 'Viimati uuendatud: august 2026',
       analyticsText: 'See sait kasutab privaatsusele suunatud analüütikat kasutuse mõistmiseks.',

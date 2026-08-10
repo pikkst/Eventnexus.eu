@@ -54,7 +54,8 @@ This file stores stable context and decisions for future agents.
 - Implementation rule: `Analytics.astro` checks consent and injects the beacon script; `PrivacyConsent.astro` renders the consent banner; loaded from `BaseLayout.astro` at the end of `<body>`.
 - Environment variables: `PUBLIC_ANALYTICS_ID` (beacon token), `PUBLIC_ANALYTICS_ENABLED` (optional toggle, defaults to `true`).
 - Data rules: collect only page views, referrers, countries, devices, and basic path data; never attach lead or form field data.
-- Retention: analytics data follows Cloudflare's retention policy; lead retention is up to 3 years or until deletion request; application logs up to 1 year.
+- Retention: analytics data follows Cloudflare's retention policy; lead retention is up to 3 years or until deletion request; application logs up to 1 year; Resend webhook events up to 1 year.
+- Cleanup: `scripts/cleanup-webhook-events.ts` runs server-side deletion of old webhook events using `SUPABASE_SERVICE_ROLE_KEY`; run via scheduled job or manual execution.
 
 ### SEO And Crawlers
 

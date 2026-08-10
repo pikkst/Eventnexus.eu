@@ -1,5 +1,8 @@
 ---
+import { getTranslations, type Language } from '../i18n';
+
 const { locale = 'en' } = Astro.props;
+const t = getTranslations(locale as Language);
 ---
 
 <footer class="bg-slate-900 py-12 text-white">
@@ -13,7 +16,7 @@ const { locale = 'en' } = Astro.props;
     </p>
     <p class="mt-4">
       <a href={`/${locale}/privacy`} class="text-slate-300 hover:text-white hover:underline">
-        Privacy Notice
+        {t.privacy.title}
       </a>
     </p>
   </div>
