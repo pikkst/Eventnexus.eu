@@ -1,13 +1,10 @@
 ---
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+import Analytics from '../components/Analytics.astro';
 import '../styles/global.css';
 
 const { title, description, currentPath = '/', locale = 'en' } = Astro.props;
-
-const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID;
-const analyticsEnabled = import.meta.env.PUBLIC_ANALYTICS_ENABLED !== 'false';
-const isValidAnalyticsId = typeof analyticsId === 'string' && /^G-[A-Z0-9]{10}$/i.test(analyticsId);
 ---
 
 <!doctype html>
@@ -18,19 +15,7 @@ const isValidAnalyticsId = typeof analyticsId === 'string' && /^G-[A-Z0-9]{10}$/
     <meta name="description" content={description || title} />
     <link rel="icon" type="image/png" href="/logo-eventnexus.png" />
     <title>{title}</title>
-    {
-      isValidAnalyticsId && analyticsEnabled && (
-        <>
-          <script async src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`}></script>
-          <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', analyticsId);
-          </script>
-        </>
-      )
-    }
+    <Analytics />
   </head>
   <body class="antialiased">
     <Navigation locale={locale} />
