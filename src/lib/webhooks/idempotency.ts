@@ -13,7 +13,8 @@ export class SupabaseIdempotencyStore implements IdempotencyStore {
   async claim(event: WebhookEvent): Promise<'new' | 'duplicate'> {
     const { error } = await this.supabase
       .from('webhook_events')
-      .insert({ id: event.id, type: event.type });
+      .insert({ id: event.id, type: event.type })
+      .select();
 
     if (error) {
       if (error.code === '23505') {

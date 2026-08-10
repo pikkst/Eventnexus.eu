@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "playwright test",
+    "test:unit": "npx tsx --test",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write --cache .",

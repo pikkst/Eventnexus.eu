@@ -7,13 +7,27 @@ import { IdempotencyStore, SupabaseIdempotencyStore, InMemoryIdempotencyStore } 
 export const prerender = false;
 
 let cachedStore: IdempotencyStore | null = null;
+let testStoreOverride: IdempotencyStore | null = null;
+
+export function resetIdempotencyStore() {
+  cachedStore = null;
+  testStoreOverride = null;
+}
+
+export function setTestIdempotencyStore(store: IdempotencyStore) {
+  testStoreOverride = store;
+}
 
 function createIdempotencyStore(): IdempotencyStore {
+  if (testStoreOverride) {
+    return testStoreOverride;
+  }
+
   if (cachedStore) {
     return cachedStore;
   }
 
-  if (process.env.WEBHOOK_TEST_MODE === 'true') {
+  if (process.env.NODE_ENV !== 'production' && process.env.WEBHOOK_TEST_MODE === 'true') {
     cachedStore = new InMemoryIdempotencyStore();
   } else {
     const supabase = getSupabaseServerClient();

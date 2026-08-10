@@ -22,6 +22,7 @@ export default defineConfig({
     url: 'http://127.0.0.1:4321',
     reuseExistingServer: false,
     env: {
+      NODE_ENV: 'test',
       RESEND_WEBHOOK_SECRET: 'whsec_dGVzdC1zZWNyZXQtZm9yLXBsYXl3cmlnaHQ=',
       WEBHOOK_TEST_MODE: 'true',
     },
