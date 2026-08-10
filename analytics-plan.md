@@ -27,11 +27,17 @@ Recommended primary provider: Cloudflare Web Analytics.
 
 ## Implementation Rules
 
-- load analytics through a single script tag in `BaseLayout.astro`
+- load analytics through a single script tag in `Analytics.astro`, rendered from `BaseLayout.astro`
+- `PrivacyConsent.astro` manages the consent banner and `localStorage` state; it does not inject the beacon script
+- on first visit, show the consent banner; do not load analytics until the visitor clicks Accept
+- on returning visits, read `analytics-consent` from `localStorage`; load analytics only when the value is `granted`
+- provide a footer "Privacy settings" control that clears `analytics-consent` and reloads the page so the banner reappears
+- dispatch a custom `analytics-consent-changed` event when consent changes, so `Analytics.astro` can react without duplicating script injection
 - do not collect PII inside analytics events, page titles, or custom dimensions
 - do not attach form field values, names, emails, or lead details to analytics events
 - disable analytics in local development unless explicitly needed for debugging
 - keep the analytics loader small and async
+- guard against duplicate beacon injection by checking for an existing `script[data-cf-beacon]` before appending
 
 ## Measured Events
 
@@ -55,7 +61,10 @@ Do not measure:
 - use only public analytics IDs that can be committed to source control
 - do not inject lead or customer data into analytics
 - do not build custom dashboards from analytics data that could re-identify users
-- respect any future DNT or consent requirements by making analytics opt-in only when legally necessary
+- require affirmative consent before loading Cloudflare Web Analytics; store consent in `localStorage` under `analytics-consent` with values `granted` or `denied`
+- render a consent banner on first visit; do not send any analytics request before the visitor clicks Accept
+- provide a persistent privacy-settings control so visitors can revoke consent at any time
+- if consent is withdrawn, stop loading analytics and remove the beacon script if present
 
 ## Environment Variables
 

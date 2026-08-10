@@ -2,6 +2,7 @@
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import Analytics from '../components/Analytics.astro';
+import PrivacyConsent from '../components/PrivacyConsent.astro';
 import '../styles/global.css';
 
 const { title, description, currentPath = '/', locale = 'en' } = Astro.props;
@@ -15,13 +16,14 @@ const { title, description, currentPath = '/', locale = 'en' } = Astro.props;
     <meta name="description" content={description || title} />
     <link rel="icon" type="image/png" href="/logo-eventnexus.png" />
     <title>{title}</title>
-    <Analytics />
   </head>
   <body class="antialiased">
     <Navigation locale={locale} />
     <main>
       <slot />
     </main>
-    <Footer />
+    <Footer locale={locale} />
+    <Analytics />
+    <PrivacyConsent locale={locale} privacyUrl={"/" + locale + "/privacy"} />
   </body>
 </html>

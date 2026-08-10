@@ -283,6 +283,32 @@
       sendMessage: string;
     };
   };
+  privacy: {
+    title: string;
+    controller: string;
+    controllerName: string;
+    controllerReg: string;
+    controllerAddress: string;
+    controllerEmail: string;
+    purposesTitle: string;
+    purposes: string;
+    legalBasesTitle: string;
+    legalBases: string;
+    processorsTitle: string;
+    processors: string;
+    transfersTitle: string;
+    transfers: string;
+    retentionTitle: string;
+    retention: string;
+    rightsTitle: string;
+    rights: string;
+    contactTitle: string;
+    contact: string;
+    lastUpdated: string;
+    analyticsText: string;
+    accept: string;
+    decline: string;
+  };
 };
 
 export type Language = 'en' | 'ru' | 'de' | 'fi' | 'et';
@@ -983,6 +1009,32 @@ export const translations: Record<Language, TranslationKeys> = {
         sendMessage: 'Send message',
       },
     },
+    privacy: {
+      title: 'Privacy Notice',
+      controller: 'Data Controller',
+      controllerName: 'EventNexus OÜ',
+      controllerReg: 'Registration number 17431557',
+      controllerAddress: 'Põltsamaa, Estonia',
+      controllerEmail: 'admin@eventnexus.eu',
+      purposesTitle: 'Purposes',
+      purposes: 'We process personal data to handle project requests, respond to contact messages, operate this website, and send notification emails.',
+      legalBasesTitle: 'Legal Bases',
+      legalBases: 'Processing is based on your consent, contractual necessity, or our legitimate interest in operating this website and evaluating project requests.',
+      processorsTitle: 'Processors',
+      processors: 'We use Supabase (EU) for lead storage, Resend for email delivery, and Cloudflare for hosting and privacy-first analytics.',
+      transfersTitle: 'Transfers',
+      transfers: 'Data may be transferred to processors in the EU and the US under appropriate safeguards, including standard contractual clauses.',
+      retentionTitle: 'Retention',
+      retention: 'Project leads are retained for up to 3 years or until you request deletion. Application logs are retained for up to 1 year. Resend email events are retained for up to 1 year.',
+      rightsTitle: 'Your Rights',
+      rights: 'You have the right to access, correct, delete, or restrict processing of your data, and to object to or withdraw consent at any time.',
+      contactTitle: 'Contact',
+      contact: 'Contact the data controller at admin@eventnexus.eu for privacy requests.',
+      lastUpdated: 'Last updated: August 2026',
+      analyticsText: 'This site uses privacy-first analytics to understand usage.',
+      accept: 'Accept',
+      decline: 'Decline',
+    },
   },
   ru: {
     nav: {
@@ -1011,6 +1063,8 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Сообщение должно содержать не менее 10 символов.',
       somethingWrong: 'Что-то пошло не так. Пожалуйста, попробуйте снова.',
       submissionFailed: 'Ошибка отправки',
+      contactMinLength: 'Please fill in your name, a valid email, and a message.',
+      contactRequired: 'Please fill in your name, a valid email, and a message.',
     },
     ui: {
       includes: 'Включает',
@@ -1044,6 +1098,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'От идеи до готового решения.',
         description:
           'Eventnexus помогает формировать, создавать и запускать веб-продукты, начиная с rough идеи или более чёткого технического плана.',
+        cards: [],
       },
       process: {
         eyebrow: 'Процесс',
@@ -1072,6 +1127,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Основано на реальном продуктовом и AI опыте.',
         description:
           'Eventnexus формируется практическим опытом работы с веб-платформами на TypeScript, AI-инструментами, концепциями автоматизации, данными и экспериментами с сервисными платформами.',
+        items: [],
       },
       intakeCta: {
         heading: 'Есть идея платформы, портала, инструмента или сайта?',
@@ -1096,6 +1152,8 @@ export const translations: Record<Language, TranslationKeys> = {
         description:
           'Многие цифровые проекты становятся сложными, потому что работа разделена на слишком много несвязанных частей. Eventnexus объединяет эти части в один структурированный сервис. Цель — уменьшить путаницу у клиента и создать понятный путь от идеи к работающему решению.',
       },
+      serviceCards: [],
+      projectTypes: [],
       turnkey: {
         eyebrow: 'Модель поставки',
         headline: 'Что означает "под ключ" в Eventnexus.',
@@ -1130,6 +1188,7 @@ export const translations: Record<Language, TranslationKeys> = {
           'Следующие кандидаты в портфолио демонстрируют типы продуктов и рабочих процессов, в создании которых Eventnexus может помочь.',
       },
       categoriesTitle: 'Кандидаты в портфолио',
+      categories: [],
       nextSectionTitle: 'Что это значит для вашего проекта',
       nextSectionDescription1:
         'Эти проекты отражают реальное исследование веб-платформ, AI-инструментов для бизнеса, продуктов данных, маркетинговой автоматизации и концепций, связанных с событиями. Они определяют, как Eventnexus подходит к планированию, архитектуре и поставке.',
@@ -1360,6 +1419,32 @@ export const translations: Record<Language, TranslationKeys> = {
         sendMessage: 'Отправить сообщение',
       },
     },
+    privacy: {
+      title: 'Уведомление о конфиденциальности',
+      controller: 'Контролёр данных',
+      controllerName: 'EventNexus OÜ',
+      controllerReg: 'Регистрационный номер 17431557',
+      controllerAddress: 'Пылтсамаа, Эстония',
+      controllerEmail: 'admin@eventnexus.eu',
+      purposesTitle: 'Цели',
+      purposes: 'Мы обрабатываем персональные данные для обработки запросов проектов, ответов на сообщения, работы этого сайта и отправки уведомлений по email.',
+      legalBasesTitle: 'Правовые основы',
+      legalBases: 'Обработка основана на вашем согласии, договорной необходимости или нашем законном интересе в работе этого сайта и оценке запросов проектов.',
+      processorsTitle: 'Процессоры',
+      processors: 'Мы используем Supabase (ЕС) для хранения лидов, Resend для доставки email и Cloudflare для хостинга и приватной аналитики.',
+      transfersTitle: 'Передачи',
+      transfers: 'Данные могут передаваться процессорам в ЕС и США при надлежащих гарантиях, включая стандартные договорные условия.',
+      retentionTitle: 'Хранение',
+      retention: 'Запросы проектов хранятся до 3 лет или до вашего запроса на удаление. Журналы приложения хранятся до 1 года. События email хранятся до 1 года.',
+      rightsTitle: 'Ваши права',
+      rights: 'Вы имеете право на доступ, исправление, удаление или ограничение обработки ваших данных, а также на возражение или отзыв согласия в любое время.',
+      contactTitle: 'Контакт',
+      contact: 'Свяжитесь с контролёром данных по адресу admin@eventnexus.eu для запросов, связанных с конфиденциальностью.',
+      lastUpdated: 'Последнее обновление: август 2026',
+      analyticsText: 'Этот сайт использует приватную аналитику для понимания использования.',
+      accept: 'Принять',
+      decline: 'Отклонить',
+    },
   },
   de: {
     nav: {
@@ -1388,6 +1473,8 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Die Nachricht muss mindestens 10 Zeichen enthalten.',
       somethingWrong: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
       submissionFailed: 'Übermittlung fehlgeschlagen',
+      contactMinLength: 'Please fill in your name, a valid email, and a message.',
+      contactRequired: 'Please fill in your name, a valid email, and a message.',
     },
     ui: {
       includes: 'Beinhaltet',
@@ -1421,6 +1508,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Von der Idee zur schlüsselfertigen Lösung.',
         description:
           'Eventnexus hilft bei der Gestaltung, Erstellung und dem Start webbasierter Produkte, ausgehend von einer groben Idee oder einem klareren technischen Plan.',
+        cards: [],
       },
       process: {
         eyebrow: 'Prozess',
@@ -1449,6 +1537,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Basierend auf echter Produkt- und KI-Workflow-Erfahrung.',
         description:
           'Eventnexus wird durch praktische Erfahrung mit TypeScript-basierten Webplattformen, KI-gestützten Tools, Automatisierungskonzepten, Datenprodukten und Service-Plattform-Experimenten geformt.',
+        items: [],
       },
       intakeCta: {
         heading: 'Haben Sie eine Idee für eine Plattform, ein Portal, ein Tool oder eine Website?',
@@ -1473,6 +1562,8 @@ export const translations: Record<Language, TranslationKeys> = {
         description:
           'Viele digitale Projekte werden schwierig, weil die Arbeit auf zu viele unverbundene Teile verteilt ist. Eventnexus bringt diese Teile in einen strukturierten Service. Das Ziel ist, Verwirrung für den Kunden zu reduzieren und einen klaren Weg von der Idee zur funktionierenden Lösung zu schaffen.',
       },
+      serviceCards: [],
+      projectTypes: [],
       turnkey: {
         eyebrow: 'Liefermodell',
         headline: 'Was "schlüsselfertig" bei Eventnexus bedeutet.',
@@ -1507,6 +1598,7 @@ export const translations: Record<Language, TranslationKeys> = {
           'Die folgenden Portfoliokandidaten zeigen die Arten von Produkten und Workflows, bei deren Erstellung Eventnexus helfen kann.',
       },
       categoriesTitle: 'Portfoliokandidaten',
+      categories: [],
       nextSectionTitle: 'Was das für Ihr Projekt bedeutet',
       nextSectionDescription1:
         'Diese Projekte spiegeln die reale Erforschung von Webplattformen, KI-gestützten Business-Tools, Datenprodukten, Marketingautomatisierung und ereignisbezogenen Konzepten wider. Sie beeinflussen, wie Eventnexus Planung, Architektur und Lieferung angeht.',
@@ -1737,6 +1829,32 @@ export const translations: Record<Language, TranslationKeys> = {
         sendMessage: 'Nachricht senden',
       },
     },
+    privacy: {
+      title: 'Datenschutzhinweis',
+      controller: 'Verantwortlicher',
+      controllerName: 'EventNexus OÜ',
+      controllerReg: 'Registrierungsnummer 17431557',
+      controllerAddress: 'Põltsamaa, Estland',
+      controllerEmail: 'admin@eventnexus.eu',
+      purposesTitle: 'Zwecke',
+      purposes: 'Wir verarbeiten personenbezogene Daten zur Bearbeitung von Projektanfragen, zur Beantwortung von Kontaktnachrichten, zum Betrieb dieser Website und zum Versand von Benachrichtigungs-E-Mails.',
+      legalBasesTitle: 'Rechtsgrundlagen',
+      legalBases: 'Die Verarbeitung basiert auf Ihrer Einwilligung, vertraglicher Notwendigkeit oder unserem berechtigten Interesse am Betrieb dieser Website und der Bewertung von Projektanfragen.',
+      processorsTitle: 'Verarbeiter',
+      processors: 'Wir nutzen Supabase (EU) zur Speicherung von Leads, Resend für den E-Mail-Versand und Cloudflare für Hosting und datenschutzfreundliche Analysen.',
+      transfersTitle: 'Übermittlungen',
+      transfers: 'Daten können an Verarbeiter in der EU und den USA unter angemessenen Garantien, einschliesslich Standardvertragsklauseln, übermittelt werden.',
+      retentionTitle: 'Aufbewahrung',
+      retention: 'Projektleads werden bis zu 3 Jahre lang oder bis zu Ihrer Löschanfrage aufbewahrt. Anwendungsprotokolle werden bis zu 1 Jahr lang aufbewahrt. Resend-E-Mail-Ereignisse werden bis zu 1 Jahr lang aufbewahrt.',
+      rightsTitle: 'Ihre Rechte',
+      rights: 'Sie haben das Recht auf Zugriff, Berichtigung, Löschung oder Einschränkung der Verarbeitung Ihrer Daten sowie das Recht, der Verarbeitung zu widersprechen oder Ihre Einwilligung jederzeit zu widerrufen.',
+      contactTitle: 'Kontakt',
+      contact: 'Wenden Sie sich an den Verantwortlichen unter admin@eventnexus.eu für datenschutzbezogene Anfragen.',
+      lastUpdated: 'Zuletzt aktualisiert: August 2026',
+      analyticsText: 'Diese Website verwendet datenschutzfreundliche Analysen, um die Nutzung zu verstehen.',
+      accept: 'Akzeptieren',
+      decline: 'Ablehnen',
+    },
   },
   fi: {
     nav: {
@@ -1765,6 +1883,8 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Viestissä on oltava vähintään 10 merkkiä.',
       somethingWrong: 'Jokin meni pieleen. Yritä uudelleen.',
       submissionFailed: 'Lähetys epäonnistui',
+      contactMinLength: 'Please fill in your name, a valid email, and a message.',
+      contactRequired: 'Please fill in your name, a valid email, and a message.',
     },
     ui: {
       includes: 'Sisältää',
@@ -1798,6 +1918,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Ideaista valmiiseen ratkaisuun.',
         description:
           'Eventnexus auttaa muotoilemaan, rakentamaan ja käynnistämään verkkopohjaisia tuotteita alkaen karkeasta ideasta tai selvemmästä teknisestä suunnitelmasta.',
+        cards: [],
       },
       process: {
         eyebrow: 'Prosessi',
@@ -1826,6 +1947,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Perustuu todelliseen tuote- ja työnkulkukokemukseen.',
         description:
           'Eventnexus on muodostunut käytännön kokemuksesta TypeScript-pohjaisten verkkoportaalien, AI-työkalujen, automaatiokonseptien, datatuotteiden ja palvelualustakokeilujen kanssa.',
+        items: [],
       },
       intakeCta: {
         heading: 'Onko sinulla idea alustasta, portaalista, työkalusta tai sivustosta?',
@@ -1850,6 +1972,8 @@ export const translations: Record<Language, TranslationKeys> = {
         description:
           'Monista digitaalisista projekteista tulee vaikeita, koska työ on jaettu liian moneen irtonaiseen osaan. Eventnexus yhdistää nämä osat yhteen jäsenneltyyn palveluun. Tavoitteena on vähentää asiakkaan sekaannusta ja luoda selkeä reitti ideasta toimivaan ratkaisuun.',
       },
+      serviceCards: [],
+      projectTypes: [],
       turnkey: {
         eyebrow: 'Toimitustapa',
         headline: 'Mitä "avaimet käteen" tarkoittaa Eventnexuksessa.',
@@ -1884,6 +2008,7 @@ export const translations: Record<Language, TranslationKeys> = {
           'Seuraavat salkkuehdokkaat osoittavat, millaisia tuotteita ja työnkulkuja Eventnexus voi auttaa rakentamaan.',
       },
       categoriesTitle: 'Salkkukandidaatit',
+      categories: [],
       nextSectionTitle: 'Mitä tämä tarkoittaa projektillesi',
       nextSectionDescription1:
         'Nämä projektit heijastavat todellista tutkimusta verkkoportaista, AI-työkaluista liiketoiminnalle, datatuotteista, markkinointiautomaatiosta ja tapahtumaan liittyvistä konsepteista. Ne ohjaavat, miten Eventnexus lähestyy suunnittelua, arkkitehtuuria ja toimitusta.',
@@ -2114,6 +2239,32 @@ export const translations: Record<Language, TranslationKeys> = {
         sendMessage: 'Lähetä viesti',
       },
     },
+    privacy: {
+      title: 'Tietosuojailmoitus',
+      controller: 'Rekisterinpitäjä',
+      controllerName: 'EventNexus OÜ',
+      controllerReg: 'Rekisteröintinumero 17431557',
+      controllerAddress: 'Põltsamaa, Viro',
+      controllerEmail: 'admin@eventnexus.eu',
+      purposesTitle: 'Tarkoitukset',
+      purposes: 'Käsittelemme henkilötietoja projektipyyntöjen käsittelyyn, yhteydenottoviestien vastaamiseen, tämän sivuston toimintaan ja ilmoitusviestien lähettämiseen.',
+      legalBasesTitle: 'Oikeusperusteet',
+      legalBases: 'Käsittely perustuu suostumukseesi, sopimusvälttämättömyyteen tai oikeutettuun etuumme tämän sivuston toiminnassa ja projektipyyntöjen arvioinnissa.',
+      processorsTitle: 'Käsittelijät',
+      processors: 'Käytämme Supabasea (EU) liidien tallentamiseen, Resendiä sähköpostin lähettämiseen ja Cloudflarea isäntäpalveluun ja yksityisyyteen suuntautuneeseen analytiikkaan.',
+      transfersTitle: 'Siirrot',
+      transfers: 'Tietoja saatetaan siirtää käsittelijöille EU:ssa ja Yhdysvalloissa asianmukaisilla suojatoimilla, mukaan lukien standardiset sopimusehdot.',
+      retentionTitle: 'Säilytys',
+      retention: 'Projektipyynnöt säilytetään enintään 3 vuotta tai kunnes pyydät poistoa. Sovelluksen lokit säilytetään enintään 1 vuosi. Resend-sähköpostitapahtumat säilytetään enintään 1 vuosi.',
+      rightsTitle: 'Oikeutesi',
+      rights: 'Sinulla on oikeus saada, korjata, poistaa tai rajoittaa tietojesi käsittelyä sekä vastustaa käsittelyä tai peruuttaa suostumuksesi milloin tahansa.',
+      contactTitle: 'Yhteystiedot',
+      contact: 'Ota yhteyttä rekisterinpitäjään osoitteessa admin@eventnexus.eu tietosuojapyyntöjä varten.',
+      lastUpdated: 'Viimeksi päivitetty: elokuu 2026',
+      analyticsText: 'Tämä sivusto käyttää yksityisyyteen suuntautunutta analytiikkaa käytön ymmärtämiseksi.',
+      accept: 'Hyväksy',
+      decline: 'Hylkää',
+    },
   },
   et: {
     nav: {
@@ -2142,6 +2293,8 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Sõnum peab olema vähemalt 10 tähemärki.',
       somethingWrong: 'Midagi läks valesti. Palun proovige uuesti.',
       submissionFailed: 'Saatmine ebaõnnestus',
+      contactMinLength: 'Please fill in your name, a valid email, and a message.',
+      contactRequired: 'Please fill in your name, a valid email, and a message.',
     },
     ui: {
       includes: 'Sisaldab',
@@ -2175,6 +2328,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Ideest valmis lahenduseni.',
         description:
           'Eventnexus aitab kujundada, ehitada ja käivitada veebipõhiseid tooteid alustades kõrge tasemel ideest või selgemast tehnilisest planeerimisest.',
+        cards: [],
       },
       process: {
         eyebrow: 'Protsess',
@@ -2203,6 +2357,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Ehitatud reaalse toote ja AI töövoo kogemusele.',
         description:
           'Eventnexus on kujunenud TypeScript-põhiste veebiplatvormide, AI-vahendite, automatiseerimiskontseptsioonide, andmetoodete ja teenuseplatvormi katsete praktilisel kogemusel.',
+        items: [],
       },
       intakeCta: {
         heading: 'On teil idee platvormi, portaali, tööriista või veebisaidi jaoks?',
@@ -2227,6 +2382,8 @@ export const translations: Record<Language, TranslationKeys> = {
         description:
           'Paljud digitaalsed projektid muutuvad keerukaks, sest töö on jaotatud liiga mitmeks haaramatuks osaks. Eventnexus ühendab need osad üheks struktureerituks teenuseks. Eesmärk on vähendada kliendi segadust ja luua selge tee ideelt töötavale lahendusele.',
       },
+      serviceCards: [],
+      projectTypes: [],
       turnkey: {
         eyebrow: 'Tarnemudel',
         headline: 'Mida "võtmed käes" tähendab Eventnexuses.',
@@ -2261,6 +2418,7 @@ export const translations: Record<Language, TranslationKeys> = {
           'Järgmised portfoolio kandidaadid näitavad, milliseid tooteid ja töövooge Eventnexus võib aidata ehitada.',
       },
       categoriesTitle: 'Portfoolio kandidaadid',
+      categories: [],
       nextSectionTitle: 'Mida see tähendab teie projekti jaoks',
       nextSectionDescription1:
         'Need projektid peegeldavad veebiplatvormide, AI-vahendite äritegevuseks, andmetoodete, turundusautomatiseerimise ja sündmustega seotud kontseptsioonide tegelikku uurimist. Need määravad, kuidas Eventnexus läheneb planeerimisele, arhitektuurile ja tarnele.',
@@ -2490,6 +2648,32 @@ export const translations: Record<Language, TranslationKeys> = {
         sendProjectRequest: 'Saada projekti taotlus',
         sendMessage: 'Saada sõnum',
       },
+    },
+    privacy: {
+      title: 'Privaatsusteatis',
+      controller: 'Andmete vastutav töötleja',
+      controllerName: 'EventNexus OÜ',
+      controllerReg: 'Registreerimisnumber 17431557',
+      controllerAddress: 'Põltsamaa, Eesti',
+      controllerEmail: 'admin@eventnexus.eu',
+      purposesTitle: 'Eesmärgid',
+      purposes: 'Me töötleme isikuandmeid projektitaotluste käsitlemiseks, kontaktide sõnumitele vastamiseks, selle veebisaidi toimimiseks ja teavituste saatmiseks.',
+      legalBasesTitle: 'Õiguslikud alused',
+      legalBases: 'Töötlemise aluseks on teie nõusolek, lepinguline vajadus või meie õigustatud huvi selle veebisaidi toimimise ja projektitaotluste hindamise kohta.',
+      processorsTitle: 'Töötlejad',
+      processors: 'Me kasutame Supabase\'i (EL) liidide salvestamiseks, Resend\'i e-posti saatmiseks ja Cloudflare\'i majutamiseks ja privaatsusele suunatud analüütika jaoks.',
+      transfersTitle: 'Edastused',
+      transfers: 'Andmeid võidakse edastada töötlejatele ELis ja USA-s kooskõlas asjakohaste garantiidega, sealhulgas standardsete lepingutingimustega.',
+      retentionTitle: 'Säilitus',
+      retention: 'Projektitaotlusi säilitatakse kuni 3 aastat või kuni teie kustutamistaotluse esitamiseni. Rakenduse logid säilitatakse kuni 1 aasta. Resend e-posti sündmused säilitatakse kuni 1 aasta.',
+      rightsTitle: 'Teie õigused',
+      rights: 'Teil on õigus saada, parandada, kustutada või piirata omaandmete töötlemist ning vastu vaielda või igal ajal nõusolek tagasi võtta.',
+      contactTitle: 'Kontakt',
+      contact: 'Võtke ühendust andmete vastutava töötlejaga aadressil admin@eventnexus.eu privaatsuspäringute jaoks.',
+      lastUpdated: 'Viimati uuendatud: august 2026',
+      analyticsText: 'See sait kasutab privaatsusele suunatud analüütikat kasutuse mõistmiseks.',
+      accept: 'Nõustu',
+      decline: 'Keeldu',
     },
   },
 };

@@ -14,7 +14,9 @@
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write --cache .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "cleanup:webhook-events": "npx tsx scripts/cleanup-webhook-events.ts",
+    "cleanup:leads": "npx tsx scripts/cleanup-leads.ts"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.13",
