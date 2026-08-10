@@ -1063,6 +1063,8 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Сообщение должно содержать не менее 10 символов.',
       somethingWrong: 'Что-то пошло не так. Пожалуйста, попробуйте снова.',
       submissionFailed: 'Ошибка отправки',
+      contactMinLength: 'Please fill in your name, a valid email, and a message.',
+      contactRequired: 'Please fill in your name, a valid email, and a message.',
     },
     ui: {
       includes: 'Включает',
@@ -1096,6 +1098,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'От идеи до готового решения.',
         description:
           'Eventnexus помогает формировать, создавать и запускать веб-продукты, начиная с rough идеи или более чёткого технического плана.',
+        cards: [],
       },
       process: {
         eyebrow: 'Процесс',
@@ -1124,6 +1127,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Основано на реальном продуктовом и AI опыте.',
         description:
           'Eventnexus формируется практическим опытом работы с веб-платформами на TypeScript, AI-инструментами, концепциями автоматизации, данными и экспериментами с сервисными платформами.',
+        items: [],
       },
       intakeCta: {
         heading: 'Есть идея платформы, портала, инструмента или сайта?',
@@ -1148,6 +1152,8 @@ export const translations: Record<Language, TranslationKeys> = {
         description:
           'Многие цифровые проекты становятся сложными, потому что работа разделена на слишком много несвязанных частей. Eventnexus объединяет эти части в один структурированный сервис. Цель — уменьшить путаницу у клиента и создать понятный путь от идеи к работающему решению.',
       },
+      serviceCards: [],
+      projectTypes: [],
       turnkey: {
         eyebrow: 'Модель поставки',
         headline: 'Что означает "под ключ" в Eventnexus.',
@@ -1182,6 +1188,7 @@ export const translations: Record<Language, TranslationKeys> = {
           'Следующие кандидаты в портфолио демонстрируют типы продуктов и рабочих процессов, в создании которых Eventnexus может помочь.',
       },
       categoriesTitle: 'Кандидаты в портфолио',
+      categories: [],
       nextSectionTitle: 'Что это значит для вашего проекта',
       nextSectionDescription1:
         'Эти проекты отражают реальное исследование веб-платформ, AI-инструментов для бизнеса, продуктов данных, маркетинговой автоматизации и концепций, связанных с событиями. Они определяют, как Eventnexus подходит к планированию, архитектуре и поставке.',
@@ -1466,6 +1473,8 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Die Nachricht muss mindestens 10 Zeichen enthalten.',
       somethingWrong: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
       submissionFailed: 'Übermittlung fehlgeschlagen',
+      contactMinLength: 'Please fill in your name, a valid email, and a message.',
+      contactRequired: 'Please fill in your name, a valid email, and a message.',
     },
     ui: {
       includes: 'Beinhaltet',
@@ -1499,6 +1508,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Von der Idee zur schlüsselfertigen Lösung.',
         description:
           'Eventnexus hilft bei der Gestaltung, Erstellung und dem Start webbasierter Produkte, ausgehend von einer groben Idee oder einem klareren technischen Plan.',
+        cards: [],
       },
       process: {
         eyebrow: 'Prozess',
@@ -1527,6 +1537,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Basierend auf echter Produkt- und KI-Workflow-Erfahrung.',
         description:
           'Eventnexus wird durch praktische Erfahrung mit TypeScript-basierten Webplattformen, KI-gestützten Tools, Automatisierungskonzepten, Datenprodukten und Service-Plattform-Experimenten geformt.',
+        items: [],
       },
       intakeCta: {
         heading: 'Haben Sie eine Idee für eine Plattform, ein Portal, ein Tool oder eine Website?',
@@ -1551,6 +1562,8 @@ export const translations: Record<Language, TranslationKeys> = {
         description:
           'Viele digitale Projekte werden schwierig, weil die Arbeit auf zu viele unverbundene Teile verteilt ist. Eventnexus bringt diese Teile in einen strukturierten Service. Das Ziel ist, Verwirrung für den Kunden zu reduzieren und einen klaren Weg von der Idee zur funktionierenden Lösung zu schaffen.',
       },
+      serviceCards: [],
+      projectTypes: [],
       turnkey: {
         eyebrow: 'Liefermodell',
         headline: 'Was "schlüsselfertig" bei Eventnexus bedeutet.',
@@ -1585,6 +1598,7 @@ export const translations: Record<Language, TranslationKeys> = {
           'Die folgenden Portfoliokandidaten zeigen die Arten von Produkten und Workflows, bei deren Erstellung Eventnexus helfen kann.',
       },
       categoriesTitle: 'Portfoliokandidaten',
+      categories: [],
       nextSectionTitle: 'Was das für Ihr Projekt bedeutet',
       nextSectionDescription1:
         'Diese Projekte spiegeln die reale Erforschung von Webplattformen, KI-gestützten Business-Tools, Datenprodukten, Marketingautomatisierung und ereignisbezogenen Konzepten wider. Sie beeinflussen, wie Eventnexus Planung, Architektur und Lieferung angeht.',
@@ -1869,6 +1883,8 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Viestissä on oltava vähintään 10 merkkiä.',
       somethingWrong: 'Jokin meni pieleen. Yritä uudelleen.',
       submissionFailed: 'Lähetys epäonnistui',
+      contactMinLength: 'Please fill in your name, a valid email, and a message.',
+      contactRequired: 'Please fill in your name, a valid email, and a message.',
     },
     ui: {
       includes: 'Sisältää',
@@ -1902,6 +1918,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Ideaista valmiiseen ratkaisuun.',
         description:
           'Eventnexus auttaa muotoilemaan, rakentamaan ja käynnistämään verkkopohjaisia tuotteita alkaen karkeasta ideasta tai selvemmästä teknisestä suunnitelmasta.',
+        cards: [],
       },
       process: {
         eyebrow: 'Prosessi',
@@ -1930,6 +1947,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Perustuu todelliseen tuote- ja työnkulkukokemukseen.',
         description:
           'Eventnexus on muodostunut käytännön kokemuksesta TypeScript-pohjaisten verkkoportaalien, AI-työkalujen, automaatiokonseptien, datatuotteiden ja palvelualustakokeilujen kanssa.',
+        items: [],
       },
       intakeCta: {
         heading: 'Onko sinulla idea alustasta, portaalista, työkalusta tai sivustosta?',
@@ -1954,6 +1972,8 @@ export const translations: Record<Language, TranslationKeys> = {
         description:
           'Monista digitaalisista projekteista tulee vaikeita, koska työ on jaettu liian moneen irtonaiseen osaan. Eventnexus yhdistää nämä osat yhteen jäsenneltyyn palveluun. Tavoitteena on vähentää asiakkaan sekaannusta ja luoda selkeä reitti ideasta toimivaan ratkaisuun.',
       },
+      serviceCards: [],
+      projectTypes: [],
       turnkey: {
         eyebrow: 'Toimitustapa',
         headline: 'Mitä "avaimet käteen" tarkoittaa Eventnexuksessa.',
@@ -1988,6 +2008,7 @@ export const translations: Record<Language, TranslationKeys> = {
           'Seuraavat salkkuehdokkaat osoittavat, millaisia tuotteita ja työnkulkuja Eventnexus voi auttaa rakentamaan.',
       },
       categoriesTitle: 'Salkkukandidaatit',
+      categories: [],
       nextSectionTitle: 'Mitä tämä tarkoittaa projektillesi',
       nextSectionDescription1:
         'Nämä projektit heijastavat todellista tutkimusta verkkoportaista, AI-työkaluista liiketoiminnalle, datatuotteista, markkinointiautomaatiosta ja tapahtumaan liittyvistä konsepteista. Ne ohjaavat, miten Eventnexus lähestyy suunnittelua, arkkitehtuuria ja toimitusta.',
@@ -2272,6 +2293,8 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Sõnum peab olema vähemalt 10 tähemärki.',
       somethingWrong: 'Midagi läks valesti. Palun proovige uuesti.',
       submissionFailed: 'Saatmine ebaõnnestus',
+      contactMinLength: 'Please fill in your name, a valid email, and a message.',
+      contactRequired: 'Please fill in your name, a valid email, and a message.',
     },
     ui: {
       includes: 'Sisaldab',
@@ -2305,6 +2328,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Ideest valmis lahenduseni.',
         description:
           'Eventnexus aitab kujundada, ehitada ja käivitada veebipõhiseid tooteid alustades kõrge tasemel ideest või selgemast tehnilisest planeerimisest.',
+        cards: [],
       },
       process: {
         eyebrow: 'Protsess',
@@ -2333,6 +2357,7 @@ export const translations: Record<Language, TranslationKeys> = {
         headline: 'Ehitatud reaalse toote ja AI töövoo kogemusele.',
         description:
           'Eventnexus on kujunenud TypeScript-põhiste veebiplatvormide, AI-vahendite, automatiseerimiskontseptsioonide, andmetoodete ja teenuseplatvormi katsete praktilisel kogemusel.',
+        items: [],
       },
       intakeCta: {
         heading: 'On teil idee platvormi, portaali, tööriista või veebisaidi jaoks?',
@@ -2357,6 +2382,8 @@ export const translations: Record<Language, TranslationKeys> = {
         description:
           'Paljud digitaalsed projektid muutuvad keerukaks, sest töö on jaotatud liiga mitmeks haaramatuks osaks. Eventnexus ühendab need osad üheks struktureerituks teenuseks. Eesmärk on vähendada kliendi segadust ja luua selge tee ideelt töötavale lahendusele.',
       },
+      serviceCards: [],
+      projectTypes: [],
       turnkey: {
         eyebrow: 'Tarnemudel',
         headline: 'Mida "võtmed käes" tähendab Eventnexuses.',
@@ -2391,6 +2418,7 @@ export const translations: Record<Language, TranslationKeys> = {
           'Järgmised portfoolio kandidaadid näitavad, milliseid tooteid ja töövooge Eventnexus võib aidata ehitada.',
       },
       categoriesTitle: 'Portfoolio kandidaadid',
+      categories: [],
       nextSectionTitle: 'Mida see tähendab teie projekti jaoks',
       nextSectionDescription1:
         'Need projektid peegeldavad veebiplatvormide, AI-vahendite äritegevuseks, andmetoodete, turundusautomatiseerimise ja sündmustega seotud kontseptsioonide tegelikku uurimist. Need määravad, kuidas Eventnexus läheneb planeerimisele, arhitektuurile ja tarnele.',

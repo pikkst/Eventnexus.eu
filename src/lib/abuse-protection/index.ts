@@ -4,4 +4,9 @@ export { validateArrayField, ALLOWED_FEATURES, ALLOWED_TECHNICAL_NEEDS, ALLOWED_
 export { checkHoneypot, checkMinimumCompletionTime } from './honeypot';
 export { checkDuplicateSubmission } from './duplicate';
 export { logAbuseEvent } from './logging';
-export type { TurnstileVerificationResult, RateLimitResult, FieldValidationResult, HoneypotResult, DuplicateCheckResult, LogEntry } from './turnstile';
+export type { TurnstileVerificationResult } from './turnstile';
+export type { RateLimitResult } from './rate-limit';
+export type { FieldValidationResult } from './validation';
+export type { HoneypotResult } from './honeypot';
+export type { DuplicateCheckResult } from './duplicate';
+export type { LogEntry } from './logging';
