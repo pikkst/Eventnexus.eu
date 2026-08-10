@@ -6,7 +6,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-config({ path: path.resolve(__dirname, '../.env') });
+const envPath = path.resolve(__dirname, '../.env.test');
+config({ path: envPath, override: true });
 
 const WEBHOOK_SECRET = process.env.RESEND_WEBHOOK_SECRET || 'whsec_dGVzdC1zZWNyZXQtZm9yLXBsYXl3cmlnaHQ=';
 
@@ -15,23 +16,37 @@ function createWebhookSignature(secret: string, webhookId: string, payload: stri
   return webhook.sign(webhookId, new Date(timestamp * 1000), payload);
 }
 
-async function sendWebhookRequest(page: any, payload: Record<string, unknown>, validSignature = true): Promise<{ status: number; body: unknown }> {
-  const payloadString = JSON.stringify(payload);
+async function sendWebhookRequest(page: any, payload: Record<string, unknown>, options: { validSignature?: boolean; tamperBody?: boolean; differentKey?: boolean } = {}): Promise<{ status: number; body: unknown }> {
+  const { validSignature = true, tamperBody = false, differentKey = false } = options;
+  
+  let payloadString = JSON.stringify(payload);
   const timestamp = Math.floor(Date.now() / 1000);
   const webhookId = 'msg_' + crypto.randomUUID();
+  
+  let secret = WEBHOOK_SECRET;
+  if (differentKey) {
+    secret = 'whsec_' + Buffer.from('a-different-secret-key').toString('base64');
+  }
+  
   const signature = validSignature
-    ? createWebhookSignature(WEBHOOK_SECRET, webhookId, payloadString, timestamp)
+    ? createWebhookSignature(secret, webhookId, payloadString, timestamp)
     : 'invalid_signature';
+
+  if (tamperBody) {
+    const parsed = JSON.parse(payloadString);
+    parsed.data = { ...parsed.data, email_id: 'tampered-email-id' };
+    payloadString = JSON.stringify(parsed);
+  }
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    'webhook-id': webhookId,
-    'webhook-timestamp': timestamp.toString(),
-    'webhook-signature': signature,
+    'svix-id': webhookId,
+    'svix-timestamp': timestamp.toString(),
+    'svix-signature': signature,
   };
 
   const response = await page.request.post('/api/webhooks/resend', {
-    data: payloadString,
+    data: tamperBody ? payloadString : (options.validSignature !== false ? payloadString : payloadString),
     headers,
   });
 
@@ -39,7 +54,7 @@ async function sendWebhookRequest(page: any, payload: Record<string, unknown>, v
   return { status: response.status(), body };
 }
 
-test('webhook: accepts valid Resend webhook signature', async ({ page }) => {
+test('webhook: accepts valid Resend webhook signature with svix headers', async ({ page }) => {
   const payload = {
     type: 'email.delivered',
     data: {
@@ -48,9 +63,37 @@ test('webhook: accepts valid Resend webhook signature', async ({ page }) => {
     },
   };
 
-  const result = await sendWebhookRequest(page, payload, true);
+  const result = await sendWebhookRequest(page, payload, { validSignature: true });
   expect(result.status).toBe(200);
   expect(result.body).toHaveProperty('ok', true);
+});
+
+test('webhook: rejects tampered payload with valid signature', async ({ page }) => {
+  const payload = {
+    type: 'email.delivered',
+    data: {
+      email_id: 'test-email-id',
+      to: ['recipient@example.com'],
+    },
+  };
+
+  const result = await sendWebhookRequest(page, payload, { validSignature: true, tamperBody: true });
+  expect(result.status).toBe(401);
+  expect(result.body).toHaveProperty('error', 'Invalid signature');
+});
+
+test('webhook: rejects signature from different key', async ({ page }) => {
+  const payload = {
+    type: 'email.delivered',
+    data: {
+      email_id: 'test-email-id',
+      to: ['recipient@example.com'],
+    },
+  };
+
+  const result = await sendWebhookRequest(page, payload, { validSignature: true, differentKey: true });
+  expect(result.status).toBe(401);
+  expect(result.body).toHaveProperty('error', 'Invalid signature');
 });
 
 test('webhook: rejects invalid signature', async ({ page }) => {
@@ -62,7 +105,7 @@ test('webhook: rejects invalid signature', async ({ page }) => {
     },
   };
 
-  const result = await sendWebhookRequest(page, payload, false);
+  const result = await sendWebhookRequest(page, payload, { validSignature: false });
   expect(result.status).toBe(401);
   expect(result.body).toHaveProperty('error', 'Invalid signature');
 });
@@ -96,9 +139,9 @@ test('webhook: handles duplicate webhook idempotently when database is available
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    'webhook-id': webhookId,
-    'webhook-timestamp': timestamp.toString(),
-    'webhook-signature': signature,
+    'svix-id': webhookId,
+    'svix-timestamp': timestamp.toString(),
+    'svix-signature': signature,
   };
 
   const firstResponse = await page.request.post('/api/webhooks/resend', {
@@ -108,6 +151,7 @@ test('webhook: handles duplicate webhook idempotently when database is available
   const firstResult = await firstResponse.json().catch(() => ({}));
   expect(firstResponse.status()).toBe(200);
   expect(firstResult).toHaveProperty('ok', true);
+  expect(firstResult).not.toHaveProperty('duplicate');
 
   const secondResponse = await page.request.post('/api/webhooks/resend', {
     data: payloadString,
@@ -116,6 +160,7 @@ test('webhook: handles duplicate webhook idempotently when database is available
   const secondResult = await secondResponse.json().catch(() => ({}));
   expect(secondResponse.status()).toBe(200);
   expect(secondResult).toHaveProperty('ok', true);
+  expect(secondResult).toHaveProperty('duplicate', true);
 });
 
 test('webhook: rejects malformed JSON', async ({ page }) => {
@@ -128,9 +173,9 @@ test('webhook: rejects malformed JSON', async ({ page }) => {
     data: Buffer.from(malformedPayload),
     headers: {
       'Content-Type': 'application/json',
-      'webhook-id': webhookId,
-      'webhook-timestamp': timestamp.toString(),
-      'webhook-signature': signature,
+      'svix-id': webhookId,
+      'svix-timestamp': timestamp.toString(),
+      'svix-signature': signature,
     },
   });
 
@@ -155,9 +200,9 @@ test('webhook: rejects expired timestamp', async ({ page }) => {
     data: payload,
     headers: {
       'Content-Type': 'application/json',
-      'webhook-id': webhookId,
-      'webhook-timestamp': expiredTimestamp.toString(),
-      'webhook-signature': signature,
+      'svix-id': webhookId,
+      'svix-timestamp': expiredTimestamp.toString(),
+      'svix-signature': signature,
     },
   });
 

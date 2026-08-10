@@ -203,6 +203,25 @@ Admin access:
 
 A `contact_messages` table remains planned and is not part of the first migration.
 
+## Webhook Idempotency
+
+Resend webhook deliveries are stored in `webhook_events` to prevent duplicate processing.
+
+The table schema is defined in `supabase/webhook-events-schema.sql`.
+
+Apply it to the production Supabase project by:
+
+1. Opening the Supabase dashboard for project `yzsoczlghgcqitevamfo`.
+2. Going to **SQL Editor**.
+3. Pasting the contents of `supabase/webhook-events-schema.sql`.
+4. Running the query.
+5. Verifying that RLS is enabled on `public.webhook_events` and all roles are restricted.
+
+Important:
+- This table must exist before the `/api/webhooks/resend` route is deployed.
+- The route uses `INSERT ... ON CONFLICT DO NOTHING` behavior via duplicate-key detection (PostgreSQL error code `23505`).
+- If the table is missing, the route returns `500` and Resend retries the delivery.
+
 ## Current Decision Status
 
 Supabase will be used first for structured project leads, simple contact messages, and later admin review data. Customer portal features remain future scope.

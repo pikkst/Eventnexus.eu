@@ -91,8 +91,7 @@ export const POST: APIRoute = async ({ request }) => {
     .select();
 
   if (insertError) {
-    const message = insertError.message || '';
-    if (message.includes('duplicate key') || message.includes('unique constraint')) {
+    if (insertError.code === '23505') {
       return new Response(JSON.stringify({ ok: true, duplicate: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
