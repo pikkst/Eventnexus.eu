@@ -5,6 +5,8 @@ import { getSupabaseServerClient } from '../../../lib/supabase/server';
 
 export const prerender = false;
 
+const testEventStore = new Map<string, { type: string }>();
+
 export const POST: APIRoute = async ({ request }) => {
   const secret = process.env.RESEND_WEBHOOK_SECRET;
   if (!secret) {
@@ -79,6 +81,23 @@ export const POST: APIRoute = async ({ request }) => {
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
       status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (process.env.WEBHOOK_TEST_MODE === 'true') {
+    const existing = testEventStore.get(webhookId);
+    if (existing) {
+      return new Response(JSON.stringify({ ok: true, duplicate: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    testEventStore.set(webhookId, { type: event.type });
+    console.log(`[test-mode] Stored webhook event: type=${event.type}, emailId=${event.emailId}`);
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
   }

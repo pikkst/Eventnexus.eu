@@ -1,13 +1,6 @@
 import { test, expect } from '@playwright/test';
 import crypto from 'node:crypto';
 import { Webhook } from 'standardwebhooks';
-import { config } from 'dotenv';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const envPath = path.resolve(__dirname, '../.env.test');
-config({ path: envPath, override: true });
 
 const WEBHOOK_SECRET = process.env.RESEND_WEBHOOK_SECRET || 'whsec_dGVzdC1zZWNyZXQtZm9yLXBsYXl3cmlnaHQ=';
 

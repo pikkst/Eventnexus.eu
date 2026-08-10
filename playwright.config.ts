@@ -8,7 +8,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:4321',
+    baseURL: 'http://127.0.0.1:4321',
     trace: 'on-first-retry',
   },
   projects: [
@@ -21,5 +21,9 @@ export default defineConfig({
     command: 'npm run dev -- --host 127.0.0.1 --port 4321',
     url: 'http://127.0.0.1:4321',
     reuseExistingServer: !process.env.CI,
+    env: {
+      RESEND_WEBHOOK_SECRET: 'whsec_dGVzdC1zZWNyZXQtZm9yLXBsYXl3cmlnaHQ=',
+      WEBHOOK_TEST_MODE: 'true',
+    },
   },
 });
