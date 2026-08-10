@@ -57,8 +57,50 @@ test('smoke: unprefixed routes redirect to canonical English routes', async ({ p
   ];
 
   for (const route of routes) {
-    const response = await page.goto(route.path);
-    expect(response?.status()).toBe(200);
+    const responsePromise = page.waitForResponse((response) =>
+      response.url().endsWith(route.path) && response.status() === 301
+    );
+    await page.goto(route.path);
+    const response = await responsePromise;
+    expect(response.status()).toBe(301);
+    expect(response.headers()['location']).toBe(route.expected);
     expect(page.url()).toContain(route.expected);
   }
+});
+
+test('smoke: isolated contact-only submission succeeds on canonical route', async ({ page }) => {
+  await page.goto('/en/contact');
+
+  await page.click('#toggle-contact-only');
+  await page.waitForSelector('#contactName', { state: 'visible' });
+
+  await page.fill('#contactName', 'Test User');
+  await page.fill('#contactEmail', 'test@example.com');
+  await page.fill('#contactMessage', 'This is a test message that meets the minimum length requirement.');
+
+  let capturedPayload: string | null = null;
+
+  await page.route('**/api/submit-lead', async (route) => {
+    const request = route.request();
+    capturedPayload = request.postData() || '';
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: true }),
+    });
+  });
+
+  await page.click('#send-contact-btn');
+
+  await expect(page.locator('#form-success')).toBeVisible();
+
+  expect(capturedPayload).toBeTruthy();
+  expect(capturedPayload!).toContain('fullName');
+  expect(capturedPayload!).toContain('Test User');
+  expect(capturedPayload!).toContain('email');
+  expect(capturedPayload!).toContain('test@example.com');
+  expect(capturedPayload!).toContain('contactMessage');
+  expect(capturedPayload!).toContain('This is a test message that meets the minimum length requirement.');
+  expect(capturedPayload!).toContain('consent');
+  expect(capturedPayload!).toContain('on');
 });
