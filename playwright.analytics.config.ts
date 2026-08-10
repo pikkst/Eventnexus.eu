@@ -11,16 +11,26 @@ export default defineConfig({
     baseURL: 'http://127.0.0.1:4325',
     trace: 'on-first-retry',
   },
-  webServer: {
-    command: 'node scripts/start-static-analytics-enabled.js',
-    url: 'http://127.0.0.1:4325',
-    reuseExistingServer: true,
-    timeout: 120000,
-  },
   projects: [
     {
-      name: 'chromium-analytics',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'chromium-disabled',
+      use: { ...devices['Desktop Chrome'], baseURL: 'http://127.0.0.1:4327' },
+      webServer: {
+        command: 'node scripts/serve-disabled.js',
+        url: 'http://127.0.0.1:4327',
+        reuseExistingServer: false,
+        timeout: 120000,
+      },
+    },
+    {
+      name: 'chromium-enabled',
+      use: { ...devices['Desktop Chrome'], baseURL: 'http://127.0.0.1:4325' },
+      webServer: {
+        command: 'node scripts/serve-enabled.js',
+        url: 'http://127.0.0.1:4325',
+        reuseExistingServer: false,
+        timeout: 120000,
+      },
     },
   ],
   testMatch: /analytics\.spec\.ts$/,

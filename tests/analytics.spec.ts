@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('analytics', () => {
   test('does not load gtag scripts when analytics is disabled', async ({ page }) => {
-    if (test.info().project.name !== 'chromium') {
+    if (test.info().project.name !== 'chromium-disabled') {
       test.skip(true, 'Analytics is enabled in this project');
     }
 
@@ -15,7 +15,7 @@ test.describe('analytics', () => {
   });
 
   test('loads gtag scripts and initializes dataLayer when analytics is enabled', async ({ page }) => {
-    if (test.info().project.name !== 'chromium-analytics') {
+    if (test.info().project.name !== 'chromium-enabled') {
       test.skip(true, 'Analytics is disabled in this project');
     }
 
@@ -36,15 +36,12 @@ test.describe('analytics', () => {
     await expect(metaTag).toHaveCount(1);
     await expect(metaTag).toHaveAttribute('content', 'G-TEST123456');
 
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(2000);
 
     const dataLayer = await page.evaluate(() => (window as any).dataLayer);
     expect(Array.isArray(dataLayer)).toBe(true);
 
     const hasConfigEntry = dataLayer.some((item: any) => {
-      if (Array.isArray(item) && item[0] === 'config' && item[1] === 'G-TEST123456') {
-        return true;
-      }
       if (item && typeof item === 'object' && item[0] === 'config' && item[1] === 'G-TEST123456') {
         return true;
       }
