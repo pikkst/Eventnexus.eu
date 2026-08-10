@@ -8,13 +8,9 @@ const shouldLoadAnalytics = isValidAnalyticsId && analyticsEnabled;
 {
   shouldLoadAnalytics && (
     <>
+      <meta name="ga4-id" content={analyticsId} />
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`}></script>
-      <script define:vars={{ analyticsId }} data-analytics-config>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', analyticsId);
-      </script>
+      <script type="module" src="/analytics-init.js"></script>
     </>
   )
 }
