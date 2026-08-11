@@ -94,3 +94,6 @@ CREATE POLICY "project_leads_authenticated_delete"
 ON public.project_leads FOR DELETE
 TO authenticated
 USING (false);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.project_leads TO anon;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.project_leads TO authenticated;

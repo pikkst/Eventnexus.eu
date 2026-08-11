@@ -149,3 +149,6 @@ ON public.profiles FOR UPDATE
 TO authenticated
 USING (public.is_admin())
 WITH CHECK (public.is_admin());
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.profiles TO anon;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.profiles TO authenticated;

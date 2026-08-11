@@ -78,3 +78,6 @@ USING (
     WHERE p.id = auth.uid() AND p.role = 'admin'
   )
 );
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.admin_users TO anon;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.admin_users TO authenticated;

@@ -53,3 +53,6 @@ CREATE POLICY "webhook_events_authenticated_delete"
 ON public.webhook_events FOR DELETE
 TO authenticated
 USING (false);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.webhook_events TO anon;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.webhook_events TO authenticated;
