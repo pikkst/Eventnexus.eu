@@ -54,15 +54,8 @@ jobs:
       - name: Apply migrations to clean database
         run: supabase db reset
 
-      - name: Run RLS tests for profiles
-        run: |
-          supabase db execute --file supabase/tests/_helpers.sql
-          supabase db execute --file supabase/tests/profiles_rls_test.sql
-
-      - name: Run RLS tests for leads
-        run: |
-          supabase db execute --file supabase/tests/_helpers.sql
-          supabase db execute --file supabase/tests/leads_rls_test.sql
+      - name: Run RLS tests
+        run: supabase db execute --file supabase/tests/rls_tests.sql
 
   test:
     name: E2E tests

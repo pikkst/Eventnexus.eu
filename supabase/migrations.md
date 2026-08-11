@@ -12,9 +12,7 @@ supabase/
     202508120003_create_project_leads.sql
     202508120004_create_webhook_events.sql
   tests/
-    _helpers.sql
-    profiles_rls_test.sql
-    leads_rls_test.sql
+    rls_tests.sql
   config.toml
 ```
 
