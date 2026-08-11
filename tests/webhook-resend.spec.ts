@@ -2,6 +2,13 @@ import { test, expect } from '@playwright/test';
 import crypto from 'node:crypto';
 import { Webhook } from 'standardwebhooks';
 
+test.beforeEach(async ({ page }) => {
+  await page.request.post('/api/test/reset-webhook-store', {
+    headers: { Origin: 'http://127.0.0.1:4321' },
+  });
+  page.on('dialog', (dialog) => dialog.accept());
+});
+
 const WEBHOOK_SECRET = 'whsec_dGVzdC1zZWNyZXQtZm9yLXBsYXl3cmlnaHQ=';
 
 function createWebhookSignature(
@@ -155,10 +162,6 @@ test('webhook: rejects missing signature headers', async ({ page }) => {
 test('webhook: handles duplicate webhook idempotently when database is available', async ({
   page,
 }) => {
-  await page.request.post('/api/test/reset-webhook-store', {
-    headers: { Origin: 'http://127.0.0.1:4321' },
-  });
-
   const payload = {
     type: 'email.delivered',
     data: {

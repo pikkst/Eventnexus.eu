@@ -4,6 +4,7 @@ test.beforeEach(async ({ page }) => {
   await page.request.post('/api/test/reset-rate-limit', {
     headers: { Origin: 'http://127.0.0.1:4321' },
   });
+  page.on('dialog', (dialog) => dialog.accept());
 });
 
 const locales = ['en', 'ru', 'de', 'fi', 'et'];
@@ -179,6 +180,10 @@ test('submit-lead: oversized field value is rejected', async ({ page }) => {
 
   await page.click('#next-btn');
   await page.click('#next-btn');
+
+  await page.waitForSelector('textarea[name="ideaDescription"]', {
+    state: 'attached',
+  });
 
   await page.evaluate(() => {
     const textarea = document.querySelector(
