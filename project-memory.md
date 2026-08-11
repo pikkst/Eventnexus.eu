@@ -116,12 +116,12 @@ This file stores stable context and decisions for future agents.
 ## Admin Auth Decisions
 
 - Admin auth uses Supabase Auth with email/password and magic link; email sign-ups are disabled so only manually created or invited users can access admin accounts
-- Admin role storage: primary source of truth is the `profiles` table with `id` (FK to `auth.users(id)`), `role`, `created_at`, `updated_at`; optional `admin_users` table also exists but is not required for Phase 4A
+- Admin role storage: primary source of truth is the `profiles` table with `id` (UUID primary key, logically linked to `auth.users(id)`), `role`, `created_at`, `updated_at`; optional `admin_users` table also exists but is not required for Phase 4A
 - Initial admin user must be created manually in the Supabase dashboard and linked to a `profiles` row with `role = 'admin'`
 - RLS policies for `profiles`: users can read their own profile; admins can read/update all profiles; the `profiles_update_own` policy was removed to prevent privilege escalation; user profile updates go through a SECURITY DEFINER function (`profiles_update`) that only allows `full_name` and `email` changes; role changes go through `profiles_set_role` which requires admin privileges; a BEFORE UPDATE trigger prevents non-admin users from changing the `role` column via direct UPDATE; admin policies use `public.is_admin()` SECURITY DEFINER function instead of recursive `EXISTS (SELECT 1 FROM public.profiles ...)` subqueries to avoid infinite RLS recursion
 - Migration SQL for `profiles` lives in `supabase/migrations/202508120001_create_profiles.sql`; optional `admin_users` migration lives in `supabase/migrations/202508120002_create_admin_users.sql`; database tests live in `supabase/tests/profiles_rls_test.sql`
 - Supabase CLI project structure is initialized with `supabase init`; local database managed via `supabase db reset`; remote project linked with `supabase link --project-ref yzsoczlghgcqitevamfo`; migrations deployed with `supabase db push`; old manual schema files (`supabase/*-schema.sql`) were replaced by versioned migrations under `supabase/migrations/`
-- CI verifies migrations and RLS tests from a clean database using `supabase db reset` and `supabase db execute`
+- CI verifies migrations and RLS tests from a clean database using `supabase db reset` and `supabase db query --file`
 - Production changes are applied through documented migration commands, not copy-paste SQL; previously applied migrations are never edited in place; fixes use new forward migrations
 - Server-side code must use `SUPABASE_SERVICE_ROLE_KEY` for admin data operations that bypass RLS; never expose service-role keys to the browser
 
