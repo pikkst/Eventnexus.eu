@@ -30,8 +30,11 @@ const translationsJson = JSON.stringify(t);
 const turnstileSiteKey = process.env.PUBLIC_TURNSTILE_SITE_KEY || '';
 ---
 
-<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer
-></script>
+<script
+  is:inline
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer></script>
 
 <BaseLayout
   title={t.contact.hero.headline}
