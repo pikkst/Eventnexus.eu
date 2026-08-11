@@ -69,24 +69,47 @@ Edit the generated file in `supabase/migrations/`.
    supabase migration new <description>
    ```
 
-2. Apply the migration to the remote database:
+2. Commit and push the migration to the repository.
+3. After review and merge, apply pending migrations to the remote database:
 
    ```powershell
    supabase db push
    ```
 
-3. Verify the migration applied successfully:
+4. Verify the migration applied successfully:
 
    ```powershell
    supabase migration list
    ```
 
-4. Commit and push the new migration file to the repository.
+### Baseline Reconciliation for Existing Environments
+
+These baseline migrations represent schemas that previously existed as manual SQL scripts. On an environment where those scripts have already been applied, `supabase db push` will consider the baseline migrations pending and attempt to replay them. Unguarded objects such as `CREATE POLICY` can then fail because they already exist.
+
+**Before running `supabase db push` on an existing environment:**
+
+1. Verify that the remote schema matches the baseline migration definitions.
+2. Mark the baseline migration versions as applied without replaying them:
+
+   ```powershell
+   # List applied and pending migrations
+   supabase migration list
+
+   # For each baseline version that is already present in the remote schema,
+   # insert it into the migration history so future db push operations skip it.
+   # Example for version 202508120001:
+   supabase db execute --file supabase/migrations/202508120001_create_profiles.sql
+   ```
+
+   Alternatively, if the remote `schema_migrations` table is accessible, insert the version rows directly so the migration history matches a clean database.
+
+3. After history is reconciled, continue with normal `supabase db push` for new migrations.
+
+**Important:** Production should only be updated from reviewed and merged migrations. Do not apply uncommitted local migrations directly to production.
 
 ### CI Verification
 
 Migrations are verified automatically in CI:
-
 1. A fresh Supabase local database is started.
 2. All migrations are applied with `supabase db reset`.
 3. RLS tests are executed against the fresh database.
@@ -103,9 +126,9 @@ Instead:
 
 1. Create a new forward migration that fixes the issue.
 2. Apply the new migration to all environments (local, staging, production).
-3. If the buggy migration has not yet been applied to an environment, you can skip it by:
-   - Manually applying only the fixed migration, or
-   - Applying the buggy migration first (it should be idempotent) and then the fix.
+3. Forward fixes remain part of the same ordered sequence everywhere.
+
+If a pre-existing environment needs history reconciliation because it skipped the buggy migration, perform a controlled baseline repair operation so its migration history matches the canonical ordered chain. Do not manually apply selected SQL out of order.
 
 ### Example: Fixing a Trigger
 

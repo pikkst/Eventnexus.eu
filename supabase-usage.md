@@ -174,15 +174,7 @@ Do not create production tables until:
 
 The lead-capture table is defined in `supabase/migrations/202508120003_create_project_leads.sql`.
 
-Apply migrations to the production Supabase project by:
-
-1. Opening the Supabase dashboard for project `yzsoczlghgcqitevamfo`.
-2. Going to **SQL Editor**.
-3. Pasting the contents of each migration file in order.
-4. Running the queries.
-5. Verifying that RLS is enabled on `public.project_leads` and the admin UI reflects the policy restrictions.
-
-Alternatively, use the Supabase CLI:
+Apply migrations to the production Supabase project using the Supabase CLI:
 
 ```powershell
 supabase link --project-ref yzsoczlghgcqitevamfo
@@ -216,15 +208,7 @@ Resend webhook deliveries are stored in `webhook_events` to prevent duplicate pr
 
 The table schema is defined in `supabase/migrations/202508120004_create_webhook_events.sql`.
 
-Apply migrations to the production Supabase project by:
-
-1. Opening the Supabase dashboard for project `yzsoczlghgcqitevamfo`.
-2. Going to **SQL Editor**.
-3. Pasting the contents of each migration file in order.
-4. Running the queries.
-5. Verifying that RLS is enabled on `public.webhook_events` and all roles are restricted.
-
-Alternatively, use the Supabase CLI:
+Apply migrations to the production Supabase project using the Supabase CLI:
 
 ```powershell
 supabase link --project-ref yzsoczlghgcqitevamfo

@@ -5,6 +5,11 @@ DECLARE
   v_other_id UUID := gen_random_uuid();
   v_count INT;
 BEGIN
+  INSERT INTO auth.users (id, email, encrypted_password, created_at, updated_at, aud, role)
+  VALUES (v_user_id, 'test@example.com', 'test', now(), now(), 'authenticated', 'authenticated'),
+          (v_other_id, 'other@example.com', 'test', now(), now(), 'authenticated', 'authenticated')
+  ON CONFLICT (id) DO NOTHING;
+
   INSERT INTO public.profiles (id, role, full_name, email)
   VALUES (v_user_id, 'user', 'Test User', 'test@example.com');
 
