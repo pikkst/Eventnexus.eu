@@ -155,6 +155,10 @@ test('webhook: rejects missing signature headers', async ({ page }) => {
 test('webhook: handles duplicate webhook idempotently when database is available', async ({
   page,
 }) => {
+  await page.request.post('/api/test/reset-webhook-store', {
+    headers: { Origin: 'http://127.0.0.1:4321' },
+  });
+
   const payload = {
     type: 'email.delivered',
     data: {

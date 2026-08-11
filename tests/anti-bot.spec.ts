@@ -1,5 +1,11 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.request.post('/api/test/reset-rate-limit', {
+    headers: { Origin: 'http://127.0.0.1:4321' },
+  });
+});
+
 async function fillStep1(page: Playwright.Page) {
   await page.fill('input[name="fullName"]', 'Test User');
   await page.fill('input[name="email"]', 'test@example.com');
@@ -50,6 +56,15 @@ async function navigateToStep8(page: Playwright.Page) {
   await page.check('#consent');
 }
 
+async function setFormLoadedAtToPast(page: Playwright.Page) {
+  await page.evaluate(() => {
+    const input = document.getElementById('formLoadedAt');
+    if (input) input.value = new Date(Date.now() - 10000).toISOString();
+    const contactInput = document.getElementById('contact-formLoadedAt');
+    if (contactInput) contactInput.value = new Date(Date.now() - 10000).toISOString();
+  });
+}
+
 test.describe('API abuse protection', () => {
   test('rejects submission with honeypot filled', async ({ page }) => {
     await page.goto('/en/contact');
@@ -74,14 +89,6 @@ test.describe('API abuse protection', () => {
     await page.click('#next-btn');
     await page.check('#consent');
 
-    await page.route('**/api/submit-lead', async (route) => {
-      await route.fulfill({
-        status: 400,
-        contentType: 'application/json',
-        body: JSON.stringify({ error: 'Submission rejected' }),
-      });
-    });
-
     await page.click('#submit-btn');
 
     const response = await page.waitForResponse((response) =>
@@ -104,14 +111,6 @@ test.describe('API abuse protection', () => {
       if (input) input.value = new Date(Date.now() - 1000).toISOString();
     });
 
-    await page.route('**/api/submit-lead', async (route) => {
-      await route.fulfill({
-        status: 400,
-        contentType: 'application/json',
-        body: JSON.stringify({ error: 'Submission rejected' }),
-      });
-    });
-
     await page.click('#submit-btn');
 
     const response = await page.waitForResponse((response) =>
@@ -125,30 +124,15 @@ test.describe('API abuse protection', () => {
   test('rejects oversized request body', async ({ page }) => {
     await page.goto('/en/contact');
 
-    await fillStep1(page);
-    await page.click('#next-btn');
+    await navigateToStep8(page);
 
-    await fillStep2(page);
-    await page.click('#next-btn');
-
-    const longText = 'A'.repeat(5000);
-    await page.fill('textarea[name="ideaDescription"]', longText);
-    await page.click('#next-btn');
-
-    await page.click('#next-btn');
-    await page.click('#next-btn');
-    await fillStep6(page);
-
-    await page.click('#next-btn');
-    await page.click('#next-btn');
-    await page.check('#consent');
-
-    await page.route('**/api/submit-lead', async (route) => {
-      await route.fulfill({
-        status: 413,
-        contentType: 'application/json',
-        body: JSON.stringify({ error: 'Request too large' }),
-      });
+    await page.evaluate(() => {
+      const textarea = document.querySelector(
+        'textarea[name="ideaDescription"]'
+      ) as HTMLTextAreaElement | null;
+      if (textarea) {
+        textarea.value = 'A'.repeat(5000);
+      }
     });
 
     await page.click('#submit-btn');
@@ -156,7 +140,7 @@ test.describe('API abuse protection', () => {
     const response = await page.waitForResponse((response) =>
       response.url().includes('/api/submit-lead')
     );
-    expect(response.status()).toBe(413);
+    expect(response.status()).toBe(400);
   });
 
   test('rejects invalid array field values', async ({ page }) => {
@@ -175,19 +159,53 @@ test.describe('API abuse protection', () => {
       }
     });
 
-    await page.route('**/api/submit-lead', async (route) => {
-      await route.fulfill({
-        status: 400,
-        contentType: 'application/json',
-        body: JSON.stringify({ error: 'Invalid input' }),
-      });
-    });
-
     await page.click('#submit-btn');
 
     const response = await page.waitForResponse((response) =>
       response.url().includes('/api/submit-lead')
     );
     expect(response.status()).toBe(400);
+  });
+
+  test('rejects rapid submissions (rate limiting)', async ({ page }) => {
+    await page.request.post('/api/test/reset-rate-limit');
+
+    const oldTimestamp = new Date(Date.now() - 10000).toISOString();
+
+    for (let i = 0; i < 5; i++) {
+      const response = await page.request.post('/api/submit-lead', {
+        form: {
+          fullName: 'Rate Test',
+          email: 'ratetest@example.com',
+          phoneOrChannel: '',
+          companyName: '',
+          region: 'EE',
+          contactMessage: 'This is a rate limit test message.',
+          consent: 'on',
+          formLoadedAt: oldTimestamp,
+        },
+        headers: {
+          Origin: 'http://127.0.0.1:4321',
+        },
+      });
+      expect(response.status()).toBe(200);
+    }
+
+    const response = await page.request.post('/api/submit-lead', {
+      form: {
+        fullName: 'Rate Test',
+        email: 'ratetest@example.com',
+        phoneOrChannel: '',
+        companyName: '',
+        region: 'EE',
+        contactMessage: 'This is a rate limit test message.',
+        consent: 'on',
+        formLoadedAt: oldTimestamp,
+      },
+      headers: {
+        Origin: 'http://127.0.0.1:4321',
+      },
+    });
+    expect(response.status()).toBe(429);
   });
 });

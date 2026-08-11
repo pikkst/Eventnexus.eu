@@ -1,5 +1,20 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.request.post('/api/test/reset-rate-limit', {
+    headers: { Origin: 'http://127.0.0.1:4321' },
+  });
+});
+
+async function setFormLoadedAtToPast(page: Playwright.Page) {
+  await page.evaluate(() => {
+    const input = document.getElementById('formLoadedAt');
+    if (input) input.value = new Date(Date.now() - 10000).toISOString();
+    const contactInput = document.getElementById('contact-formLoadedAt');
+    if (contactInput) contactInput.value = new Date(Date.now() - 10000).toISOString();
+  });
+}
+
 const criticalPages = [
   {
     name: 'homepage',
@@ -82,42 +97,20 @@ test('smoke: isolated contact-only submission succeeds on canonical route', asyn
 
   await page.fill('#contactName', 'Test User');
   await page.fill('#contactEmail', 'test@example.com');
-  await page.fill(
-    '#contactMessage',
-    'This is a test message that meets the minimum length requirement.'
+    await page.fill(
+      '#contactMessage',
+      'This is a test message that meets the minimum length requirement.'
+    );
+    await setFormLoadedAtToPast(page);
+
+    await page.click('#send-contact-btn');
+
+  const response = await page.waitForResponse((response) =>
+    response.url().includes('/api/submit-lead')
   );
-
-  let capturedPayload: string | null = null;
-
-  await page.route('**/api/submit-lead', async (route) => {
-    const request = route.request();
-    capturedPayload = request.postData() || '';
-    await route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify({ ok: true }),
-    });
-  });
-
-  await page.click('#send-contact-btn');
+  expect(response.status()).toBe(200);
+  const result = await response.json();
+  expect(result).toHaveProperty('ok', true);
 
   await expect(page.locator('#form-success')).toBeVisible();
-
-  expect(capturedPayload).toBeTruthy();
-  expect(capturedPayload!).toContain('fullName');
-  expect(capturedPayload!).toContain('Test User');
-  expect(capturedPayload!).toContain('email');
-  expect(capturedPayload!).toContain('test@example.com');
-  expect(capturedPayload!).toContain('contactMessage');
-  expect(capturedPayload!).toContain(
-    'This is a test message that meets the minimum length requirement.'
-  );
-  expect(capturedPayload!).toContain('consent');
-  expect(capturedPayload!).toContain('on');
-  expect(capturedPayload!).toContain('formLoadedAt');
-  expect(capturedPayload!).toMatch(/formLoadedAt"\s*\n\s*\d{4}-\d{2}-\d{2}T/);
-  expect(capturedPayload!).toContain('website');
-  if (process.env.PUBLIC_TURNSTILE_SITE_KEY) {
-    expect(capturedPayload!).toContain('turnstileToken');
-  }
 });

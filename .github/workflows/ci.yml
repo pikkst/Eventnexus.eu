@@ -58,5 +58,28 @@ jobs:
       - name: Build production-like output
         run: npm run build
 
+      - name: Create test environment file
+        run: |
+          cat > .dev.vars << 'EOF'
+          PUBLIC_SITE_URL=http://localhost:4321
+          PUBLIC_SUPABASE_URL=http://localhost:54321
+          PUBLIC_SUPABASE_ANON_KEY=fake-anon-key
+          SUPABASE_URL=http://localhost:54321
+          SUPABASE_SERVICE_ROLE_KEY=fake-service-role-key
+          SUPABASE_PROJECT_ID=fake-project-id
+          SUPABASE_MOCK_MODE=true
+          RESEND_API_KEY=fake-resend-key
+          RESEND_FROM_EMAIL=test@eventnexus.eu
+          LEAD_NOTIFICATION_EMAIL=test@eventnexus.eu
+          RESEND_WEBHOOK_SECRET=whsec_dGVzdC1zZWNyZXQtZm9yLXBsYXl3cmlnaHQ=
+          TURNSTILE_SITE_KEY=fake-site-key
+          TURNSTILE_SECRET_KEY=
+          PUBLIC_ANALYTICS_ID=G-TEST123456
+          PUBLIC_ANALYTICS_ENABLED=false
+          RETENTION_LEAD_DAYS=30
+          RETENTION_WEBHOOK_EVENT_DAYS=30
+          RETENTION_APP_LOG_DAYS=30
+          EOF
+
       - name: Run Playwright against built output
         run: npx playwright test --config=playwright.build.config.ts

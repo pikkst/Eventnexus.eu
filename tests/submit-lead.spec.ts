@@ -1,5 +1,11 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.request.post('/api/test/reset-rate-limit', {
+    headers: { Origin: 'http://127.0.0.1:4321' },
+  });
+});
+
 const locales = ['en', 'ru', 'de', 'fi', 'et'];
 
 async function fillStep1(page: Playwright.Page) {
@@ -52,6 +58,15 @@ async function navigateToSubmit(page: Playwright.Page) {
   await page.check('#consent');
 }
 
+async function setFormLoadedAtToPast(page: Playwright.Page) {
+  await page.evaluate(() => {
+    const input = document.getElementById('formLoadedAt');
+    if (input) input.value = new Date(Date.now() - 10000).toISOString();
+    const contactInput = document.getElementById('contact-formLoadedAt');
+    if (contactInput) contactInput.value = new Date(Date.now() - 10000).toISOString();
+  });
+}
+
 for (const locale of locales) {
   test(`submit-lead: form validation and submission works in ${locale}`, async ({
     page,
@@ -59,18 +74,16 @@ for (const locale of locales) {
     await page.goto(`/${locale}/contact`);
 
     await navigateToSubmit(page);
-
-    await page.route('**/api/submit-lead', async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify({ ok: true }),
-      });
-    });
+    await setFormLoadedAtToPast(page);
 
     await page.click('#submit-btn');
 
-    await expect(page.locator('#form-success')).toBeVisible();
+    const response = await page.waitForResponse((response) =>
+      response.url().includes('/api/submit-lead')
+    );
+    expect(response.status()).toBe(200);
+    const result = await response.json();
+    expect(result).toHaveProperty('ok', true);
   });
 }
 
@@ -87,16 +100,16 @@ test('submit-lead: contact-only submission works in all locales', async ({
       '#contactMessage',
       'This is a test contact message that meets the minimum length requirement.'
     );
-
-    await page.route('**/api/submit-lead', async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify({ ok: true }),
-      });
-    });
+    await setFormLoadedAtToPast(page);
 
     await page.click('#send-contact-btn');
+
+    const response = await page.waitForResponse((response) =>
+      response.url().includes('/api/submit-lead')
+    );
+    expect(response.status()).toBe(200);
+    const result = await response.json();
+    expect(result).toHaveProperty('ok', true);
 
     await expect(page.locator('#form-success')).toBeVisible();
 
@@ -139,14 +152,6 @@ test('submit-lead: invalid project type ID is rejected', async ({ page }) => {
     if (select) select.value = 'invalid_option_id';
   });
 
-  await page.route('**/api/submit-lead', async (route) => {
-    await route.fulfill({
-      status: 400,
-      contentType: 'application/json',
-      body: JSON.stringify({ error: 'Invalid input' }),
-    });
-  });
-
   await page.click('#submit-btn');
 
   const response = await page.waitForResponse((response) =>
@@ -155,7 +160,7 @@ test('submit-lead: invalid project type ID is rejected', async ({ page }) => {
   expect(response.status()).toBe(400);
 });
 
-test('submit-lead: oversized request body is rejected', async ({ page }) => {
+test('submit-lead: oversized field value is rejected', async ({ page }) => {
   await page.goto('/en/contact');
 
   await fillStep1(page);
@@ -164,8 +169,7 @@ test('submit-lead: oversized request body is rejected', async ({ page }) => {
   await fillStep2(page);
   await page.click('#next-btn');
 
-  const longText = 'A'.repeat(5000);
-  await page.fill('textarea[name="ideaDescription"]', longText);
+  await fillStep3(page);
   await page.click('#next-btn');
 
   await page.click('#next-btn');
@@ -174,14 +178,19 @@ test('submit-lead: oversized request body is rejected', async ({ page }) => {
 
   await page.click('#next-btn');
   await page.click('#next-btn');
-  await page.check('#consent');
 
-  await page.route('**/api/submit-lead', async (route) => {
-    await route.fulfill({
-      status: 413,
-      contentType: 'application/json',
-      body: JSON.stringify({ error: 'Request too large' }),
-    });
+  await page.evaluate(() => {
+    const textarea = document.querySelector(
+      'textarea[name="ideaDescription"]'
+    ) as HTMLTextAreaElement | null;
+    if (textarea) {
+      textarea.value = 'A'.repeat(5000);
+    }
+  });
+
+  await page.evaluate(() => {
+    const checkbox = document.getElementById('consent') as HTMLInputElement | null;
+    if (checkbox) checkbox.checked = true;
   });
 
   await page.click('#submit-btn');
@@ -189,5 +198,5 @@ test('submit-lead: oversized request body is rejected', async ({ page }) => {
   const response = await page.waitForResponse((response) =>
     response.url().includes('/api/submit-lead')
   );
-  expect(response.status()).toBe(413);
+  expect(response.status()).toBe(400);
 });

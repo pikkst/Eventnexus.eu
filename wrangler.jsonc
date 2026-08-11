@@ -1,0 +1,11 @@
+{
+  "compatibility_date": "2026-08-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "local",
+      "preview_id": "local"
+    }
+  ]
+}

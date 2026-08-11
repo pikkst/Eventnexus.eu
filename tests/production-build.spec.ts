@@ -1,5 +1,20 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.request.post('/api/test/reset-rate-limit', {
+    headers: { Origin: 'http://127.0.0.1:4321' },
+  });
+});
+
+async function setFormLoadedAtToPast(page: Playwright.Page) {
+  await page.evaluate(() => {
+    const input = document.getElementById('formLoadedAt');
+    if (input) input.value = new Date(Date.now() - 10000).toISOString();
+    const contactInput = document.getElementById('contact-formLoadedAt');
+    if (contactInput) contactInput.value = new Date(Date.now() - 10000).toISOString();
+  });
+}
+
 test.describe('production build behavior', () => {
   test('critical pages load from built output', async ({ page }) => {
     await page.goto('/en');
@@ -46,21 +61,20 @@ test.describe('production build behavior', () => {
       '#contactMessage',
       'This is a test message that meets the minimum length requirement for the built output test.'
     );
-
-    await page.route('**/api/submit-lead', async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify({ ok: true }),
-      });
-    });
+    await setFormLoadedAtToPast(page);
 
     await page.click('#send-contact-btn');
+    const response = await page.waitForResponse((response) =>
+      response.url().includes('/api/submit-lead')
+    );
+    expect(response.status()).toBe(200);
+    const result = await response.json();
+    expect(result).toHaveProperty('ok', true);
 
     await expect(page.locator('#form-success')).toBeVisible();
   });
 
-  test('full project request form renders all steps on built output', async ({
+  test('full project request form submits successfully on built output', async ({
     page,
   }) => {
     await page.goto('/en/contact');
@@ -92,7 +106,17 @@ test.describe('production build behavior', () => {
     await page.click('#next-btn');
     await page.click('#next-btn');
 
-    await expect(page.locator('#step-8')).toBeVisible();
-    await expect(page.locator('#submit-btn')).toBeVisible();
+    await page.check('#consent');
+    await setFormLoadedAtToPast(page);
+    await page.click('#submit-btn');
+
+    const response = await page.waitForResponse((response) =>
+      response.url().includes('/api/submit-lead')
+    );
+    expect(response.status()).toBe(200);
+    const result = await response.json();
+    expect(result).toHaveProperty('ok', true);
+
+    await expect(page.locator('#form-success')).toBeVisible();
   });
 });

@@ -31,10 +31,9 @@ function createIdempotencyStore(): IdempotencyStore {
     return cachedStore;
   }
 
-  if (
-    process.env.NODE_ENV !== 'production' &&
-    process.env.WEBHOOK_TEST_MODE === 'true'
-  ) {
+  const nodeEnv = globalThis.process?.env?.NODE_ENV;
+  const webhookTestMode = globalThis.process?.env?.WEBHOOK_TEST_MODE;
+  if (nodeEnv !== 'production' && webhookTestMode === 'true') {
     cachedStore = new InMemoryIdempotencyStore();
   } else {
     const supabase = getSupabaseServerClient();

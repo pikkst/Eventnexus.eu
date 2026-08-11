@@ -13,7 +13,7 @@ export async function verifyTurnstileToken(
 ): Promise<TurnstileVerificationResult> {
   const secretKey = process.env.TURNSTILE_SECRET_KEY;
 
-  if (!secretKey) {
+  if (!secretKey || process.env.SUPABASE_MOCK_MODE === 'true') {
     return { success: false, errorCodes: ['secret_key_missing'] };
   }
 
