@@ -8,7 +8,11 @@ export interface IdempotencyStore {
 }
 
 export class SupabaseIdempotencyStore implements IdempotencyStore {
-  constructor(private supabase: ReturnType<typeof import('@supabase/supabase-js').createClient>) {}
+  constructor(
+    private supabase: ReturnType<
+      typeof import('@supabase/supabase-js').createClient
+    >
+  ) {}
 
   async claim(event: WebhookEvent): Promise<'new' | 'duplicate'> {
     const { error } = await this.supabase

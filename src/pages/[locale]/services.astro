@@ -74,10 +74,8 @@ const projectTypes = t.services.projectTypes;
                 {t.ui.includes}
               </p>
               <ul class="mt-2 space-y-1">
-                {service.includes.map((item, idx) => (
-                  <li key={idx} class="text-sm text-text-muted">
-                    {item}
-                  </li>
+                {service.includes.map((item) => (
+                  <li class="text-sm text-text-muted">{item}</li>
                 ))}
               </ul>
             </div>
@@ -112,8 +110,8 @@ const projectTypes = t.services.projectTypes;
       <p class="font-semibold text-text">{t.services.turnkey.suitableLabel}</p>
       <ul class="grid gap-2 pt-2 sm:grid-cols-2">
         {
-          projectTypes.map((type, idx) => (
-            <li key={idx} class="flex items-start gap-2 text-sm">
+          projectTypes.map((type) => (
+            <li class="flex items-start gap-2 text-sm">
               <span class="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
               <span>{type}</span>
             </li>
@@ -151,6 +149,9 @@ const projectTypes = t.services.projectTypes;
   <CtaSection
     heading={t.services.intakeCta.heading}
     body={t.services.intakeCta.body}
-    primaryCta={{ label: t.services.intakeCta.primaryCta, href: `/${locale}/contact` }}
+    primaryCta={{
+      label: t.services.intakeCta.primaryCta,
+      href: `/${locale}/contact`,
+    }}
   />
 </BaseLayout>

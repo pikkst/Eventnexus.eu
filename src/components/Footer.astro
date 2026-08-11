@@ -12,10 +12,14 @@ const t = getTranslations(locale as Language);
     <p class="mt-1">
       <a
         href="https://www.eventnexus.eu/"
-        class="text-primary-light hover:underline">www.eventnexus.eu</a>
+        class="text-primary-light hover:underline">www.eventnexus.eu</a
+      >
     </p>
     <p class="mt-4">
-      <a href={`/${locale}/privacy`} class="text-slate-300 hover:text-white hover:underline">
+      <a
+        href={`/${locale}/privacy`}
+        class="text-slate-300 hover:text-white hover:underline"
+      >
         {t.privacy.title}
       </a>
     </p>
@@ -25,7 +29,17 @@ const t = getTranslations(locale as Language);
         class="text-slate-400 hover:text-white hover:underline"
         type="button"
       >
-        {locale === 'et' ? 'Privaatsuse seaded' : locale === 'ru' ? 'Настройки конфиденциальности' : locale === 'de' ? 'Datenschutzeinstellungen' : locale === 'fi' ? 'Tietosuoja-asetukset' : 'Privacy settings'}
+        {
+          locale === 'et'
+            ? 'Privaatsuse seaded'
+            : locale === 'ru'
+              ? 'Настройки конфиденциальности'
+              : locale === 'de'
+                ? 'Datenschutzeinstellungen'
+                : locale === 'fi'
+                  ? 'Tietosuoja-asetukset'
+                  : 'Privacy settings'
+        }
       </button>
     </p>
   </div>

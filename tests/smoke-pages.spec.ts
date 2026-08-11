@@ -27,7 +27,9 @@ const criticalPages = [
 ];
 
 for (const route of criticalPages) {
-  test(`smoke: ${route.name} loads and contains key content`, async ({ page }) => {
+  test(`smoke: ${route.name} loads and contains key content`, async ({
+    page,
+  }) => {
     const response = await page.goto(route.path);
     expect(response?.status()).toBe(200);
 
@@ -37,19 +39,27 @@ for (const route of criticalPages) {
   });
 }
 
-test('smoke: canonical contact page contains project request form', async ({ page }) => {
+test('smoke: canonical contact page contains project request form', async ({
+  page,
+}) => {
   const response = await page.goto('/en/contact');
   expect(response?.status()).toBe(200);
   await expect(page.locator('#project-request-form')).toBeVisible();
 });
 
-test('smoke: canonical services page contains project request CTA', async ({ page }) => {
+test('smoke: canonical services page contains project request CTA', async ({
+  page,
+}) => {
   const response = await page.goto('/en/services');
   expect(response?.status()).toBe(200);
-  await expect(page.getByRole('link', { name: 'Start a project request' }).first()).toBeVisible();
+  await expect(
+    page.getByRole('link', { name: 'Start a project request' }).first()
+  ).toBeVisible();
 });
 
-test('smoke: unprefixed routes redirect to canonical English routes', async ({ page }) => {
+test('smoke: unprefixed routes redirect to canonical English routes', async ({
+  page,
+}) => {
   const routes = [
     { path: '/contact', expected: '/en/contact' },
     { path: '/services', expected: '/en/services' },
@@ -57,8 +67,9 @@ test('smoke: unprefixed routes redirect to canonical English routes', async ({ p
   ];
 
   for (const route of routes) {
-    const responsePromise = page.waitForResponse((response) =>
-      response.url().endsWith(route.path) && response.status() === 301
+    const responsePromise = page.waitForResponse(
+      (response) =>
+        response.url().endsWith(route.path) && response.status() === 301
     );
     await page.goto(route.path);
     const response = await responsePromise;
@@ -68,7 +79,9 @@ test('smoke: unprefixed routes redirect to canonical English routes', async ({ p
   }
 });
 
-test('smoke: isolated contact-only submission succeeds on canonical route', async ({ page }) => {
+test('smoke: isolated contact-only submission succeeds on canonical route', async ({
+  page,
+}) => {
   await page.goto('/en/contact');
 
   await page.click('#toggle-contact-only');
@@ -76,7 +89,10 @@ test('smoke: isolated contact-only submission succeeds on canonical route', asyn
 
   await page.fill('#contactName', 'Test User');
   await page.fill('#contactEmail', 'test@example.com');
-  await page.fill('#contactMessage', 'This is a test message that meets the minimum length requirement.');
+  await page.fill(
+    '#contactMessage',
+    'This is a test message that meets the minimum length requirement.'
+  );
 
   let capturedPayload: string | null = null;
 
@@ -100,7 +116,9 @@ test('smoke: isolated contact-only submission succeeds on canonical route', asyn
   expect(capturedPayload!).toContain('email');
   expect(capturedPayload!).toContain('test@example.com');
   expect(capturedPayload!).toContain('contactMessage');
-  expect(capturedPayload!).toContain('This is a test message that meets the minimum length requirement.');
+  expect(capturedPayload!).toContain(
+    'This is a test message that meets the minimum length requirement.'
+  );
   expect(capturedPayload!).toContain('consent');
   expect(capturedPayload!).toContain('on');
   expect(capturedPayload!).toContain('formLoadedAt');

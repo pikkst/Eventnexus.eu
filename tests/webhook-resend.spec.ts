@@ -4,23 +4,41 @@ import { Webhook } from 'standardwebhooks';
 
 const WEBHOOK_SECRET = 'whsec_dGVzdC1zZWNyZXQtZm9yLXBsYXl3cmlnaHQ=';
 
-function createWebhookSignature(secret: string, webhookId: string, payload: string, timestamp: number): string {
+function createWebhookSignature(
+  secret: string,
+  webhookId: string,
+  payload: string,
+  timestamp: number
+): string {
   const webhook = new Webhook(secret);
   return webhook.sign(webhookId, new Date(timestamp * 1000), payload);
 }
 
-async function sendWebhookRequest(page: any, payload: Record<string, unknown>, options: { validSignature?: boolean; tamperBody?: boolean; differentKey?: boolean } = {}): Promise<{ status: number; body: unknown }> {
-  const { validSignature = true, tamperBody = false, differentKey = false } = options;
-  
+async function sendWebhookRequest(
+  page: any,
+  payload: Record<string, unknown>,
+  options: {
+    validSignature?: boolean;
+    tamperBody?: boolean;
+    differentKey?: boolean;
+  } = {}
+): Promise<{ status: number; body: unknown }> {
+  const {
+    validSignature = true,
+    tamperBody = false,
+    differentKey = false,
+  } = options;
+
   let payloadString = JSON.stringify(payload);
   const timestamp = Math.floor(Date.now() / 1000);
   const webhookId = 'msg_' + crypto.randomUUID();
-  
+
   let secret = WEBHOOK_SECRET;
   if (differentKey) {
-    secret = 'whsec_' + Buffer.from('a-different-secret-key').toString('base64');
+    secret =
+      'whsec_' + Buffer.from('a-different-secret-key').toString('base64');
   }
-  
+
   const signature = validSignature
     ? createWebhookSignature(secret, webhookId, payloadString, timestamp)
     : 'invalid_signature';
@@ -39,7 +57,11 @@ async function sendWebhookRequest(page: any, payload: Record<string, unknown>, o
   };
 
   const response = await page.request.post('/api/webhooks/resend', {
-    data: tamperBody ? payloadString : (options.validSignature !== false ? payloadString : payloadString),
+    data: tamperBody
+      ? payloadString
+      : options.validSignature !== false
+        ? payloadString
+        : payloadString,
     headers,
   });
 
@@ -47,7 +69,9 @@ async function sendWebhookRequest(page: any, payload: Record<string, unknown>, o
   return { status: response.status(), body };
 }
 
-test('webhook: accepts valid Resend webhook signature with svix headers', async ({ page }) => {
+test('webhook: accepts valid Resend webhook signature with svix headers', async ({
+  page,
+}) => {
   const payload = {
     type: 'email.delivered',
     data: {
@@ -56,12 +80,16 @@ test('webhook: accepts valid Resend webhook signature with svix headers', async 
     },
   };
 
-  const result = await sendWebhookRequest(page, payload, { validSignature: true });
+  const result = await sendWebhookRequest(page, payload, {
+    validSignature: true,
+  });
   expect(result.status).toBe(200);
   expect(result.body).toHaveProperty('ok', true);
 });
 
-test('webhook: rejects tampered payload with valid signature', async ({ page }) => {
+test('webhook: rejects tampered payload with valid signature', async ({
+  page,
+}) => {
   const payload = {
     type: 'email.delivered',
     data: {
@@ -70,7 +98,10 @@ test('webhook: rejects tampered payload with valid signature', async ({ page }) 
     },
   };
 
-  const result = await sendWebhookRequest(page, payload, { validSignature: true, tamperBody: true });
+  const result = await sendWebhookRequest(page, payload, {
+    validSignature: true,
+    tamperBody: true,
+  });
   expect(result.status).toBe(401);
   expect(result.body).toHaveProperty('error', 'Invalid signature');
 });
@@ -84,7 +115,10 @@ test('webhook: rejects signature from different key', async ({ page }) => {
     },
   };
 
-  const result = await sendWebhookRequest(page, payload, { validSignature: true, differentKey: true });
+  const result = await sendWebhookRequest(page, payload, {
+    validSignature: true,
+    differentKey: true,
+  });
   expect(result.status).toBe(401);
   expect(result.body).toHaveProperty('error', 'Invalid signature');
 });
@@ -98,7 +132,9 @@ test('webhook: rejects invalid signature', async ({ page }) => {
     },
   };
 
-  const result = await sendWebhookRequest(page, payload, { validSignature: false });
+  const result = await sendWebhookRequest(page, payload, {
+    validSignature: false,
+  });
   expect(result.status).toBe(401);
   expect(result.body).toHaveProperty('error', 'Invalid signature');
 });
@@ -116,7 +152,9 @@ test('webhook: rejects missing signature headers', async ({ page }) => {
   expect(body).toHaveProperty('error', 'Missing signature headers');
 });
 
-test('webhook: handles duplicate webhook idempotently when database is available', async ({ page }) => {
+test('webhook: handles duplicate webhook idempotently when database is available', async ({
+  page,
+}) => {
   const payload = {
     type: 'email.delivered',
     data: {
@@ -128,7 +166,12 @@ test('webhook: handles duplicate webhook idempotently when database is available
   const payloadString = JSON.stringify(payload);
   const timestamp = Math.floor(Date.now() / 1000);
   const webhookId = 'msg_' + crypto.randomUUID();
-  const signature = createWebhookSignature(WEBHOOK_SECRET, webhookId, payloadString, timestamp);
+  const signature = createWebhookSignature(
+    WEBHOOK_SECRET,
+    webhookId,
+    payloadString,
+    timestamp
+  );
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
@@ -160,7 +203,12 @@ test('webhook: rejects malformed JSON', async ({ page }) => {
   const malformedPayload = '{"invalid json';
   const timestamp = Math.floor(Date.now() / 1000);
   const webhookId = 'msg_' + crypto.randomUUID();
-  const signature = createWebhookSignature(WEBHOOK_SECRET, webhookId, malformedPayload, timestamp);
+  const signature = createWebhookSignature(
+    WEBHOOK_SECRET,
+    webhookId,
+    malformedPayload,
+    timestamp
+  );
 
   const response = await page.request.post('/api/webhooks/resend', {
     data: Buffer.from(malformedPayload),
@@ -187,7 +235,12 @@ test('webhook: rejects expired timestamp', async ({ page }) => {
 
   const expiredTimestamp = Math.floor(Date.now() / 1000) - 600;
   const webhookId = 'msg_' + crypto.randomUUID();
-  const signature = createWebhookSignature(WEBHOOK_SECRET, webhookId, payload, expiredTimestamp);
+  const signature = createWebhookSignature(
+    WEBHOOK_SECRET,
+    webhookId,
+    payload,
+    expiredTimestamp
+  );
 
   const response = await page.request.post('/api/webhooks/resend', {
     data: payload,

@@ -51,9 +51,7 @@ export async function sendLeadNotificationEmail(lead: {
   const subject = `New project request: ${escapeHtml(lead.projectTitle || lead.projectType)}`;
 
   const formatArr = (arr?: string[]) =>
-    arr && arr.length > 0
-      ? escapeHtml(getOptionLabels(arr).join(', '))
-      : '';
+    arr && arr.length > 0 ? escapeHtml(getOptionLabels(arr).join(', ')) : '';
 
   const html = `
     <h2>New project request</h2>

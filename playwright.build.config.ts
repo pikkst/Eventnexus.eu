@@ -12,7 +12,7 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   webServer: {
-    command: 'npx astro dev --host 127.0.0.1 --port 4321',
+    command: 'npx serve dist -l 4321',
     url: 'http://127.0.0.1:4321',
     reuseExistingServer: true,
     timeout: 120000,
@@ -24,7 +24,6 @@ export default defineConfig({
       SUPABASE_SERVICE_ROLE_KEY: 'fake-service-role-key',
     },
   },
-  testIgnore: /analytics\.spec\.ts$/,
   projects: [
     {
       name: 'chromium',

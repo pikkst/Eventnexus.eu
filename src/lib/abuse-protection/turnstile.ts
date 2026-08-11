@@ -1,4 +1,5 @@
-const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+const TURNSTILE_VERIFY_URL =
+  'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
 export interface TurnstileVerificationResult {
   success: boolean;

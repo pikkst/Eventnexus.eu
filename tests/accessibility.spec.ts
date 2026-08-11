@@ -33,6 +33,9 @@ for (const route of criticalPages) {
       .map((violation) => `  ${violation.id}: ${violation.description}`)
       .join('\n');
 
-    expect(results.violations, `Accessibility violations found on ${route.name}:\n${violationSummary}`).toEqual([]);
+    expect(
+      results.violations,
+      `Accessibility violations found on ${route.name}:\n${violationSummary}`
+    ).toEqual([]);
   });
 }

@@ -20,7 +20,9 @@ async function cleanupLeads() {
   const cutoff = new Date();
   cutoff.setDate(cutoff.getDate() - retentionDays);
 
-  console.log(`Cleaning up project_leads older than ${cutoff.toISOString()}...`);
+  console.log(
+    `Cleaning up project_leads older than ${cutoff.toISOString()}...`
+  );
 
   const { error } = await supabase
     .from('project_leads')

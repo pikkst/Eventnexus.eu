@@ -6,9 +6,11 @@ export interface ResendWebhookPayload {
   };
 }
 
-export function extractWebhookEvent(
-  rawBody: string
-): { id: string; type: string; emailId: string } {
+export function extractWebhookEvent(rawBody: string): {
+  id: string;
+  type: string;
+  emailId: string;
+} {
   let payload: {
     type?: string;
     data?: {

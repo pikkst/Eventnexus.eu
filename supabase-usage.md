@@ -218,6 +218,7 @@ Apply it to the production Supabase project by:
 5. Verifying that RLS is enabled on `public.webhook_events` and all roles are restricted.
 
 Important:
+
 - This table must exist before the `/api/webhooks/resend` route is deployed.
 - The route uses `INSERT ... ON CONFLICT DO NOTHING` behavior via duplicate-key detection (PostgreSQL error code `23505`).
 - If the table is missing, the route returns `500` and Resend retries the delivery.

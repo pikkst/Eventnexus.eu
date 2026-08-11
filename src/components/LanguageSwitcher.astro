@@ -8,11 +8,15 @@ const currentPath = Astro.url.pathname;
 const getLanguageUrl = (lang: Language) => {
   const segments = currentPath.split('/').filter(Boolean);
 
-  if (segments.length === 0 || segments[0] === lang) {
+  const languageCodes = languages.map((l) => l.code);
+  if (
+    segments.length === 0 ||
+    languageCodes.includes(segments[0] as Language)
+  ) {
     return `/${lang}`;
   }
 
-  if (languages.map(l => l.code).includes(segments[0])) {
+  if (languageCodes.includes(segments[0] as Language)) {
     segments[0] = lang;
     return `/${segments.join('/')}`;
   }
@@ -23,20 +27,35 @@ const getLanguageUrl = (lang: Language) => {
 
 <div class="relative">
   <details class="group">
-    <summary class="flex cursor-pointer items-center gap-1 rounded-md px-2 py-1 text-sm font-medium text-slate-600 transition hover:text-slate-900">
-      <span>{languages.find(l => l.code === locale)?.native || locale}</span>
-      <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    <summary
+      class="flex cursor-pointer items-center gap-1 rounded-md px-2 py-1 text-sm font-medium text-slate-600 transition hover:text-slate-900"
+    >
+      <span>{languages.find((l) => l.code === locale)?.native || locale}</span>
+      <svg
+        class="h-4 w-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 9l-7 7-7-7"></path>
       </svg>
     </summary>
-    <ul class="absolute right-0 z-50 mt-2 w-40 rounded-md border border-slate-200 bg-white py-1 shadow-lg">
+    <ul
+      class="absolute right-0 z-50 mt-2 w-40 rounded-md border border-slate-200 bg-white py-1 shadow-lg"
+    >
       {
         languages.map((lang) => (
           <li>
             <a
               href={getLanguageUrl(lang.code)}
               class={`block px-4 py-2 text-sm transition hover:bg-slate-50 ${
-                lang.code === locale ? 'font-semibold text-primary' : 'text-slate-700'
+                lang.code === locale
+                  ? 'font-semibold text-primary'
+                  : 'text-slate-700'
               }`}
             >
               {lang.native}
