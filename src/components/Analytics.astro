@@ -1,31 +1,26 @@
 ---
 const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID;
 const analyticsEnabled = import.meta.env.PUBLIC_ANALYTICS_ENABLED !== 'false';
-const shouldLoad = typeof analyticsId === 'string' && analyticsId.trim() !== '' && analyticsEnabled;
+const shouldLoad =
+  typeof analyticsId === 'string' &&
+  analyticsId.trim() !== '' &&
+  analyticsEnabled;
 ---
 
-{
-  shouldLoad && (
-    <script>
-      (function () {
-        function loadAnalytics() {
-          if (localStorage.getItem('analytics-consent') !== 'granted') return;
-          const existing = document.querySelector('script[data-cf-beacon]');
-          if (existing) return;
-          const s = document.createElement('script');
-          s.defer = true;
-          s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
-          s.setAttribute(
-            'data-cf-beacon',
-            JSON.stringify({ token: "${analyticsId}" })
-          );
-          document.head.appendChild(s);
-        }
-
-        loadAnalytics();
-
-        window.addEventListener('analytics-consent-changed', loadAnalytics);
-      })();
-    </script>
-  )
-}
+<script is:inline define:vars={{ shouldLoad, analyticsId }}>
+  if (!shouldLoad) return;
+  (function () {
+    function load() {
+      if (localStorage.getItem('analytics-consent') !== 'granted') return;
+      const existing = document.querySelector('script[data-cf-beacon]');
+      if (existing) return;
+      const s = document.createElement('script');
+      s.defer = true;
+      s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+      s.setAttribute('data-cf-beacon', JSON.stringify({ token: analyticsId }));
+      document.head.appendChild(s);
+    }
+    load();
+    window.addEventListener('analytics-consent-changed', load);
+  })();
+</script>

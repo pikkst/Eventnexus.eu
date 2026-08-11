@@ -127,8 +127,14 @@ interface FieldValues {
 
 const validateFields = (fields: FieldValues): boolean => {
   if (!fields.consent) return false;
-  if (!fields.fullName || fields.fullName.length > MAX_LENGTHS.fullName) return false;
-  if (!fields.email || !validateEmail(fields.email) || fields.email.length > MAX_LENGTHS.email) return false;
+  if (!fields.fullName || fields.fullName.length > MAX_LENGTHS.fullName)
+    return false;
+  if (
+    !fields.email ||
+    !validateEmail(fields.email) ||
+    fields.email.length > MAX_LENGTHS.email
+  )
+    return false;
   if (fields.phoneOrChannel.length > MAX_LENGTHS.phoneOrChannel) return false;
   if (fields.companyName.length > MAX_LENGTHS.companyName) return false;
   if (fields.region.length > MAX_LENGTHS.region) return false;
@@ -136,24 +142,56 @@ const validateFields = (fields: FieldValues): boolean => {
   const isContactOnly = fields.contactMessage.length > 0;
 
   if (isContactOnly) {
-    if (fields.contactMessage.length < 10 || fields.contactMessage.length > MAX_LENGTHS.contactMessage) {
+    if (
+      fields.contactMessage.length < 10 ||
+      fields.contactMessage.length > MAX_LENGTHS.contactMessage
+    ) {
       return false;
     }
   } else {
-    if (fields.ideaDescription.length < 80 || fields.ideaDescription.length > MAX_LENGTHS.ideaDescription) return false;
-    if (!fields.projectType || !isAllowed(fields.projectType, ALLOWED_PROJECT_TYPES)) return false;
-    if (!fields.projectTitle || fields.projectTitle.length > MAX_LENGTHS.projectTitle) return false;
+    if (
+      fields.ideaDescription.length < 80 ||
+      fields.ideaDescription.length > MAX_LENGTHS.ideaDescription
+    )
+      return false;
+    if (
+      !fields.projectType ||
+      !isAllowed(fields.projectType, ALLOWED_PROJECT_TYPES)
+    )
+      return false;
+    if (
+      !fields.projectTitle ||
+      fields.projectTitle.length > MAX_LENGTHS.projectTitle
+    )
+      return false;
     if (fields.targetUsers.length > MAX_LENGTHS.targetUsers) return false;
     if (fields.problemToSolve.length > MAX_LENGTHS.problemToSolve) return false;
     if (fields.desiredOutcome.length > MAX_LENGTHS.desiredOutcome) return false;
     if (fields.extraNotes.length > MAX_LENGTHS.extraNotes) return false;
-    if (fields.timeline && !isAllowed(fields.timeline, ALLOWED_TIMELINES)) return false;
-    if (fields.budgetRange && !isAllowed(fields.budgetRange, ALLOWED_BUDGETS)) return false;
-    if (fields.projectStatus && !isAllowed(fields.projectStatus, ALLOWED_PROJECT_STATUSES)) return false;
+    if (fields.timeline && !isAllowed(fields.timeline, ALLOWED_TIMELINES))
+      return false;
+    if (fields.budgetRange && !isAllowed(fields.budgetRange, ALLOWED_BUDGETS))
+      return false;
+    if (
+      fields.projectStatus &&
+      !isAllowed(fields.projectStatus, ALLOWED_PROJECT_STATUSES)
+    )
+      return false;
     if (fields.existingDomain.length > MAX_LENGTHS.existingDomain) return false;
-    if (fields.existingUrl && (!validateUrl(fields.existingUrl) || fields.existingUrl.length > MAX_LENGTHS.existingUrl)) return false;
-    if (fields.existingRepo && (!validateUrl(fields.existingRepo) || fields.existingRepo.length > MAX_LENGTHS.existingRepo)) return false;
-    if (fields.existingBrandAssets.length > MAX_LENGTHS.existingBrandAssets) return false;
+    if (
+      fields.existingUrl &&
+      (!validateUrl(fields.existingUrl) ||
+        fields.existingUrl.length > MAX_LENGTHS.existingUrl)
+    )
+      return false;
+    if (
+      fields.existingRepo &&
+      (!validateUrl(fields.existingRepo) ||
+        fields.existingRepo.length > MAX_LENGTHS.existingRepo)
+    )
+      return false;
+    if (fields.existingBrandAssets.length > MAX_LENGTHS.existingBrandAssets)
+      return false;
   }
 
   return true;
@@ -191,13 +229,10 @@ export const POST: APIRoute = async ({ request }) => {
 
   if (!supabaseUrl || !supabaseServiceRoleKey) {
     logAbuseEvent('error', 'Supabase environment variables missing');
-    return new Response(
-      JSON.stringify({ error: 'Service unavailable' }),
-      {
-        status: 503,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Service unavailable' }), {
+      status: 503,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   const contentLength = request.headers.get('content-length');
@@ -205,13 +240,10 @@ export const POST: APIRoute = async ({ request }) => {
     logAbuseEvent('warn', 'Request body too large', {
       contentLength,
     });
-    return new Response(
-      JSON.stringify({ error: 'Request too large' }),
-      {
-        status: 413,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Request too large' }), {
+      status: 413,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   try {
@@ -226,13 +258,10 @@ export const POST: APIRoute = async ({ request }) => {
       logAbuseEvent('warn', 'Turnstile verification failed', {
         errorCodes: turnstileResult.errorCodes,
       });
-      return new Response(
-        JSON.stringify({ error: 'Verification failed' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Verification failed' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const ip = getClientIp(request);
@@ -246,16 +275,15 @@ export const POST: APIRoute = async ({ request }) => {
         fingerprint,
         remaining: rateLimitResult.remaining,
       });
-      return new Response(
-        JSON.stringify({ error: 'Too many requests' }),
-        {
-          status: 429,
-          headers: {
-            'Content-Type': 'application/json',
-            'Retry-After': String(Math.ceil((rateLimitResult.resetAt - Date.now()) / 1000)),
-          },
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Too many requests' }), {
+        status: 429,
+        headers: {
+          'Content-Type': 'application/json',
+          'Retry-After': String(
+            Math.ceil((rateLimitResult.resetAt - Date.now()) / 1000)
+          ),
+        },
+      });
     }
 
     const honeypotValue = String(body.get('website') || '');
@@ -265,13 +293,10 @@ export const POST: APIRoute = async ({ request }) => {
         ip,
         reason: honeypotResult.reason,
       });
-      return new Response(
-        JSON.stringify({ error: 'Submission rejected' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Submission rejected' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const formLoadedAt = String(body.get('formLoadedAt') || '');
@@ -281,13 +306,10 @@ export const POST: APIRoute = async ({ request }) => {
         ip,
         reason: timingResult.reason,
       });
-      return new Response(
-        JSON.stringify({ error: 'Submission rejected' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Submission rejected' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const fields: FieldValues = {
@@ -353,13 +375,10 @@ export const POST: APIRoute = async ({ request }) => {
         ip,
         errors: arrayErrors,
       });
-      return new Response(
-        JSON.stringify({ error: 'Invalid input' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Invalid input' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     if (!validateFields(fields)) {
@@ -367,13 +386,10 @@ export const POST: APIRoute = async ({ request }) => {
         ip,
         email,
       });
-      return new Response(
-        JSON.stringify({ error: 'Invalid input' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Invalid input' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const duplicateResult = await checkDuplicateSubmission(
@@ -386,13 +402,10 @@ export const POST: APIRoute = async ({ request }) => {
         email,
         projectTitle: fields.projectTitle,
       });
-      return new Response(
-        JSON.stringify({ error: 'Submission rejected' }),
-        {
-          status: 409,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Submission rejected' }), {
+        status: 409,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const supabase = getSupabaseServerClient();
@@ -436,13 +449,10 @@ export const POST: APIRoute = async ({ request }) => {
         email,
         error: supabaseError.message,
       });
-      return new Response(
-        JSON.stringify({ error: 'Submission failed' }),
-        {
-          status: 500,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Submission failed' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const leadCreatedAt = new Date().toISOString();
@@ -471,7 +481,8 @@ export const POST: APIRoute = async ({ request }) => {
       logAbuseEvent('error', 'Lead notification email failed', {
         leadId: data?.id,
         email: fields.email,
-        error: emailError instanceof Error ? emailError.message : 'unknown error',
+        error:
+          emailError instanceof Error ? emailError.message : 'unknown error',
       });
     }
 
@@ -489,12 +500,9 @@ export const POST: APIRoute = async ({ request }) => {
     logAbuseEvent('error', 'Unexpected error in submit-lead', {
       error: error instanceof Error ? error.message : 'unknown error',
     });
-    return new Response(
-      JSON.stringify({ error: 'Internal server error' }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };

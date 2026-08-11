@@ -8,15 +8,15 @@ const criticalPages = [
   },
   {
     name: 'services',
-    path: '/services',
+    path: '/en/services',
   },
   {
     name: 'work',
-    path: '/work',
+    path: '/en/work',
   },
   {
     name: 'contact',
-    path: '/contact',
+    path: '/en/contact',
   },
 ];
 
@@ -33,6 +33,9 @@ for (const route of criticalPages) {
       .map((violation) => `  ${violation.id}: ${violation.description}`)
       .join('\n');
 
-    expect(results.violations, `Accessibility violations found on ${route.name}:\n${violationSummary}`).toEqual([]);
+    expect(
+      results.violations,
+      `Accessibility violations found on ${route.name}:\n${violationSummary}`
+    ).toEqual([]);
   });
 }

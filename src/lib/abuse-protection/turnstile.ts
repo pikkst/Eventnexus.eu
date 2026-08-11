@@ -1,4 +1,5 @@
-const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+const TURNSTILE_VERIFY_URL =
+  'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
 export interface TurnstileVerificationResult {
   success: boolean;
@@ -12,7 +13,7 @@ export async function verifyTurnstileToken(
 ): Promise<TurnstileVerificationResult> {
   const secretKey = process.env.TURNSTILE_SECRET_KEY;
 
-  if (!secretKey) {
+  if (!secretKey || process.env.SUPABASE_MOCK_MODE === 'true') {
     return { success: false, errorCodes: ['secret_key_missing'] };
   }
 

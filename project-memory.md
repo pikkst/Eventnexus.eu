@@ -136,3 +136,12 @@ This file stores stable context and decisions for future agents.
 ## Quality Bar
 
 The project should feel like a capable company building serious systems, not a generic AI landing page. Content, design, and engineering choices should support trust, clarity, and practical delivery.
+
+## CI And Testing
+
+- GitHub Actions workflow runs on pull requests and pushes to `main`
+- Workflow jobs: format check, lint, type check (`astro check`), build, and Playwright E2E tests
+- Playwright tests run against production-like built output via `playwright.build.config.ts` using `serve`
+- Playwright config includes both `chromium` (desktop) and `chromium-mobile` projects
+- Tests cover mobile navigation, anti-bot protections, invalid input, rate limiting, oversized requests, webhook signature validation, expiry, and duplicate delivery
+- Analytics tests run separately via `playwright.analytics.config.ts` against pre-built analytics-enabled/disabled outputs

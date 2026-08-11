@@ -102,7 +102,11 @@ const processSteps = t.home.process.steps;
     </div>
   </Section>
 
-  <Section id="work" eyebrow={t.home.proof.eyebrow} title={t.home.proof.headline}>
+  <Section
+    id="work"
+    eyebrow={t.home.proof.eyebrow}
+    title={t.home.proof.headline}
+  >
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {
         t.home.proof.items.map((item) => (
@@ -120,7 +124,9 @@ const processSteps = t.home.process.steps;
               rel="noopener noreferrer"
               class="mt-4 inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-primary-light"
             >
-              {item.href.includes('github') ? t.ui.viewOnGitHub : t.ui.visitSite}
+              {item.href.includes('github')
+                ? t.ui.viewOnGitHub
+                : t.ui.visitSite}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="ml-1 h-4 w-4"
@@ -133,7 +139,7 @@ const processSteps = t.home.process.steps;
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                ></path>
+                />
               </svg>
             </a>
           </div>
@@ -153,6 +159,9 @@ const processSteps = t.home.process.steps;
   <CtaSection
     heading={t.home.intakeCta.heading}
     body={t.home.intakeCta.body}
-    primaryCta={{ label: t.home.intakeCta.primaryCta, href: `/${locale}/contact` }}
+    primaryCta={{
+      label: t.home.intakeCta.primaryCta,
+      href: `/${locale}/contact`,
+    }}
   />
 </BaseLayout>

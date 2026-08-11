@@ -17,7 +17,10 @@ const distPath = path.resolve('dist-disabled');
 console.log('serve-disabled: distPath', distPath);
 
 const server = http.createServer((req, res) => {
-  let filePath = path.join(distPath, req.url === '/' ? '/en/index.html' : req.url);
+  let filePath = path.join(
+    distPath,
+    req.url === '/' ? '/en/index.html' : req.url
+  );
   if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
     filePath = path.join(filePath, 'index.html');
   }

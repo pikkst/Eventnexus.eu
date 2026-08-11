@@ -426,16 +426,16 @@ Consider adding:
 
 ### Admin API Routes Summary
 
-| Method | Path | Purpose |
-|--------|------|---------|
-| GET | `/api/admin/auth/me` | Validate current admin session |
-| POST | `/api/admin/auth/login` | Admin sign-in |
-| POST | `/api/admin/auth/logout` | Admin sign-out |
-| GET | `/api/admin/projects` | List projects with filters |
-| GET | `/api/admin/projects/[id]` | Get single project detail |
-| PATCH | `/api/admin/projects/[id]` | Update project fields (notes, score, assignment) |
-| POST | `/api/admin/projects/[id]/status` | Transition project status |
-| POST | `/api/admin/projects/[id]/messages` | Send client message |
+| Method | Path                                | Purpose                                          |
+| ------ | ----------------------------------- | ------------------------------------------------ |
+| GET    | `/api/admin/auth/me`                | Validate current admin session                   |
+| POST   | `/api/admin/auth/login`             | Admin sign-in                                    |
+| POST   | `/api/admin/auth/logout`            | Admin sign-out                                   |
+| GET    | `/api/admin/projects`               | List projects with filters                       |
+| GET    | `/api/admin/projects/[id]`          | Get single project detail                        |
+| PATCH  | `/api/admin/projects/[id]`          | Update project fields (notes, score, assignment) |
+| POST   | `/api/admin/projects/[id]/status`   | Transition project status                        |
+| POST   | `/api/admin/projects/[id]/messages` | Send client message                              |
 
 ### Implementation Plan
 

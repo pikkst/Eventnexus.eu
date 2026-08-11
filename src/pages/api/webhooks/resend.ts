@@ -3,7 +3,10 @@ import { Webhook } from 'standardwebhooks';
 import { extractWebhookEvent } from '../../../lib/webhooks/resend';
 import { getSupabaseServerClient } from '../../../lib/supabase/server';
 import type { IdempotencyStore } from '../../../lib/webhooks/idempotency';
-import { SupabaseIdempotencyStore, InMemoryIdempotencyStore } from '../../../lib/webhooks/idempotency';
+import {
+  SupabaseIdempotencyStore,
+  InMemoryIdempotencyStore,
+} from '../../../lib/webhooks/idempotency';
 
 export const prerender = false;
 
@@ -28,7 +31,9 @@ function createIdempotencyStore(): IdempotencyStore {
     return cachedStore;
   }
 
-  if (process.env.NODE_ENV !== 'production' && process.env.WEBHOOK_TEST_MODE === 'true') {
+  const nodeEnv = globalThis.process?.env?.NODE_ENV;
+  const webhookTestMode = globalThis.process?.env?.WEBHOOK_TEST_MODE;
+  if (nodeEnv !== 'production' && webhookTestMode === 'true') {
     cachedStore = new InMemoryIdempotencyStore();
   } else {
     const supabase = getSupabaseServerClient();
@@ -41,7 +46,9 @@ function createIdempotencyStore(): IdempotencyStore {
 export const POST: APIRoute = async ({ request }) => {
   const secret = process.env.RESEND_WEBHOOK_SECRET;
   if (!secret) {
-    console.warn('Webhook received but RESEND_WEBHOOK_SECRET is not configured');
+    console.warn(
+      'Webhook received but RESEND_WEBHOOK_SECRET is not configured'
+    );
     return new Response(JSON.stringify({ error: 'Not configured' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -52,14 +59,19 @@ export const POST: APIRoute = async ({ request }) => {
   const headers = Object.fromEntries(request.headers.entries());
 
   const webhookId = headers['webhook-id'] || headers['svix-id'];
-  const webhookTimestamp = headers['webhook-timestamp'] || headers['svix-timestamp'];
-  const webhookSignature = headers['webhook-signature'] || headers['svix-signature'];
+  const webhookTimestamp =
+    headers['webhook-timestamp'] || headers['svix-timestamp'];
+  const webhookSignature =
+    headers['webhook-signature'] || headers['svix-signature'];
 
   if (!webhookId || !webhookTimestamp || !webhookSignature) {
-    return new Response(JSON.stringify({ error: 'Missing signature headers' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ error: 'Missing signature headers' }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 
   const timestampMs = Number(webhookTimestamp);
@@ -135,7 +147,9 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  console.log(`Resend webhook event received: type=${event.type}, emailId=${event.emailId}`);
+  console.log(
+    `Resend webhook event received: type=${event.type}, emailId=${event.emailId}`
+  );
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,

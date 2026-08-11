@@ -5,7 +5,12 @@ import Analytics from '../components/Analytics.astro';
 import PrivacyConsent from '../components/PrivacyConsent.astro';
 import '../styles/global.css';
 
-const { title, description, currentPath = '/', locale = 'en' } = Astro.props;
+const {
+  title,
+  description,
+  currentPath: _currentPath = '/',
+  locale = 'en',
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -24,6 +29,6 @@ const { title, description, currentPath = '/', locale = 'en' } = Astro.props;
     </main>
     <Footer locale={locale} />
     <Analytics />
-    <PrivacyConsent locale={locale} privacyUrl={"/" + locale + "/privacy"} />
+    <PrivacyConsent locale={locale} privacyUrl={'/' + locale + '/privacy'} />
   </body>
 </html>

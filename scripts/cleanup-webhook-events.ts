@@ -16,11 +16,16 @@ const supabase = createClient(supabaseUrl, serviceRoleKey, {
 });
 
 async function cleanupWebhookEvents() {
-  const retentionDays = parseInt(process.env.RETENTION_WEBHOOK_EVENT_DAYS || '365', 10);
+  const retentionDays = parseInt(
+    process.env.RETENTION_WEBHOOK_EVENT_DAYS || '365',
+    10
+  );
   const cutoff = new Date();
   cutoff.setDate(cutoff.getDate() - retentionDays);
 
-  console.log(`Cleaning up webhook_events older than ${cutoff.toISOString()}...`);
+  console.log(
+    `Cleaning up webhook_events older than ${cutoff.toISOString()}...`
+  );
 
   const { error } = await supabase
     .from('webhook_events')

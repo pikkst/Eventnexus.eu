@@ -27,7 +27,7 @@ export async function checkDuplicateSubmission(
     return { isDuplicate: false };
   }
 
-  if (data && data.length > 0) {
+  if (data && Array.isArray(data) && data.length > 0) {
     return {
       isDuplicate: true,
       reason: 'duplicate_submission',

@@ -5,18 +5,28 @@ const { locale = 'en', privacyUrl = '/privacy' } = Astro.props;
 const t = getTranslations(locale as Language);
 const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID;
 const analyticsEnabled = import.meta.env.PUBLIC_ANALYTICS_ENABLED !== 'false';
-const shouldLoad = typeof analyticsId === 'string' && analyticsId.trim() !== '' && analyticsEnabled;
+const shouldLoad =
+  typeof analyticsId === 'string' &&
+  analyticsId.trim() !== '' &&
+  analyticsEnabled;
 ---
 
-<div id="privacy-consent-banner" class="hidden fixed bottom-0 inset-x-0 bg-slate-900 text-white z-50"
+<div
+  id="privacy-consent-banner"
+  class="fixed inset-x-0 bottom-0 z-50 hidden bg-slate-900 text-white"
   data-analytics-id={analyticsId || ''}
-  data-analytics-enabled={shouldLoad ? 'true' : 'false'}>
-  <div class="container mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4 px-4 py-4">
+  data-analytics-enabled={shouldLoad ? 'true' : 'false'}
+>
+  <div
+    class="container mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-4 sm:flex-row"
+  >
     <p class="text-sm text-slate-200">
       {t.privacy.analyticsText}
-      <a href={privacyUrl} class="underline hover:text-white ml-1">{t.privacy.title}</a>
+      <a href={privacyUrl} class="ml-1 underline hover:text-white"
+        >{t.privacy.title}</a
+      >
     </p>
-    <div class="flex gap-3 shrink-0">
+    <div class="flex shrink-0 gap-3">
       <button
         id="privacy-accept"
         class="inline-flex h-10 items-center justify-center rounded-md bg-primary px-5 text-sm font-semibold text-white shadow-md transition hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
@@ -50,13 +60,11 @@ const shouldLoad = typeof analyticsId === 'string' && analyticsId.trim() !== '' 
       window.dispatchEvent(new Event('analytics-consent-changed'));
     };
 
-    document
-      .getElementById('privacy-accept')
-      ?.addEventListener('click', () => {
-        localStorage.setItem('analytics-consent', 'granted');
-        banner.classList.add('hidden');
-        emitConsentChange();
-      });
+    document.getElementById('privacy-accept')?.addEventListener('click', () => {
+      localStorage.setItem('analytics-consent', 'granted');
+      banner.classList.add('hidden');
+      emitConsentChange();
+    });
 
     document
       .getElementById('privacy-decline')

@@ -487,6 +487,7 @@ Add automated smoke tests covering admin login protection, invalid status transi
 - [x] Add accessibility checks.
 - [x] Add content review checklist.
 - [x] Add release checklist.
+- [x] Add CI quality gates and end-to-end coverage for critical flows
 - [ ] Keep `project-memory.md` updated with decisions.
 
 ## Phase 7 - Internationalization

@@ -73,7 +73,9 @@ export function validateArrayField(
 
   for (const value of values) {
     if (value.length > maxItemLength) {
-      errors.push(`${name} item exceeds maximum length of ${maxItemLength} characters`);
+      errors.push(
+        `${name} item exceeds maximum length of ${maxItemLength} characters`
+      );
       return { valid: false, errors };
     }
 

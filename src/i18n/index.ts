@@ -1,4 +1,10 @@
-import { translations, type Language, type TranslationKeys, defaultLanguage, languages } from './translations.ts';
+import {
+  translations,
+  type Language,
+  type TranslationKeys,
+  defaultLanguage,
+  languages,
+} from './translations.ts';
 
 export type { Language, TranslationKeys };
 
@@ -21,10 +27,12 @@ function deepMerge(target: any, source: any): any {
     ) {
       result[key] = deepMerge(target[key] || {}, source[key]);
     } else if (Array.isArray(source[key])) {
-      result[key] = Array.isArray(target[key]) && target[key].length > 0 ? target[key] : source[key];
-    } else {
       result[key] =
-        target[key] !== undefined ? target[key] : source[key];
+        Array.isArray(target[key]) && target[key].length > 0
+          ? target[key]
+          : source[key];
+    } else {
+      result[key] = target[key] !== undefined ? target[key] : source[key];
     }
   }
   return result;

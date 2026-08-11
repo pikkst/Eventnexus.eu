@@ -351,8 +351,10 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Message must be at least 10 characters.',
       somethingWrong: 'Something went wrong. Please try again.',
       submissionFailed: 'Submission failed',
-      contactMinLength: 'Please fill in your name, a valid email, and a message.',
-      contactRequired: 'Please fill in your name, a valid email, and a message.',
+      contactMinLength:
+        'Please fill in your name, a valid email, and a message.',
+      contactRequired:
+        'Please fill in your name, a valid email, and a message.',
     },
     ui: {
       includes: 'Includes',
@@ -377,7 +379,8 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       problem: {
         eyebrow: 'Problem',
-        headline: 'Good ideas often get stuck before they become real products.',
+        headline:
+          'Good ideas often get stuck before they become real products.',
         description:
           'Turning an idea into a working platform can quickly become complicated. Frontend, backend, database, user accounts, admin tools, payments, integrations, hosting, and a clear launch path. Eventnexus brings those pieces together into one structured delivery process.',
       },
@@ -486,8 +489,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       intakeCta: {
         heading: 'Have an idea for a platform, portal, tool, or website?',
-        body:
-          'You do not need a finished specification. Start with what you know: the idea, who it is for, what it should do, and what outcome you want. The structured request form helps turn that into the first version of a buildable project plan.',
+        body: 'You do not need a finished specification. Start with what you know: the idea, who it is for, what it should do, and what outcome you want. The structured request form helps turn that into the first version of a buildable project plan.',
         primaryCta: 'Start your project request',
       },
     },
@@ -501,175 +503,175 @@ export const translations: Record<Language, TranslationKeys> = {
         primaryCta: 'Start a project request',
         secondaryCta: 'See delivery process',
       },
-       promise: {
-         eyebrow: 'Services',
-         headline: 'One partner for the full build.',
-         description:
-           'Many digital projects become difficult because the work is split across too many disconnected parts. Eventnexus brings those pieces into one structured service. The goal is to reduce confusion for the client and create a clear route from idea to working solution.',
-       },
-       serviceCards: [
-         {
-           title: 'Idea Discovery And Project Structuring',
-           description:
-             'Turn early ideas into clear project requirements. Useful when the client knows what they want to achieve but does not yet know exactly what should be built.',
-           includes: [
-             'idea review',
-             'target user definition',
-             'feature mapping',
-             'user-flow planning',
-             'MVP scope',
-             'technical direction',
-             'project priorities',
-             'delivery phases',
-           ],
-           bestFor:
-             'Clients who have an idea, process, or business need but need help turning it into a buildable plan.',
-         },
-         {
-           title: 'Company Websites And Landing Pages',
-           description:
-             'Professional websites for companies, products, services, and campaigns. These pages should explain the offer clearly, build trust, and guide visitors toward action.',
-           includes: [
-             'company website structure',
-             'homepage and service pages',
-             'landing pages',
-             'conversion-focused copy structure',
-             'responsive UI',
-             'contact or project request flows',
-             'deployment-ready frontend',
-           ],
-           bestFor:
-             'Businesses that need a credible online presence, a clear service offer, or a stronger lead-generation page.',
-         },
-         {
-           title: 'SaaS-Style Platforms And Web Applications',
-           description:
-             'Custom web platforms for business ideas, customer services, internal workflows, dashboards, and online products.',
-           includes: [
-             'user-facing application interfaces',
-             'dashboards',
-             'customer portals',
-             'booking or request systems',
-             'admin panels',
-             'role-based access',
-             'data workflows',
-             'scalable feature planning',
-           ],
-           bestFor:
-             'Founders, individuals, service businesses, and companies that want to launch or digitize a platform-based idea.',
-         },
-         {
-           title: 'Frontend Development',
-           description:
-             'Frontend work covers the visible part of the product: layouts, pages, components, flows, forms, dashboards, and responsive user experience.',
-           includes: [
-             'responsive web interfaces',
-             'component-based UI',
-             'forms and multi-step flows',
-             'dashboards and tables',
-             'product pages',
-             'frontend state and interaction logic',
-             'accessibility basics',
-           ],
-           bestFor:
-             'Projects that need a clean, usable, professional interface for real users.',
-         },
-         {
-           title: 'Backend Development',
-           description:
-             'Backend work powers the product behind the interface. It handles data, users, business logic, server-side validation, integrations, and internal systems.',
-           includes: [
-             'database planning',
-             'API and server-side logic',
-             'authentication and user accounts',
-             'roles and permissions',
-             'admin functionality',
-             'lead and form handling',
-             'business rules',
-             'secure environment configuration',
-           ],
-           bestFor:
-             'Platforms that need more than static pages: accounts, saved data, dashboards, admin workflows, or custom logic.',
-         },
-         {
-           title: 'Payments And Checkout',
-           description:
-             'Eventnexus can add payment flows when the product needs to sell services, subscriptions, bookings, digital access, or platform features.',
-           includes: [
-             'payment-provider integration',
-             'checkout flow planning',
-             'subscription or one-time payment logic',
-             'payment success and failure states',
-             'customer access rules after payment',
-             'basic payment data flow planning',
-           ],
-           bestFor:
-             'SaaS products, paid service platforms, booking systems, membership products, and digital service businesses.',
-         },
-         {
-           title: 'Integrations And Automations',
-           description:
-             'Many useful platforms need to connect with other services. Eventnexus can plan and build integrations that reduce manual work and connect business processes.',
-           includes: [
-             'third-party API integrations',
-             'CRM or lead workflows',
-             'email notifications',
-             'data sync concepts',
-             'internal automation flows',
-             'admin alerts',
-             'AI-assisted workflow support where useful',
-           ],
-           bestFor:
-             'Businesses that want to automate repetitive tasks, connect tools, or make a digital product part of a larger operating process.',
-         },
-         {
-           title: 'AI-Assisted Product And Workflow Development',
-           description:
-             'Eventnexus uses modern AI tools to increase speed, structure, and capability during planning and development. AI can also become part of the final product when it creates real value.',
-           includes: [
-             'AI-assisted planning',
-             'faster prototyping',
-             'content and workflow support',
-             'AI-assisted admin tools',
-             'data interpretation concepts',
-             'automation ideas',
-             'product features that use AI where appropriate',
-           ],
-           bestFor:
-             'Clients who want modern, faster development and practical AI features without vague hype or unnecessary complexity.',
-         },
-         {
-           title: 'Deployment, Launch, And Maintenance',
-           description:
-             'A product is not finished when the code exists. It needs to be deployed, connected to the right domain, checked, and improved after real use begins.',
-           includes: [
-             'production deployment',
-             'domain setup planning',
-             'hosting configuration',
-             'environment variables',
-             'launch checks',
-             'bug fixes',
-             'iteration planning',
-             'future feature development',
-           ],
-           bestFor:
-             'Clients who want the product launched and maintained instead of receiving unfinished technical files.',
-         },
-       ],
-       projectTypes: [
-         'SaaS platforms',
-         'customer portals',
-         'service booking platforms',
-         'company websites',
-         'lead-generation websites',
-         'internal business tools',
-         'admin dashboards',
-         'payment-enabled service platforms',
-         'AI-assisted workflow tools',
-         'automation systems',
-         'data and reporting dashboards',
-       ],
-       turnkey: {
+      promise: {
+        eyebrow: 'Services',
+        headline: 'One partner for the full build.',
+        description:
+          'Many digital projects become difficult because the work is split across too many disconnected parts. Eventnexus brings those pieces into one structured service. The goal is to reduce confusion for the client and create a clear route from idea to working solution.',
+      },
+      serviceCards: [
+        {
+          title: 'Idea Discovery And Project Structuring',
+          description:
+            'Turn early ideas into clear project requirements. Useful when the client knows what they want to achieve but does not yet know exactly what should be built.',
+          includes: [
+            'idea review',
+            'target user definition',
+            'feature mapping',
+            'user-flow planning',
+            'MVP scope',
+            'technical direction',
+            'project priorities',
+            'delivery phases',
+          ],
+          bestFor:
+            'Clients who have an idea, process, or business need but need help turning it into a buildable plan.',
+        },
+        {
+          title: 'Company Websites And Landing Pages',
+          description:
+            'Professional websites for companies, products, services, and campaigns. These pages should explain the offer clearly, build trust, and guide visitors toward action.',
+          includes: [
+            'company website structure',
+            'homepage and service pages',
+            'landing pages',
+            'conversion-focused copy structure',
+            'responsive UI',
+            'contact or project request flows',
+            'deployment-ready frontend',
+          ],
+          bestFor:
+            'Businesses that need a credible online presence, a clear service offer, or a stronger lead-generation page.',
+        },
+        {
+          title: 'SaaS-Style Platforms And Web Applications',
+          description:
+            'Custom web platforms for business ideas, customer services, internal workflows, dashboards, and online products.',
+          includes: [
+            'user-facing application interfaces',
+            'dashboards',
+            'customer portals',
+            'booking or request systems',
+            'admin panels',
+            'role-based access',
+            'data workflows',
+            'scalable feature planning',
+          ],
+          bestFor:
+            'Founders, individuals, service businesses, and companies that want to launch or digitize a platform-based idea.',
+        },
+        {
+          title: 'Frontend Development',
+          description:
+            'Frontend work covers the visible part of the product: layouts, pages, components, flows, forms, dashboards, and responsive user experience.',
+          includes: [
+            'responsive web interfaces',
+            'component-based UI',
+            'forms and multi-step flows',
+            'dashboards and tables',
+            'product pages',
+            'frontend state and interaction logic',
+            'accessibility basics',
+          ],
+          bestFor:
+            'Projects that need a clean, usable, professional interface for real users.',
+        },
+        {
+          title: 'Backend Development',
+          description:
+            'Backend work powers the product behind the interface. It handles data, users, business logic, server-side validation, integrations, and internal systems.',
+          includes: [
+            'database planning',
+            'API and server-side logic',
+            'authentication and user accounts',
+            'roles and permissions',
+            'admin functionality',
+            'lead and form handling',
+            'business rules',
+            'secure environment configuration',
+          ],
+          bestFor:
+            'Platforms that need more than static pages: accounts, saved data, dashboards, admin workflows, or custom logic.',
+        },
+        {
+          title: 'Payments And Checkout',
+          description:
+            'Eventnexus can add payment flows when the product needs to sell services, subscriptions, bookings, digital access, or platform features.',
+          includes: [
+            'payment-provider integration',
+            'checkout flow planning',
+            'subscription or one-time payment logic',
+            'payment success and failure states',
+            'customer access rules after payment',
+            'basic payment data flow planning',
+          ],
+          bestFor:
+            'SaaS products, paid service platforms, booking systems, membership products, and digital service businesses.',
+        },
+        {
+          title: 'Integrations And Automations',
+          description:
+            'Many useful platforms need to connect with other services. Eventnexus can plan and build integrations that reduce manual work and connect business processes.',
+          includes: [
+            'third-party API integrations',
+            'CRM or lead workflows',
+            'email notifications',
+            'data sync concepts',
+            'internal automation flows',
+            'admin alerts',
+            'AI-assisted workflow support where useful',
+          ],
+          bestFor:
+            'Businesses that want to automate repetitive tasks, connect tools, or make a digital product part of a larger operating process.',
+        },
+        {
+          title: 'AI-Assisted Product And Workflow Development',
+          description:
+            'Eventnexus uses modern AI tools to increase speed, structure, and capability during planning and development. AI can also become part of the final product when it creates real value.',
+          includes: [
+            'AI-assisted planning',
+            'faster prototyping',
+            'content and workflow support',
+            'AI-assisted admin tools',
+            'data interpretation concepts',
+            'automation ideas',
+            'product features that use AI where appropriate',
+          ],
+          bestFor:
+            'Clients who want modern, faster development and practical AI features without vague hype or unnecessary complexity.',
+        },
+        {
+          title: 'Deployment, Launch, And Maintenance',
+          description:
+            'A product is not finished when the code exists. It needs to be deployed, connected to the right domain, checked, and improved after real use begins.',
+          includes: [
+            'production deployment',
+            'domain setup planning',
+            'hosting configuration',
+            'environment variables',
+            'launch checks',
+            'bug fixes',
+            'iteration planning',
+            'future feature development',
+          ],
+          bestFor:
+            'Clients who want the product launched and maintained instead of receiving unfinished technical files.',
+        },
+      ],
+      projectTypes: [
+        'SaaS platforms',
+        'customer portals',
+        'service booking platforms',
+        'company websites',
+        'lead-generation websites',
+        'internal business tools',
+        'admin dashboards',
+        'payment-enabled service platforms',
+        'AI-assisted workflow tools',
+        'automation systems',
+        'data and reporting dashboards',
+      ],
+      turnkey: {
         eyebrow: 'Delivery Model',
         headline: 'What "turnkey" means at Eventnexus.',
         description1:
@@ -689,8 +691,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       intakeCta: {
         heading: 'Have an idea for a platform, portal, tool, or website?',
-        body:
-          'You do not need a finished specification. Start with what you know: the idea, who it is for, what it should do, and what outcome you want. The structured request form helps turn that into the first version of a buildable project plan.',
+        body: 'You do not need a finished specification. Start with what you know: the idea, who it is for, what it should do, and what outcome you want. The structured request form helps turn that into the first version of a buildable project plan.',
         primaryCta: 'Start your project request',
       },
     },
@@ -794,101 +795,114 @@ export const translations: Record<Language, TranslationKeys> = {
         description2:
           'You do not need a technical specification. The form helps turn your idea into the first version of a buildable project brief.',
       },
-       options: {
-         projectTypes: [
-           { id: 'company_website', label: 'company website' },
-           { id: 'landing_page', label: 'landing page' },
-           { id: 'saas_platform', label: 'SaaS platform' },
-           { id: 'customer_portal', label: 'customer portal' },
-           { id: 'booking_request_platform', label: 'booking or request platform' },
-           { id: 'internal_business_tool', label: 'internal business tool' },
-           { id: 'admin_dashboard', label: 'admin dashboard' },
-           { id: 'ecommerce_payment_service', label: 'e-commerce or payment-enabled service' },
-           { id: 'ai_workflow_tool', label: 'AI-assisted workflow tool' },
-           { id: 'automation_integration', label: 'automation or integration' },
-           { id: 'not_sure_yet', label: 'not sure yet' },
-           { id: 'other', label: 'other' },
-         ],
-         featureOptions: [
-           { id: 'public_pages', label: 'public pages' },
-           { id: 'user_accounts', label: 'user accounts' },
-           { id: 'login_registration', label: 'login and registration' },
-           { id: 'user_roles_permissions', label: 'user roles or permissions' },
-           { id: 'admin_dashboard', label: 'admin dashboard' },
-           { id: 'customer_dashboard', label: 'customer dashboard' },
-           { id: 'booking_scheduling', label: 'booking or scheduling' },
-           { id: 'request_quote_forms', label: 'request or quote forms' },
-           { id: 'file_uploads', label: 'file uploads' },
-           { id: 'payments_subscriptions', label: 'payments or subscriptions' },
-           { id: 'email_notifications', label: 'email notifications' },
-           { id: 'crm_lead_workflow', label: 'CRM or lead workflow' },
-           { id: 'analytics_reporting', label: 'analytics or reporting' },
-           { id: 'map_location_features', label: 'map or location features' },
-           { id: 'ai_features', label: 'AI-assisted features' },
-           { id: 'third_party_integrations', label: 'third-party integrations' },
-           { id: 'multilingual_support', label: 'multilingual support' },
-           { id: 'not_sure_yet', label: 'not sure yet' },
-         ],
-         technicalNeeds: [
-           { id: 'frontend', label: 'frontend design and development' },
-           { id: 'backend', label: 'backend development' },
-           { id: 'database', label: 'database setup' },
-           { id: 'authentication', label: 'authentication' },
-           { id: 'payment_integration', label: 'payment integration' },
-           { id: 'admin_system', label: 'admin system' },
-           { id: 'api_integration', label: 'API integration' },
-           { id: 'automation', label: 'automation' },
-           { id: 'deployment_hosting', label: 'deployment and hosting' },
-           { id: 'domain_setup', label: 'domain setup' },
-           { id: 'maintenance', label: 'maintenance after launch' },
-           { id: 'technical_planning', label: 'technical planning only' },
-           { id: 'not_sure_yet', label: 'not sure yet' },
-         ],
-         timelineOptions: [
-           { id: 'asap', label: 'as soon as possible' },
-           { id: '2_4_weeks', label: 'within 2-4 weeks' },
-           { id: '1_2_months', label: 'within 1-2 months' },
-           { id: '3_6_months', label: 'within 3-6 months' },
-           { id: 'flexible', label: 'flexible timeline' },
-           { id: 'exploring', label: 'just exploring' },
-         ],
-         budgetOptions: [
-           { id: 'under_500', label: 'under 500 EUR' },
-           { id: '500_1500', label: '500-1,500 EUR' },
-           { id: '1500_3000', label: '1,500-3,000 EUR' },
-           { id: '3000_7500', label: '3,000-7,500 EUR' },
-           { id: '7500_15000', label: '7,500-15,000 EUR' },
-           { id: '15000_plus', label: '15,000+ EUR' },
-           { id: 'not_sure_yet', label: 'not sure yet' },
-         ],
-         statusOptions: [
-           { id: 'idea_only', label: 'idea only' },
-           { id: 'rough_plan', label: 'rough plan exists' },
-           { id: 'design_spec', label: 'design or specification exists' },
-           { id: 'existing_improvement', label: 'existing website or app needs improvement' },
-           { id: 'existing_new_features', label: 'existing product needs new features' },
-           { id: 'urgent', label: 'urgent business need' },
-         ],
-         integrationOptions: [
-           { id: 'stripe_payment', label: 'Stripe or payment provider' },
-           { id: 'supabase', label: 'Supabase' },
-           { id: 'crm', label: 'CRM' },
-           { id: 'email_provider', label: 'email provider' },
-           { id: 'calendar', label: 'calendar' },
-           { id: 'maps', label: 'maps' },
-           { id: 'analytics', label: 'analytics' },
-           { id: 'ai_api', label: 'AI API' },
-           { id: 'internal_system', label: 'internal company system' },
-           { id: 'other', label: 'other' },
-           { id: 'not_sure_yet', label: 'not sure yet' },
-         ],
-       },
+      options: {
+        projectTypes: [
+          { id: 'company_website', label: 'company website' },
+          { id: 'landing_page', label: 'landing page' },
+          { id: 'saas_platform', label: 'SaaS platform' },
+          { id: 'customer_portal', label: 'customer portal' },
+          {
+            id: 'booking_request_platform',
+            label: 'booking or request platform',
+          },
+          { id: 'internal_business_tool', label: 'internal business tool' },
+          { id: 'admin_dashboard', label: 'admin dashboard' },
+          {
+            id: 'ecommerce_payment_service',
+            label: 'e-commerce or payment-enabled service',
+          },
+          { id: 'ai_workflow_tool', label: 'AI-assisted workflow tool' },
+          { id: 'automation_integration', label: 'automation or integration' },
+          { id: 'not_sure_yet', label: 'not sure yet' },
+          { id: 'other', label: 'other' },
+        ],
+        featureOptions: [
+          { id: 'public_pages', label: 'public pages' },
+          { id: 'user_accounts', label: 'user accounts' },
+          { id: 'login_registration', label: 'login and registration' },
+          { id: 'user_roles_permissions', label: 'user roles or permissions' },
+          { id: 'admin_dashboard', label: 'admin dashboard' },
+          { id: 'customer_dashboard', label: 'customer dashboard' },
+          { id: 'booking_scheduling', label: 'booking or scheduling' },
+          { id: 'request_quote_forms', label: 'request or quote forms' },
+          { id: 'file_uploads', label: 'file uploads' },
+          { id: 'payments_subscriptions', label: 'payments or subscriptions' },
+          { id: 'email_notifications', label: 'email notifications' },
+          { id: 'crm_lead_workflow', label: 'CRM or lead workflow' },
+          { id: 'analytics_reporting', label: 'analytics or reporting' },
+          { id: 'map_location_features', label: 'map or location features' },
+          { id: 'ai_features', label: 'AI-assisted features' },
+          { id: 'third_party_integrations', label: 'third-party integrations' },
+          { id: 'multilingual_support', label: 'multilingual support' },
+          { id: 'not_sure_yet', label: 'not sure yet' },
+        ],
+        technicalNeeds: [
+          { id: 'frontend', label: 'frontend design and development' },
+          { id: 'backend', label: 'backend development' },
+          { id: 'database', label: 'database setup' },
+          { id: 'authentication', label: 'authentication' },
+          { id: 'payment_integration', label: 'payment integration' },
+          { id: 'admin_system', label: 'admin system' },
+          { id: 'api_integration', label: 'API integration' },
+          { id: 'automation', label: 'automation' },
+          { id: 'deployment_hosting', label: 'deployment and hosting' },
+          { id: 'domain_setup', label: 'domain setup' },
+          { id: 'maintenance', label: 'maintenance after launch' },
+          { id: 'technical_planning', label: 'technical planning only' },
+          { id: 'not_sure_yet', label: 'not sure yet' },
+        ],
+        timelineOptions: [
+          { id: 'asap', label: 'as soon as possible' },
+          { id: '2_4_weeks', label: 'within 2-4 weeks' },
+          { id: '1_2_months', label: 'within 1-2 months' },
+          { id: '3_6_months', label: 'within 3-6 months' },
+          { id: 'flexible', label: 'flexible timeline' },
+          { id: 'exploring', label: 'just exploring' },
+        ],
+        budgetOptions: [
+          { id: 'under_500', label: 'under 500 EUR' },
+          { id: '500_1500', label: '500-1,500 EUR' },
+          { id: '1500_3000', label: '1,500-3,000 EUR' },
+          { id: '3000_7500', label: '3,000-7,500 EUR' },
+          { id: '7500_15000', label: '7,500-15,000 EUR' },
+          { id: '15000_plus', label: '15,000+ EUR' },
+          { id: 'not_sure_yet', label: 'not sure yet' },
+        ],
+        statusOptions: [
+          { id: 'idea_only', label: 'idea only' },
+          { id: 'rough_plan', label: 'rough plan exists' },
+          { id: 'design_spec', label: 'design or specification exists' },
+          {
+            id: 'existing_improvement',
+            label: 'existing website or app needs improvement',
+          },
+          {
+            id: 'existing_new_features',
+            label: 'existing product needs new features',
+          },
+          { id: 'urgent', label: 'urgent business need' },
+        ],
+        integrationOptions: [
+          { id: 'stripe_payment', label: 'Stripe or payment provider' },
+          { id: 'supabase', label: 'Supabase' },
+          { id: 'crm', label: 'CRM' },
+          { id: 'email_provider', label: 'email provider' },
+          { id: 'calendar', label: 'calendar' },
+          { id: 'maps', label: 'maps' },
+          { id: 'analytics', label: 'analytics' },
+          { id: 'ai_api', label: 'AI API' },
+          { id: 'internal_system', label: 'internal company system' },
+          { id: 'other', label: 'other' },
+          { id: 'not_sure_yet', label: 'not sure yet' },
+        ],
+      },
       form: {
         title: 'Project request',
         stepIndicator: 'Step {step} of {total}',
         contactOnly: {
           label: 'Contact only',
-          description: 'Not ready for a full project request? Send a quick message instead.',
+          description:
+            'Not ready for a full project request? Send a quick message instead.',
         },
       },
       step1: {
@@ -920,11 +934,14 @@ export const translations: Record<Language, TranslationKeys> = {
         whatBuildPlaceholder:
           'Describe the idea, the main goal, and what success looks like after launch.',
         whoWillUse: 'Who will use it?',
-        whoWillUsePlaceholder: 'Small-business owners, support agents, end customers',
+        whoWillUsePlaceholder:
+          'Small-business owners, support agents, end customers',
         problemSolve: 'What problem should it solve?',
-        problemSolvePlaceholder: 'Current manual process, missing tool, or unmet business need.',
+        problemSolvePlaceholder:
+          'Current manual process, missing tool, or unmet business need.',
         desiredOutcome: 'What should happen after a user uses it?',
-        desiredOutcomePlaceholder: 'Booking completed, lead captured, report exported, approval sent.',
+        desiredOutcomePlaceholder:
+          'Booking completed, lead captured, report exported, approval sent.',
         minLengthHint:
           'Please include at least a few sentences so Eventnexus can understand the scope.',
       },
@@ -932,7 +949,8 @@ export const translations: Record<Language, TranslationKeys> = {
         legend: 'Required Features',
         description: 'Select the features you expect to need.',
         importantFeatures: 'Important features not listed',
-        importantFeaturesPlaceholder: 'Add anything else that is important for the project.',
+        importantFeaturesPlaceholder:
+          'Add anything else that is important for the project.',
       },
       step5: {
         legend: 'Technical Needs',
@@ -1017,21 +1035,29 @@ export const translations: Record<Language, TranslationKeys> = {
       controllerAddress: 'Põltsamaa, Estonia',
       controllerEmail: 'admin@eventnexus.eu',
       purposesTitle: 'Purposes',
-      purposes: 'We process personal data to handle project requests, respond to contact messages, operate this website, and send notification emails.',
+      purposes:
+        'We process personal data to handle project requests, respond to contact messages, operate this website, and send notification emails.',
       legalBasesTitle: 'Legal Bases',
-      legalBases: 'Processing is based on your consent, contractual necessity, or our legitimate interest in operating this website and evaluating project requests.',
+      legalBases:
+        'Processing is based on your consent, contractual necessity, or our legitimate interest in operating this website and evaluating project requests.',
       processorsTitle: 'Processors',
-      processors: 'We use Supabase (EU) for lead storage, Resend for email delivery, and Cloudflare for hosting and privacy-first analytics.',
+      processors:
+        'We use Supabase (EU) for lead storage, Resend for email delivery, and Cloudflare for hosting and privacy-first analytics.',
       transfersTitle: 'Transfers',
-      transfers: 'Data may be transferred to processors in the EU and the US under appropriate safeguards, including standard contractual clauses.',
+      transfers:
+        'Data may be transferred to processors in the EU and the US under appropriate safeguards, including standard contractual clauses.',
       retentionTitle: 'Retention',
-      retention: 'Project leads are retained for up to 3 years or until you request deletion. Application logs are retained for up to 1 year. Resend email events are retained for up to 1 year.',
+      retention:
+        'Project leads are retained for up to 3 years or until you request deletion. Application logs are retained for up to 1 year. Resend email events are retained for up to 1 year.',
       rightsTitle: 'Your Rights',
-      rights: 'You have the right to access, correct, delete, or restrict processing of your data, and to object to or withdraw consent at any time.',
+      rights:
+        'You have the right to access, correct, delete, or restrict processing of your data, and to object to or withdraw consent at any time.',
       contactTitle: 'Contact',
-      contact: 'Contact the data controller at admin@eventnexus.eu for privacy requests.',
+      contact:
+        'Contact the data controller at admin@eventnexus.eu for privacy requests.',
       lastUpdated: 'Last updated: August 2026',
-      analyticsText: 'This site uses privacy-first analytics to understand usage.',
+      analyticsText:
+        'This site uses privacy-first analytics to understand usage.',
       accept: 'Accept',
       decline: 'Decline',
     },
@@ -1063,8 +1089,10 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Сообщение должно содержать не менее 10 символов.',
       somethingWrong: 'Что-то пошло не так. Пожалуйста, попробуйте снова.',
       submissionFailed: 'Ошибка отправки',
-      contactMinLength: 'Please fill in your name, a valid email, and a message.',
-      contactRequired: 'Please fill in your name, a valid email, and a message.',
+      contactMinLength:
+        'Please fill in your name, a valid email, and a message.',
+      contactRequired:
+        'Please fill in your name, a valid email, and a message.',
     },
     ui: {
       includes: 'Включает',
@@ -1089,7 +1117,8 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       problem: {
         eyebrow: 'Проблема',
-        headline: 'Хорошие идеи часто застревают до того, как становятся реальными продуктами.',
+        headline:
+          'Хорошие идеи часто застревают до того, как становятся реальными продуктами.',
         description:
           'Превращение идеи в работающую платформу может быстро усложниться. Фронтенд, бэкенд, база данных, учётные записи, админ-панели, платежи, интеграции, хостинг и понятный путь запуска. Eventnexus объединяет все эти части в один структурированный процесс.',
       },
@@ -1106,19 +1135,23 @@ export const translations: Record<Language, TranslationKeys> = {
         steps: [
           {
             title: 'Отправьте идею',
-            description: 'Начните с пошаговой формы, где описываются тип решения, функции, сроки и бюджет.',
+            description:
+              'Начните с пошаговой формы, где описываются тип решения, функции, сроки и бюджет.',
           },
           {
             title: 'Сформируйте объём',
-            description: 'Eventnexus анализирует запрос и превращает идею в практичный план разработки.',
+            description:
+              'Eventnexus анализирует запрос и превращает идею в практичный план разработки.',
           },
           {
             title: 'Постройте продукт',
-            description: 'Фронтенд, бэкенд, база данных, платежи и админ-инструменты создаются по мере необходимости.',
+            description:
+              'Фронтенд, бэкенд, база данных, платежи и админ-инструменты создаются по мере необходимости.',
           },
           {
             title: 'Запустите и улучшайте',
-            description: 'Продукт разворачивается, подключается к нужному домену и улучшается по итерациям.',
+            description:
+              'Продукт разворачивается, подключается к нужному домену и улучшается по итерациям.',
           },
         ],
       },
@@ -1131,8 +1164,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       intakeCta: {
         heading: 'Есть идея платформы, портала, инструмента или сайта?',
-        body:
-          'Вам не нужна готовая спецификация. Начните с того, что знаете: идея, для кого она, что должна делать и какой результат вы хотите получить. Структурированная форма запроса поможет превратить это в первую версию реализуемого плана проекта.',
+        body: 'Вам не нужна готовая спецификация. Начните с того, что знаете: идея, для кого она, что должна делать и какой результат вы хотите получить. Структурированная форма запроса поможет превратить это в первую версию реализуемого плана проекта.',
         primaryCta: 'Начать запрос проекта',
       },
     },
@@ -1174,8 +1206,7 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       intakeCta: {
         heading: 'Есть идея платформы, портала, инструмента или сайта?',
-        body:
-          'Вам не нужна готовая спецификация. Начните с того, что знаете: идея, для кого она, что должна делать и какой результат вы хотите получить. Структурированная форма запроса поможет превратить это в первую версию реализуемого плана проекта.',
+        body: 'Вам не нужна готовая спецификация. Начните с того, что знаете: идея, для кого она, что должна делать и какой результат вы хотите получить. Структурированная форма запроса поможет превратить это в первую версию реализуемого плана проекта.',
         primaryCta: 'Начать запрос проекта',
       },
     },
@@ -1210,12 +1241,27 @@ export const translations: Record<Language, TranslationKeys> = {
           { id: 'landing_page', label: 'Лендинг' },
           { id: 'saas_platform', label: 'SaaS-платформа' },
           { id: 'customer_portal', label: 'Клиентский портал' },
-          { id: 'booking_request_platform', label: 'Платформа бронирования или заявок' },
-          { id: 'internal_business_tool', label: 'Внутренний бизнес-инструмент' },
+          {
+            id: 'booking_request_platform',
+            label: 'Платформа бронирования или заявок',
+          },
+          {
+            id: 'internal_business_tool',
+            label: 'Внутренний бизнес-инструмент',
+          },
           { id: 'admin_dashboard', label: 'Админ-панель' },
-          { id: 'ecommerce_payment_service', label: 'E-commerce или платёжный сервис' },
-          { id: 'ai_workflow_tool', label: 'AI-ассистируемый инструмент рабочего процесса' },
-          { id: 'automation_integration', label: 'Автоматизация или интеграция' },
+          {
+            id: 'ecommerce_payment_service',
+            label: 'E-commerce или платёжный сервис',
+          },
+          {
+            id: 'ai_workflow_tool',
+            label: 'AI-ассистируемый инструмент рабочего процесса',
+          },
+          {
+            id: 'automation_integration',
+            label: 'Автоматизация или интеграция',
+          },
           { id: 'not_sure_yet', label: 'Пока не уверен' },
           { id: 'other', label: 'Другое' },
         ],
@@ -1223,17 +1269,26 @@ export const translations: Record<Language, TranslationKeys> = {
           { id: 'public_pages', label: 'Публичные страницы' },
           { id: 'user_accounts', label: 'Аккаунты пользователей' },
           { id: 'login_registration', label: 'Вход и регистрация' },
-          { id: 'user_roles_permissions', label: 'Роли или разрешения пользователей' },
+          {
+            id: 'user_roles_permissions',
+            label: 'Роли или разрешения пользователей',
+          },
           { id: 'admin_dashboard', label: 'Админ-панель' },
           { id: 'customer_dashboard', label: 'Панель клиента' },
           { id: 'booking_scheduling', label: 'Бронирование или расписание' },
-          { id: 'request_quote_forms', label: 'Формы заявок или коммерческих предложений' },
+          {
+            id: 'request_quote_forms',
+            label: 'Формы заявок или коммерческих предложений',
+          },
           { id: 'file_uploads', label: 'Загрузка файлов' },
           { id: 'payments_subscriptions', label: 'Платежи или подписки' },
           { id: 'email_notifications', label: 'Email уведомления' },
           { id: 'crm_lead_workflow', label: 'CRM или воркфлоу лидов' },
           { id: 'analytics_reporting', label: 'Аналитика или отчётность' },
-          { id: 'map_location_features', label: 'Карты или функции геолокации' },
+          {
+            id: 'map_location_features',
+            label: 'Карты или функции геолокации',
+          },
           { id: 'ai_features', label: 'AI-помощь' },
           { id: 'third_party_integrations', label: 'Сторонние интеграции' },
           { id: 'multilingual_support', label: 'Мультиязычная поддержка' },
@@ -1251,7 +1306,10 @@ export const translations: Record<Language, TranslationKeys> = {
           { id: 'deployment_hosting', label: 'Развёртывание и хостинг' },
           { id: 'domain_setup', label: 'Настройка домена' },
           { id: 'maintenance', label: 'Поддержка после запуска' },
-          { id: 'technical_planning', label: 'Только техническое планирование' },
+          {
+            id: 'technical_planning',
+            label: 'Только техническое планирование',
+          },
           { id: 'not_sure_yet', label: 'Пока не уверен' },
         ],
         timelineOptions: [
@@ -1275,8 +1333,14 @@ export const translations: Record<Language, TranslationKeys> = {
           { id: 'idea_only', label: 'Только идея' },
           { id: 'rough_plan', label: 'Есть приблизительный план' },
           { id: 'design_spec', label: 'Есть дизайн или спецификация' },
-          { id: 'existing_improvement', label: 'Существующий сайт или приложение нуждается в улучшении' },
-          { id: 'existing_new_features', label: 'Существующий продукт нуждается в новых функциях' },
+          {
+            id: 'existing_improvement',
+            label: 'Существующий сайт или приложение нуждается в улучшении',
+          },
+          {
+            id: 'existing_new_features',
+            label: 'Существующий продукт нуждается в новых функциях',
+          },
           { id: 'urgent', label: 'Срочная бизнес-потребность' },
         ],
         integrationOptions: [
@@ -1298,7 +1362,8 @@ export const translations: Record<Language, TranslationKeys> = {
         stepIndicator: 'Шаг {step} из {total}',
         contactOnly: {
           label: 'Только контакт',
-          description: 'Не готовы к полному запросу проекта? Отправьте быстрое сообщение.',
+          description:
+            'Не готовы к полному запросу проекта? Отправьте быстрое сообщение.',
         },
       },
       step1: {
@@ -1321,7 +1386,8 @@ export const translations: Record<Language, TranslationKeys> = {
         projectType: 'Тип проекта',
         projectTypePlaceholder: 'Выберите тип проекта',
         projectTitle: 'Краткое название проекта',
-        projectTitlePlaceholder: 'Внутренний инструмент бронирования для службы поддержки',
+        projectTitlePlaceholder:
+          'Внутренний инструмент бронирования для службы поддержки',
       },
       step3: {
         legend: 'Описание идеи',
@@ -1330,11 +1396,14 @@ export const translations: Record<Language, TranslationKeys> = {
         whatBuildPlaceholder:
           'Опишите идею, основную цель и то, как будет выглядеть успех после запуска.',
         whoWillUse: 'Кто будет использовать?',
-        whoWillUsePlaceholder: 'Владельцы малого бизнеса, агенты поддержки, конечные клиенты',
+        whoWillUsePlaceholder:
+          'Владельцы малого бизнеса, агенты поддержки, конечные клиенты',
         problemSolve: 'Какую проблему это должно решить?',
-        problemSolvePlaceholder: 'Текущий ручной процесс, отсутствие инструмента или неудовлетворённая бизнес-потребность.',
+        problemSolvePlaceholder:
+          'Текущий ручной процесс, отсутствие инструмента или неудовлетворённая бизнес-потребность.',
         desiredOutcome: 'Что должно произойти после использования?',
-        desiredOutcomePlaceholder: 'Бронирование завершено, лид захвачен, отчёт экспортирован, согласие отправлено.',
+        desiredOutcomePlaceholder:
+          'Бронирование завершено, лид захвачен, отчёт экспортирован, согласие отправлено.',
         minLengthHint:
           'Пожалуйста, включите хотя бы несколько предложений, чтобы Eventnexus мог понять объём.',
       },
@@ -1350,7 +1419,8 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       step6: {
         legend: 'Сроки и бюджет',
-        description: 'Помогите Eventnexus понять срочность и соответствие проекту.',
+        description:
+          'Помогите Eventnexus понять срочность и соответствие проекту.',
         timeline: 'Предпочтительные сроки',
         timelinePlaceholder: 'Выберите сроки',
         budget: 'Бюджетный диапазон',
@@ -1427,21 +1497,29 @@ export const translations: Record<Language, TranslationKeys> = {
       controllerAddress: 'Пылтсамаа, Эстония',
       controllerEmail: 'admin@eventnexus.eu',
       purposesTitle: 'Цели',
-      purposes: 'Мы обрабатываем персональные данные для обработки запросов проектов, ответов на сообщения, работы этого сайта и отправки уведомлений по email.',
+      purposes:
+        'Мы обрабатываем персональные данные для обработки запросов проектов, ответов на сообщения, работы этого сайта и отправки уведомлений по email.',
       legalBasesTitle: 'Правовые основы',
-      legalBases: 'Обработка основана на вашем согласии, договорной необходимости или нашем законном интересе в работе этого сайта и оценке запросов проектов.',
+      legalBases:
+        'Обработка основана на вашем согласии, договорной необходимости или нашем законном интересе в работе этого сайта и оценке запросов проектов.',
       processorsTitle: 'Процессоры',
-      processors: 'Мы используем Supabase (ЕС) для хранения лидов, Resend для доставки email и Cloudflare для хостинга и приватной аналитики.',
+      processors:
+        'Мы используем Supabase (ЕС) для хранения лидов, Resend для доставки email и Cloudflare для хостинга и приватной аналитики.',
       transfersTitle: 'Передачи',
-      transfers: 'Данные могут передаваться процессорам в ЕС и США при надлежащих гарантиях, включая стандартные договорные условия.',
+      transfers:
+        'Данные могут передаваться процессорам в ЕС и США при надлежащих гарантиях, включая стандартные договорные условия.',
       retentionTitle: 'Хранение',
-      retention: 'Запросы проектов хранятся до 3 лет или до вашего запроса на удаление. Журналы приложения хранятся до 1 года. События email хранятся до 1 года.',
+      retention:
+        'Запросы проектов хранятся до 3 лет или до вашего запроса на удаление. Журналы приложения хранятся до 1 года. События email хранятся до 1 года.',
       rightsTitle: 'Ваши права',
-      rights: 'Вы имеете право на доступ, исправление, удаление или ограничение обработки ваших данных, а также на возражение или отзыв согласия в любое время.',
+      rights:
+        'Вы имеете право на доступ, исправление, удаление или ограничение обработки ваших данных, а также на возражение или отзыв согласия в любое время.',
       contactTitle: 'Контакт',
-      contact: 'Свяжитесь с контролёром данных по адресу admin@eventnexus.eu для запросов, связанных с конфиденциальностью.',
+      contact:
+        'Свяжитесь с контролёром данных по адресу admin@eventnexus.eu для запросов, связанных с конфиденциальностью.',
       lastUpdated: 'Последнее обновление: август 2026',
-      analyticsText: 'Этот сайт использует приватную аналитику для понимания использования.',
+      analyticsText:
+        'Этот сайт использует приватную аналитику для понимания использования.',
       accept: 'Принять',
       decline: 'Отклонить',
     },
@@ -1468,13 +1546,17 @@ export const translations: Record<Language, TranslationKeys> = {
       errorTitle: 'Bitte beheben Sie die folgenden Fehler:',
       consentText:
         'Ich verstehe, dass diese Anfrage der Projekterkundung dient und kein verbindliches Angebot darstellt.',
-      consentError: 'Bitte bestätigen Sie dieses Einverständnis vor dem Absenden.',
+      consentError:
+        'Bitte bestätigen Sie dieses Einverständnis vor dem Absenden.',
       emailError: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
       messageMinLength: 'Die Nachricht muss mindestens 10 Zeichen enthalten.',
-      somethingWrong: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
+      somethingWrong:
+        'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
       submissionFailed: 'Übermittlung fehlgeschlagen',
-      contactMinLength: 'Please fill in your name, a valid email, and a message.',
-      contactRequired: 'Please fill in your name, a valid email, and a message.',
+      contactMinLength:
+        'Please fill in your name, a valid email, and a message.',
+      contactRequired:
+        'Please fill in your name, a valid email, and a message.',
     },
     ui: {
       includes: 'Beinhaltet',
@@ -1487,7 +1569,8 @@ export const translations: Record<Language, TranslationKeys> = {
     },
     home: {
       hero: {
-        headline: 'Eventnexus baut Ihre Idee in eine funktionierende Webplattform.',
+        headline:
+          'Eventnexus baut Ihre Idee in eine funktionierende Webplattform.',
         supporting1:
           'Vom ersten Konzept bis zum Start erstellt Eventnexus schlüsselfertige digitale Lösungen: Websites, SaaS-Plattformen, Kundenportale, Backend-Systeme, Zahlungsflüsse, Automatisierungen und Deployment.',
         supporting2:
@@ -1499,7 +1582,8 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       problem: {
         eyebrow: 'Problem',
-        headline: 'Gute Ideen bleiben oft stecken, bevor sie zu echten Produkten werden.',
+        headline:
+          'Gute Ideen bleiben oft stecken, bevor sie zu echten Produkten werden.',
         description:
           'Die Umsetzung einer Idee in eine funktionierende Plattform kann schnell kompliziert werden. Frontend, Backend, Datenbank, Benutzerkonten, Admin-Tools, Zahlungen, Integrationen, Hosting und ein klarer Startpfad. Eventnexus bringt diese Teile in einem strukturierten Lieferprozess zusammen.',
       },
@@ -1516,19 +1600,23 @@ export const translations: Record<Language, TranslationKeys> = {
         steps: [
           {
             title: 'Senden Sie Ihre Idee',
-            description: 'Beginnen Sie mit einem geführten Projektformular, das Lösungsart, Funktionen, Zeitplan und Budget beschreibt.',
+            description:
+              'Beginnen Sie mit einem geführten Projektformular, das Lösungsart, Funktionen, Zeitplan und Budget beschreibt.',
           },
           {
             title: 'Formen Sie den Umfang',
-            description: 'Eventnexus prüft die Anfrage und verwandelt die Idee in einen praktischen Bauplan.',
+            description:
+              'Eventnexus prüft die Anfrage und verwandelt die Idee in einen praktischen Bauplan.',
           },
           {
             title: 'Bauen Sie das Produkt',
-            description: 'Frontend, Backend, Datenbank, Zahlungen und Admin-Tools werden nach Bedarf erstellt.',
+            description:
+              'Frontend, Backend, Datenbank, Zahlungen und Admin-Tools werden nach Bedarf erstellt.',
           },
           {
             title: 'Starten und verbessern',
-            description: 'Das Produkt wird bereitgestellt, an die richtige Domain angeschlossen und iterativ verbessert.',
+            description:
+              'Das Produkt wird bereitgestellt, an die richtige Domain angeschlossen und iterativ verbessert.',
           },
         ],
       },
@@ -1540,15 +1628,16 @@ export const translations: Record<Language, TranslationKeys> = {
         items: [],
       },
       intakeCta: {
-        heading: 'Haben Sie eine Idee für eine Plattform, ein Portal, ein Tool oder eine Website?',
-        body:
-          'Sie brauchen keine fertige Spezifikation. Fangen Sie mit dem an, was Sie wissen: die Idee, für wen sie ist, was sie tun soll und welches Ergebnis Sie wollen. Das strukturierte Anfrageformular hilft, daraus die erste Version eines realisierbaren Projektplans zu machen.',
+        heading:
+          'Haben Sie eine Idee für eine Plattform, ein Portal, ein Tool oder eine Website?',
+        body: 'Sie brauchen keine fertige Spezifikation. Fangen Sie mit dem an, was Sie wissen: die Idee, für wen sie ist, was sie tun soll und welches Ergebnis Sie wollen. Das strukturierte Anfrageformular hilft, daraus die erste Version eines realisierbaren Projektplans zu machen.',
         primaryCta: 'Projektanfrage starten',
       },
     },
     services: {
       hero: {
-        headline: 'Vollständige Web-Plattformentwicklung von der Idee bis zum Start.',
+        headline:
+          'Vollständige Web-Plattformentwicklung von der Idee bis zum Start.',
         description1:
           'Eventnexus hilft Einzelpersonen, Gründern, Teams und Unternehmen, Ideen in funktionierende digitale Produkte zu verwandeln. Die Dienstleistung kann den gesamten Weg abdecken: Projektstrukturierung, UX-Planung, Frontend, Backend, Datenbanken, Authentifizierung, Zahlungen, Integrationen, Deployment und zukünftige Verbesserungen.',
         description2:
@@ -1583,9 +1672,9 @@ export const translations: Record<Language, TranslationKeys> = {
         cta: 'Projektanfrage starten',
       },
       intakeCta: {
-        heading: 'Haben Sie eine Idee für eine Plattform, ein Portal, ein Tool oder eine Website?',
-        body:
-          'Sie brauchen keine fertige Spezifikation. Fangen Sie mit dem an, was Sie wissen: die Idee, für wen sie ist, was sie tun soll und welches Ergebnis Sie wollen. Das strukturierte Anfrageformular hilft, daraus die erste Version eines realisierbaren Projektplans zu machen.',
+        heading:
+          'Haben Sie eine Idee für eine Plattform, ein Portal, ein Tool oder eine Website?',
+        body: 'Sie brauchen keine fertige Spezifikation. Fangen Sie mit dem an, was Sie wissen: die Idee, für wen sie ist, was sie tun soll und welches Ergebnis Sie wollen. Das strukturierte Anfrageformular hilft, daraus die erste Version eines realisierbaren Projektplans zu machen.',
         primaryCta: 'Projektanfrage starten',
       },
     },
@@ -1620,12 +1709,21 @@ export const translations: Record<Language, TranslationKeys> = {
           { id: 'landing_page', label: 'Landingpage' },
           { id: 'saas_platform', label: 'SaaS-Plattform' },
           { id: 'customer_portal', label: 'Kundenportal' },
-          { id: 'booking_request_platform', label: 'Buchungs- oder Anfrageplattform' },
+          {
+            id: 'booking_request_platform',
+            label: 'Buchungs- oder Anfrageplattform',
+          },
           { id: 'internal_business_tool', label: 'Internes Geschäfts-Tool' },
           { id: 'admin_dashboard', label: 'Admin-Dashboard' },
-          { id: 'ecommerce_payment_service', label: 'E-Commerce- oder Zahlungsservice' },
+          {
+            id: 'ecommerce_payment_service',
+            label: 'E-Commerce- oder Zahlungsservice',
+          },
           { id: 'ai_workflow_tool', label: 'AI-gestütztes Workflow-Tool' },
-          { id: 'automation_integration', label: 'Automatisierung oder Integration' },
+          {
+            id: 'automation_integration',
+            label: 'Automatisierung oder Integration',
+          },
           { id: 'not_sure_yet', label: 'Noch nicht sicher' },
           { id: 'other', label: 'Andere' },
         ],
@@ -1633,19 +1731,31 @@ export const translations: Record<Language, TranslationKeys> = {
           { id: 'public_pages', label: 'Öffentliche Seiten' },
           { id: 'user_accounts', label: 'Benutzerkonten' },
           { id: 'login_registration', label: 'Anmeldung und Registrierung' },
-          { id: 'user_roles_permissions', label: 'Benutzerrollen oder -berechtigungen' },
+          {
+            id: 'user_roles_permissions',
+            label: 'Benutzerrollen oder -berechtigungen',
+          },
           { id: 'admin_dashboard', label: 'Admin-Dashboard' },
           { id: 'customer_dashboard', label: 'Kunden-Dashboard' },
           { id: 'booking_scheduling', label: 'Buchung oder Zeitplanung' },
-          { id: 'request_quote_forms', label: 'Angebots- oder Anfrageformulare' },
+          {
+            id: 'request_quote_forms',
+            label: 'Angebots- oder Anfrageformulare',
+          },
           { id: 'file_uploads', label: 'Datei-Uploads' },
           { id: 'payments_subscriptions', label: 'Zahlungen oder Abonnements' },
           { id: 'email_notifications', label: 'E-Mail-Benachrichtigungen' },
           { id: 'crm_lead_workflow', label: 'CRM- oder Lead-Workflow' },
           { id: 'analytics_reporting', label: 'Analytik oder Berichte' },
-          { id: 'map_location_features', label: 'Kartierung oder Standortfunktionen' },
+          {
+            id: 'map_location_features',
+            label: 'Kartierung oder Standortfunktionen',
+          },
           { id: 'ai_features', label: 'AI-gestützte Funktionen' },
-          { id: 'third_party_integrations', label: 'Drittanbieter-Integrationen' },
+          {
+            id: 'third_party_integrations',
+            label: 'Drittanbieter-Integrationen',
+          },
           { id: 'multilingual_support', label: 'Mehrsprachige Unterstützung' },
           { id: 'not_sure_yet', label: 'Noch nicht sicher' },
         ],
@@ -1685,8 +1795,14 @@ export const translations: Record<Language, TranslationKeys> = {
           { id: 'idea_only', label: 'Nur Idee' },
           { id: 'rough_plan', label: 'Grober Plan existiert' },
           { id: 'design_spec', label: 'Design oder Spezifikation existiert' },
-          { id: 'existing_improvement', label: 'Vorhandene Website oder App muss verbessert werden' },
-          { id: 'existing_new_features', label: 'Vorhandenes Produkt braucht neue Funktionen' },
+          {
+            id: 'existing_improvement',
+            label: 'Vorhandene Website oder App muss verbessert werden',
+          },
+          {
+            id: 'existing_new_features',
+            label: 'Vorhandenes Produkt braucht neue Funktionen',
+          },
           { id: 'urgent', label: 'Dringender Geschäftbedarf' },
         ],
         integrationOptions: [
@@ -1708,7 +1824,8 @@ export const translations: Record<Language, TranslationKeys> = {
         stepIndicator: 'Schritt {step} von {total}',
         contactOnly: {
           label: 'Nur Kontakt',
-          description: 'Noch nicht bereit für eine vollständige Projektanfrage? Senden Sie eine kurze Nachricht.',
+          description:
+            'Noch nicht bereit für eine vollständige Projektanfrage? Senden Sie eine kurze Nachricht.',
         },
       },
       step1: {
@@ -1740,27 +1857,34 @@ export const translations: Record<Language, TranslationKeys> = {
         whatBuildPlaceholder:
           'Beschreiben Sie die Idee, das Hauptziel und wie Erfolg nach dem Start aussieht.',
         whoWillUse: 'Wer wird es nutzen?',
-        whoWillUsePlaceholder: 'Kleinunternehmer, Support-Mitarbeiter, Endkunden',
+        whoWillUsePlaceholder:
+          'Kleinunternehmer, Support-Mitarbeiter, Endkunden',
         problemSolve: 'Welches Problem soll es lösen?',
-        problemSolvePlaceholder: 'Aktueller manueller Prozess, fehlendes Tool oder unerfüllter Geschäftsbedarf.',
+        problemSolvePlaceholder:
+          'Aktueller manueller Prozess, fehlendes Tool oder unerfüllter Geschäftsbedarf.',
         desiredOutcome: 'Was soll nach der Nutzung passieren?',
-        desiredOutcomePlaceholder: 'Buchung abgeschlossen, Lead erfasst, Bericht exportiert, Genehmigung gesendet.',
+        desiredOutcomePlaceholder:
+          'Buchung abgeschlossen, Lead erfasst, Bericht exportiert, Genehmigung gesendet.',
         minLengthHint:
           'Bitte fügen Sie mindestens einige Sätze hinzu, damit Eventnexus den Umfang verstehen kann.',
       },
       step4: {
         legend: 'Erforderliche Funktionen',
-        description: 'Wählen Sie die Funktionen aus, die Sie voraussichtlich benötigen.',
+        description:
+          'Wählen Sie die Funktionen aus, die Sie voraussichtlich benötigen.',
         importantFeatures: 'Wichtige Funktionen, nicht aufgelistet',
-        importantFeaturesPlaceholder: 'Fügen Sie alles hinzu, was für das Projekt wichtig ist.',
+        importantFeaturesPlaceholder:
+          'Fügen Sie alles hinzu, was für das Projekt wichtig ist.',
       },
       step5: {
         legend: 'Technische Anforderungen',
-        description: 'Welche Arten von technischer Arbeit benötigt dieses Projekt?',
+        description:
+          'Welche Arten von technischer Arbeit benötigt dieses Projekt?',
       },
       step6: {
         legend: 'Zeitplan und Budget',
-        description: 'Helfen Sie Eventnexus, Dringlichkeit und Projekteignung zu verstehen.',
+        description:
+          'Helfen Sie Eventnexus, Dringlichkeit und Projekteignung zu verstehen.',
         timeline: 'Bevorzugter Zeitplan',
         timelinePlaceholder: 'Wählen Sie einen Zeitplan',
         budget: 'Budgetbereich',
@@ -1784,7 +1908,8 @@ export const translations: Record<Language, TranslationKeys> = {
       step8: {
         legend: 'Überprüfen und senden',
         description: 'Bestätigen Sie die Details vor dem Senden der Anfrage.',
-        confirmDetails: 'Bestätigen Sie die Details vor dem Senden der Anfrage.',
+        confirmDetails:
+          'Bestätigen Sie die Details vor dem Senden der Anfrage.',
         contactLabel: 'Kontakt',
         projectLabel: 'Projekt',
         ideaLabel: 'Idee',
@@ -1837,21 +1962,29 @@ export const translations: Record<Language, TranslationKeys> = {
       controllerAddress: 'Põltsamaa, Estland',
       controllerEmail: 'admin@eventnexus.eu',
       purposesTitle: 'Zwecke',
-      purposes: 'Wir verarbeiten personenbezogene Daten zur Bearbeitung von Projektanfragen, zur Beantwortung von Kontaktnachrichten, zum Betrieb dieser Website und zum Versand von Benachrichtigungs-E-Mails.',
+      purposes:
+        'Wir verarbeiten personenbezogene Daten zur Bearbeitung von Projektanfragen, zur Beantwortung von Kontaktnachrichten, zum Betrieb dieser Website und zum Versand von Benachrichtigungs-E-Mails.',
       legalBasesTitle: 'Rechtsgrundlagen',
-      legalBases: 'Die Verarbeitung basiert auf Ihrer Einwilligung, vertraglicher Notwendigkeit oder unserem berechtigten Interesse am Betrieb dieser Website und der Bewertung von Projektanfragen.',
+      legalBases:
+        'Die Verarbeitung basiert auf Ihrer Einwilligung, vertraglicher Notwendigkeit oder unserem berechtigten Interesse am Betrieb dieser Website und der Bewertung von Projektanfragen.',
       processorsTitle: 'Verarbeiter',
-      processors: 'Wir nutzen Supabase (EU) zur Speicherung von Leads, Resend für den E-Mail-Versand und Cloudflare für Hosting und datenschutzfreundliche Analysen.',
+      processors:
+        'Wir nutzen Supabase (EU) zur Speicherung von Leads, Resend für den E-Mail-Versand und Cloudflare für Hosting und datenschutzfreundliche Analysen.',
       transfersTitle: 'Übermittlungen',
-      transfers: 'Daten können an Verarbeiter in der EU und den USA unter angemessenen Garantien, einschliesslich Standardvertragsklauseln, übermittelt werden.',
+      transfers:
+        'Daten können an Verarbeiter in der EU und den USA unter angemessenen Garantien, einschliesslich Standardvertragsklauseln, übermittelt werden.',
       retentionTitle: 'Aufbewahrung',
-      retention: 'Projektleads werden bis zu 3 Jahre lang oder bis zu Ihrer Löschanfrage aufbewahrt. Anwendungsprotokolle werden bis zu 1 Jahr lang aufbewahrt. Resend-E-Mail-Ereignisse werden bis zu 1 Jahr lang aufbewahrt.',
+      retention:
+        'Projektleads werden bis zu 3 Jahre lang oder bis zu Ihrer Löschanfrage aufbewahrt. Anwendungsprotokolle werden bis zu 1 Jahr lang aufbewahrt. Resend-E-Mail-Ereignisse werden bis zu 1 Jahr lang aufbewahrt.',
       rightsTitle: 'Ihre Rechte',
-      rights: 'Sie haben das Recht auf Zugriff, Berichtigung, Löschung oder Einschränkung der Verarbeitung Ihrer Daten sowie das Recht, der Verarbeitung zu widersprechen oder Ihre Einwilligung jederzeit zu widerrufen.',
+      rights:
+        'Sie haben das Recht auf Zugriff, Berichtigung, Löschung oder Einschränkung der Verarbeitung Ihrer Daten sowie das Recht, der Verarbeitung zu widersprechen oder Ihre Einwilligung jederzeit zu widerrufen.',
       contactTitle: 'Kontakt',
-      contact: 'Wenden Sie sich an den Verantwortlichen unter admin@eventnexus.eu für datenschutzbezogene Anfragen.',
+      contact:
+        'Wenden Sie sich an den Verantwortlichen unter admin@eventnexus.eu für datenschutzbezogene Anfragen.',
       lastUpdated: 'Zuletzt aktualisiert: August 2026',
-      analyticsText: 'Diese Website verwendet datenschutzfreundliche Analysen, um die Nutzung zu verstehen.',
+      analyticsText:
+        'Diese Website verwendet datenschutzfreundliche Analysen, um die Nutzung zu verstehen.',
       accept: 'Akzeptieren',
       decline: 'Ablehnen',
     },
@@ -1883,8 +2016,10 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Viestissä on oltava vähintään 10 merkkiä.',
       somethingWrong: 'Jokin meni pieleen. Yritä uudelleen.',
       submissionFailed: 'Lähetys epäonnistui',
-      contactMinLength: 'Please fill in your name, a valid email, and a message.',
-      contactRequired: 'Please fill in your name, a valid email, and a message.',
+      contactMinLength:
+        'Please fill in your name, a valid email, and a message.',
+      contactRequired:
+        'Please fill in your name, a valid email, and a message.',
     },
     ui: {
       includes: 'Sisältää',
@@ -1909,7 +2044,8 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       problem: {
         eyebrow: 'Ongelma',
-        headline: 'Hyvät ideat juuttuvat usein ennen kuin ne muuttuvat todellisiksi tuotteiksi.',
+        headline:
+          'Hyvät ideat juuttuvat usein ennen kuin ne muuttuvat todellisiksi tuotteiksi.',
         description:
           'Idean muuttaminen toimivaksi alustaksi voi nopeasti mutkistua. Frontend, backend, tietokanta, käyttäjätilit, hallintatyökalut, maksut, integraatiot, hosting ja selkeä käynnistyspolku. Eventnexus yhdistää nämä osat yhteen jäsenneltyun toimitustapahtumaan.',
       },
@@ -1926,19 +2062,23 @@ export const translations: Record<Language, TranslationKeys> = {
         steps: [
           {
             title: 'Lähetä ideasi',
-            description: 'Aloita opastetulla projektilomakkeella, jossa kuvataan ratkaisun tyyppi, ominaisuudet, aikataulu ja budjetti.',
+            description:
+              'Aloita opastetulla projektilomakkeella, jossa kuvataan ratkaisun tyyppi, ominaisuudet, aikataulu ja budjetti.',
           },
           {
             title: 'Muotoile laajuus',
-            description: 'Eventnexus arvioi pyynnön ja muuttaa idean käytännölliseksi rakennussuunnitelmaksi.',
+            description:
+              'Eventnexus arvioi pyynnön ja muuttaa idean käytännölliseksi rakennussuunnitelmaksi.',
           },
           {
             title: 'Rakenna tuote',
-            description: 'Frontend, backend, tietokanta, maksut ja hallintatyökalut rakennetaan tarpeen mukaan.',
+            description:
+              'Frontend, backend, tietokanta, maksut ja hallintatyökalut rakennetaan tarpeen mukaan.',
           },
           {
             title: 'Käynnistä ja paranna',
-            description: 'Tuote otetaan käyttöön, yhdistetään oikeaan domainiin ja parannetaan iteratiivisesti.',
+            description:
+              'Tuote otetaan käyttöön, yhdistetään oikeaan domainiin ja parannetaan iteratiivisesti.',
           },
         ],
       },
@@ -1950,9 +2090,9 @@ export const translations: Record<Language, TranslationKeys> = {
         items: [],
       },
       intakeCta: {
-        heading: 'Onko sinulla idea alustasta, portaalista, työkalusta tai sivustosta?',
-        body:
-          'Tarvitset valmiita määrityksiä. Aloita tiedostamasi asioilla: idea, kenelle se on, mitä sen pitäisi tehdä ja mikä tulos on tavoitteena. Jäsennelty pyyntölomake auttaa muuttamaan tämän ensimmäiseksi versioksi toteutettavasta projektisuunnitelmasta.',
+        heading:
+          'Onko sinulla idea alustasta, portaalista, työkalusta tai sivustosta?',
+        body: 'Tarvitset valmiita määrityksiä. Aloita tiedostamasi asioilla: idea, kenelle se on, mitä sen pitäisi tehdä ja mikä tulos on tavoitteena. Jäsennelty pyyntölomake auttaa muuttamaan tämän ensimmäiseksi versioksi toteutettavasta projektisuunnitelmasta.',
         primaryCta: 'Aloita projektipyyntö',
       },
     },
@@ -1993,9 +2133,9 @@ export const translations: Record<Language, TranslationKeys> = {
         cta: 'Aloita projektipyyntö',
       },
       intakeCta: {
-        heading: 'Onko sinulla idea alustasta, portaalista, työkalusta tai sivustosta?',
-        body:
-          'Tarvitset valmiita määrityksiä. Aloita tiedostamasi asioilla: idea, kenelle se on, mitä sen pitäisi tehdä ja mikä tulos on tavoitteena. Jäsennelty pyyntölomake auttaa muuttamaan tämän ensimmäiseksi versioksi toteutettavasta projektisuunnitelmasta.',
+        heading:
+          'Onko sinulla idea alustasta, portaalista, työkalusta tai sivustosta?',
+        body: 'Tarvitset valmiita määrityksiä. Aloita tiedostamasi asioilla: idea, kenelle se on, mitä sen pitäisi tehdä ja mikä tulos on tavoitteena. Jäsennelty pyyntölomake auttaa muuttamaan tämän ensimmäiseksi versioksi toteutettavasta projektisuunnitelmasta.',
         primaryCta: 'Aloita projektipyyntö',
       },
     },
@@ -2031,9 +2171,15 @@ export const translations: Record<Language, TranslationKeys> = {
           { id: 'saas_platform', label: 'SaaS-alusta' },
           { id: 'customer_portal', label: 'Asiakasportaali' },
           { id: 'booking_request_platform', label: 'Varaus- tai pyyntöalusta' },
-          { id: 'internal_business_tool', label: 'Sisäinen liiketoimintatyökalu' },
+          {
+            id: 'internal_business_tool',
+            label: 'Sisäinen liiketoimintatyökalu',
+          },
           { id: 'admin_dashboard', label: 'Admin-paneeli' },
-          { id: 'ecommerce_payment_service', label: 'Sija- tai maksutarve omaava palvelu' },
+          {
+            id: 'ecommerce_payment_service',
+            label: 'Sija- tai maksutarve omaava palvelu',
+          },
           { id: 'ai_workflow_tool', label: 'Tekoälyavusteinen työkalu' },
           { id: 'automation_integration', label: 'Automaatio tai integraatio' },
           { id: 'not_sure_yet', label: 'Ei vielä varma' },
@@ -2042,8 +2188,14 @@ export const translations: Record<Language, TranslationKeys> = {
         featureOptions: [
           { id: 'public_pages', label: 'Julkaisemattomat sivut' },
           { id: 'user_accounts', label: 'Käyttäjätilejä' },
-          { id: 'login_registration', label: 'Kirjautuminen ja rekisteröityminen' },
-          { id: 'user_roles_permissions', label: 'Käyttäjäroolit tai -oikeudet' },
+          {
+            id: 'login_registration',
+            label: 'Kirjautuminen ja rekisteröityminen',
+          },
+          {
+            id: 'user_roles_permissions',
+            label: 'Käyttäjäroolit tai -oikeudet',
+          },
           { id: 'admin_dashboard', label: 'Admin-paneeli' },
           { id: 'customer_dashboard', label: 'Asiakaspaneeli' },
           { id: 'booking_scheduling', label: 'Varaus tai ajoitus' },
@@ -2053,9 +2205,15 @@ export const translations: Record<Language, TranslationKeys> = {
           { id: 'email_notifications', label: 'Sähköposti-ilmoitukset' },
           { id: 'crm_lead_workflow', label: 'CRM- tai liidutie' },
           { id: 'analytics_reporting', label: 'Analytiikka tai raportit' },
-          { id: 'map_location_features', label: ' Kartta- tai sijainti-ominaisuudet' },
+          {
+            id: 'map_location_features',
+            label: ' Kartta- tai sijainti-ominaisuudet',
+          },
           { id: 'ai_features', label: 'Tekoälyominaisuudet' },
-          { id: 'third_party_integrations', label: 'Kolmannen osapuolen integraatiot' },
+          {
+            id: 'third_party_integrations',
+            label: 'Kolmannen osapuolen integraatiot',
+          },
           { id: 'multilingual_support', label: 'Monikielinen tuki' },
           { id: 'not_sure_yet', label: 'Ei vielä varma' },
         ],
@@ -2095,8 +2253,14 @@ export const translations: Record<Language, TranslationKeys> = {
           { id: 'idea_only', label: 'Vain-ideainen' },
           { id: 'rough_plan', label: 'Rough-suunnitelma on olemassa' },
           { id: 'design_spec', label: 'Muotoilu tai määrittely on olemassa' },
-          { id: 'existing_improvement', label: 'Olemassa oleva sivusto tai sovellus tänne parannettavaksi' },
-          { id: 'existing_new_features', label: 'Olemassa olev tuote tarvitsee uusia ominaisuuksia' },
+          {
+            id: 'existing_improvement',
+            label: 'Olemassa oleva sivusto tai sovellus tänne parannettavaksi',
+          },
+          {
+            id: 'existing_new_features',
+            label: 'Olemassa olev tuote tarvitsee uusia ominaisuuksia',
+          },
           { id: 'urgent', label: ' kiireellinen liiketoiminta tarpe' },
         ],
         integrationOptions: [
@@ -2118,7 +2282,8 @@ export const translations: Record<Language, TranslationKeys> = {
         stepIndicator: 'Vaihe {step} / {total}',
         contactOnly: {
           label: 'Vain yhteystiedot',
-          description: 'Etkö ole valmis täydelliseen projektipyyntöön? Lähetä pikaviesti.',
+          description:
+            'Etkö ole valmis täydelliseen projektipyyntöön? Lähetä pikaviesti.',
         },
       },
       step1: {
@@ -2152,9 +2317,11 @@ export const translations: Record<Language, TranslationKeys> = {
         whoWillUse: 'Kuka sitä käyttää?',
         whoWillUsePlaceholder: 'Pienyrittäjät, tukiedustajat, loppuasiakkaat',
         problemSolve: 'Mitä ongelmaa sen pitäisi ratkaista?',
-        problemSolvePlaceholder: 'Nykyinen manuaalinen prosessi, puuttuva työkalu tai täyttymätön liiketoimintatarve.',
+        problemSolvePlaceholder:
+          'Nykyinen manuaalinen prosessi, puuttuva työkalu tai täyttymätön liiketoimintatarve.',
         desiredOutcome: 'Mitä pitäisi tapahtua käytön jälkeen?',
-        desiredOutcomePlaceholder: 'Varaus valmis, lead kiinni, raportti viety, hyväksyntä lähetetty.',
+        desiredOutcomePlaceholder:
+          'Varaus valmis, lead kiinni, raportti viety, hyväksyntä lähetetty.',
         minLengthHint:
           'Lisää vähintään muutama lause, jotta Eventnexus ymmärtää laajuuden.',
       },
@@ -2162,7 +2329,8 @@ export const translations: Record<Language, TranslationKeys> = {
         legend: 'Vaaditut ominaisuudet',
         description: 'Valitse ominaisuudet, joita odotat tarvitsevasi.',
         importantFeatures: 'Tärkeät ominaisuudet, joita ei ole lueteltu',
-        importantFeaturesPlaceholder: 'Lisää kaikki, mikä on tärkeää projektille.',
+        importantFeaturesPlaceholder:
+          'Lisää kaikki, mikä on tärkeää projektille.',
       },
       step5: {
         legend: 'Tekniset tarpeet',
@@ -2170,7 +2338,8 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       step6: {
         legend: 'Aikataulu ja budjetti',
-        description: 'Auta Eventnexusta ymmärtämään kiireellisyys ja projektin sopivuus.',
+        description:
+          'Auta Eventnexusta ymmärtämään kiireellisyys ja projektin sopivuus.',
         timeline: 'Haluttu aikataulu',
         timelinePlaceholder: 'Valitse aikataulu',
         budget: 'Budjetin alue',
@@ -2247,21 +2416,29 @@ export const translations: Record<Language, TranslationKeys> = {
       controllerAddress: 'Põltsamaa, Viro',
       controllerEmail: 'admin@eventnexus.eu',
       purposesTitle: 'Tarkoitukset',
-      purposes: 'Käsittelemme henkilötietoja projektipyyntöjen käsittelyyn, yhteydenottoviestien vastaamiseen, tämän sivuston toimintaan ja ilmoitusviestien lähettämiseen.',
+      purposes:
+        'Käsittelemme henkilötietoja projektipyyntöjen käsittelyyn, yhteydenottoviestien vastaamiseen, tämän sivuston toimintaan ja ilmoitusviestien lähettämiseen.',
       legalBasesTitle: 'Oikeusperusteet',
-      legalBases: 'Käsittely perustuu suostumukseesi, sopimusvälttämättömyyteen tai oikeutettuun etuumme tämän sivuston toiminnassa ja projektipyyntöjen arvioinnissa.',
+      legalBases:
+        'Käsittely perustuu suostumukseesi, sopimusvälttämättömyyteen tai oikeutettuun etuumme tämän sivuston toiminnassa ja projektipyyntöjen arvioinnissa.',
       processorsTitle: 'Käsittelijät',
-      processors: 'Käytämme Supabasea (EU) liidien tallentamiseen, Resendiä sähköpostin lähettämiseen ja Cloudflarea isäntäpalveluun ja yksityisyyteen suuntautuneeseen analytiikkaan.',
+      processors:
+        'Käytämme Supabasea (EU) liidien tallentamiseen, Resendiä sähköpostin lähettämiseen ja Cloudflarea isäntäpalveluun ja yksityisyyteen suuntautuneeseen analytiikkaan.',
       transfersTitle: 'Siirrot',
-      transfers: 'Tietoja saatetaan siirtää käsittelijöille EU:ssa ja Yhdysvalloissa asianmukaisilla suojatoimilla, mukaan lukien standardiset sopimusehdot.',
+      transfers:
+        'Tietoja saatetaan siirtää käsittelijöille EU:ssa ja Yhdysvalloissa asianmukaisilla suojatoimilla, mukaan lukien standardiset sopimusehdot.',
       retentionTitle: 'Säilytys',
-      retention: 'Projektipyynnöt säilytetään enintään 3 vuotta tai kunnes pyydät poistoa. Sovelluksen lokit säilytetään enintään 1 vuosi. Resend-sähköpostitapahtumat säilytetään enintään 1 vuosi.',
+      retention:
+        'Projektipyynnöt säilytetään enintään 3 vuotta tai kunnes pyydät poistoa. Sovelluksen lokit säilytetään enintään 1 vuosi. Resend-sähköpostitapahtumat säilytetään enintään 1 vuosi.',
       rightsTitle: 'Oikeutesi',
-      rights: 'Sinulla on oikeus saada, korjata, poistaa tai rajoittaa tietojesi käsittelyä sekä vastustaa käsittelyä tai peruuttaa suostumuksesi milloin tahansa.',
+      rights:
+        'Sinulla on oikeus saada, korjata, poistaa tai rajoittaa tietojesi käsittelyä sekä vastustaa käsittelyä tai peruuttaa suostumuksesi milloin tahansa.',
       contactTitle: 'Yhteystiedot',
-      contact: 'Ota yhteyttä rekisterinpitäjään osoitteessa admin@eventnexus.eu tietosuojapyyntöjä varten.',
+      contact:
+        'Ota yhteyttä rekisterinpitäjään osoitteessa admin@eventnexus.eu tietosuojapyyntöjä varten.',
       lastUpdated: 'Viimeksi päivitetty: elokuu 2026',
-      analyticsText: 'Tämä sivusto käyttää yksityisyyteen suuntautunutta analytiikkaa käytön ymmärtämiseksi.',
+      analyticsText:
+        'Tämä sivusto käyttää yksityisyyteen suuntautunutta analytiikkaa käytön ymmärtämiseksi.',
       accept: 'Hyväksy',
       decline: 'Hylkää',
     },
@@ -2293,8 +2470,10 @@ export const translations: Record<Language, TranslationKeys> = {
       messageMinLength: 'Sõnum peab olema vähemalt 10 tähemärki.',
       somethingWrong: 'Midagi läks valesti. Palun proovige uuesti.',
       submissionFailed: 'Saatmine ebaõnnestus',
-      contactMinLength: 'Please fill in your name, a valid email, and a message.',
-      contactRequired: 'Please fill in your name, a valid email, and a message.',
+      contactMinLength:
+        'Please fill in your name, a valid email, and a message.',
+      contactRequired:
+        'Please fill in your name, a valid email, and a message.',
     },
     ui: {
       includes: 'Sisaldab',
@@ -2336,19 +2515,23 @@ export const translations: Record<Language, TranslationKeys> = {
         steps: [
           {
             title: 'Saada oma idee',
-            description: 'Alusta juhendatud projekti taotlusvormiga, kus kirjeldad lahenduse tüüpi, funktsioone, ajakava ja eelarvet.',
+            description:
+              'Alusta juhendatud projekti taotlusvormiga, kus kirjeldad lahenduse tüüpi, funktsioone, ajakava ja eelarvet.',
           },
           {
             title: 'Määra ulatus',
-            description: 'Eventnexus vaatab taotluse läbi ja muudab idee praktiliseks ehitusplaaniks.',
+            description:
+              'Eventnexus vaatab taotluse läbi ja muudab idee praktiliseks ehitusplaaniks.',
           },
           {
             title: 'Ehita toode',
-            description: 'Esikülg, tagakülg, andmebaas, maksed ja admin tööriistad luuakse vastavalt vajadusele.',
+            description:
+              'Esikülg, tagakülg, andmebaas, maksed ja admin tööriistad luuakse vastavalt vajadusele.',
           },
           {
             title: 'Käivita ja paranda',
-            description: 'Toode võetakse kasutusele, ühendatakse õige domeeniga ja parendatakse iteratiivselt.',
+            description:
+              'Toode võetakse kasutusele, ühendatakse õige domeeniga ja parendatakse iteratiivselt.',
           },
         ],
       },
@@ -2360,9 +2543,9 @@ export const translations: Record<Language, TranslationKeys> = {
         items: [],
       },
       intakeCta: {
-        heading: 'On teil idee platvormi, portaali, tööriista või veebisaidi jaoks?',
-        body:
-          'Teil pole vaja valmis spetsifikatsiooni. Alustage teadmistehooga: idee, kellele see on, mida peaks tegema ja millise tulemuse soovite. Struktureeritud taotlusvorm aitab sellest teha esimese versiooni teostatava projekti plaani.',
+        heading:
+          'On teil idee platvormi, portaali, tööriista või veebisaidi jaoks?',
+        body: 'Teil pole vaja valmis spetsifikatsiooni. Alustage teadmistehooga: idee, kellele see on, mida peaks tegema ja millise tulemuse soovite. Struktureeritud taotlusvorm aitab sellest teha esimese versiooni teostatava projekti plaani.',
         primaryCta: 'Alusta projekti taotlus',
       },
     },
@@ -2403,9 +2586,9 @@ export const translations: Record<Language, TranslationKeys> = {
         cta: 'Alusta projekti taotlus',
       },
       intakeCta: {
-        heading: 'On teil idee platvormi, portaali, tööriista või veebisaidi jaoks?',
-        body:
-          'Teil pole vaja valmis spetsifikatsiooni. Alustage teadmistehooga: idee, kellele see on, mida peaks tegema ja millise tulemuse soovite. Struktureeritud taotlusvorm aitab sellest teha esimese versiooni teostatava projekti plaani.',
+        heading:
+          'On teil idee platvormi, portaali, tööriista või veebisaidi jaoks?',
+        body: 'Teil pole vaja valmis spetsifikatsiooni. Alustage teadmistehooga: idee, kellele see on, mida peaks tegema ja millise tulemuse soovite. Struktureeritud taotlusvorm aitab sellest teha esimese versiooni teostatava projekti plaani.',
         primaryCta: 'Alusta projekti taotlus',
       },
     },
@@ -2440,12 +2623,21 @@ export const translations: Record<Language, TranslationKeys> = {
           { id: 'landing_page', label: 'Lennukirja leht' },
           { id: 'saas_platform', label: 'SaaS platvorm' },
           { id: 'customer_portal', label: 'Kliendiportaal' },
-          { id: 'booking_request_platform', label: 'Broneerimis- või pä ringplaatvorm' },
+          {
+            id: 'booking_request_platform',
+            label: 'Broneerimis- või pä ringplaatvorm',
+          },
           { id: 'internal_business_tool', label: 'Sisemine äririist' },
           { id: 'admin_dashboard', label: 'Halduspaneel' },
-          { id: 'ecommerce_payment_service', label: 'E-kaubandus- või makse teenus' },
+          {
+            id: 'ecommerce_payment_service',
+            label: 'E-kaubandus- või makse teenus',
+          },
           { id: 'ai_workflow_tool', label: 'AI-assisteeritud tööriist' },
-          { id: 'automation_integration', label: 'Automatiseerimine või integreerimine' },
+          {
+            id: 'automation_integration',
+            label: 'Automatiseerimine või integreerimine',
+          },
           { id: 'not_sure_yet', label: 'Veel mitte kindel' },
           { id: 'other', label: 'Muud' },
         ],
@@ -2453,7 +2645,10 @@ export const translations: Record<Language, TranslationKeys> = {
           { id: 'public_pages', label: 'Avalikud lehed' },
           { id: 'user_accounts', label: 'Kasutajakontod' },
           { id: 'login_registration', label: 'Logi sisse ja registreeru' },
-          { id: 'user_roles_permissions', label: 'Kasutaja rollid või õigused' },
+          {
+            id: 'user_roles_permissions',
+            label: 'Kasutaja rollid või õigused',
+          },
           { id: 'admin_dashboard', label: 'Halduspaneel' },
           { id: 'customer_dashboard', label: 'Kliendipaneel' },
           { id: 'booking_scheduling', label: 'Broneerimine või kohadamine' },
@@ -2463,9 +2658,15 @@ export const translations: Record<Language, TranslationKeys> = {
           { id: 'email_notifications', label: 'E-posti teavitused' },
           { id: 'crm_lead_workflow', label: 'CRM- või müadid töövoo' },
           { id: 'analytics_reporting', label: 'Analüütil või aruanded' },
-          { id: 'map_location_features', label: 'Kaardid või asukoha funktsioonid' },
+          {
+            id: 'map_location_features',
+            label: 'Kaardid või asukoha funktsioonid',
+          },
           { id: 'ai_features', label: 'AI-assisteeritud funktsioonid' },
-          { id: 'third_party_integrations', label: 'Kolmanda osapoole integreerimised' },
+          {
+            id: 'third_party_integrations',
+            label: 'Kolmanda osapoole integreerimised',
+          },
           { id: 'multilingual_support', label: 'Mitmekeelne toetus' },
           { id: 'not_sure_yet', label: 'Veel mitte kindel' },
         ],
@@ -2504,9 +2705,18 @@ export const translations: Record<Language, TranslationKeys> = {
         statusOptions: [
           { id: 'idea_only', label: 'Vaid kinnis' },
           { id: 'rough_plan', label: 'Kitsendamata kavad on olemas' },
-          { id: 'design_spec', label: 'Kujundus või spetsifikatsioon on olemas' },
-          { id: 'existing_improvement', label: 'Olemasolev veebisait või rakendus vajab parandamist' },
-          { id: 'existing_new_features', label: 'Olemasolev toode vajab uusi funktsioone' },
+          {
+            id: 'design_spec',
+            label: 'Kujundus või spetsifikatsioon on olemas',
+          },
+          {
+            id: 'existing_improvement',
+            label: 'Olemasolev veebisait või rakendus vajab parandamist',
+          },
+          {
+            id: 'existing_new_features',
+            label: 'Olemasolev toode vajab uusi funktsioone',
+          },
           { id: 'urgent', label: 'Kiireline kliibivajadus' },
         ],
         integrationOptions: [
@@ -2528,7 +2738,8 @@ export const translations: Record<Language, TranslationKeys> = {
         stepIndicator: 'Samm {step} / {total}',
         contactOnly: {
           label: 'Ainult kontakt',
-          description: 'Pole veel valmis täieliku projekti taotluseks? Saada kiir sõnum.',
+          description:
+            'Pole veel valmis täieliku projekti taotluseks? Saada kiir sõnum.',
         },
       },
       step1: {
@@ -2551,7 +2762,8 @@ export const translations: Record<Language, TranslationKeys> = {
         projectType: 'Projekti tüüp',
         projectTypePlaceholder: 'Valige projekti tüüp',
         projectTitle: 'Lühike projekti pealkiri',
-        projectTitlePlaceholder: 'Sisene broneerimise tööriist tugi meeskonna jaoks',
+        projectTitlePlaceholder:
+          'Sisene broneerimise tööriist tugi meeskonna jaoks',
       },
       step3: {
         legend: 'Idee kirjeldus',
@@ -2562,9 +2774,11 @@ export const translations: Record<Language, TranslationKeys> = {
         whoWillUse: 'Kes seda kasutab?',
         whoWillUsePlaceholder: 'Väikeettevõtjad, tugiagendid, lõppkliendid',
         problemSolve: 'Millist probleemi peaks see lahendama?',
-        problemSolvePlaceholder: 'Praegune manuaalne protsess, puuduv tööriist või täitmata äri vajadus.',
+        problemSolvePlaceholder:
+          'Praegune manuaalne protsess, puuduv tööriist või täitmata äri vajadus.',
         desiredOutcome: 'M peaks juhtuma pärast kasutamist?',
-        desiredOutcomePlaceholder: 'Broneering teostatud, lead kinni, aruanne eksporditud, heakskiit saadetud.',
+        desiredOutcomePlaceholder:
+          'Broneering teostatud, lead kinni, aruanne eksporditud, heakskiit saadetud.',
         minLengthHint:
           'Palun lisage vähemalt mitu lauset, et Eventnexus saaks ulatuse mõista.',
       },
@@ -2580,7 +2794,8 @@ export const translations: Record<Language, TranslationKeys> = {
       },
       step6: {
         legend: 'Ajakava ja eelarve',
-        description: 'Aidake Eventnexusul mõista äkilisust ja projekti sobivust.',
+        description:
+          'Aidake Eventnexusul mõista äkilisust ja projekti sobivust.',
         timeline: 'Eelistatud ajakava',
         timelinePlaceholder: 'Valige ajakava',
         budget: 'Eelarve vahemik',
@@ -2657,21 +2872,29 @@ export const translations: Record<Language, TranslationKeys> = {
       controllerAddress: 'Põltsamaa, Eesti',
       controllerEmail: 'admin@eventnexus.eu',
       purposesTitle: 'Eesmärgid',
-      purposes: 'Me töötleme isikuandmeid projektitaotluste käsitlemiseks, kontaktide sõnumitele vastamiseks, selle veebisaidi toimimiseks ja teavituste saatmiseks.',
+      purposes:
+        'Me töötleme isikuandmeid projektitaotluste käsitlemiseks, kontaktide sõnumitele vastamiseks, selle veebisaidi toimimiseks ja teavituste saatmiseks.',
       legalBasesTitle: 'Õiguslikud alused',
-      legalBases: 'Töötlemise aluseks on teie nõusolek, lepinguline vajadus või meie õigustatud huvi selle veebisaidi toimimise ja projektitaotluste hindamise kohta.',
+      legalBases:
+        'Töötlemise aluseks on teie nõusolek, lepinguline vajadus või meie õigustatud huvi selle veebisaidi toimimise ja projektitaotluste hindamise kohta.',
       processorsTitle: 'Töötlejad',
-      processors: 'Me kasutame Supabase\'i (EL) liidide salvestamiseks, Resend\'i e-posti saatmiseks ja Cloudflare\'i majutamiseks ja privaatsusele suunatud analüütika jaoks.',
+      processors:
+        "Me kasutame Supabase'i (EL) liidide salvestamiseks, Resend'i e-posti saatmiseks ja Cloudflare'i majutamiseks ja privaatsusele suunatud analüütika jaoks.",
       transfersTitle: 'Edastused',
-      transfers: 'Andmeid võidakse edastada töötlejatele ELis ja USA-s kooskõlas asjakohaste garantiidega, sealhulgas standardsete lepingutingimustega.',
+      transfers:
+        'Andmeid võidakse edastada töötlejatele ELis ja USA-s kooskõlas asjakohaste garantiidega, sealhulgas standardsete lepingutingimustega.',
       retentionTitle: 'Säilitus',
-      retention: 'Projektitaotlusi säilitatakse kuni 3 aastat või kuni teie kustutamistaotluse esitamiseni. Rakenduse logid säilitatakse kuni 1 aasta. Resend e-posti sündmused säilitatakse kuni 1 aasta.',
+      retention:
+        'Projektitaotlusi säilitatakse kuni 3 aastat või kuni teie kustutamistaotluse esitamiseni. Rakenduse logid säilitatakse kuni 1 aasta. Resend e-posti sündmused säilitatakse kuni 1 aasta.',
       rightsTitle: 'Teie õigused',
-      rights: 'Teil on õigus saada, parandada, kustutada või piirata omaandmete töötlemist ning vastu vaielda või igal ajal nõusolek tagasi võtta.',
+      rights:
+        'Teil on õigus saada, parandada, kustutada või piirata omaandmete töötlemist ning vastu vaielda või igal ajal nõusolek tagasi võtta.',
       contactTitle: 'Kontakt',
-      contact: 'Võtke ühendust andmete vastutava töötlejaga aadressil admin@eventnexus.eu privaatsuspäringute jaoks.',
+      contact:
+        'Võtke ühendust andmete vastutava töötlejaga aadressil admin@eventnexus.eu privaatsuspäringute jaoks.',
       lastUpdated: 'Viimati uuendatud: august 2026',
-      analyticsText: 'See sait kasutab privaatsusele suunatud analüütikat kasutuse mõistmiseks.',
+      analyticsText:
+        'See sait kasutab privaatsusele suunatud analüütikat kasutuse mõistmiseks.',
       accept: 'Nõustu',
       decline: 'Keeldu',
     },

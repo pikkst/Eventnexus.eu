@@ -60,3 +60,7 @@ export function cleanupRateLimitStore(): void {
     }
   }
 }
+
+export function resetRateLimitStore(): void {
+  rateLimitStore.clear();
+}
