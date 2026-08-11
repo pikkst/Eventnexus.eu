@@ -142,4 +142,4 @@ If a deployed migration must be reversed immediately:
 - `supabase db push` - Apply pending migrations to linked remote project
 - `supabase migration new <name>` - Create a new migration file
 - `supabase migration list` - List applied and pending migrations
-- `supabase db execute --file <path>` - Execute a SQL file against the local database
+- `supabase db query --file <path>` - Execute a SQL file against the local database

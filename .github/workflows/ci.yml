@@ -55,7 +55,7 @@ jobs:
         run: supabase db reset
 
       - name: Run RLS tests
-        run: supabase db execute --file supabase/tests/rls_tests.sql
+        run: supabase db query --file supabase/tests/rls_tests.sql
 
   test:
     name: E2E tests
