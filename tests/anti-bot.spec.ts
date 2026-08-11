@@ -9,7 +9,9 @@ async function fillStep1(page: Playwright.Page) {
 }
 
 async function fillStep2(page: Playwright.Page) {
-  await page.locator('select[name="projectType"]').selectOption('company_website');
+  await page
+    .locator('select[name="projectType"]')
+    .selectOption('company_website');
   await page.fill('input[name="projectTitle"]', 'Test Project');
 }
 
@@ -90,7 +92,9 @@ test.describe('API abuse protection', () => {
     expect(result).toHaveProperty('error', 'Submission rejected');
   });
 
-  test('rejects submission that is too fast (minimum completion time)', async ({ page }) => {
+  test('rejects submission that is too fast (minimum completion time)', async ({
+    page,
+  }) => {
     await page.goto('/en/contact');
 
     await navigateToStep8(page);
@@ -161,9 +165,13 @@ test.describe('API abuse protection', () => {
     await navigateToStep8(page);
 
     await page.evaluate(() => {
-      const featuresInputs = document.querySelectorAll('input[name="features"]');
+      const featuresInputs = document.querySelectorAll(
+        'input[name="features"]'
+      );
       if (featuresInputs.length > 0) {
-        featuresInputs[0].value = 'invalid_feature_id';
+        const checkbox = featuresInputs[0] as HTMLInputElement;
+        checkbox.checked = true;
+        checkbox.value = 'invalid_feature_id';
       }
     });
 

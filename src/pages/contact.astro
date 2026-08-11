@@ -4,7 +4,8 @@ import { getTranslations, getLanguageFromPath, languages } from '../i18n';
 
 const segments = Astro.url.pathname.split('/').filter(Boolean);
 const firstSegment = segments[0]?.toLowerCase();
-const hasLocalePrefix = firstSegment && languages.some(l => l.code === firstSegment);
+const hasLocalePrefix =
+  firstSegment && languages.some((l) => l.code === firstSegment);
 const locale = hasLocalePrefix ? getLanguageFromPath(Astro.url.pathname) : 'en';
 
 if (!hasLocalePrefix) {

@@ -11,7 +11,9 @@ async function fillStep1(page: Playwright.Page) {
 }
 
 async function fillStep2(page: Playwright.Page) {
-  await page.locator('select[name="projectType"]').selectOption('company_website');
+  await page
+    .locator('select[name="projectType"]')
+    .selectOption('company_website');
   await page.fill('input[name="projectTitle"]', 'Test Project');
 }
 
@@ -115,7 +117,9 @@ test('submit-lead: invalid project type ID is rejected', async ({ page }) => {
   await fillStep1(page);
   await page.click('#next-btn');
 
-  await page.locator('select[name="projectType"]').selectOption('company_website');
+  await page
+    .locator('select[name="projectType"]')
+    .selectOption('company_website');
   await page.fill('input[name="projectTitle"]', 'Test Project');
   await page.click('#next-btn');
 
