@@ -6,7 +6,7 @@ DECLARE
   v_row_count INT;
 BEGIN
   INSERT INTO auth.users (id, email, encrypted_password, created_at, updated_at, aud, role)
-  VALUES (v_user_id, 'test@example.com', 'test', now(), now(), 'authenticated', 'authenticated')
+  VALUES (v_user_id, 'test-' || gen_random_uuid() || '@example.com', 'test', now(), now(), 'authenticated', 'authenticated')
   ON CONFLICT (id) DO NOTHING;
 
   INSERT INTO public.profiles (id, role, full_name, email)

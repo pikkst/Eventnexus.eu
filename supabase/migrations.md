@@ -110,6 +110,7 @@ These baseline migrations represent schemas that previously existed as manual SQ
 ### CI Verification
 
 Migrations are verified automatically in CI:
+
 1. A fresh Supabase local database is started.
 2. All migrations are applied with `supabase db reset`.
 3. RLS tests are executed against the fresh database.
