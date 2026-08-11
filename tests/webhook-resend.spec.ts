@@ -6,7 +6,6 @@ test.beforeEach(async ({ page }) => {
   await page.request.post('/api/test/reset-webhook-store', {
     headers: { Origin: 'http://127.0.0.1:4321' },
   });
-  page.on('dialog', (dialog) => dialog.accept());
 });
 
 const WEBHOOK_SECRET = 'whsec_dGVzdC1zZWNyZXQtZm9yLXBsYXl3cmlnaHQ=';
