@@ -89,19 +89,17 @@ These baseline migrations represent schemas that previously existed as manual SQ
 **Before running `supabase db push` on an existing environment:**
 
 1. Verify that the remote schema matches the baseline migration definitions.
-2. Mark the baseline migration versions as applied without replaying them:
+2. Mark each baseline migration version as applied in the migration history without replaying it:
 
    ```powershell
    # List applied and pending migrations
    supabase migration list
 
    # For each baseline version that is already present in the remote schema,
-   # insert it into the migration history so future db push operations skip it.
+   # mark it as applied so future db push operations skip it.
    # Example for version 202508120001:
-   supabase db execute --file supabase/migrations/202508120001_create_profiles.sql
+   supabase migration repair 202508120001 --status applied
    ```
-
-   Alternatively, if the remote `schema_migrations` table is accessible, insert the version rows directly so the migration history matches a clean database.
 
 3. After history is reconciled, continue with normal `supabase db push` for new migrations.
 
@@ -177,4 +175,5 @@ If a deployed migration must be reversed immediately:
 - `supabase db push` - Apply pending migrations to linked remote project
 - `supabase migration new <name>` - Create a new migration file
 - `supabase migration list` - List applied and pending migrations
+- `supabase migration repair <version> --status applied` - Mark a migration version as applied in history
 - `supabase db query --file <path>` - Execute a SQL file against the local database
