@@ -4,8 +4,7 @@ export interface HoneypotResult {
 }
 
 export function checkHoneypot(
-  value: string | null | undefined,
-  minCompletionTimeMs: number = 3000
+  value: string | null | undefined
 ): HoneypotResult {
   if (value && value.trim().length > 0) {
     return { passed: false, reason: 'honeypot_filled' };

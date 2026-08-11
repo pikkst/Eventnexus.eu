@@ -30,7 +30,7 @@ const translationsJson = JSON.stringify(t);
 const turnstileSiteKey = process.env.PUBLIC_TURNSTILE_SITE_KEY || '';
 ---
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer
 ></script>
 
 <BaseLayout
@@ -901,11 +901,11 @@ const turnstileSiteKey = process.env.PUBLIC_TURNSTILE_SITE_KEY || '';
   </section>
 </BaseLayout>
 
-<script define:vars={{ turnstileSiteKey }}>
+<script is:inline define:vars={{ turnstileSiteKey }}>
   window.__TURNSTILE_SITE_KEY__ = `${turnstileSiteKey}`;
 </script>
 
-<script define:vars={{ translationsJson }}>
+<script is:inline define:vars={{ translationsJson }}>
   const form = document.getElementById('project-request-form');
 
   const contactForm = document.getElementById('contact-only-form');
@@ -946,7 +946,8 @@ const turnstileSiteKey = process.env.PUBLIC_TURNSTILE_SITE_KEY || '';
   let mainTurnstileWidgetId = null;
   let contactTurnstileWidgetId = null;
 
-  const translationsObj = JSON.parse(translationsJson);
+  // @ts-ignore
+  const translationsObj = JSON.parse(translationsJson || '{}');
   const options = translationsObj.contact.options;
 
   const reviewLabels = {

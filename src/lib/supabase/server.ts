@@ -36,10 +36,7 @@ function createMockSupabaseClient() {
         error: null,
       };
     },
-  };
-
-  Object.defineProperty(queryBuilder, 'then', {
-    value: async (
+    then: async (
       resolve: (value: { data: unknown; error: null }) => Promise<void>
     ) => {
       const result = useSingle
@@ -47,8 +44,9 @@ function createMockSupabaseClient() {
         : { data: [], error: null };
       await resolve(result);
     },
-    enumerable: false,
-  });
+    data: undefined as unknown,
+    error: null,
+  };
 
   return {
     from: (_table: string) => queryBuilder,
