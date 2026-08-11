@@ -85,11 +85,11 @@ for (const locale of locales) {
     await navigateToSubmit(page);
     await setFormLoadedAtToPast(page);
 
-  await page.evaluate(() => {
-    const btn = document.getElementById('submit-btn');
-    if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
-  });
-  await page.click('#submit-btn', { force: true });
+    await page.evaluate(() => {
+      const btn = document.getElementById('submit-btn');
+      if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
+    });
+    await page.click('#submit-btn', { force: true });
 
     const response = await page.waitForResponse((response) =>
       response.url().includes('/api/submit-lead')

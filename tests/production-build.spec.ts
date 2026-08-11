@@ -118,10 +118,10 @@ test.describe('production build behavior', () => {
     await page.check('#consent', { force: true });
     await setFormLoadedAtToPast(page);
     await page.evaluate(() => {
-    const btn = document.getElementById('submit-btn');
-    if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
-  });
-  await page.click('#submit-btn', { force: true });
+      const btn = document.getElementById('submit-btn');
+      if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
+    });
+    await page.click('#submit-btn', { force: true });
 
     const response = await page.waitForResponse((response) =>
       response.url().includes('/api/submit-lead')

@@ -99,10 +99,10 @@ test.describe('API abuse protection', () => {
     await page.check('#consent');
 
     await page.evaluate(() => {
-    const btn = document.getElementById('submit-btn');
-    if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
-  });
-  await page.click('#submit-btn', { force: true });
+      const btn = document.getElementById('submit-btn');
+      if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
+    });
+    await page.click('#submit-btn', { force: true });
 
     const response = await page.waitForResponse((response) =>
       response.url().includes('/api/submit-lead')
@@ -125,10 +125,10 @@ test.describe('API abuse protection', () => {
     });
 
     await page.evaluate(() => {
-    const btn = document.getElementById('submit-btn');
-    if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
-  });
-  await page.click('#submit-btn', { force: true });
+      const btn = document.getElementById('submit-btn');
+      if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
+    });
+    await page.click('#submit-btn', { force: true });
 
     const response = await page.waitForResponse((response) =>
       response.url().includes('/api/submit-lead')
@@ -153,10 +153,10 @@ test.describe('API abuse protection', () => {
     });
 
     await page.evaluate(() => {
-    const btn = document.getElementById('submit-btn');
-    if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
-  });
-  await page.click('#submit-btn', { force: true });
+      const btn = document.getElementById('submit-btn');
+      if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
+    });
+    await page.click('#submit-btn', { force: true });
 
     const response = await page.waitForResponse((response) =>
       response.url().includes('/api/submit-lead')
@@ -181,10 +181,10 @@ test.describe('API abuse protection', () => {
     });
 
     await page.evaluate(() => {
-    const btn = document.getElementById('submit-btn');
-    if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
-  });
-  await page.click('#submit-btn', { force: true });
+      const btn = document.getElementById('submit-btn');
+      if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
+    });
+    await page.click('#submit-btn', { force: true });
 
     const response = await page.waitForResponse((response) =>
       response.url().includes('/api/submit-lead')
