@@ -55,7 +55,12 @@ jobs:
         run: supabase db reset
 
       - name: Run RLS tests
-        run: supabase db query --file supabase/tests/rls_tests.sql
+        run: |
+          supabase db query --file supabase/tests/test_01_profiles_select.sql
+          supabase db query --file supabase/tests/test_02_profiles_role_guard.sql
+          supabase db query --file supabase/tests/test_03_profiles_admin.sql
+          supabase db query --file supabase/tests/test_04_leads_anon.sql
+          supabase db query --file supabase/tests/test_05_leads_auth.sql
 
   test:
     name: E2E tests
