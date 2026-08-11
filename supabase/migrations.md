@@ -12,11 +12,18 @@ supabase/
     202508120003_create_project_leads.sql
     202508120004_create_webhook_events.sql
   tests/
-    test_01_profiles_select.sql
-    test_02_profiles_role_guard.sql
-    test_03_profiles_admin.sql
-    test_04_leads_anon.sql
-    test_05_leads_auth.sql
+    test_01_anon_cannot_read_profiles.sql
+    test_02_auth_can_read_own_profile.sql
+    test_03_auth_cannot_read_other_profiles.sql
+    test_04_auth_cannot_promote_to_admin.sql
+    test_05_admin_can_read_all_profiles.sql
+    test_06_admin_can_set_role.sql
+    test_07_non_admin_cannot_set_role.sql
+    test_08_anon_cannot_read_leads.sql
+    test_09_anon_cannot_insert_leads.sql
+    test_10_auth_cannot_read_leads.sql
+    test_11_auth_cannot_update_leads.sql
+    test_12_auth_cannot_delete_leads.sql
   config.toml
 ```
 
