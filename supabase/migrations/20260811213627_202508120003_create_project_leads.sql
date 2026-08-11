@@ -1,3 +1,7 @@
+-- Migration: 202508120003_create_project_leads
+-- Created: 2025-08-12
+-- Description: Create project_leads table for structured lead capture with RLS
+
 CREATE TABLE IF NOT EXISTS public.project_leads (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
@@ -49,6 +53,8 @@ BEGIN
   RETURN NEW;
 END;
 $$ LANGUAGE 'plpgsql';
+
+DROP TRIGGER IF EXISTS trg_update_project_leads_updated_at ON public.project_leads;
 
 CREATE TRIGGER trg_update_project_leads_updated_at
   BEFORE UPDATE ON public.project_leads

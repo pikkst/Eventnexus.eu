@@ -119,13 +119,15 @@ This file stores stable context and decisions for future agents.
 - Admin role storage: primary source of truth is the `profiles` table with `id` (FK to `auth.users(id)`), `role`, `created_at`, `updated_at`; optional `admin_users` table also exists but is not required for Phase 4A
 - Initial admin user must be created manually in the Supabase dashboard and linked to a `profiles` row with `role = 'admin'`
 - RLS policies for `profiles`: users can read their own profile; admins can read/update all profiles; the `profiles_update_own` policy was removed to prevent privilege escalation; user profile updates go through a SECURITY DEFINER function (`profiles_update`) that only allows `full_name` and `email` changes; role changes go through `profiles_set_role` which requires admin privileges; a BEFORE UPDATE trigger prevents non-admin users from changing the `role` column via direct UPDATE; admin policies use `public.is_admin()` SECURITY DEFINER function instead of recursive `EXISTS (SELECT 1 FROM public.profiles ...)` subqueries to avoid infinite RLS recursion
-- Migration SQL for `profiles` lives in `supabase/profiles-schema.sql`; optional `admin_users` migration lives in `supabase/admin-users-schema.sql`; database tests live in `supabase/tests/profiles_rls_test.sql`
-- Manual Supabase dashboard steps are documented in `supabase/admin-auth-setup.md`: enable email/magic link auth, disable public sign-ups, apply migrations, create initial admin user, verify RLS policies
+- Migration SQL for `profiles` lives in `supabase/migrations/202508120001_create_profiles.sql`; optional `admin_users` migration lives in `supabase/migrations/202508120002_create_admin_users.sql`; database tests live in `supabase/tests/profiles_rls_test.sql`
+- Supabase CLI project structure is initialized with `supabase init`; local database managed via `supabase db reset`; remote project linked with `supabase link --project-ref yzsoczlghgcqitevamfo`; migrations deployed with `supabase db push`; old manual schema files (`supabase/*-schema.sql`) were replaced by versioned migrations under `supabase/migrations/`
+- CI verifies migrations and RLS tests from a clean database using `supabase db reset` and `supabase db execute`
+- Production changes are applied through documented migration commands, not copy-paste SQL; previously applied migrations are never edited in place; fixes use new forward migrations
 - Server-side code must use `SUPABASE_SERVICE_ROLE_KEY` for admin data operations that bypass RLS; never expose service-role keys to the browser
 
 ## Open Decisions
 
-- `project_leads` schema and RLS policies are defined in `supabase/leads-schema.sql`; direct anon and authenticated INSERT policies have been removed to block bypass of server-side validation; all writes go through `/api/submit-lead` with Turnstile verification, rate limiting, request size guard, field allowlists, honeypot, minimum completion time, duplicate suppression, and structured server-side logging; SELECT/UPDATE/DELETE remain deny-all for anon and authenticated roles; database tests in `supabase/tests/leads_rls_test.sql` cover all roles and operations
+- `project_leads` schema and RLS policies are defined in `supabase/migrations/202508120003_create_project_leads.sql`; direct anon and authenticated INSERT policies have been removed to block bypass of server-side validation; all writes go through `/api/submit-lead` with Turnstile verification, rate limiting, request size guard, field allowlists, honeypot, minimum completion time, duplicate suppression, and structured server-side logging; SELECT/UPDATE/DELETE remain deny-all for anon and authenticated roles; database tests in `supabase/tests/leads_rls_test.sql` cover all roles and operations
 - Admin auth tables and Supabase Auth configuration are defined and ready to be applied to the Supabase dashboard; initial admin user must be created manually.
 - Admin operations foundation planning is complete and documented in `admin-operations.md`; ready for implementation.
 - Admin dashboard MVP direction: create a secure internal workspace first with authenticated admin access, a project board, project detail pages, and a simple status workflow before opening any client-facing portal features.
@@ -140,7 +142,7 @@ The project should feel like a capable company building serious systems, not a g
 ## CI And Testing
 
 - GitHub Actions workflow runs on pull requests and pushes to `main`
-- Workflow jobs: format check, lint, type check (`astro check`), build, and Playwright E2E tests
+- Workflow jobs: format check, lint, type check (`astro check`), build, Supabase migration verification (fresh local database with `supabase db reset` and RLS tests), and Playwright E2E tests
 - Playwright tests run against production-like built output via `playwright.build.config.ts` using `serve`
 - Playwright config includes both `chromium` (desktop) and `chromium-mobile` projects
 - Tests cover mobile navigation, anti-bot protections, invalid input, rate limiting, oversized requests, webhook signature validation, expiry, and duplicate delivery

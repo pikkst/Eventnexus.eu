@@ -1,3 +1,7 @@
+-- Migration: 202508120001_create_profiles
+-- Created: 2025-08-12
+-- Description: Create profiles table for admin auth with RLS policies
+
 CREATE TABLE IF NOT EXISTS public.profiles (
   id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
   created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
@@ -16,6 +20,8 @@ BEGIN
   RETURN NEW;
 END;
 $$ LANGUAGE 'plpgsql';
+
+DROP TRIGGER IF EXISTS trg_update_profiles_updated_at ON public.profiles;
 
 CREATE TRIGGER trg_update_profiles_updated_at
   BEFORE UPDATE ON public.profiles
@@ -100,6 +106,8 @@ BEGIN
   RETURN NEW;
 END;
 $$ LANGUAGE 'plpgsql';
+
+DROP TRIGGER IF EXISTS trg_profiles_prevent_non_admin_role_change ON public.profiles;
 
 CREATE TRIGGER trg_profiles_prevent_non_admin_role_change
   BEFORE UPDATE ON public.profiles

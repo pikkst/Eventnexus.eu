@@ -35,10 +35,39 @@ jobs:
       - name: Build
         run: npm run build
 
+  supabase:
+    name: Supabase migrations
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Start Supabase local
+        run: supabase start
+        timeout-minutes: 5
+
+      - name: Apply migrations to clean database
+        run: supabase db reset
+
+      - name: Run RLS tests for profiles
+        run: |
+          supabase db execute --file supabase/tests/_helpers.sql
+          supabase db execute --file supabase/tests/profiles_rls_test.sql
+
+      - name: Run RLS tests for leads
+        run: |
+          supabase db execute --file supabase/tests/_helpers.sql
+          supabase db execute --file supabase/tests/leads_rls_test.sql
+
   test:
     name: E2E tests
     runs-on: ubuntu-latest
-    needs: quality
+    needs: [quality, supabase]
     steps:
       - name: Checkout
         uses: actions/checkout@v4

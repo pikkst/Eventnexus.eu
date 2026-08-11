@@ -1,9 +1,8 @@
--- Optional: admin_users table for Phase 4A admin membership.
---
--- Uncomment and apply this migration only if the profiles table alone
--- is insufficient for your access control requirements.
---
--- The primary admin role storage for Phase 4A is the profiles table.
+-- Migration: 202508120002_create_admin_users
+-- Created: 2025-08-12
+-- Description: Optional admin_users table for Phase 4A admin membership
+-- Note: The primary admin role storage for Phase 4A is the profiles table.
+-- Apply this migration only if the profiles table alone is insufficient.
 
 CREATE TABLE IF NOT EXISTS public.admin_users (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -23,6 +22,8 @@ BEGIN
   RETURN NEW;
 END;
 $$ LANGUAGE 'plpgsql';
+
+DROP TRIGGER IF EXISTS trg_update_admin_users_updated_at ON public.admin_users;
 
 CREATE TRIGGER trg_update_admin_users_updated_at
   BEFORE UPDATE ON public.admin_users
