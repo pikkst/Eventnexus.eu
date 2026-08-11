@@ -3,6 +3,7 @@ DO $$
 DECLARE
   v_user_id UUID := gen_random_uuid();
   v_lead_id UUID := gen_random_uuid();
+  v_row_count INT;
 BEGIN
   INSERT INTO public.profiles (id, role, full_name, email)
   VALUES (v_user_id, 'user', 'Test User', 'test@example.com');
@@ -12,15 +13,14 @@ BEGIN
 
   PERFORM set_config('request.jwt.claims', json_build_object('sub', v_user_id)::text, true);
   SET ROLE authenticated;
-  BEGIN
-    DELETE FROM public.project_leads WHERE id = v_lead_id;
-    RAISE EXCEPTION 'Test 12 failed: authenticated users can delete leads';
-  EXCEPTION
-    WHEN insufficient_privilege OR check_violation THEN
-      NULL;
-  END;
+  DELETE FROM public.project_leads WHERE id = v_lead_id;
+  GET DIAGNOSTICS v_row_count = ROW_COUNT;
   RESET ROLE;
   PERFORM set_config('request.jwt.claims', '{}', true);
+
+  IF v_row_count > 0 THEN
+    RAISE EXCEPTION 'Test 12 failed: authenticated users can delete leads (deleted % rows)', v_row_count;
+  END IF;
 
   DELETE FROM public.project_leads WHERE id = v_lead_id;
   DELETE FROM public.profiles WHERE id = v_user_id;
