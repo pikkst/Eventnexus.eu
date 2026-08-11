@@ -63,7 +63,7 @@ async function navigateToSubmit(page: Playwright.Page) {
   await clickNext(page);
   await clickNext(page);
 
-  await page.check('#consent');
+  await page.check('#consent', { force: true });
 }
 
 async function setFormLoadedAtToPast(page: Playwright.Page) {
