@@ -61,7 +61,8 @@ async function setFormLoadedAtToPast(page: Playwright.Page) {
     const input = document.getElementById('formLoadedAt');
     if (input) input.value = new Date(Date.now() - 10000).toISOString();
     const contactInput = document.getElementById('contact-formLoadedAt');
-    if (contactInput) contactInput.value = new Date(Date.now() - 10000).toISOString();
+    if (contactInput)
+      contactInput.value = new Date(Date.now() - 10000).toISOString();
   });
 }
 

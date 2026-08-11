@@ -5,7 +5,7 @@
     {
       "binding": "SESSION",
       "id": "local",
-      "preview_id": "local"
-    }
-  ]
+      "preview_id": "local",
+    },
+  ],
 }

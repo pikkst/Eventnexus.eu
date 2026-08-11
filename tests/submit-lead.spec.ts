@@ -63,7 +63,8 @@ async function setFormLoadedAtToPast(page: Playwright.Page) {
     const input = document.getElementById('formLoadedAt');
     if (input) input.value = new Date(Date.now() - 10000).toISOString();
     const contactInput = document.getElementById('contact-formLoadedAt');
-    if (contactInput) contactInput.value = new Date(Date.now() - 10000).toISOString();
+    if (contactInput)
+      contactInput.value = new Date(Date.now() - 10000).toISOString();
   });
 }
 
@@ -189,7 +190,9 @@ test('submit-lead: oversized field value is rejected', async ({ page }) => {
   });
 
   await page.evaluate(() => {
-    const checkbox = document.getElementById('consent') as HTMLInputElement | null;
+    const checkbox = document.getElementById(
+      'consent'
+    ) as HTMLInputElement | null;
     if (checkbox) checkbox.checked = true;
   });
 
