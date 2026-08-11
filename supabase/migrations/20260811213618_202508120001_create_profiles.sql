@@ -3,7 +3,7 @@
 -- Description: Create profiles table for admin auth with RLS policies
 
 CREATE TABLE IF NOT EXISTS public.profiles (
-  id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
+  id UUID PRIMARY KEY,
   created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
   updated_at TIMESTAMPTZ DEFAULT now() NOT NULL,
   role TEXT DEFAULT 'user' NOT NULL CHECK (role IN ('admin', 'user')),
