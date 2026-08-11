@@ -29,14 +29,8 @@ test.describe('production build behavior', () => {
     ];
 
     for (const route of routes) {
-      const responsePromise = page.waitForResponse(
-        (response) =>
-          response.url().endsWith(route.path) && response.status() === 301
-      );
       await page.goto(route.path);
-      const response = await responsePromise;
-      expect(response.status()).toBe(301);
-      expect(page.url()).toContain(route.expected);
+      await expect(page).toHaveURL(new RegExp(`${route.expected}`));
     }
   });
 

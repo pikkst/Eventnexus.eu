@@ -8,15 +8,15 @@ const criticalPages = [
   },
   {
     name: 'services',
-    path: '/services',
+    path: '/en/services',
   },
   {
     name: 'work',
-    path: '/work',
+    path: '/en/work',
   },
   {
     name: 'contact',
-    path: '/contact',
+    path: '/en/contact',
   },
 ];
 
