@@ -39,21 +39,29 @@ async function fillStep6(page: Playwright.Page) {
   await page.locator('select[name="projectStatus"]').selectOption('idea_only');
 }
 
+async function clickNext(page: Playwright.Page) {
+  await page.evaluate(() => {
+    const btn = document.getElementById('next-btn');
+    if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
+  });
+  await page.click('#next-btn');
+}
+
 async function navigateToSubmit(page: Playwright.Page) {
   await fillStep1(page);
-  await page.click('#next-btn');
+  await clickNext(page);
 
   await fillStep2(page);
-  await page.click('#next-btn');
+  await clickNext(page);
 
   await fillStep3(page);
-  await page.click('#next-btn');
+  await clickNext(page);
 
-  await page.click('#next-btn');
-  await page.click('#next-btn');
+  await clickNext(page);
+  await clickNext(page);
   await fillStep6(page);
-  await page.click('#next-btn');
-  await page.click('#next-btn');
+  await clickNext(page);
+  await clickNext(page);
 
   await page.check('#consent');
 }

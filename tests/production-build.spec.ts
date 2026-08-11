@@ -6,6 +6,14 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
+async function clickNext(page: Playwright.Page) {
+  await page.evaluate(() => {
+    const btn = document.getElementById('next-btn');
+    if (btn) btn.scrollIntoView({ behavior: 'instant', block: 'center' });
+  });
+  await page.click('#next-btn');
+}
+
 async function setFormLoadedAtToPast(page: Playwright.Page) {
   await page.evaluate(() => {
     const input = document.getElementById('formLoadedAt');
@@ -82,30 +90,30 @@ test.describe('production build behavior', () => {
 
     await page.fill('input[name="fullName"]', 'Test User');
     await page.fill('input[name="email"]', 'test@example.com');
-    await page.click('#next-btn');
+    await clickNext(page);
 
     await page
       .locator('select[name="projectType"]')
       .selectOption('company_website');
     await page.fill('input[name="projectTitle"]', 'Test Project');
-    await page.click('#next-btn');
+    await clickNext(page);
 
     await page.fill(
       'textarea[name="ideaDescription"]',
       'This is a test description that is at least 80 characters long to pass validation.'
     );
-    await page.click('#next-btn');
+    await clickNext(page);
 
-    await page.click('#next-btn');
-    await page.click('#next-btn');
-    await page.click('#next-btn');
+    await clickNext(page);
+    await clickNext(page);
+    await clickNext(page);
     await page.locator('select[name="timeline"]').selectOption('asap');
     await page.locator('select[name="budgetRange"]').selectOption('under_500');
     await page
       .locator('select[name="projectStatus"]')
       .selectOption('idea_only');
-    await page.click('#next-btn');
-    await page.click('#next-btn');
+    await clickNext(page);
+    await clickNext(page);
 
     await page.check('#consent');
     await setFormLoadedAtToPast(page);
