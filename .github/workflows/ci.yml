@@ -79,6 +79,7 @@ jobs:
           RETENTION_LEAD_DAYS=30
           RETENTION_WEBHOOK_EVENT_DAYS=30
           RETENTION_APP_LOG_DAYS=30
+          NODE_ENV=test
           EOF
 
       - name: Run Playwright against built output

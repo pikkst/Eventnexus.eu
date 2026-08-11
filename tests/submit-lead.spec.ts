@@ -173,6 +173,20 @@ test('submit-lead: invalid project type ID is rejected', async ({ page }) => {
   expect(response.status()).toBe(400);
 });
 
+test('submit-lead: rejects oversized request body (413)', async ({ page }) => {
+  const largeValue = 'A'.repeat(1024 * 1024 + 1000);
+  const body = `fullName=Test&email=test@example.com&ideaDescription=${encodeURIComponent(largeValue)}&region=EE&contactMessage=This+is+a+test+message.&consent=on&formLoadedAt=${encodeURIComponent(new Date(Date.now() - 10000).toISOString())}`;
+
+  const response = await page.request.post('/api/submit-lead', {
+    data: body,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Origin: 'http://127.0.0.1:4321',
+    },
+  });
+  expect(response.status()).toBe(413);
+});
+
 test('submit-lead: oversized field value is rejected', async ({ page }) => {
   await page.goto('/en/contact');
 
