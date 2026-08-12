@@ -65,6 +65,8 @@ export async function getAdminSession(
   const accessToken = cookies['sb-access-token'];
   const refreshToken = cookies['sb-refresh-token'];
 
+  const authClient = createAuthClient();
+
   if (!accessToken) {
     if (!refreshToken) {
       return { session: null, status: 'unauthenticated' };
@@ -99,7 +101,6 @@ export async function getAdminSession(
     };
   }
 
-  const authClient = createAuthClient();
   const {
     data: { user },
     error,
