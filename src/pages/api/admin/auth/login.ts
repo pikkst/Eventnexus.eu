@@ -5,14 +5,19 @@ export const prerender = false;
 
 export const POST: APIRoute = async ({ request, cookies }) => {
   const body = await request.json().catch(() => null);
-  if (!body || typeof body.email !== 'string' || typeof body.password !== 'string') {
+  if (
+    !body ||
+    typeof body.email !== 'string' ||
+    typeof body.password !== 'string'
+  ) {
     return new Response(JSON.stringify({ error: 'Invalid request' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' },
     });
   }
 
-  const supabaseUrl = process.env.SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL || '';
+  const supabaseUrl =
+    process.env.SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL || '';
   const supabaseAnonKey = process.env.PUBLIC_SUPABASE_ANON_KEY || '';
   const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 

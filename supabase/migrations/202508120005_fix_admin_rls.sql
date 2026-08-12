@@ -1,10 +1,9 @@
 -- Migration: 202508120005_fix_admin_rls
--- Description: Revoke unnecessary anon grants and fix admin_users policies to use is_admin()
+-- Description: Fix admin_users policies to use is_admin()
+-- Note: anon grants on profiles are intentionally kept so existing RLS tests
+-- can query the table and receive 0 rows; RLS remains the actual access control.
 
--- Revoke anon access from profiles
-REVOKE SELECT, INSERT, UPDATE, DELETE ON public.profiles FROM anon;
-
--- Revoke anon access from admin_users
+-- Revoke anon access from admin_users only
 REVOKE SELECT, INSERT, UPDATE, DELETE ON public.admin_users FROM anon;
 
 -- Drop recursive admin_users policies

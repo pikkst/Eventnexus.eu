@@ -24,10 +24,14 @@ export const onRequest = defineMiddleware(async (context, next) => {
       ...COOKIE_OPTIONS,
       maxAge,
     });
-    context.cookies.set('sb-refresh-token', result.refreshedTokens.refreshToken, {
-      ...COOKIE_OPTIONS,
-      maxAge: 60 * 60 * 24 * 30,
-    });
+    context.cookies.set(
+      'sb-refresh-token',
+      result.refreshedTokens.refreshToken,
+      {
+        ...COOKIE_OPTIONS,
+        maxAge: 60 * 60 * 24 * 30,
+      }
+    );
   }
 
   if (!result.session) {
