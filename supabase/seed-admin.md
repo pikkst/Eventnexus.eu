@@ -42,7 +42,7 @@ For local development, set `LOCAL_ADMIN_EMAIL` and `LOCAL_ADMIN_PASSWORD` in you
 npm run seed:local-admin
 ```
 
-`scripts/seed-local-admin.ts` includes a safety check and will refuse to run if `SUPABASE_URL` does not appear to be a local address. It creates or finds the local auth user and upserts the `profiles` row with `role = 'admin'`.
+`scripts/seed-local-admin.ts` includes a hostname boundary check and will refuse to run if `SUPABASE_URL` is not an exact loopback address. It creates or finds the local auth user and upserts the `profiles` row with `role = 'admin'`.
 
 ## Step 3: Verify Admin Access
 

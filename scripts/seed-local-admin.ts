@@ -20,8 +20,18 @@ if (!localAdminEmail || !localAdminPassword) {
   process.exit(1);
 }
 
-const isLocalUrl =
-  supabaseUrl.includes('127.0.0.1') || supabaseUrl.includes('localhost');
+const isLocalUrl = (() => {
+  try {
+    const parsed = new URL(supabaseUrl);
+    const allowedHosts = new Set(['localhost', '127.0.0.1', '::1']);
+    return (
+      allowedHosts.has(parsed.hostname) &&
+      (parsed.protocol === 'http:' || parsed.protocol === 'https:')
+    );
+  } catch {
+    return false;
+  }
+})();
 
 if (!isLocalUrl) {
   console.error(

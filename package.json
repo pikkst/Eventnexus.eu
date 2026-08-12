@@ -18,7 +18,7 @@
     "format:check": "prettier --check .",
     "cleanup:webhook-events": "npx tsx scripts/cleanup-webhook-events.ts",
     "cleanup:leads": "npx tsx scripts/cleanup-leads.ts",
-    "seed:local-admin": "npx tsx scripts/seed-local-admin.ts"
+    "seed:local-admin": "cross-env DOTENV_CONFIG_PATH=.env.test npx tsx scripts/seed-local-admin.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
