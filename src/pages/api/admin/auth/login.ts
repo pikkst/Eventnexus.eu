@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { createClient } from '@supabase/supabase-js';
+import { cookieOptions } from '../../../../lib/auth/cookies';
 
 export const prerender = false;
 
@@ -66,18 +67,12 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const expiresIn = data.session.expires_in;
 
   cookies.set('sb-access-token', accessToken, {
-    path: '/',
-    httpOnly: true,
-    secure: true,
-    sameSite: 'lax',
+    ...cookieOptions,
     maxAge: expiresIn,
   });
 
   cookies.set('sb-refresh-token', refreshToken, {
-    path: '/',
-    httpOnly: true,
-    secure: true,
-    sameSite: 'lax',
+    ...cookieOptions,
     maxAge: 60 * 60 * 24 * 30,
   });
 

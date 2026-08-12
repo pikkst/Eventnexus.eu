@@ -1,12 +1,6 @@
 import { defineMiddleware } from 'astro:middleware';
 import { getAdminSession } from './lib/auth/session';
-
-const COOKIE_OPTIONS = {
-  path: '/',
-  httpOnly: true,
-  secure: true,
-  sameSite: 'lax',
-} as const;
+import { cookieOptions } from './lib/auth/cookies';
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const path = context.url.pathname;
@@ -21,14 +15,14 @@ export const onRequest = defineMiddleware(async (context, next) => {
   if (result.refreshedTokens) {
     const maxAge = Math.max(0, result.refreshedTokens.expiresIn);
     context.cookies.set('sb-access-token', result.refreshedTokens.accessToken, {
-      ...COOKIE_OPTIONS,
+      ...cookieOptions,
       maxAge,
     });
     context.cookies.set(
       'sb-refresh-token',
       result.refreshedTokens.refreshToken,
       {
-        ...COOKIE_OPTIONS,
+        ...cookieOptions,
         maxAge: 60 * 60 * 24 * 30,
       }
     );
