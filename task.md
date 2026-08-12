@@ -14,6 +14,39 @@ All tasks in this document should be written as specific, outcome-focused ticket
 
 This structure should be used for every new task going forward so that each item is clear, testable, and implementation-ready.
 
+## Audited Current Status - 2026-08-12
+
+This status was audited against the actual `main` branch implementation, versioned Supabase migrations, tests, CI configuration, and repository structure. A checked task should mean the implementation is actually present and its repository-verifiable completion criteria are satisfied, not only that a PR or planning document exists.
+
+### Verified complete in the repository
+
+- Phases 0-3 are implemented.
+- Phase 4 is implemented except payment-provider planning.
+- ADM-002.1, ADM-002.2, ADM-002.3, and ADM-002.4 are implemented and covered by migrations/tests or application code.
+- Supabase schema management uses ordered versioned migrations under `supabase/migrations/`, and CI applies them to a clean database and runs RLS tests.
+- Resend webhook verification, replay/idempotency protection, localized form submission coverage, privacy pages, consent-aware analytics behavior, retention cleanup scripts, and production-like Playwright coverage are present.
+- Phase 7 localization is implemented for EN, RU, DE, FI, and ET.
+
+### Partial or requires external verification
+
+- **ADM-002 is PARTIAL.** The repository contains the `profiles` and `admin_users` migrations, RLS policies, role-management functions, and tests. However, its Definition of Done also requires live Supabase Auth configuration and at least one real admin user. Those operational requirements cannot be proven from the repository and must be verified in Supabase before ADM-002 is marked complete.
+- Phase 5 deployment is represented by the live project and repository deployment configuration, but Cloudflare dashboard-only settings cannot be fully verified from GitHub alone.
+
+### Not implemented
+
+- Payment-provider planning in Phase 4.
+- ADM-003 server-side admin authentication helpers and middleware.
+- ADM-004 admin project board.
+- ADM-005 admin project detail and status management.
+- ADM-006 admin client messaging UI/API.
+- ADM-007 `projects` / `project_messages` admin schema and RLS.
+- ADM-008 admin smoke tests and status-transition tests.
+- A dedicated content review checklist in Phase 6.
+
+### Ongoing rather than one-time complete
+
+- `project-memory.md` maintenance remains an ongoing project hygiene task and should stay unchecked.
+
 ## Phase 0 - Foundation
 
 - [x] Capture initial project context in `info.txt`.
@@ -115,11 +148,11 @@ Set up the database tables and Supabase Auth settings required for admin authent
 **EST:** 3 SP
 
 **RT:**
-**QA:**
+**QA:** Live Supabase Auth configuration and initial admin account still require external verification.
 
-- [x] Task ID: ADM-002
+- [ ] Task ID: ADM-002 - **PARTIAL: repository implementation complete; live Supabase setup not verified**
 
-> Completed in `infra/supabase-admin-auth`. Migration SQL for `profiles` and optional `admin_users` committed. RLS policies defined in `supabase/profiles-schema.sql`. Manual Supabase dashboard steps (enable email/magic link auth, create initial admin user) documented in `supabase/admin-auth-setup.md`.
+> Repository implementation exists in `supabase/migrations/202508120001_create_profiles.sql` and `supabase/migrations/202508120002_create_admin_users.sql`, with RLS tests under `supabase/tests/`. To complete ADM-002, verify the live Supabase email/password and magic-link Auth settings, public sign-up policy, and at least one real admin user linked to a `profiles` row with `role = 'admin'`.
 
 ---
 
@@ -291,7 +324,7 @@ Add server-side auth helpers and Astro middleware to protect `/admin/*` routes u
 **EST:** 5 SP
 
 **RT:**
-**QA:**
+**QA:** No matching admin auth middleware/routes exist in `main` as of the 2026-08-12 audit.
 
 - [ ] Task ID: ADM-003
 
@@ -326,7 +359,7 @@ Implement the admin project board view with server-side data fetching, filters, 
 **EST:** 3 SP
 
 **RT:**
-**QA:**
+**QA:** No admin project board or admin project API exists in `main` as of the 2026-08-12 audit.
 
 - [ ] Task ID: ADM-004
 
@@ -361,7 +394,7 @@ Implement the project detail page showing lead data, internal notes, status trac
 **EST:** 5 SP
 
 **RT:**
-**QA:**
+**QA:** No admin project detail/status implementation exists in `main` as of the 2026-08-12 audit.
 
 - [ ] Task ID: ADM-005
 
@@ -396,7 +429,7 @@ Implement the messaging API and a minimal admin messaging UI for sending templat
 **EST:** 5 SP
 
 **RT:**
-**QA:**
+**QA:** No admin project messaging API/UI exists in `main` as of the 2026-08-12 audit.
 
 - [ ] Task ID: ADM-006
 
@@ -430,7 +463,7 @@ Create the `projects` and `project_messages` tables and apply RLS policies so th
 **EST:** 3 SP
 
 **RT:**
-**QA:**
+**QA:** No `projects` or `project_messages` migration exists in `main` as of the 2026-08-12 audit.
 
 - [ ] Task ID: ADM-007
 
@@ -462,13 +495,15 @@ Add automated smoke tests covering admin login protection, invalid status transi
 **EST:** 3 SP
 
 **RT:**
-**QA:**
+**QA:** No admin access/status-transition test suite exists in `main` as of the 2026-08-12 audit.
 
 - [ ] Task ID: ADM-008
 
 ---
 
 ## Phase 5 - Deployment
+
+> Audit note: the deployment is represented by the current repository/site state, but Cloudflare dashboard-only settings and secret values cannot be independently verified from GitHub.
 
 - [x] Connect GitHub repository to Cloudflare.
 - [x] Configure Cloudflare build settings.
@@ -485,9 +520,14 @@ Add automated smoke tests covering admin login protection, invalid status transi
 - [x] Add linting and formatting.
 - [x] Add smoke tests for critical pages.
 - [x] Add accessibility checks.
-- [x] Add content review checklist.
+- [ ] Add a dedicated content review checklist.
 - [x] Add release checklist.
-- [x] Add CI quality gates and end-to-end coverage for critical flows
+- [x] Add CI quality gates and end-to-end coverage for critical flows.
+- [x] Add production-like Playwright execution with desktop and mobile Chromium coverage.
+- [x] Add API/E2E coverage for localized submissions, invalid input, anti-bot failure, rate limiting, oversized requests, and Resend webhook verification/idempotency.
+- [x] Add public privacy notice and consent-aware analytics behavior for all five locales.
+- [x] Add operational retention cleanup scripts for leads and webhook events.
+- [x] Replace manual Supabase schema application with ordered, versioned migrations and clean-database CI verification.
 - [ ] Keep `project-memory.md` updated with decisions.
 
 ## Phase 7 - Internationalization
@@ -502,10 +542,12 @@ Add automated smoke tests covering admin login protection, invalid status transi
 
 ## Immediate Next Steps
 
-1. Initialize git locally.
-2. Create the GitHub repository.
-3. Push this documentation foundation.
-4. Decide first app stack and deployment target.
-5. Build the first public version of the Eventnexus website.
-6. Add multi-language support (EN, RU, DE, FI, ET).
-7. Start the admin operations foundation task (ADM-001) with authentication, dashboard concepts, and a future client/freelancer workflow plan.
+1. Finish and verify the operational part of ADM-002 in the live Supabase project: Auth provider settings, public sign-up policy, initial admin account, and linked `profiles.role = 'admin'` row.
+2. Implement ADM-003 server-side admin authentication helpers, middleware, login/logout/me endpoints, and protected `/admin/*` behavior.
+3. Implement ADM-007 before the admin project UI so the canonical `projects` and `project_messages` schema, migrations, RLS, and service-role access model exist first.
+4. Implement ADM-004 project board using the protected server-side API.
+5. Implement ADM-005 project detail, lifecycle transitions, and transition audit metadata.
+6. Implement ADM-006 stored client messaging and Resend-backed admin communication flow.
+7. Implement ADM-008 automated admin access and status-transition coverage.
+8. Create the missing content review checklist and then mark that Phase 6 item complete.
+9. Add payment-provider planning when paid service products become concrete enough to choose a provider and checkout model.
