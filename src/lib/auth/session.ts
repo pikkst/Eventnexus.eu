@@ -15,6 +15,7 @@ export interface AdminSessionResult {
     refreshToken: string;
     expiresIn: number;
   };
+  status: 'admin' | 'authenticated' | 'unauthenticated';
 }
 
 function parseCookies(cookieHeader: string | null): Record<string, string> {
@@ -65,7 +66,7 @@ export async function getAdminSession(
   const refreshToken = cookies['sb-refresh-token'];
 
   if (!accessToken) {
-    return { session: null };
+    return { session: null, status: 'unauthenticated' };
   }
 
   const authClient = createAuthClient();
@@ -76,19 +77,19 @@ export async function getAdminSession(
 
   if (error || !user) {
     if (!refreshToken) {
-      return { session: null };
+      return { session: null, status: 'unauthenticated' };
     }
 
     const { data: refreshData, error: refreshError } =
       await authClient.auth.refreshSession({ refresh_token: refreshToken });
 
     if (refreshError || !refreshData.user || !refreshData.session) {
-      return { session: null };
+      return { session: null, status: 'unauthenticated' };
     }
 
     const isAdmin = await verifyAdminRole(refreshData.user.id);
     if (!isAdmin) {
-      return { session: null };
+      return { session: null, status: 'authenticated' };
     }
 
     return {
@@ -99,6 +100,7 @@ export async function getAdminSession(
         },
         role: 'admin',
       },
+      status: 'admin',
       refreshedTokens: {
         accessToken: refreshData.session.access_token,
         refreshToken: refreshData.session.refresh_token,
@@ -109,7 +111,7 @@ export async function getAdminSession(
 
   const isAdmin = await verifyAdminRole(user.id);
   if (!isAdmin) {
-    return { session: null };
+    return { session: null, status: 'authenticated' };
   }
 
   return {
@@ -117,5 +119,6 @@ export async function getAdminSession(
       user: { id: user.id, email: user.email ?? undefined },
       role: 'admin',
     },
+    status: 'admin',
   };
 }

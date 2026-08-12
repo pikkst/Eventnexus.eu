@@ -28,17 +28,21 @@ export const onRequest = defineMiddleware(async (context, next) => {
     );
   }
 
-  if (!result.session) {
+  if (result.status === 'admin') {
     if (isLoginPage) {
-      return next();
+      return context.redirect('/admin', 302);
     }
-    return context.redirect('/admin/login', 302);
+    (context.locals as Record<string, unknown>).admin = result.session;
+    return next();
+  }
+
+  if (result.status === 'authenticated') {
+    return new Response('Forbidden', { status: 403 });
   }
 
   if (isLoginPage) {
-    return context.redirect('/admin', 302);
+    return next();
   }
 
-  (context.locals as Record<string, unknown>).admin = result.session;
-  return next();
+  return context.redirect('/admin/login', 302);
 });
