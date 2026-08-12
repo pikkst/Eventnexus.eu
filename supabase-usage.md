@@ -172,15 +172,14 @@ Do not create production tables until:
 
 ## Schema
 
-The lead-capture table is defined in `supabase/leads-schema.sql`.
+The lead-capture table is defined in `supabase/migrations/202508120003_create_project_leads.sql`.
 
-Apply it to the production Supabase project by:
+Apply migrations to the production Supabase project using the Supabase CLI:
 
-1. Opening the Supabase dashboard for project `yzsoczlghgcqitevamfo`.
-2. Going to **SQL Editor**.
-3. Pasting the contents of `supabase/leads-schema.sql`.
-4. Running the query.
-5. Verifying that RLS is enabled on `public.project_leads` and the admin UI reflects the policy restrictions.
+```powershell
+supabase link --project-ref yzsoczlghgcqitevamfo
+supabase db push
+```
 
 Current table: `project_leads`
 
@@ -207,15 +206,14 @@ A `contact_messages` table remains planned and is not part of the first migratio
 
 Resend webhook deliveries are stored in `webhook_events` to prevent duplicate processing.
 
-The table schema is defined in `supabase/webhook-events-schema.sql`.
+The table schema is defined in `supabase/migrations/202508120004_create_webhook_events.sql`.
 
-Apply it to the production Supabase project by:
+Apply migrations to the production Supabase project using the Supabase CLI:
 
-1. Opening the Supabase dashboard for project `yzsoczlghgcqitevamfo`.
-2. Going to **SQL Editor**.
-3. Pasting the contents of `supabase/webhook-events-schema.sql`.
-4. Running the query.
-5. Verifying that RLS is enabled on `public.webhook_events` and all roles are restricted.
+```powershell
+supabase link --project-ref yzsoczlghgcqitevamfo
+supabase db push
+```
 
 Important:
 
@@ -227,4 +225,4 @@ Important:
 
 Supabase will be used first for structured project leads, simple contact messages, and later admin review data. Customer portal features remain future scope.
 
-The `project_leads` table schema and RLS policies are defined in `supabase/leads-schema.sql` and are ready to be applied to the Supabase dashboard.
+Database schema changes are managed through versioned migrations in `supabase/migrations/`. Never apply schema changes by copy-pasting SQL directly into the Supabase dashboard without creating a migration first.

@@ -1,3 +1,7 @@
+-- Migration: 202508120004_create_webhook_events
+-- Created: 2025-08-12
+-- Description: Create webhook_events table for Resend webhook idempotency
+
 CREATE TABLE IF NOT EXISTS public.webhook_events (
   id TEXT PRIMARY KEY,
   created_at TIMESTAMPTZ DEFAULT now() NOT NULL,
@@ -49,3 +53,6 @@ CREATE POLICY "webhook_events_authenticated_delete"
 ON public.webhook_events FOR DELETE
 TO authenticated
 USING (false);
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.webhook_events TO anon;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.webhook_events TO authenticated;

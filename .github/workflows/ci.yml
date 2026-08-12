@@ -35,10 +35,44 @@ jobs:
       - name: Build
         run: npm run build
 
+  supabase:
+    name: Supabase migrations
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Start Supabase local
+        run: supabase start
+        timeout-minutes: 5
+
+      - name: Apply migrations to clean database
+        run: supabase db reset
+
+      - name: Run RLS tests
+        run: |
+          supabase db query --file supabase/tests/test_01_anon_cannot_read_profiles.sql
+          supabase db query --file supabase/tests/test_02_auth_can_read_own_profile.sql
+          supabase db query --file supabase/tests/test_03_auth_cannot_read_other_profiles.sql
+          supabase db query --file supabase/tests/test_04_auth_cannot_promote_to_admin.sql
+          supabase db query --file supabase/tests/test_05_admin_can_read_all_profiles.sql
+          supabase db query --file supabase/tests/test_06_admin_can_set_role.sql
+          supabase db query --file supabase/tests/test_07_non_admin_cannot_set_role.sql
+          supabase db query --file supabase/tests/test_08_anon_cannot_read_leads.sql
+          supabase db query --file supabase/tests/test_09_anon_cannot_insert_leads.sql
+          supabase db query --file supabase/tests/test_10_auth_cannot_read_leads.sql
+          supabase db query --file supabase/tests/test_11_auth_cannot_update_leads.sql
+          supabase db query --file supabase/tests/test_12_auth_cannot_delete_leads.sql
+
   test:
     name: E2E tests
     runs-on: ubuntu-latest
-    needs: quality
+    needs: [quality, supabase]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
