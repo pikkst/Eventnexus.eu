@@ -36,7 +36,7 @@ ON CONFLICT (id) DO UPDATE SET role = 'admin', updated_at = now();
 
 ### Via Local Development Seed Script
 
-For local development, set `LOCAL_ADMIN_EMAIL` and `LOCAL_ADMIN_PASSWORD` in your local `.env.test` file, ensure `SUPABASE_URL` points to the local Supabase instance (`http://127.0.0.1:54321` or `http://localhost:54321`), then run:
+For local development, set `LOCAL_ADMIN_EMAIL` and `LOCAL_ADMIN_PASSWORD` in your local `.env.test` file, ensure `SUPABASE_URL` points to the local Supabase instance (`http://127.0.0.1:54340` or `http://localhost:54340`), then run:
 
 ```powershell
 npm run seed:local-admin

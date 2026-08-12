@@ -56,3 +56,4 @@ USING (false);
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.webhook_events TO anon;
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.webhook_events TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.webhook_events TO service_role;

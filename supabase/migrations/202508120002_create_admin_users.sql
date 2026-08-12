@@ -81,3 +81,4 @@ USING (
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.admin_users TO anon;
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.admin_users TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.admin_users TO service_role;

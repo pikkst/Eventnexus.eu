@@ -11,10 +11,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     typeof body.email !== 'string' ||
     typeof body.password !== 'string'
   ) {
-    return new Response(JSON.stringify({ error: 'Invalid request' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return Response.redirect('/admin/login?error=invalid_request', 303);
   }
 
   const supabaseUrl =
@@ -23,10 +20,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
   if (!supabaseUrl || !supabaseAnonKey || !supabaseServiceRoleKey) {
-    return new Response(JSON.stringify({ error: 'Service unavailable' }), {
-      status: 503,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return Response.redirect('/admin/login?error=service_unavailable', 303);
   }
 
   const authClient = createClient(supabaseUrl, supabaseAnonKey, {
@@ -39,10 +33,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   });
 
   if (error || !data.user || !data.session) {
-    return new Response(JSON.stringify({ error: 'Invalid credentials' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return Response.redirect('/admin/login?error=invalid_credentials', 303);
   }
 
   const adminClient = createClient(supabaseUrl, supabaseServiceRoleKey, {
@@ -56,10 +47,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     .single();
 
   if (!profile || profile.role !== 'admin') {
-    return new Response(JSON.stringify({ error: 'Forbidden' }), {
-      status: 403,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return Response.redirect('/admin/login?error=forbidden', 303);
   }
 
   const accessToken = data.session.access_token;
@@ -76,8 +64,5 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     maxAge: 60 * 60 * 24 * 30,
   });
 
-  return new Response(JSON.stringify({ ok: true }), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' },
-  });
+  return Response.redirect('/admin', 303);
 };
