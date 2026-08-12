@@ -20,7 +20,7 @@ export default defineConfig({
       NODE_ENV: 'test',
       RESEND_WEBHOOK_SECRET: 'whsec_dGVzdC1zZWNyZXQtZm9yLXBsYXl3cmlnaHQ=',
       WEBHOOK_TEST_MODE: 'true',
-      SUPABASE_URL: 'http://localhost:54321',
+      SUPABASE_URL: 'http://localhost:54340',
       SUPABASE_SERVICE_ROLE_KEY: 'fake-service-role-key',
     },
   },
