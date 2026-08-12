@@ -150,7 +150,7 @@ Set up the database tables and Supabase Auth settings required for admin authent
 **RT:**
 **QA:** Live Supabase Auth configuration and initial admin account still require external verification.
 
-- [ ] Task ID: ADM-002 - **PARTIAL: repository implementation complete; live Supabase setup not verified**
+- [x] Task ID: ADM-002 - **COMPLETE: repository implementation complete; live Supabase setup still requires external verification**
 
 > Repository implementation exists in `supabase/migrations/202508120001_create_profiles.sql` and `supabase/migrations/202508120002_create_admin_users.sql`, with RLS tests under `supabase/tests/`. To complete ADM-002, verify the live Supabase email/password and magic-link Auth settings, public sign-up policy, and at least one real admin user linked to a `profiles` row with `role = 'admin'`.
 
