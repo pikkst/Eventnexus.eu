@@ -70,7 +70,7 @@ const {
       event.preventDefault();
       errorEl?.classList.add('hidden');
 
-      const formData = new FormData(form);
+      const formData = new FormData(form as HTMLFormElement);
       const body = {
         email: String(formData.get('email') || ''),
         password: String(formData.get('password') || ''),

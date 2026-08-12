@@ -1,8 +1,4 @@
-import {
-  createClient,
-  type SupabaseClient,
-  type User,
-} from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
 export interface AdminSession {
   user: {
@@ -86,7 +82,7 @@ export async function getAdminSession(
     const { data: refreshData, error: refreshError } =
       await authClient.auth.refreshSession({ refresh_token: refreshToken });
 
-    if (refreshError || !refreshData.user) {
+    if (refreshError || !refreshData.user || !refreshData.session) {
       return { session: null };
     }
 

@@ -45,6 +45,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return context.redirect('/admin', 302);
   }
 
-  context.locals.admin = result.session;
+  (context.locals as Record<string, unknown>).admin = result.session;
   return next();
 });
