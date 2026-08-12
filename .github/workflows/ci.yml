@@ -54,6 +54,11 @@ jobs:
       - name: Apply migrations to clean database
         run: supabase db reset
 
+      - name: Load test helpers
+        run: |
+          supabase db query "CREATE OR REPLACE FUNCTION public.test_set_auth_uid(p_uid UUID) RETURNS VOID LANGUAGE 'plpgsql' SECURITY DEFINER SET search_path = public, auth AS $$ BEGIN PERFORM set_config('request.jwt.claims', json_build_object('sub', p_uid)::text, true); END; $$;"
+          supabase db query "CREATE OR REPLACE FUNCTION public.test_clear_auth() RETURNS VOID LANGUAGE 'plpgsql' SECURITY DEFINER SET search_path = public AS $$ BEGIN PERFORM set_config('request.jwt.claims', '{}', true); END; $$;"
+
       - name: Run RLS tests
         run: |
           supabase db query --file supabase/tests/test_01_anon_cannot_read_profiles.sql
@@ -68,6 +73,16 @@ jobs:
           supabase db query --file supabase/tests/test_10_auth_cannot_read_leads.sql
           supabase db query --file supabase/tests/test_11_auth_cannot_update_leads.sql
           supabase db query --file supabase/tests/test_12_auth_cannot_delete_leads.sql
+          supabase db query --file supabase/tests/test_13_projects_anon_cannot_read.sql
+          supabase db query --file supabase/tests/test_14_projects_anon_cannot_insert.sql
+          supabase db query --file supabase/tests/test_15_projects_auth_cannot_read.sql
+          supabase db query --file supabase/tests/test_16_projects_auth_cannot_update.sql
+          supabase db query --file supabase/tests/test_17_projects_auth_cannot_delete.sql
+          supabase db query --file supabase/tests/test_18_project_messages_anon_cannot_read.sql
+          supabase db query --file supabase/tests/test_19_project_messages_anon_cannot_insert.sql
+          supabase db query --file supabase/tests/test_20_project_messages_auth_cannot_read.sql
+          supabase db query --file supabase/tests/test_21_project_messages_auth_cannot_update.sql
+          supabase db query --file supabase/tests/test_22_project_messages_auth_cannot_delete.sql
 
   test:
     name: E2E tests
