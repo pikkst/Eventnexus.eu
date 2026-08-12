@@ -66,7 +66,37 @@ export async function getAdminSession(
   const refreshToken = cookies['sb-refresh-token'];
 
   if (!accessToken) {
-    return { session: null, status: 'unauthenticated' };
+    if (!refreshToken) {
+      return { session: null, status: 'unauthenticated' };
+    }
+
+    const { data: refreshData, error: refreshError } =
+      await authClient.auth.refreshSession({ refresh_token: refreshToken });
+
+    if (refreshError || !refreshData.user || !refreshData.session) {
+      return { session: null, status: 'unauthenticated' };
+    }
+
+    const isAdmin = await verifyAdminRole(refreshData.user.id);
+    if (!isAdmin) {
+      return { session: null, status: 'authenticated' };
+    }
+
+    return {
+      session: {
+        user: {
+          id: refreshData.user.id,
+          email: refreshData.user.email ?? undefined,
+        },
+        role: 'admin',
+      },
+      status: 'admin',
+      refreshedTokens: {
+        accessToken: refreshData.session.access_token,
+        refreshToken: refreshData.session.refresh_token,
+        expiresIn: refreshData.session.expires_in,
+      },
+    };
   }
 
   const authClient = createAuthClient();
