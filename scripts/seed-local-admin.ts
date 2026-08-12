@@ -6,7 +6,8 @@ import { dirname, join } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const envPath = process.env.DOTENV_CONFIG_PATH || join(__dirname, '..', '.env.test');
+const envPath =
+  process.env.DOTENV_CONFIG_PATH || join(__dirname, '..', '.env.test');
 dotenv.config({ path: envPath, override: true });
 
 const supabaseUrl = process.env.SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL;
