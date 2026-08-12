@@ -97,3 +97,4 @@ USING (false);
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.project_leads TO anon;
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.project_leads TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.project_leads TO service_role;
