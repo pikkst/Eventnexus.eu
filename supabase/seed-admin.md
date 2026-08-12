@@ -34,6 +34,16 @@ VALUES ('<AUTH_USER_ID>', 'admin', 'Admin User', 'admin@example.com')
 ON CONFLICT (id) DO UPDATE SET role = 'admin', updated_at = now();
 ```
 
+### Via Local Development Seed Script
+
+For local development, set `LOCAL_ADMIN_EMAIL` and `LOCAL_ADMIN_PASSWORD` in your local `.env` file, then run:
+
+```powershell
+npm run seed:local-admin
+```
+
+This uses `scripts/seed-local-admin.ts` with `SUPABASE_SERVICE_ROLE_KEY` to create or find the local auth user and upsert the `profiles` row with `role = 'admin'`.
+
 ## Step 3: Verify Admin Access
 
 1. Navigate to `/admin/login`
