@@ -20,6 +20,17 @@ if (!localAdminEmail || !localAdminPassword) {
   process.exit(1);
 }
 
+const isLocalUrl =
+  supabaseUrl.includes('127.0.0.1') || supabaseUrl.includes('localhost');
+
+if (!isLocalUrl) {
+  console.error(
+    'Refusing to seed local admin into a non-local Supabase URL: %s',
+    supabaseUrl
+  );
+  process.exit(1);
+}
+
 const adminClient = createClient(supabaseUrl, serviceRoleKey, {
   auth: { autoRefreshToken: false, persistSession: false },
 });

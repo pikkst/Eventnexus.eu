@@ -129,7 +129,7 @@ This file stores stable context and decisions for future agents.
 - Astro middleware at `src/middleware.ts` protects all `/admin/*` routes; it redirects unauthenticated requests to `/admin/login`, allows authenticated admins through, and refreshes session cookies when tokens are near expiry
 - Admin login page is `src/pages/admin/login.astro` (server-rendered, not prerendered); it posts credentials to `/api/admin/auth/login` and sets HTTP-only `sb-access-token` and `sb-refresh-token` cookies on success
 - Admin API routes: `POST /api/admin/auth/login` validates credentials and admin role, `POST /api/admin/auth/logout` clears session cookies, `GET /api/admin/auth/me` returns the current admin session or `authenticated: false`
-- Initial admin seed documentation lives at `supabase/seed-admin.md`; local development uses `npm run seed:local-admin` with `LOCAL_ADMIN_EMAIL` and `LOCAL_ADMIN_PASSWORD` from `.env`; hosted provisioning uses the Dashboard SQL Editor flow described in `supabase/seed-admin.md`
+- Initial admin seed documentation lives at `supabase/seed-admin.md`; local development uses `npm run seed:local-admin` with `LOCAL_ADMIN_EMAIL` and `LOCAL_ADMIN_PASSWORD` from `.env.test`; `scripts/seed-local-admin.ts` includes a safety check and refuses to run if `SUPABASE_URL` is not a localhost/127.0.0.1 address; hosted provisioning uses the Dashboard SQL Editor flow described in `supabase/seed-admin.md`
 - Cookie options: `path=/`, `httpOnly=true`, `secure=true`, `sameSite=lax`; access-token max-age matches Supabase session expiry, refresh-token max-age is 30 days
 
 ## Open Decisions
