@@ -6,9 +6,16 @@ export const prerender = false;
 
 export const GET: APIRoute = async ({ params, request }) => {
   const result = await getAdminSession(request);
-  if (!result.session) {
+  if (result.status === 'unauthenticated') {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (result.status === 'authenticated') {
+    return new Response(JSON.stringify({ error: 'Forbidden' }), {
+      status: 403,
       headers: { 'Content-Type': 'application/json' },
     });
   }
@@ -37,9 +44,16 @@ export const GET: APIRoute = async ({ params, request }) => {
 
 export const PATCH: APIRoute = async ({ params, request }) => {
   const result = await getAdminSession(request);
-  if (!result.session) {
+  if (result.status === 'unauthenticated') {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (result.status === 'authenticated') {
+    return new Response(JSON.stringify({ error: 'Forbidden' }), {
+      status: 403,
       headers: { 'Content-Type': 'application/json' },
     });
   }
@@ -90,9 +104,16 @@ export const PATCH: APIRoute = async ({ params, request }) => {
 
 export const DELETE: APIRoute = async ({ params, request }) => {
   const result = await getAdminSession(request);
-  if (!result.session) {
+  if (result.status === 'unauthenticated') {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (result.status === 'authenticated') {
+    return new Response(JSON.stringify({ error: 'Forbidden' }), {
+      status: 403,
       headers: { 'Content-Type': 'application/json' },
     });
   }

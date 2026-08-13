@@ -118,11 +118,11 @@ jobs:
           cat > .dev.vars << 'EOF'
           PUBLIC_SITE_URL=http://localhost:4321
           PUBLIC_SUPABASE_URL=http://localhost:54340
-          PUBLIC_SUPABASE_ANON_KEY=fake-anon-key
+          PUBLIC_SUPABASE_ANON_KEY=${{ secrets.PUBLIC_SUPABASE_ANON_KEY }}
           SUPABASE_URL=http://localhost:54340
-          SUPABASE_SERVICE_ROLE_KEY=fake-service-role-key
-          SUPABASE_PROJECT_ID=fake-project-id
-          SUPABASE_MOCK_MODE=true
+          SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_PROJECT_ID=local
+          SUPABASE_MOCK_MODE=false
           RESEND_API_KEY=fake-resend-key
           RESEND_FROM_EMAIL=test@eventnexus.eu
           LEAD_NOTIFICATION_EMAIL=test@eventnexus.eu

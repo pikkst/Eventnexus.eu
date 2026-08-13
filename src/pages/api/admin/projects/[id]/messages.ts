@@ -6,9 +6,16 @@ export const prerender = false;
 
 export const GET: APIRoute = async ({ params, request }) => {
   const result = await getAdminSession(request);
-  if (!result.session) {
+  if (result.status === 'unauthenticated') {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (result.status === 'authenticated') {
+    return new Response(JSON.stringify({ error: 'Forbidden' }), {
+      status: 403,
       headers: { 'Content-Type': 'application/json' },
     });
   }
@@ -37,9 +44,16 @@ export const GET: APIRoute = async ({ params, request }) => {
 
 export const POST: APIRoute = async ({ params, request }) => {
   const result = await getAdminSession(request);
-  if (!result.session) {
+  if (result.status === 'unauthenticated') {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (result.status === 'authenticated') {
+    return new Response(JSON.stringify({ error: 'Forbidden' }), {
+      status: 403,
       headers: { 'Content-Type': 'application/json' },
     });
   }
@@ -59,7 +73,9 @@ export const POST: APIRoute = async ({ params, request }) => {
       project_id: params.id,
       sender_type: body.sender_type || 'admin',
       sender_email:
-        body.sender_email || result.session.user.email || 'admin@eventnexus.eu',
+        body.sender_email ||
+        result.session?.user.email ||
+        'admin@eventnexus.eu',
       message_type: body.message_type || 'custom',
       subject: body.subject,
       body: body.body,
