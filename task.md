@@ -31,15 +31,14 @@ This status was audited against the actual `main` branch implementation, version
 
 - **ADM-002 is PARTIAL.** The repository contains the `profiles` and `admin_users` migrations, RLS policies, role-management functions, and tests. However, its Definition of Done also requires live Supabase Auth configuration and at least one real admin user. Those operational requirements cannot be proven from the repository and must be verified in Supabase before ADM-002 is marked complete.
 - Phase 5 deployment is represented by the live project and repository deployment configuration, but Cloudflare dashboard-only settings cannot be fully verified from GitHub alone.
+- **ADM-007 is PARTIAL.** Repository implementation is complete (migrations, RLS policies, admin API routes, and role-boundary tests). Live Supabase Dashboard RLS verification remains pending.
 
 ### Not implemented
 
 - Payment-provider planning in Phase 4.
-- ADM-003 server-side admin authentication helpers and middleware.
-- ADM-004 admin project board.
-- ADM-005 admin project detail and status management.
-- ADM-006 admin client messaging UI/API.
-- ADM-007 `projects` / `project_messages` admin schema and RLS.
+- ADM-004 admin project board UI (API routes implemented).
+- ADM-005 admin project detail UI (API routes implemented).
+- ADM-006 admin client messaging UI (API routes implemented).
 - ADM-008 admin smoke tests and status-transition tests.
 - A dedicated content review checklist in Phase 6.
 
@@ -324,9 +323,9 @@ Add server-side auth helpers and Astro middleware to protect `/admin/*` routes u
 **EST:** 5 SP
 
 **RT:**
-**QA:** No matching admin auth middleware/routes exist in `main` as of the 2026-08-12 audit.
+**QA:** Implemented in `src/middleware.ts`, `src/lib/auth/session.ts`, `src/pages/admin/login.astro`, and `src/pages/api/admin/auth/login.ts`, `logout.ts`, `me.ts`.
 
-- [ ] Task ID: ADM-003
+- [x] Task ID: ADM-003
 
 ---
 
@@ -359,7 +358,7 @@ Implement the admin project board view with server-side data fetching, filters, 
 **EST:** 3 SP
 
 **RT:**
-**QA:** No admin project board or admin project API exists in `main` as of the 2026-08-12 audit.
+**QA:** API routes implemented in `src/pages/api/admin/projects.ts`. Admin project board UI (`src/pages/admin/index.astro`) not yet implemented.
 
 - [ ] Task ID: ADM-004
 
@@ -394,7 +393,7 @@ Implement the project detail page showing lead data, internal notes, status trac
 **EST:** 5 SP
 
 **RT:**
-**QA:** No admin project detail/status implementation exists in `main` as of the 2026-08-12 audit.
+**QA:** API routes implemented in `src/pages/api/admin/projects/[id].ts` and `src/pages/api/admin/projects/[id]/status.ts`. Admin project detail UI (`src/pages/admin/projects/[id].astro`) not yet implemented.
 
 - [ ] Task ID: ADM-005
 
@@ -429,7 +428,7 @@ Implement the messaging API and a minimal admin messaging UI for sending templat
 **EST:** 5 SP
 
 **RT:**
-**QA:** No admin project messaging API/UI exists in `main` as of the 2026-08-12 audit.
+**QA:** API route implemented in `src/pages/api/admin/projects/[id]/messages.ts`. Admin messaging UI shell and Resend-backed email sending not yet implemented.
 
 - [ ] Task ID: ADM-006
 
