@@ -463,7 +463,7 @@ Create the `projects` and `project_messages` tables and apply RLS policies so th
 **EST:** 3 SP
 
 **RT:**
-**QA:** No `projects` or `project_messages` migration existed in `main` as of the 2026-08-12 audit. Implemented via versioned migrations `202608130001_create_projects.sql` and `202608130002_create_project_messages.sql`. RLS policies documented in `supabase/admin-schema.sql`. Protected admin data API routes and live Supabase dashboard verification remain pending.
+**QA:** No `projects` or `project_messages` migration existed in `main` as of the 2026-08-12 audit. Implemented via versioned migrations `202608130001_create_projects.sql`, `202608130002_create_project_messages.sql`, and `202608130003_add_project_messages_updated_at.sql`. RLS policies documented in `supabase/admin-schema.sql`. Protected admin data API routes implemented in `src/pages/api/admin/projects.ts`, `src/pages/api/admin/projects/[id].ts`, `src/pages/api/admin/projects/[id]/status.ts`, and `src/pages/api/admin/projects/[id]/messages.ts` with `getAdminSession` role verification and `SUPABASE_SERVICE_ROLE_KEY` server-side access. Live Supabase Dashboard RLS verification remains pending.
 
 - [ ] Task ID: ADM-007
 
