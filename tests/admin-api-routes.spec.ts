@@ -36,7 +36,9 @@ test.describe('admin API routes', () => {
   test('GET /api/admin/projects/:id returns 401 without admin session', async ({
     page,
   }) => {
-    const response = await page.request.get(`${adminBase}/projects/00000000-0000-0000-0000-000000000000`);
+    const response = await page.request.get(
+      `${adminBase}/projects/00000000-0000-0000-0000-000000000000`
+    );
     expect(response.status()).toBe(401);
   });
 

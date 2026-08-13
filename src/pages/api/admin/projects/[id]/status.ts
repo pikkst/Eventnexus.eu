@@ -21,7 +21,19 @@ export const POST: APIRoute = async ({ params, request }) => {
     });
   }
 
-  const validStatuses = ['new', 'reviewed', 'accepted', 'in_progress', 'awaiting_client_input', 'delivered', 'completed', 'blocked', 'on_hold', 'archived', 'rejected'];
+  const validStatuses = [
+    'new',
+    'reviewed',
+    'accepted',
+    'in_progress',
+    'awaiting_client_input',
+    'delivered',
+    'completed',
+    'blocked',
+    'on_hold',
+    'archived',
+    'rejected',
+  ];
   if (!validStatuses.includes(body.status)) {
     return new Response(JSON.stringify({ error: 'Invalid status' }), {
       status: 400,
@@ -34,7 +46,9 @@ export const POST: APIRoute = async ({ params, request }) => {
     .from('projects')
     .update({ status: body.status })
     .eq('id', params.id)
-    .select('id, created_at, updated_at, lead_id, status, admin_notes, lead_score, next_action, follow_up_date, assigned_admin_id, project_value_estimate')
+    .select(
+      'id, created_at, updated_at, lead_id, status, admin_notes, lead_score, next_action, follow_up_date, assigned_admin_id, project_value_estimate'
+    )
     .single();
 
   if (error) {

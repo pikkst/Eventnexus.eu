@@ -16,7 +16,9 @@ export const GET: APIRoute = async ({ params, request }) => {
   const supabase = getSupabaseServerClient();
   const { data, error } = await supabase
     .from('projects')
-    .select('id, created_at, updated_at, lead_id, status, admin_notes, lead_score, next_action, follow_up_date, assigned_admin_id, project_value_estimate, project_leads(full_name, email, project_type, project_title, idea_description)')
+    .select(
+      'id, created_at, updated_at, lead_id, status, admin_notes, lead_score, next_action, follow_up_date, assigned_admin_id, project_value_estimate, project_leads(full_name, email, project_type, project_title, idea_description)'
+    )
     .eq('id', params.id)
     .single();
 
@@ -57,15 +59,20 @@ export const PATCH: APIRoute = async ({ params, request }) => {
   if (body.admin_notes !== undefined) updates.admin_notes = body.admin_notes;
   if (body.lead_score !== undefined) updates.lead_score = body.lead_score;
   if (body.next_action !== undefined) updates.next_action = body.next_action;
-  if (body.follow_up_date !== undefined) updates.follow_up_date = body.follow_up_date;
-  if (body.assigned_admin_id !== undefined) updates.assigned_admin_id = body.assigned_admin_id;
-  if (body.project_value_estimate !== undefined) updates.project_value_estimate = body.project_value_estimate;
+  if (body.follow_up_date !== undefined)
+    updates.follow_up_date = body.follow_up_date;
+  if (body.assigned_admin_id !== undefined)
+    updates.assigned_admin_id = body.assigned_admin_id;
+  if (body.project_value_estimate !== undefined)
+    updates.project_value_estimate = body.project_value_estimate;
 
   const { data, error } = await supabase
     .from('projects')
     .update(updates)
     .eq('id', params.id)
-    .select('id, created_at, updated_at, lead_id, status, admin_notes, lead_score, next_action, follow_up_date, assigned_admin_id, project_value_estimate')
+    .select(
+      'id, created_at, updated_at, lead_id, status, admin_notes, lead_score, next_action, follow_up_date, assigned_admin_id, project_value_estimate'
+    )
     .single();
 
   if (error) {

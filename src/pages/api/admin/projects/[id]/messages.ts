@@ -16,7 +16,9 @@ export const GET: APIRoute = async ({ params, request }) => {
   const supabase = getSupabaseServerClient();
   const { data, error } = await supabase
     .from('project_messages')
-    .select('id, created_at, updated_at, project_id, sender_type, sender_email, message_type, subject, body, sent_via_email, email_sent_at, email_error')
+    .select(
+      'id, created_at, updated_at, project_id, sender_type, sender_email, message_type, subject, body, sent_via_email, email_sent_at, email_error'
+    )
     .eq('project_id', params.id)
     .order('created_at', { ascending: false });
 
@@ -56,13 +58,16 @@ export const POST: APIRoute = async ({ params, request }) => {
     .insert({
       project_id: params.id,
       sender_type: body.sender_type || 'admin',
-      sender_email: body.sender_email || result.session.user.email || 'admin@eventnexus.eu',
+      sender_email:
+        body.sender_email || result.session.user.email || 'admin@eventnexus.eu',
       message_type: body.message_type || 'custom',
       subject: body.subject,
       body: body.body,
       sent_via_email: body.sent_via_email || false,
     })
-    .select('id, created_at, updated_at, project_id, sender_type, sender_email, message_type, subject, body, sent_via_email, email_sent_at, email_error')
+    .select(
+      'id, created_at, updated_at, project_id, sender_type, sender_email, message_type, subject, body, sent_via_email, email_sent_at, email_error'
+    )
     .single();
 
   if (error) {
