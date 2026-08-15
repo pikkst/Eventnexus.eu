@@ -91,13 +91,14 @@ test('smoke: unprefixed routes redirect to canonical English routes', async ({
 test('smoke: isolated contact-only submission succeeds on canonical route', async ({
   page,
 }) => {
+  const unique = Date.now();
   await page.goto('/en/contact');
 
   await page.click('#toggle-contact-only');
   await page.waitForSelector('#contactName', { state: 'visible' });
 
   await page.fill('#contactName', 'Test User');
-  await page.fill('#contactEmail', 'test@example.com');
+  await page.fill('#contactEmail', `test-${unique}@example.com`);
   await page.fill(
     '#contactMessage',
     'This is a test message that meets the minimum length requirement.'

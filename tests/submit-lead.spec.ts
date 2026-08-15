@@ -8,19 +8,19 @@ test.beforeEach(async ({ page }) => {
 
 const locales = ['en', 'ru', 'de', 'fi', 'et'];
 
-async function fillStep1(page: Playwright.Page) {
+async function fillStep1(page: Playwright.Page, email = 'test@example.com') {
   await page.fill('input[name="fullName"]', 'Test User');
-  await page.fill('input[name="email"]', 'test@example.com');
+  await page.fill('input[name="email"]', email);
   await page.fill('input[name="phone"]', '123456789');
   await page.fill('input[name="company"]', 'Test Co');
   await page.fill('input[name="region"]', 'EE');
 }
 
-async function fillStep2(page: Playwright.Page) {
+async function fillStep2(page: Playwright.Page, projectTitle = 'Test Project') {
   await page
     .locator('select[name="projectType"]')
     .selectOption('company_website');
-  await page.fill('input[name="projectTitle"]', 'Test Project');
+  await page.fill('input[name="projectTitle"]', projectTitle);
 }
 
 async function fillStep3(page: Playwright.Page) {
@@ -47,11 +47,15 @@ async function clickNext(page: Playwright.Page) {
   await page.click('#next-btn');
 }
 
-async function navigateToSubmit(page: Playwright.Page) {
-  await fillStep1(page);
+async function navigateToSubmit(
+  page: Playwright.Page,
+  email = 'test@example.com',
+  projectTitle = 'Test Project'
+) {
+  await fillStep1(page, email);
   await clickNext(page);
 
-  await fillStep2(page);
+  await fillStep2(page, projectTitle);
   await clickNext(page);
 
   await fillStep3(page);
@@ -80,9 +84,14 @@ for (const locale of locales) {
   test(`submit-lead: form validation and submission works in ${locale}`, async ({
     page,
   }) => {
+    const unique = Date.now();
     await page.goto(`/${locale}/contact`);
 
-    await navigateToSubmit(page);
+    await navigateToSubmit(
+      page,
+      `test-${locale}-${unique}@example.com`,
+      `Test Project ${unique}`
+    );
     await setFormLoadedAtToPast(page);
 
     await page.evaluate(() => {
@@ -104,11 +113,12 @@ test('submit-lead: contact-only submission works in all locales', async ({
   page,
 }) => {
   for (const locale of locales) {
+    const unique = Date.now();
     await page.goto(`/${locale}/contact`);
     await page.click('#toggle-contact-only');
 
     await page.fill('#contactName', 'John Doe');
-    await page.fill('#contactEmail', 'john@example.com');
+    await page.fill('#contactEmail', `john-${locale}-${unique}@example.com`);
     await page.fill(
       '#contactMessage',
       'This is a test contact message that meets the minimum length requirement.'

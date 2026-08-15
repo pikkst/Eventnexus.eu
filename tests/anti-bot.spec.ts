@@ -196,16 +196,19 @@ test.describe('API abuse protection', () => {
     await page.request.post('/api/test/reset-rate-limit');
 
     const oldTimestamp = new Date(Date.now() - 10000).toISOString();
+    const unique = Date.now();
+    const email = `ratetest-${unique}@example.com`;
 
     for (let i = 0; i < 5; i++) {
       const response = await page.request.post('/api/submit-lead', {
         form: {
           fullName: 'Rate Test',
-          email: 'ratetest@example.com',
+          email,
           phoneOrChannel: '',
           companyName: '',
           region: 'EE',
           contactMessage: 'This is a rate limit test message.',
+          projectTitle: `rate-test-${unique}-${i}`,
           consent: 'on',
           formLoadedAt: oldTimestamp,
         },
@@ -219,11 +222,12 @@ test.describe('API abuse protection', () => {
     const response = await page.request.post('/api/submit-lead', {
       form: {
         fullName: 'Rate Test',
-        email: 'ratetest@example.com',
+        email,
         phoneOrChannel: '',
         companyName: '',
         region: 'EE',
         contactMessage: 'This is a rate limit test message.',
+        projectTitle: `rate-test-${unique}-final`,
         consent: 'on',
         formLoadedAt: oldTimestamp,
       },

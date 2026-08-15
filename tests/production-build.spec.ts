@@ -59,13 +59,14 @@ test.describe('production build behavior', () => {
   });
 
   test('contact-only submission succeeds on built output', async ({ page }) => {
+    const unique = Date.now();
     await page.goto('/en/contact');
 
     await page.click('#toggle-contact-only');
     await page.waitForSelector('#contactName', { state: 'visible' });
 
     await page.fill('#contactName', 'Build Test User');
-    await page.fill('#contactEmail', 'buildtest@example.com');
+    await page.fill('#contactEmail', `buildtest-${unique}@example.com`);
     await page.fill(
       '#contactMessage',
       'This is a test message that meets the minimum length requirement for the built output test.'
@@ -86,16 +87,17 @@ test.describe('production build behavior', () => {
   test('full project request form submits successfully on built output', async ({
     page,
   }) => {
+    const unique = Date.now();
     await page.goto('/en/contact');
 
     await page.fill('input[name="fullName"]', 'Test User');
-    await page.fill('input[name="email"]', 'test@example.com');
+    await page.fill('input[name="email"]', `test-${unique}@example.com`);
     await clickNext(page);
 
     await page
       .locator('select[name="projectType"]')
       .selectOption('company_website');
-    await page.fill('input[name="projectTitle"]', 'Test Project');
+    await page.fill('input[name="projectTitle"]', `Test Project ${unique}`);
     await clickNext(page);
 
     await page.fill(
