@@ -34,12 +34,20 @@ const webServerEnv: Record<string, string> = {
 
 if (devVars.SUPABASE_URL) {
   webServerEnv.SUPABASE_URL = devVars.SUPABASE_URL;
+} else if (!process.env.SUPABASE_URL) {
+  webServerEnv.SUPABASE_URL = 'http://localhost:54340';
 }
+
 if (devVars.SUPABASE_SERVICE_ROLE_KEY) {
   webServerEnv.SUPABASE_SERVICE_ROLE_KEY = devVars.SUPABASE_SERVICE_ROLE_KEY;
+} else if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  webServerEnv.SUPABASE_SERVICE_ROLE_KEY = '';
 }
+
 if (devVars.PUBLIC_SUPABASE_ANON_KEY) {
   webServerEnv.PUBLIC_SUPABASE_ANON_KEY = devVars.PUBLIC_SUPABASE_ANON_KEY;
+} else if (!process.env.PUBLIC_SUPABASE_ANON_KEY) {
+  webServerEnv.PUBLIC_SUPABASE_ANON_KEY = '';
 }
 
 export default defineConfig({
