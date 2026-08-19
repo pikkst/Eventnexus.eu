@@ -1,6 +1,26 @@
 import { test, expect } from '@playwright/test';
+import { checkSupabaseConnectivity } from './supabase-helper';
+
+const supabaseUrl = process.env.SUPABASE_URL || 'http://localhost:54340';
+const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const anonKey = process.env.PUBLIC_SUPABASE_ANON_KEY || '';
+
+let supabaseAvailable = false;
+
+test.beforeAll(async () => {
+  supabaseAvailable = await checkSupabaseConnectivity(
+    supabaseUrl,
+    serviceRoleKey,
+    anonKey
+  );
+});
 
 test.beforeEach(async ({ page }) => {
+  if (!supabaseAvailable) {
+    test.skip(true, 'Supabase is not reachable');
+    return;
+  }
+
   await page.request.post('/api/test/reset-rate-limit', {
     headers: { Origin: 'http://127.0.0.1:4321' },
   });

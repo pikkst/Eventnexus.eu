@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import fs from 'fs';
 import path from 'path';
+import { checkSupabaseConnectivity } from './supabase-helper';
 
 const supabaseUrl = process.env.SUPABASE_URL || 'http://localhost:54340';
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
@@ -30,9 +31,23 @@ const effectiveServiceRoleKey =
   serviceRoleKey || devVars.SUPABASE_SERVICE_ROLE_KEY || '';
 const effectiveAnonKey = anonKey || devVars.PUBLIC_SUPABASE_ANON_KEY || '';
 
-const hasSupabaseCredentials = Boolean(
-  supabaseUrl && effectiveServiceRoleKey && effectiveAnonKey
-);
+let supabaseAvailable = false;
+
+test.beforeAll(async () => {
+  supabaseAvailable = await checkSupabaseConnectivity(
+    supabaseUrl,
+    effectiveServiceRoleKey,
+    effectiveAnonKey
+  );
+
+  if (!supabaseAvailable) {
+    test.skip(true, 'Supabase is not reachable');
+    return;
+  }
+
+  await createTestUser('nonadmin@example.com', 'password123', 'user');
+  await createTestUser('admin@example.com', 'password123', 'admin');
+});
 
 async function createTestUser(
   email: string,
@@ -189,19 +204,11 @@ async function adminRequest(
 }
 
 test.describe('admin API role boundaries', () => {
-  test.beforeAll(async () => {
-    if (!hasSupabaseCredentials) {
-      test.skip(true, 'Supabase credentials not configured');
-    }
-    await createTestUser('nonadmin@example.com', 'password123', 'user');
-    await createTestUser('admin@example.com', 'password123', 'admin');
-  });
-
   test('authenticated non-admin is denied access to admin projects list', async ({
     page,
   }) => {
-    if (!hasSupabaseCredentials) {
-      test.skip(true, 'Supabase credentials not configured');
+    if (!supabaseAvailable) {
+      test.skip(true, 'Supabase is not reachable');
     }
     const tokens = await getSessionTokens(
       'nonadmin@example.com',
@@ -215,8 +222,8 @@ test.describe('admin API role boundaries', () => {
   test('authenticated non-admin is denied access to admin project detail', async ({
     page,
   }) => {
-    if (!hasSupabaseCredentials) {
-      test.skip(true, 'Supabase credentials not configured');
+    if (!supabaseAvailable) {
+      test.skip(true, 'Supabase is not reachable');
     }
     const tokens = await getSessionTokens(
       'nonadmin@example.com',
@@ -234,8 +241,8 @@ test.describe('admin API role boundaries', () => {
   test('authenticated admin is allowed to access admin projects list', async ({
     page,
   }) => {
-    if (!hasSupabaseCredentials) {
-      test.skip(true, 'Supabase credentials not configured');
+    if (!supabaseAvailable) {
+      test.skip(true, 'Supabase is not reachable');
     }
     await loginAs(page, 'admin@example.com', 'password123');
     await adminRequest(page, '/api/admin/projects', 200);
@@ -244,8 +251,8 @@ test.describe('admin API role boundaries', () => {
   test('authenticated admin is allowed to access admin project detail', async ({
     page,
   }) => {
-    if (!hasSupabaseCredentials) {
-      test.skip(true, 'Supabase credentials not configured');
+    if (!supabaseAvailable) {
+      test.skip(true, 'Supabase is not reachable');
     }
     await loginAs(page, 'admin@example.com', 'password123');
     await adminRequest(
