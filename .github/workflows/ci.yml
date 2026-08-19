@@ -123,27 +123,11 @@ jobs:
       - name: Extract Supabase credentials
         id: supabase
         run: |
-          set +e
-          ENV_OUTPUT=$(supabase status -o env 2>/dev/null)
-          if [ -z "$ENV_OUTPUT" ]; then
-            ENV_OUTPUT=$(supabase status --output env 2>/dev/null)
-          fi
-          set -e
-
-          if [ -n "$ENV_OUTPUT" ]; then
-            eval "$ENV_OUTPUT"
-          fi
-
-          ANON_KEY="${PUBLIC_SUPABASE_ANON_KEY:-${SUPABASE_ANON_KEY:-}}"
-          SERVICE_ROLE_KEY="${SUPABASE_SERVICE_ROLE_KEY:-}"
+          ANON_KEY=$(supabase status 2>/dev/null | grep "Publishable" | awk '{print $NF}')
+          SERVICE_ROLE_KEY=$(supabase status 2>/dev/null | grep "Secret" | awk '{print $NF}')
 
           if [ -z "$ANON_KEY" ] || [ -z "$SERVICE_ROLE_KEY" ]; then
-            if [ -n "$ENV_OUTPUT" ]; then
-              echo "::error::Supabase status env output did not contain expected keys"
-              echo "::error::Output was: $ENV_OUTPUT"
-            else
-              echo "::error::supabase status -o env produced no output"
-            fi
+            echo "::error::Failed to extract Supabase credentials from supabase status"
             exit 1
           fi
 
