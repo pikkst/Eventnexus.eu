@@ -462,9 +462,9 @@ Create the `projects` and `project_messages` tables and apply RLS policies so th
 **EST:** 3 SP
 
 **RT:**
-**QA:** Implemented via versioned migrations `202608130001_create_projects.sql`, `202608130002_create_project_messages.sql`, and `202608130003_add_project_messages_updated_at.sql`. RLS policies documented in `supabase/admin-schema.sql`. Protected admin data API routes implemented in `src/pages/api/admin/projects.ts`, `src/pages/api/admin/projects/[id].ts`, `src/pages/api/admin/projects/[id]/status.ts`, and `src/pages/api/admin/projects/[id]/messages.ts` with `getAdminSession` role verification and `SUPABASE_SERVICE_ROLE_KEY` server-side access. Admin API role boundary tests implemented in `tests/admin-api-routes.spec.ts` and pass locally. Live Supabase Dashboard RLS verification remains pending. CI execution of admin E2E tests requires GitHub Actions secrets `PUBLIC_SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY`.
+**QA:** Repository implementation is complete: versioned migrations `202608130001_create_projects.sql`, `202608130002_create_project_messages.sql`, and `202608130003_add_project_messages_updated_at.sql` exist; RLS policies documented in `supabase/admin-schema.sql`; protected admin API routes implemented with `getAdminSession` role verification and `SUPABASE_SERVICE_ROLE_KEY` server-side access; admin API role-boundary tests implemented in `tests/admin-api-routes.spec.ts`. Data-integrity fix applied to `src/pages/api/admin/projects/[id]/messages.ts` so sender_type, sender_email, and sent_via_email are server-owned. CI workflow `.github/workflows/ci.yml` updated to start local Supabase in the E2E job, apply migrations, and run Playwright deterministically; tests now fail in CI when Supabase is unreachable instead of silently skipping. Remaining blockers: live Supabase migrations have not been applied to the Eventnexus.eu project, and live Dashboard RLS verification is still pending.
 
-- [x] Task ID: ADM-007
+- [ ] Task ID: ADM-007
 
 ---
 

@@ -1,9 +1,15 @@
 export async function checkSupabaseConnectivity(
   supabaseUrl: string,
   serviceRoleKey: string,
-  anonKey: string
+  anonKey: string,
+  failOnUnavailable = false
 ): Promise<boolean> {
   if (!supabaseUrl || !serviceRoleKey || !anonKey) {
+    if (failOnUnavailable) {
+      throw new Error(
+        'Supabase is not reachable and tests require a live database'
+      );
+    }
     return false;
   }
 
@@ -27,6 +33,11 @@ export async function checkSupabaseConnectivity(
     clearTimeout(timeout);
     return response.ok || response.status === 401 || response.status === 403;
   } catch {
+    if (failOnUnavailable) {
+      throw new Error(
+        'Supabase is not reachable and tests require a live database'
+      );
+    }
     return false;
   }
 }

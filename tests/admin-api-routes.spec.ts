@@ -37,7 +37,8 @@ test.beforeAll(async () => {
   supabaseAvailable = await checkSupabaseConnectivity(
     supabaseUrl,
     effectiveServiceRoleKey,
-    effectiveAnonKey
+    effectiveAnonKey,
+    process.env.CI === 'true'
   );
 
   if (!supabaseAvailable) {
