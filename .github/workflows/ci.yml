@@ -123,11 +123,17 @@ jobs:
       - name: Extract Supabase credentials
         id: supabase
         run: |
-          ANON_KEY=$(supabase status 2>/dev/null | grep "Publishable" | awk '{print $NF}')
-          SERVICE_ROLE_KEY=$(supabase status 2>/dev/null | grep "Secret" | awk '{print $NF}')
+          if [ -f .env ]; then
+            source .env
+            ANON_KEY="$PUBLIC_SUPABASE_ANON_KEY"
+            SERVICE_ROLE_KEY="$SUPABASE_SERVICE_ROLE_KEY"
+          else
+            echo "::error::.env file not found after supabase start"
+            exit 1
+          fi
 
           if [ -z "$ANON_KEY" ] || [ -z "$SERVICE_ROLE_KEY" ]; then
-            echo "::error::Failed to extract Supabase credentials from supabase status"
+            echo "::error::Failed to extract Supabase credentials from .env"
             exit 1
           fi
 
