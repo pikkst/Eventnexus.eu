@@ -123,15 +123,32 @@ jobs:
       - name: Extract Supabase credentials
         id: supabase
         run: |
-          eval "$(supabase status -o env 2>/dev/null)"
+          set +e
+          ENV_OUTPUT=$(supabase status -o env 2>/dev/null)
+          if [ -z "$ENV_OUTPUT" ]; then
+            ENV_OUTPUT=$(supabase status --output env 2>/dev/null)
+          fi
+          set -e
 
-          if [ -z "$PUBLIC_SUPABASE_ANON_KEY" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
-            echo "::error::Failed to extract Supabase credentials from supabase status"
+          if [ -n "$ENV_OUTPUT" ]; then
+            eval "$ENV_OUTPUT"
+          fi
+
+          ANON_KEY="${PUBLIC_SUPABASE_ANON_KEY:-${SUPABASE_ANON_KEY:-}}"
+          SERVICE_ROLE_KEY="${SUPABASE_SERVICE_ROLE_KEY:-}"
+
+          if [ -z "$ANON_KEY" ] || [ -z "$SERVICE_ROLE_KEY" ]; then
+            if [ -n "$ENV_OUTPUT" ]; then
+              echo "::error::Supabase status env output did not contain expected keys"
+              echo "::error::Output was: $ENV_OUTPUT"
+            else
+              echo "::error::supabase status -o env produced no output"
+            fi
             exit 1
           fi
 
-          echo "anon_key=$PUBLIC_SUPABASE_ANON_KEY" >> "$GITHUB_OUTPUT"
-          echo "service_role_key=$SUPABASE_SERVICE_ROLE_KEY" >> "$GITHUB_OUTPUT"
+          echo "anon_key=$ANON_KEY" >> "$GITHUB_OUTPUT"
+          echo "service_role_key=$SERVICE_ROLE_KEY" >> "$GITHUB_OUTPUT"
 
       - name: Create test environment file
         run: |
