@@ -1,0 +1,126 @@
+-- Eventnexus Admin Schema Documentation
+-- This file documents the RLS policies for admin tables.
+-- It is not a migration. Apply schema changes only through versioned migrations under supabase/migrations/.
+
+-- ============================================================================
+-- projects
+-- ============================================================================
+
+-- Table: public.projects
+-- Purpose: Admin-managed project records derived from public.project_leads.
+--
+-- Columns:
+--   id                  UUID PRIMARY KEY
+--   created_at          TIMESTAMPTZ NOT NULL DEFAULT now()
+--   updated_at          TIMESTAMPTZ NOT NULL DEFAULT now()
+--   lead_id             UUID REFERENCES public.project_leads(id) ON DELETE SET NULL UNIQUE
+--   status              TEXT NOT NULL DEFAULT 'new'
+--                       CHECK (status IN ('new','reviewed','accepted','in_progress','awaiting_client_input','delivered','completed','blocked','on_hold','archived','rejected'))
+--   admin_notes         TEXT
+--   lead_score          INTEGER NOT NULL DEFAULT 0
+--   next_action         TEXT
+--   follow_up_date      DATE
+--   assigned_admin_id   UUID REFERENCES auth.users(id) ON DELETE SET NULL
+--   project_value_estimate NUMERIC(12,2)
+--
+-- Indexes:
+--   idx_projects_status        ON public.projects USING btree (status)
+--   idx_projects_created_at    ON public.projects USING btree (created_at DESC)
+--   idx_projects_lead_id       ON public.projects USING btree (lead_id)
+--
+-- Triggers:
+--   trg_update_projects_updated_at
+--     BEFORE UPDATE ON public.projects
+--     FOR EACH ROW EXECUTE FUNCTION public.update_projects_updated_at()
+--
+-- RLS Status: ENABLED
+--
+-- Policies:
+--   projects_anon_select           TO anon          USING (false)
+--   projects_authenticated_select  TO authenticated  USING (false)
+--   projects_anon_insert           TO anon          WITH CHECK (false)
+--   projects_authenticated_insert  TO authenticated  WITH CHECK (false)
+--   projects_anon_update           TO anon          USING (false)
+--   projects_authenticated_update  TO authenticated  USING (false)
+--   projects_anon_delete           TO anon          USING (false)
+--   projects_authenticated_delete  TO authenticated  USING (false)
+--
+-- Access Model:
+--   anon / authenticated: no direct access through RLS.
+--   service_role: full access for migrations and server-side admin API routes.
+--   All admin reads/writes must go through protected server-side API routes
+--   after verifying the caller's admin role.
+
+-- ============================================================================
+-- project_messages
+-- ============================================================================
+
+-- Table: public.project_messages
+-- Purpose: Admin-client communication history tied to a project.
+--
+-- Columns:
+--   id               UUID PRIMARY KEY DEFAULT gen_random_uuid()
+--   created_at       TIMESTAMPTZ NOT NULL DEFAULT now()
+--   updated_at       TIMESTAMPTZ NOT NULL DEFAULT now()
+--   project_id       UUID NOT NULL REFERENCES public.projects(id) ON DELETE CASCADE
+--   sender_type      TEXT NOT NULL DEFAULT 'admin'
+--                    CHECK (sender_type IN ('admin','client'))
+--   sender_email     TEXT NOT NULL
+--   message_type     TEXT NOT NULL DEFAULT 'custom'
+--                    CHECK (message_type IN ('acknowledgment','clarification_request','proposal_sent','status_update','delivery_notification','custom'))
+--   subject          TEXT NOT NULL
+--   body             TEXT NOT NULL
+--   sent_via_email   BOOLEAN NOT NULL DEFAULT false
+--   email_sent_at    TIMESTAMPTZ
+--   email_error      TEXT
+--
+-- Indexes:
+--   idx_project_messages_project_id   ON public.project_messages USING btree (project_id)
+--   idx_project_messages_created_at   ON public.project_messages USING btree (created_at DESC)
+--   idx_project_messages_updated_at   ON public.project_messages USING btree (updated_at DESC)
+--
+-- Triggers:
+--   trg_update_project_messages_updated_at
+--     BEFORE UPDATE ON public.project_messages
+--     FOR EACH ROW EXECUTE FUNCTION public.update_project_messages_updated_at()
+--
+-- RLS Status: ENABLED
+--
+-- Policies:
+--   project_messages_anon_select           TO anon          USING (false)
+--   project_messages_authenticated_select  TO authenticated  USING (false)
+--   project_messages_anon_insert           TO anon          WITH CHECK (false)
+--   project_messages_authenticated_insert  TO authenticated  WITH CHECK (false)
+--   project_messages_anon_update           TO anon          USING (false)
+--   project_messages_authenticated_update  TO authenticated  USING (false)
+--   project_messages_anon_delete           TO anon          USING (false)
+--   project_messages_authenticated_delete  TO authenticated  USING (false)
+--
+-- Access Model:
+--   anon / authenticated: no direct access through RLS.
+--   service_role: full access for migrations and server-side admin API routes.
+--   All admin reads/writes must go through protected server-side API routes
+--   after verifying the caller's admin role.
+
+-- ============================================================================
+-- Server-Side Access Pattern
+-- ============================================================================
+--
+-- API routes must:
+--   1. Validate the admin session and role server-side.
+--   2. Use src/lib/supabase/server.ts with SUPABASE_SERVICE_ROLE_KEY.
+--   3. Never expose service-role keys or raw admin data to the browser.
+--
+-- Example route locations (to be implemented in later tasks):
+--   GET    /api/admin/projects
+--   GET    /api/admin/projects/[id]
+--   PATCH  /api/admin/projects/[id]
+--   POST   /api/admin/projects/[id]/status
+--   POST   /api/admin/projects/[id]/messages
+--
+-- Dashboard verification:
+--   After applying migrations to the remote Supabase project, verify in
+--   the Supabase Dashboard > Authentication > Policies that:
+--   - projects and project_messages have RLS enabled
+--   - anon and authenticated roles cannot SELECT/INSERT/UPDATE/DELETE
+--   - service_role retains full access

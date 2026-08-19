@@ -12,6 +12,7 @@ export default tseslint.config(
       'build/**/*',
       '**/*.min.js',
       'coverage/**/*',
+      '.wrangler/**/*',
     ],
   },
   ...pluginAstro.configs['flat/recommended'],

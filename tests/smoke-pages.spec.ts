@@ -1,6 +1,27 @@
 import { test, expect } from '@playwright/test';
+import { checkSupabaseConnectivity } from './supabase-helper';
+
+const supabaseUrl = process.env.SUPABASE_URL || 'http://localhost:54340';
+const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const anonKey = process.env.PUBLIC_SUPABASE_ANON_KEY || '';
+
+let supabaseAvailable = false;
+
+test.beforeAll(async () => {
+  supabaseAvailable = await checkSupabaseConnectivity(
+    supabaseUrl,
+    serviceRoleKey,
+    anonKey,
+    process.env.CI === 'true'
+  );
+});
 
 test.beforeEach(async ({ page }) => {
+  if (!supabaseAvailable) {
+    test.skip(true, 'Supabase is not reachable');
+    return;
+  }
+
   await page.request.post('/api/test/reset-rate-limit', {
     headers: { Origin: 'http://127.0.0.1:4321' },
   });
@@ -91,13 +112,14 @@ test('smoke: unprefixed routes redirect to canonical English routes', async ({
 test('smoke: isolated contact-only submission succeeds on canonical route', async ({
   page,
 }) => {
+  const unique = Date.now();
   await page.goto('/en/contact');
 
   await page.click('#toggle-contact-only');
   await page.waitForSelector('#contactName', { state: 'visible' });
 
   await page.fill('#contactName', 'Test User');
-  await page.fill('#contactEmail', 'test@example.com');
+  await page.fill('#contactEmail', `test-${unique}@example.com`);
   await page.fill(
     '#contactMessage',
     'This is a test message that meets the minimum length requirement.'

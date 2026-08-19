@@ -6,6 +6,8 @@ function createMockSupabaseClient() {
   const queryBuilder = {
     select: (_columns: string) => queryBuilder,
     insert: (_data: unknown) => queryBuilder,
+    update: (_data: unknown) => queryBuilder,
+    delete: () => queryBuilder,
     eq: () => queryBuilder,
     neq: () => queryBuilder,
     gt: () => queryBuilder,

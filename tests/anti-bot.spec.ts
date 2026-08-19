@@ -1,6 +1,27 @@
 import { test, expect } from '@playwright/test';
+import { checkSupabaseConnectivity } from './supabase-helper';
+
+const supabaseUrl = process.env.SUPABASE_URL || 'http://localhost:54340';
+const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const anonKey = process.env.PUBLIC_SUPABASE_ANON_KEY || '';
+
+let supabaseAvailable = false;
+
+test.beforeAll(async () => {
+  supabaseAvailable = await checkSupabaseConnectivity(
+    supabaseUrl,
+    serviceRoleKey,
+    anonKey,
+    process.env.CI === 'true'
+  );
+});
 
 test.beforeEach(async ({ page }) => {
+  if (!supabaseAvailable) {
+    test.skip(true, 'Supabase is not reachable');
+    return;
+  }
+
   await page.request.post('/api/test/reset-rate-limit', {
     headers: { Origin: 'http://127.0.0.1:4321' },
   });
@@ -196,16 +217,19 @@ test.describe('API abuse protection', () => {
     await page.request.post('/api/test/reset-rate-limit');
 
     const oldTimestamp = new Date(Date.now() - 10000).toISOString();
+    const unique = Date.now();
+    const email = `ratetest-${unique}@example.com`;
 
     for (let i = 0; i < 5; i++) {
       const response = await page.request.post('/api/submit-lead', {
         form: {
           fullName: 'Rate Test',
-          email: 'ratetest@example.com',
+          email,
           phoneOrChannel: '',
           companyName: '',
           region: 'EE',
           contactMessage: 'This is a rate limit test message.',
+          projectTitle: `rate-test-${unique}-${i}`,
           consent: 'on',
           formLoadedAt: oldTimestamp,
         },
@@ -219,11 +243,12 @@ test.describe('API abuse protection', () => {
     const response = await page.request.post('/api/submit-lead', {
       form: {
         fullName: 'Rate Test',
-        email: 'ratetest@example.com',
+        email,
         phoneOrChannel: '',
         companyName: '',
         region: 'EE',
         contactMessage: 'This is a rate limit test message.',
+        projectTitle: `rate-test-${unique}-final`,
         consent: 'on',
         formLoadedAt: oldTimestamp,
       },
